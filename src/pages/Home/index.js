@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Linking } from 'react-native';
 
 import { Page, Button } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
@@ -34,9 +34,21 @@ class Home extends Component {
 
   _goToInfos = () => {
     this.props.navigation.navigate('infos');
-  }
+  };
+
+  authTrello = () => {
+    const url = "https://trello.com/1/authorize?" +
+      "key=579da415101ddf46d6adfe71920c95ec&" +
+      "expiration=never&" +
+      "name=Daily%20Scrum&" +
+      "return_url=dailyscrum://login";
+
+    Linking.openURL(url);
+  };
 
   render() {
+    console.log(this.props.navigation.state.params);
+
     return (
       <Page>
         <View style={styles.container}>
@@ -50,7 +62,7 @@ class Home extends Component {
             Double tap R on your keyboard to reload,{'\n'}
             Shake or press menu button for dev menu
           </Text>
-          <Button onPress={this._goToInfos}>Go to the Infos page</Button>
+          <Button onPress={this.authTrello}>Authorize</Button>
         </View>
       </Page>
     );
