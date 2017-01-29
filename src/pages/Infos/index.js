@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { withNavigation } from '@exponent/ex-navigation';
 import { Page } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
 
@@ -23,15 +22,12 @@ const styles = StyleSheet.create({
 });
 
 type PropsType = {
-  navigator: any,
+  navigation: any,
 };
 
-@withNavigation
 class Infos extends Component {
-  static route = {
-    navigationBar: {
-      title: 'Infos',
-    },
+  static navigationOptions  = {
+    title: 'Infos',
   };
   props: PropsType;
 

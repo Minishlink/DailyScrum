@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { NavigationProvider, StackNavigation } from '@exponent/ex-navigation';
+import { StackNavigator } from 'react-navigation';
 
-import Router from 'DailyScrum/src/Router.js';
+import * as Pages from 'DailyScrum/src/pages';
 
-export default class App extends Component {
-    render() {
-        return (
-            <NavigationProvider router={Router}>
-                <StackNavigation initialRoute={Router.getRoute('home')} />
-            </NavigationProvider>
-        );
-    }
-}
+export default App = StackNavigator({
+  home: {
+    screen: Pages.Home,
+  },
+  infos: {
+    screen: Pages.Infos,
+  },
+}, {
+  initialRouteName: 'home',
+});
