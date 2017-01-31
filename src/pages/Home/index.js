@@ -15,26 +15,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: appStyle.grid.x1,
   },
-  instructions: {
-    textAlign: 'center',
-    color: appStyle.colors.darkGray,
-    marginBottom: appStyle.grid.x1,
-  },
 });
 
 type PropsType = {
   navigation: any,
 };
 
-class Home extends Component {
-  static navigationOptions  = {
-    title: 'Home',
-  };
+export default class Home extends Component {
   props: PropsType;
-
-  _goToInfos = () => {
-    this.props.navigation.navigate('infos');
-  };
 
   authTrello = () => {
     const url = "https://trello.com/1/authorize?" +
@@ -47,20 +35,11 @@ class Home extends Component {
   };
 
   render() {
-    console.log(this.props.navigation.state.params);
-
     return (
       <Page>
         <View style={styles.container}>
           <Text style={styles.welcome}>
-            Welcome to React Native!
-          </Text>
-          <Text style={styles.instructions}>
-            This is page the home
-          </Text>
-          <Text style={styles.instructions}>
-            Double tap R on your keyboard to reload,{'\n'}
-            Shake or press menu button for dev menu
+            Please login on Trello first. :)
           </Text>
           <Button onPress={this.authTrello}>Authorize</Button>
         </View>
@@ -68,5 +47,3 @@ class Home extends Component {
     );
   }
 }
-
-export default Home;
