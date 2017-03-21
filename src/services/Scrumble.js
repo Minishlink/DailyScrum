@@ -26,5 +26,19 @@ export default class {
         resolve(result);
       });
     });
-  }
+  };
+
+  static getCurrentSprint = token => {
+    return new Promise((resolve, reject) => {
+      fetch('https://api.scrumble.io/v1/Sprints/active', {
+        method: 'GET',
+        headers: new Headers({
+          "Authorization": token,
+        }),
+      }).then(result => result.json()).then(result => {
+        if (result.error) reject(result.error);
+        resolve(result);
+      });
+    });
+  };
 }

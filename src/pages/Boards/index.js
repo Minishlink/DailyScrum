@@ -72,6 +72,13 @@ export default class Boards extends Component {
           currentProject,
         });
       });
+
+      Scrumble.getCurrentSprint(scrumbleToken).then(currentSprint => {
+        console.log(currentSprint);
+        this.setState({
+          currentSprint,
+        });
+      });
     });
   }
 
@@ -95,6 +102,7 @@ export default class Boards extends Component {
             { this.state.user ? `Hello ${this.state.user.name}!` : 'Loading...' }
           </Text>
           { this.state.currentProject && <Text>Current project is: {this.state.currentProject.name}</Text> }
+          { this.state.currentSprint && <Text>Current sprint is: #{this.state.currentSprint.number} {this.state.currentSprint.goal}</Text> }
           <ListView
             dataSource={this.ds}
             renderRow={board => this.renderBoard(board)}
