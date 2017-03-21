@@ -23,6 +23,12 @@ type PropsType = {
 };
 
 export default class Boards extends Component {
+  props: PropsType;
+
+  static navigationOptions  = {
+    title: 'Boards',
+  };
+
   constructor (props) {
     super(props);
 
@@ -38,11 +44,6 @@ export default class Boards extends Component {
       user: {}
     };
   }
-
-  static navigationOptions  = {
-    title: 'Boards',
-  };
-  props: PropsType;
 
   componentDidMount () {
     if (!this.props.navigation.state.params) return;
@@ -62,6 +63,13 @@ export default class Boards extends Component {
             id: user.id,
             name: user.fullName,
           },
+        });
+      });
+
+      Scrumble.getCurrentProject(scrumbleToken).then(currentProject => {
+        console.log(currentProject);
+        this.setState({
+          currentProject,
         });
       });
     });
@@ -86,6 +94,7 @@ export default class Boards extends Component {
           <Text style={styles.welcome}>
             { this.state.user ? `Hello ${this.state.user.name}!` : 'Loading...' }
           </Text>
+          { this.state.currentProject && <Text>Current project is: {this.state.currentProject.name}</Text> }
           <ListView
             dataSource={this.ds}
             renderRow={board => this.renderBoard(board)}
@@ -94,4 +103,4 @@ export default class Boards extends Component {
       </Page>
     );
   }
- }
+}

@@ -17,13 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type PropsType = {
-  navigation: any,
-};
-
 export default class Home extends Component {
-  props: PropsType;
-
   authTrello = () => {
     Linking.openURL(Trello.getLoginURL());
   };
