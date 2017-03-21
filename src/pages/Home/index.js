@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Linking } from 'react-native';
-
-import { Page, Button } from 'DailyScrum/src/components';
+import { StyleSheet, Text, View, Linking, Button } from 'react-native';
+import { Page } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
+import Trello from 'DailyScrum/src/services/Trello';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,13 +25,7 @@ export default class Home extends Component {
   props: PropsType;
 
   authTrello = () => {
-    const url = "https://trello.com/1/authorize?" +
-      "key=579da415101ddf46d6adfe71920c95ec&" +
-      "expiration=never&" +
-      "name=Daily%20Scrum&" +
-      "return_url=dailyscrum://login";
-
-    Linking.openURL(url);
+    Linking.openURL(Trello.getLoginURL());
   };
 
   render() {
@@ -41,7 +35,7 @@ export default class Home extends Component {
           <Text style={styles.welcome}>
             Please login on Trello first. :)
           </Text>
-          <Button onPress={this.authTrello}>Authorize</Button>
+          <Button onPress={this.authTrello} title="Authorize" />
         </View>
       </Page>
     );

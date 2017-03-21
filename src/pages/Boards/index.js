@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ListView } from 'react-native';
+import { StyleSheet, Text, View, ListView, TouchableOpacity } from 'react-native';
 import { Page } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
+import Scrumble from 'DailyScrum/src/services/Scrumble';
+import Trello from 'DailyScrum/src/services/Trello';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,7 +28,13 @@ export default class Boards extends Component {
 
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.state = {
-      boards: [],
+      boards: [{
+        name: 'Enercity',
+        color: 'red',
+      }, {
+        name: 'VVMT',
+        color: 'blue',
+      }],
       user: {}
     };
   }
@@ -37,22 +45,37 @@ export default class Boards extends Component {
   props: PropsType;
 
   componentDidMount () {
-    const { token } = this.props.navigation.state.params;
-    if (!token) return;
+    if (!this.props.navigation.state.params) return;
+    const trelloToken = this.props.navigation.state.params.token;
 
-    // get my boards
-    fetch(`https://api.trello.com/1/members/me?fields=fullName&boards=all&board_fields=name&key=579da415101ddf46d6adfe71920c95ec&token=${token}`)
-    .then(res => res.json())
-    .then(user => {
-      this.setState({
-        boards: user.boards,
-        user: {
-          id: user.id,
-          name: user.fullName,
-        },
+    // get my projects
+    Scrumble.login(trelloToken).then(scrumbleToken => {
+      // store tokens
+      console.log(trelloToken);
+      console.log(scrumbleToken);
+
+      // TODO get projects from scrumble
+      Trello.getUser(trelloToken).then(user => {
+        this.setState({
+          boards: user.boards,
+          user: {
+            id: user.id,
+            name: user.fullName,
+          },
+        });
       });
     });
   }
+
+  onPressBoard = board => {
+    this.props.navigation.navigate('board', {board});
+  };
+
+  renderBoard = board => (
+    <TouchableOpacity onPress={() => this.onPressBoard(board)}>
+      <Text>{board.name}</Text>
+    </TouchableOpacity>
+  );
 
   render() {
     this.ds = this.ds.cloneWithRows(this.state.boards);
@@ -65,7 +88,7 @@ export default class Boards extends Component {
           </Text>
           <ListView
             dataSource={this.ds}
-            renderRow={board => <Text>{board.name}</Text>}
+            renderRow={board => this.renderBoard(board)}
           />
         </View>
       </Page>
