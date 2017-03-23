@@ -1,19 +1,24 @@
-import { StackNavigator } from 'react-navigation';
+// @flow
 
-import * as Pages from 'DailyScrum/src/pages';
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import Scenes from './Scenes';
+import createStore from './modules/store';
 
-export default StackNavigator({
-  home: {
-    screen: Pages.Home,
-  },
-  boards: {
-    screen: Pages.Boards,
-    path: 'login#token=:token',
-  },
-  board: {
-    screen: Pages.Board,
-  },
-}, {
-  initialRouteName: 'home',
-  URIPrefix: 'dailyscrum://',
-});
+export default class extends Component {
+  state = {
+    store: null,
+  };
+
+  componentDidMount() {
+    createStore(store => this.setState({ store }));
+  }
+
+  render() {
+    return this.state.store
+      ? <Provider store={this.state.store}>
+          <Scenes />
+        </Provider>
+      : null;
+  }
+}
