@@ -44,7 +44,7 @@ class Scenes extends Component {
     Linking.addEventListener('url', this._handleOpenURL);
     Linking.getInitialURL().then((url: string) => {
       if (url) {
-        this._handleOpenURL(url);
+        this._handleOpenURL({ url });
       }
     });
   }

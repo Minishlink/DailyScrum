@@ -4,6 +4,7 @@ import type { StateType } from '../reducers';
 
 const initialState: AuthType = {
   isLoggedIn: false,
+  token: {},
 };
 
 export default (state: AuthType = initialState, action: ActionType) => {
@@ -30,10 +31,10 @@ export function authSelector(state: StateType): AuthType {
 
 export type AuthType = {
   isLoggedIn: boolean,
-  token?: TokenType,
+  token: TokenType,
 };
 
 type TokenType = {
-  trello: string,
-  scrumble: string,
+  trello?: string,
+  scrumble?: string,
 }

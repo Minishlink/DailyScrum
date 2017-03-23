@@ -8,20 +8,11 @@ import Scrumble from 'DailyScrum/src/services/Scrumble';
 import Trello from 'DailyScrum/src/services/Trello';
 import { login } from 'DailyScrum/src/modules/auth';
 import { authSelector } from 'DailyScrum/src/modules/auth/reducer';
-import { AuthType } from "../../modules/auth/reducer";
+import type { AuthType } from "../../modules/auth/reducer";
 
-
-const mapStateToProps = state => ({
-  auth: authSelector(state),
-});
-
-const mapDispatchToProps = {
-  login,
-};
-
-@connect(mapStateToProps, mapDispatchToProps)
-export default class Home extends Component {
+class Home extends Component {
   props: PropsType;
+  state: any;
 
   constructor() {
     super();
@@ -30,40 +21,18 @@ export default class Home extends Component {
 
   componentDidMount() {
     // check if tokens exist in store
+    if (this.props.isLoggedIn) {
+      this.fetchHomeData();
+      return;
+    }
 
-    // if not
+    // if not we login Scrumble if we have the trello Token
     if (!this.props.navigation.state.params) return;
     const trelloToken = this.props.navigation.state.params.token;
-
-    // get my projects
     Scrumble.login(trelloToken).then(scrumbleToken => {
       // store tokens
       this.props.login({trelloToken, scrumbleToken});
-
-      // TODO get projects from scrumble
-      Trello.getUser(trelloToken).then(user => {
-        this.setState({
-          boards: user.boards,
-          user: {
-            id: user.id,
-            name: user.fullName,
-          },
-        });
-      });
-
-      Scrumble.getCurrentProject(scrumbleToken).then(currentProject => {
-        console.log(currentProject);
-        this.setState({
-          currentProject,
-        });
-      });
-
-      Scrumble.getCurrentSprint(scrumbleToken).then(currentSprint => {
-        console.log(currentSprint);
-        this.setState({
-          currentSprint,
-        });
-      });
+      this.fetchHomeData();
     });
   }
 
@@ -71,16 +40,47 @@ export default class Home extends Component {
     Linking.openURL(Trello.getLoginURL());
   };
 
-  isLoggingIn = () => this.props.navigation.state.params && this.props.navigation.state.params.token;
+  fetchHomeData = () => {
+    const { token } = this.props;
 
-  renderLoggedOut = () => (
-    <View>
-      <Text style={styles.welcome}>
-        {this.isLoggingIn() ? 'Logging in...' : 'Please login on Trello first. :)'}
-      </Text>
-      <Button onPress={this.authTrello} disabled={this.props.auth.isLoggedIn} title="Authorize" />
-    </View>
-  );
+    // get my projects
+    // TODO get projects from scrumble
+    Trello.getUser(token.trello).then(user => {
+      this.setState({
+        boards: user.boards,
+        user: {
+          id: user.id,
+          name: user.fullName,
+        },
+      });
+    });
+
+    Scrumble.getCurrentProject(token.scrumble).then(currentProject => {
+      console.log(currentProject);
+      this.setState({
+        currentProject,
+      });
+    });
+
+    Scrumble.getCurrentSprint(token.scrumble).then(currentSprint => {
+      console.log(currentSprint);
+      this.setState({
+        currentSprint,
+      });
+    });
+  };
+
+  renderLoggedOut = () => {
+    const loggingIn = this.props.navigation.state.params && this.props.navigation.state.params.token;
+    return (
+      <View>
+        <Text style={styles.welcome}>
+          {loggingIn ? 'Logging in...' : 'Please login on Trello first. :)'}
+        </Text>
+        <Button onPress={this.authTrello} disabled={loggingIn} title="Authorize" />
+      </View>
+    );
+  };
 
   renderLoggedIn = () => (
     <View>
@@ -94,15 +94,16 @@ export default class Home extends Component {
     return (
       <Page>
         <View style={styles.container}>
-          { this.props.auth.isLoggedIn ? this.renderLoggedIn() : this.renderLoggedOut() }
+          { this.props.isLoggedIn ? this.renderLoggedIn() : this.renderLoggedOut() }
         </View>
       </Page>
     );
   }
 }
 
-type PropsType = {
-  auth: AuthType,
+type PropsType = AuthType & {
+  navigation: any,
+  login: Function,
 };
 
 const styles = StyleSheet.create({
@@ -117,3 +118,13 @@ const styles = StyleSheet.create({
     margin: appStyle.grid.x1,
   },
 });
+
+const mapStateToProps = state => ({
+  ...authSelector(state),
+});
+
+const mapDispatchToProps = {
+  login,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
