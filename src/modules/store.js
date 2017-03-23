@@ -1,5 +1,4 @@
 // @flow
-
 import { applyMiddleware, createStore, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { persistStore, autoRehydrate } from 'redux-persist';
@@ -23,7 +22,7 @@ export default (callback: Function) => {
     store,
     {
       storage: AsyncStorage,
-      whitelist: [],
+      whitelist: ['auth'],
     },
     () => callback(store)
   );

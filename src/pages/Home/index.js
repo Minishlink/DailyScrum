@@ -1,24 +1,28 @@
+// @flow
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import { StyleSheet, Text, View, Linking, Button } from 'react-native';
 import { Page } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
 import Scrumble from 'DailyScrum/src/services/Scrumble';
 import Trello from 'DailyScrum/src/services/Trello';
+import { login } from 'DailyScrum/src/modules/auth';
+import { authSelector } from 'DailyScrum/src/modules/auth/reducer';
+import { AuthType } from "../../modules/auth/reducer";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  welcome: {
-    fontSize: appStyle.font.size.huge,
-    textAlign: 'center',
-    margin: appStyle.grid.x1,
-  },
+
+const mapStateToProps = state => ({
+  auth: authSelector(state),
 });
 
+const mapDispatchToProps = {
+  login,
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class Home extends Component {
+  props: PropsType;
+
   constructor() {
     super();
     this.state = {};
@@ -34,8 +38,7 @@ export default class Home extends Component {
     // get my projects
     Scrumble.login(trelloToken).then(scrumbleToken => {
       // store tokens
-      console.log(trelloToken);
-      console.log(scrumbleToken);
+      this.props.login({trelloToken, scrumbleToken});
 
       // TODO get projects from scrumble
       Trello.getUser(trelloToken).then(user => {
@@ -69,14 +72,13 @@ export default class Home extends Component {
   };
 
   isLoggingIn = () => this.props.navigation.state.params && this.props.navigation.state.params.token;
-  isLoggedIn = () => this.props.trelloToken && this.props.scrumbleToken;
 
   renderLoggedOut = () => (
     <View>
       <Text style={styles.welcome}>
         {this.isLoggingIn() ? 'Logging in...' : 'Please login on Trello first. :)'}
       </Text>
-      <Button onPress={this.authTrello} disabled={!!this.isLoggingIn()} title="Authorize" />
+      <Button onPress={this.authTrello} disabled={this.props.auth.isLoggedIn} title="Authorize" />
     </View>
   );
 
@@ -92,9 +94,26 @@ export default class Home extends Component {
     return (
       <Page>
         <View style={styles.container}>
-          { this.isLoggedIn() ? this.renderLoggedIn() : this.renderLoggedOut() }
+          { this.props.auth.isLoggedIn ? this.renderLoggedIn() : this.renderLoggedOut() }
         </View>
       </Page>
     );
   }
 }
+
+type PropsType = {
+  auth: AuthType,
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  welcome: {
+    fontSize: appStyle.font.size.huge,
+    textAlign: 'center',
+    margin: appStyle.grid.x1,
+  },
+});
