@@ -9,6 +9,7 @@ import Trello from 'DailyScrum/src/services/Trello';
 import { login } from 'DailyScrum/src/modules/auth';
 import { authSelector } from 'DailyScrum/src/modules/auth/reducer';
 import type { AuthType } from '../../modules/auth/reducer';
+import { fetchCurrentSprint } from 'DailyScrum/src/modules/sprints';
 
 class Home extends Component {
   props: PropsType;
@@ -42,6 +43,8 @@ class Home extends Component {
 
   fetchHomeData = () => {
     const {token} = this.props;
+
+    this.props.fetchCurrentSprint();
 
     // get my projects
     // TODO get projects from scrumble
@@ -120,6 +123,7 @@ class Home extends Component {
 type PropsType = AuthType & {
   navigation: any,
   login: Function,
+  fetchCurrentSprint: Function,
 };
 
 const styles = StyleSheet.create({
@@ -140,6 +144,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   login,
+  fetchCurrentSprint,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
