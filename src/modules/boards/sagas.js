@@ -1,6 +1,6 @@
 // @flow
 import { call, put, select, takeEvery } from 'redux-saga/effects';
-import Trello from 'DailyScrum/src/services/Trello';
+import { Trello } from 'DailyScrum/src/services';
 import { putBoard } from './actions';
 import { authSelector } from '../auth/reducer';
 import type { ActionType } from './actions'

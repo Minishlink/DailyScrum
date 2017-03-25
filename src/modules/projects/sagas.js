@@ -1,6 +1,6 @@
 // @flow
 import { call, put, select, takeEvery } from 'redux-saga/effects';
-import Scrumble from 'DailyScrum/src/services/Scrumble';
+import { Scrumble } from 'DailyScrum/src/services';
 import { putProject, setCurrentProject } from './actions';
 import { authSelector } from '../auth/reducer';
 import type { AuthType } from '../auth/reducer';

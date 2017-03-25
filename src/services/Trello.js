@@ -1,6 +1,6 @@
 const TRELLO_APP_KEY = "***REMOVED***"; // Scrumble App Key
 
-export default class Trello {
+export default class {
   static getLoginURL = () => {
     return "https://trello.com/1/authorize?" +
       `key=${TRELLO_APP_KEY}&` +
