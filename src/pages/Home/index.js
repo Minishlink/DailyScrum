@@ -10,8 +10,11 @@ import { login } from 'DailyScrum/src/modules/auth';
 import { authSelector } from 'DailyScrum/src/modules/auth/reducer';
 import type { AuthType } from '../../modules/auth/reducer';
 import { fetchCurrentSprint } from 'DailyScrum/src/modules/sprints';
+import { fetchCurrentProject } from 'DailyScrum/src/modules/projects';
 import { currentSprintSelector } from '../../modules/sprints/reducer';
+import { currentProjectSelector } from '../../modules/projects/reducer';
 import type { SprintType } from '../../modules/sprints/reducer';
+import type { ProjectType } from '../../modules/projects/reducer';
 
 class Home extends Component {
   props: PropsType;
@@ -44,6 +47,7 @@ class Home extends Component {
   };
 
   fetchHomeData = () => {
+    this.props.fetchCurrentProject();
     this.props.fetchCurrentSprint();
 
     // get my projects
@@ -51,15 +55,12 @@ class Home extends Component {
     // TODO create sagas for these
     const { token } = this.props;
     Trello.getUser(token.trello).then(user => {
-      Scrumble.getCurrentProject(token.scrumble).then(currentProject => {
-        this.setState({
-          boards: user.boards,
-          user: {
-            id: user.id,
-            name: user.fullName,
-          },
-          currentProject,
-        });
+      this.setState({
+        boards: user.boards,
+        user: {
+          id: user.id,
+          name: user.fullName,
+        },
       });
     });
   };
@@ -77,8 +78,8 @@ class Home extends Component {
   };
 
   renderLoggedIn = () => {
-    const { user, currentProject } = this.state;
-    const { currentSprint } = this.props;
+    const { user } = this.state;
+    const { currentSprint, currentProject } = this.props;
 
     let lead = null;
     if (currentSprint) {
@@ -118,6 +119,8 @@ type PropsType = AuthType & {
   login: Function,
   fetchCurrentSprint: Function,
   currentSprint: ?SprintType,
+  fetchCurrentProject: Function,
+  currentProject: ?ProjectType,
 };
 
 const styles = StyleSheet.create({
@@ -135,11 +138,13 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   ...authSelector(state),
   currentSprint: currentSprintSelector(state),
+  currentProject: currentProjectSelector(state),
 });
 
 const mapDispatchToProps = {
   login,
   fetchCurrentSprint,
+  fetchCurrentProject,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
