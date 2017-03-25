@@ -15,7 +15,7 @@ const Page = props => (
     style={[styles.page, {
       paddingTop: props.noNavBar ? 0 : appStyle.grid.x2,
       paddingHorizontal: props.noMargin ? 0 : appStyle.grid.x3,
-      backgroundColor: props.backgroundColor || appStyle.colors.primary,
+      backgroundColor: props.backgroundColor || appStyle.colors.background,
     }]}
   >
     {props.children}
