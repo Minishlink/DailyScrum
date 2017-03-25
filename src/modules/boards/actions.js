@@ -5,7 +5,10 @@ export type ActionType = {
   type: 'PUT_BOARD',
   payload: TrelloBoardType,
 } | {
-  type: 'FETCH_CURRENT_BOARD',
+  type: 'FETCH_BOARD',
+  payload: {
+    id: string,
+  },
 };
 
 export function putBoard(payload: TrelloBoardType): ActionType {
@@ -15,6 +18,6 @@ export function putBoard(payload: TrelloBoardType): ActionType {
   };
 }
 
-export function fetchCurrentBoard(): ActionType {
-  return { type: 'FETCH_CURRENT_BOARD' };
+export function fetchBoard(id: string): ActionType {
+  return { type: 'FETCH_BOARD', payload: { id } };
 }

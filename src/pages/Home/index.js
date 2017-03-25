@@ -52,7 +52,7 @@ class Home extends Component {
 
     // get my projects
     // TODO get projects from
-    // TODO create sagas for these
+    // TODO create sagas for this
     const { token } = this.props;
     Trello.getUser(token.trello).then(user => {
       this.setState({
