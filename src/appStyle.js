@@ -1,10 +1,10 @@
 export default {
   font: {
     size: {
-      small: 11,
-      default: 13,
-      big: 15,
-      large: 17,
+      small: 12,
+      default: 14,
+      big: 16,
+      large: 18,
       huge: 20,
     },
   },
