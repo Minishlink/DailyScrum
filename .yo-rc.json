@@ -1,5 +1,6 @@
 {
   "generator-rn-toolbox": {
-    "base": true
+    "base": true,
+    "fastlane": true
   }
 }

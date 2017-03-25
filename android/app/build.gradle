@@ -82,16 +82,21 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
+def _applicationId = System.getenv("GRADLE_APP_IDENTIFIER") ?: 'com.dailyscrum.debug'
+def appName = System.getenv("GRADLE_APP_NAME") ?: 'DailyScrum debug'
+def _versionCode = (System.getenv("ANDROID_VERSION_CODE") ?: "1") as Integer
+def _versionName = System.getenv("ANDROID_VERSION_NAME") ?: "1.0.0"
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.dailyscrum"
+        applicationId _applicationId
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode _versionCode
+        versionName _versionName
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -104,10 +109,23 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
-    buildTypes {
+    signingConfigs {
         release {
+            storeFile file(String.valueOf(System.getenv("GRADLE_KEYSTORE")))
+            storePassword System.getenv("GRADLE_KEYSTORE_PASSWORD")
+            keyAlias System.getenv("GRADLE_KEYSTORE_ALIAS")
+            keyPassword System.getenv("GRADLE_KEYSTORE_ALIAS_PASSWORD")
+        }
+    }
+    buildTypes {
+        debug {
+            resValue "string", "app_name", appName
+        }
+        release {
+            resValue "string", "app_name", appName
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
