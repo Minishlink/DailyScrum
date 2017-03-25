@@ -12,9 +12,6 @@ const appNavigatorPages = {
     screen: Pages.Home,
     path: 'login#token=:token',
   },
-  board: {
-    screen: Pages.Board,
-  },
 };
 
 const appNavigatorConfig = {
