@@ -5,16 +5,14 @@ import appStyle from 'DailyScrum/src/appStyle';
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
   },
 });
 
 const Page = props => (
   <View
     style={[styles.page, {
-      paddingTop: props.noNavBar ? 0 : appStyle.grid.x2,
-      paddingHorizontal: props.noMargin ? 0 : appStyle.grid.x3,
+      paddingTop: props.noNavBar ? 0 : 16,
+      paddingHorizontal: props.noMargin ? 0 : 24,
       backgroundColor: props.backgroundColor || appStyle.colors.background,
     }]}
   >

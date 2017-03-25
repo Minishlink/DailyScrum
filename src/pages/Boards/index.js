@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
   welcome: {
     fontSize: appStyle.font.size.huge,
     textAlign: 'center',
-    margin: appStyle.grid.x1,
   },
 });
 
