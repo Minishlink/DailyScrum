@@ -12,8 +12,10 @@ import { fetchCurrentSprint } from 'DailyScrum/src/modules/sprints';
 import { fetchCurrentProject } from 'DailyScrum/src/modules/projects';
 import { currentSprintSelector } from '../../modules/sprints/reducer';
 import { currentProjectSelector } from '../../modules/projects/reducer';
+import { currentBoardSelector } from '../../modules/boards/reducer';
 import type { SprintType } from '../../modules/sprints/reducer';
 import type { ProjectType } from '../../modules/projects/reducer';
+import type { BoardType } from '../../modules/boards/reducer';
 
 class Home extends Component {
   props: PropsType;
@@ -103,8 +105,9 @@ class Home extends Component {
   };
 
   render() {
+    const { currentBoard } = this.props;
     return (
-      <Page>
+      <Page backgroundColor={currentBoard ? currentBoard.prefs.backgroundColor : ""}>
         <View style={styles.container}>
           {this.props.isLoggedIn ? this.renderLoggedIn() : this.renderLoggedOut()}
         </View>
@@ -120,6 +123,7 @@ type PropsType = AuthType & {
   currentSprint: ?SprintType,
   fetchCurrentProject: Function,
   currentProject: ?ProjectType,
+  currentBoard: ?BoardType,
 };
 
 const styles = StyleSheet.create({
@@ -138,6 +142,7 @@ const mapStateToProps = state => ({
   ...authSelector(state),
   currentSprint: currentSprintSelector(state),
   currentProject: currentProjectSelector(state),
+  currentBoard: currentBoardSelector(state),
 });
 
 const mapDispatchToProps = {
