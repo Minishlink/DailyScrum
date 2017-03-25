@@ -82,14 +82,14 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
-def _applicationId = System.getenv("GRADLE_APP_IDENTIFIER") ?: 'com.dailyscrum.debug'
+def _applicationId = System.getenv("GRADLE_APP_IDENTIFIER") ?: 'com.dailyscrum'
 def appName = System.getenv("GRADLE_APP_NAME") ?: 'DailyScrum debug'
 def _versionCode = (System.getenv("ANDROID_VERSION_CODE") ?: "1") as Integer
 def _versionName = System.getenv("ANDROID_VERSION_NAME") ?: "1.0.0"
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion '25.0.2'
 
     defaultConfig {
         applicationId _applicationId
