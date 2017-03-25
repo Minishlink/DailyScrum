@@ -1,14 +1,9 @@
-import React, { PropTypes } from 'react';
-import { View, StyleSheet } from 'react-native';
+// @flow
+import React from 'react';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import appStyle from 'DailyScrum/src/appStyle';
 
-const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-  },
-});
-
-const Page = props => (
+const Page = (props: PropsType) => (
   <View
     style={[styles.page, {
       paddingTop: props.noNavBar ? 0 : 16,
@@ -16,18 +11,31 @@ const Page = props => (
       backgroundColor: props.backgroundColor || appStyle.colors.background,
     }]}
   >
-    {props.children}
+    {props.isLoading && <View style={styles.loader}><ActivityIndicator /></View>}
+    {!props.isLoading && props.children}
   </View>
 );
 
-Page.propTypes = {
-  children: PropTypes.node,
-  noMargin: PropTypes.bool,
-  noNavBar: PropTypes.bool,
-  backgroundColor: PropTypes.string,
+const styles = StyleSheet.create({
+  page: {
+    flex: 1,
+  },
+  loader: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+});
+
+type PropsType = {
+  children?: any,
+  noMargin?: boolean,
+  noNavBar?: boolean,
+  backgroundColor?: string,
+  isLoading?: boolean,
 };
 
 Page.defaultProps = {
+  isLoading: false,
   noMargin: false,
   noNavBar: false,
   backgroundColor: appStyle.colors.background,

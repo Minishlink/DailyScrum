@@ -3,19 +3,32 @@
 import React, { Component } from 'react';
 import { Linking } from 'react-native';
 import { connect } from 'react-redux';
-import { StackNavigator, addNavigationHelpers } from 'react-navigation';
+import { StackNavigator, TabNavigator, addNavigationHelpers } from 'react-navigation';
 import type { NavigationScreenProp } from 'react-navigation';
 import * as Pages from 'DailyScrum/src/pages';
 
+const HomeNavigator = TabNavigator({
+  yesterday: { screen: Pages.Home.Yesterday },
+  summary: { screen: Pages.Home.Summary },
+  today: { screen: Pages.Home.Today },
+}, {
+  initialRouteName: 'summary',
+  swipeEnabled: true,
+  animationEnabled: true,
+});
+
 const appNavigatorPages = {
-  home: {
-    screen: Pages.Home,
+  login: {
+    screen: Pages.Login,
     path: 'login#token=:token',
+  },
+  home: {
+    screen: HomeNavigator,
   },
 };
 
 const appNavigatorConfig = {
-  initialRouteName: 'home',
+  initialRouteName: 'login',
   URIPrefix: 'dailyscrum://',
   headerMode: 'none',
 };
