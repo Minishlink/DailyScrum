@@ -16,10 +16,10 @@
 		"redux-saga": "^0.14.3"
 	},
 	"devDependencies": {
-		"babel-preset-react-native-stage-0": "^1.0.1",
-		"flow-bin": "^0.38.0",
 		"babel-jest": "18.0.0",
 		"babel-preset-react-native": "1.9.1",
+		"babel-preset-react-native-stage-0": "^1.0.1",
+		"flow-bin": "^0.38.0",
 		"jest": "18.1.0",
 		"react-test-renderer": "~15.4.0-rc.4"
 	},

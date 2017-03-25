@@ -17,7 +17,7 @@ export type ScrumbleSprintType = {
   number: number,
   objectId: ?any, // seems deprecated
   projectId: number,
-  resources: ScrumbleResourceType,
+  resources: ScrumbleResourcesType,
   team: ?ScrumbleTeamType, // seems deprecated
   updatedAt: ?any,
 };
@@ -29,7 +29,7 @@ type ScrumbleColumnMappingType = {
   toValidate: string,
 };
 
-type ScrumbleResourceType = {
+type ScrumbleResourcesType = {
   matrix: [],
   speed: number,
   team: ScrumbleTeamType,
