@@ -16,7 +16,7 @@ export default (state: SprintsType = initialState, action: ActionType) => {
     case 'PUT_SPRINT':
       return {
         ...state,
-        [action.payload.id]: action.payload,
+        [action.payload.id]: scrumbleAdapter(action.payload),
       };
 
     default:
@@ -24,12 +24,47 @@ export default (state: SprintsType = initialState, action: ActionType) => {
   }
 };
 
+function scrumbleAdapter(sprint: ScrumbleSprintType): SprintType {
+  // find the most frequent date that is in data.dates
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const performances = sprint.bdcData.filter(data => {
+    return !!data.done && !!data.standard;
+  });
+
+  let lead = null;
+  if (performances.length) {
+    const todayPerformance = performances[performances.length - 1];
+    const points = todayPerformance.done - todayPerformance.standard;
+    lead = {
+      points: Math.round(points * 10) / 10,
+      manDays: Math.round(sprint.resources.totalManDays / sprint.resources.totalPoints * points * 10) / 10,
+    };
+  }
+
+  return {
+    ...sprint,
+    lead,
+  };
+}
+
 export function sprintsSelector(state: StateType): SprintsType {
   return state.sprints;
 }
 
-export type SprintsType = { [key: string]: SprintType, currentSprint?: number };
+export function currentSprintSelector(state: StateType): ?SprintType {
+  if (state.sprints.currentSprint) {
+    return state.sprints[state.sprints.currentSprint];
+  }
 
-type SprintType = ScrumbleSprintType & {
-  lead: number,
+  return null;
+}
+
+export type SprintsType = { [key: number]: SprintType, currentSprint?: number };
+
+export type SprintType = ScrumbleSprintType & {
+  lead?: {
+    points: number,
+    manDays: number,
+  },
 };

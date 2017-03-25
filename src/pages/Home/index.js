@@ -10,6 +10,8 @@ import { login } from 'DailyScrum/src/modules/auth';
 import { authSelector } from 'DailyScrum/src/modules/auth/reducer';
 import type { AuthType } from '../../modules/auth/reducer';
 import { fetchCurrentSprint } from 'DailyScrum/src/modules/sprints';
+import { currentSprintSelector } from '../../modules/sprints/reducer';
+import type { SprintType } from '../../modules/sprints/reducer';
 
 class Home extends Component {
   props: PropsType;
@@ -42,24 +44,21 @@ class Home extends Component {
   };
 
   fetchHomeData = () => {
-    const {token} = this.props;
-
     this.props.fetchCurrentSprint();
 
     // get my projects
-    // TODO get projects from scrumble
+    // TODO get projects from
+    // TODO create sagas for these
+    const { token } = this.props;
     Trello.getUser(token.trello).then(user => {
       Scrumble.getCurrentProject(token.scrumble).then(currentProject => {
-        Scrumble.getCurrentSprint(token.scrumble).then(currentSprint => {
-          this.setState({
-            boards: user.boards,
-            user: {
-              id: user.id,
-              name: user.fullName,
-            },
-            currentProject,
-            currentSprint,
-          });
+        this.setState({
+          boards: user.boards,
+          user: {
+            id: user.id,
+            name: user.fullName,
+          },
+          currentProject,
         });
       });
     });
@@ -78,23 +77,12 @@ class Home extends Component {
   };
 
   renderLoggedIn = () => {
-    const { user, currentSprint, currentProject } = this.state;
+    const { user, currentProject } = this.state;
+    const { currentSprint } = this.props;
 
     let lead = null;
-    let leadQualifier = '';
     if (currentSprint) {
-      const todayPerformance = currentSprint.bdcData.find(data => {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        return new Date(data.date).getTime() === today.getTime();
-      });
-
-      if (todayPerformance) {
-        lead = todayPerformance.done - todayPerformance.standard;
-        leadQualifier = lead >= 0 ? 'ahead' : 'late';
-      }
-
-      // TODO translate J/H
+      lead = currentSprint.lead;
     }
 
     return (
@@ -104,7 +92,12 @@ class Home extends Component {
         </Text>
         {currentProject && <Text style={styles.project}>{currentProject.name}</Text>}
         {currentSprint && <Text style={styles.sprint}>{`#${currentSprint.number}: ${currentSprint.goal}`}</Text>}
-        {lead !== null && <Text style={{color: lead >= 0 ? 'green' : 'red'}}>{`You're ${leadQualifier} of ${lead > 0 ? lead : -lead} pts`}</Text>}
+        {lead !== null &&
+          <Text style={{ color: lead.points >= 0 ? 'green' : 'red' }}>
+            {
+              `You're ${lead.points >= 0 ? 'ahead' : 'late'} of ${lead.points > 0 ? lead.points : -lead.points} pts (${lead.manDays > 0 ? lead.manDays : -lead.manDays} man-days)`
+            }
+          </Text>}
       </View>
     );
   };
@@ -124,6 +117,7 @@ type PropsType = AuthType & {
   navigation: any,
   login: Function,
   fetchCurrentSprint: Function,
+  currentSprint: ?SprintType,
 };
 
 const styles = StyleSheet.create({
@@ -140,6 +134,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   ...authSelector(state),
+  currentSprint: currentSprintSelector(state),
 });
 
 const mapDispatchToProps = {
