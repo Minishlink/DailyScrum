@@ -49,16 +49,13 @@ class Home extends Component {
     this.props.fetchCurrentSprint();
   };
 
-  renderLoggedIn = () => {
-    const { currentSprint, currentProject } = this.props;
-    const isLoading = !currentSprint || !currentProject;
+  render() {
+    if (!this.props.isLoggedIn) {
+      return <Page><Login /></Page>;
+    }
 
-    if (isLoading)
-      return (
-        <View>
-          <Text style={styles.loading}>Loading...</Text>
-        </View>
-      );
+    const { currentSprint, currentProject } = this.props;
+    if (!currentSprint || !currentProject) return <Page><Text style={styles.loading}>Loading...</Text></Page>;
 
     let lead = null;
     if (currentSprint) {
@@ -66,37 +63,30 @@ class Home extends Component {
     }
 
     return (
-      <View>
-        <View style={styles.projectTitle}>
-          <Text>{currentProject.name}</Text>
-        </View>
-        <View style={styles.sprintGoal}>
-          <TrelloCard title={currentSprint.goal} isSprintGoal />
-        </View>
-        {lead !== null &&
-          <Text style={{ color: lead.points >= 0 ? 'green' : 'red' }}>
-            {
-              `You're ${lead.points >= 0 ? 'ahead' : 'late'} of ${lead.points > 0 ? lead.points : -lead.points} pts (${lead.manDays > 0 ? lead.manDays : -lead.manDays} man-days)`
-            }
-          </Text>}
-        <View style={styles.actionsContainer}>
-          <TouchableOpacity>
-            <Text>What have I done yesterday?</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text>What will I do today?</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  };
-
-  render() {
-    const { currentBoard } = this.props;
-    return (
-      <Page noMargin backgroundColor={currentBoard ? currentBoard.prefs.backgroundColor : ''}>
+      <Page noMargin>
         <View style={styles.container}>
-          {this.props.isLoggedIn ? this.renderLoggedIn() : <Login />}
+          <View>
+            <View style={styles.projectTitle}>
+              <Text>{currentProject.name}</Text>
+            </View>
+            <View style={styles.sprintGoal}>
+              <TrelloCard title={currentSprint.goal} isSprintGoal />
+            </View>
+            {lead !== null &&
+              <Text style={{ color: lead.points >= 0 ? 'green' : 'red' }}>
+                {
+                  `You're ${lead.points >= 0 ? 'ahead' : 'late'} of ${lead.points > 0 ? lead.points : -lead.points} pts (${lead.manDays > 0 ? lead.manDays : -lead.manDays} man-days)`
+                }
+              </Text>}
+          </View>
+          <View style={styles.actionsContainer}>
+            <TouchableOpacity style={styles.action}>
+              <Text style={styles.actionText}>What have I done yesterday?</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.action}>
+              <Text style={styles.actionText}>What will I do today?</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </Page>
     );
@@ -116,15 +106,12 @@ type PropsType = AuthType & {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
     alignItems: 'stretch',
+    justifyContent: 'space-between',
+    marginTop: 20,
   },
   projectTitle: {
     backgroundColor: 'transparent',
-    elevation: 1,
-    shadowColor: appStyle.colors.darkGray,
-    shadowRadius: 10,
-    shadowOpacity: 0.5,
   },
   sprintGoal: {
     marginVertical: 30,
@@ -133,6 +120,15 @@ const styles = StyleSheet.create({
   loading: {
     fontSize: appStyle.font.size.huge,
     textAlign: 'center',
+  },
+  actionsContainer: {},
+  action: {
+    backgroundColor: appStyle.colors.primary,
+    padding: 10,
+  },
+  actionText: {
+    color: 'white',
+    fontSize: appStyle.font.size.large,
   },
 });
 

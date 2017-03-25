@@ -30,7 +30,7 @@ Page.propTypes = {
 Page.defaultProps = {
   noMargin: false,
   noNavBar: false,
-  backgroundColor: appStyle.colors.primary,
+  backgroundColor: appStyle.colors.background,
 };
 
 export default Page;
