@@ -83,10 +83,10 @@ class Home extends Component {
     return (
       <View>
         <View style={styles.projectTitle}>
-          <Text>{ currentProject.name }</Text>
+          <Text>{currentProject.name}</Text>
         </View>
         <View style={styles.sprintGoal}>
-          <TrelloCard title={`#${currentSprint.number}: ${currentSprint.goal}`} isSprintGoal />
+          <TrelloCard title={currentSprint.goal} isSprintGoal />
         </View>
         {lead !== null &&
           <Text style={{ color: lead.points >= 0 ? 'green' : 'red' }}>
@@ -128,10 +128,10 @@ const styles = StyleSheet.create({
   },
   projectTitle: {
     backgroundColor: appStyle.colors.background,
-    elevation: 1,
-    shadowColor: appStyle.colors.darkGray,
-    shadowRadius: 10,
-    shadowOpacity: 0.5,
+    //elevation: 1,
+    //shadowColor: appStyle.colors.darkGray,
+    //shadowRadius: 10,
+    //shadowOpacity: 0.5,
   },
   sprintGoal: {
     marginVertical: 30,

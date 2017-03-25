@@ -11,7 +11,9 @@ export default (props: PropsType) => {
         <View style={styles.iconContainer}>
           <Icon name="star" size={30} color="#e6c60d" />
         </View>}
-      <Text style={styles.title}>{props.title}</Text>
+      <Text style={[styles.title, props.isSprintGoal && { fontSize: appStyle.font.size.big, fontWeight: 'bold' }]}>
+        {props.title}
+      </Text>
     </View>
   );
 };
@@ -19,8 +21,8 @@ export default (props: PropsType) => {
 const styles = StyleSheet.create({
   container: {
     minHeight: 20,
-    paddingVertical: 4,
-    paddingHorizontal: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     backgroundColor: '#fff',
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
@@ -28,9 +30,12 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     alignItems: 'center',
+    marginBottom: 10,
   },
   title: {
+    fontSize: appStyle.font.size.default,
     color: appStyle.colors.text,
+    textAlign: 'center',
   },
 });
 
