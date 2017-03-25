@@ -24,7 +24,7 @@ export default (state: SprintsType = initialState, action: ActionType) => {
   }
 };
 
-function scrumbleAdapter(sprint: ScrumbleSprintType): SprintType {
+function scrumbleAdapter(sprint: ScrumbleSprintType) {
   // find the most frequent date that is in data.dates
   const today = new Date();
   today.setHours(0, 0, 0, 0);
