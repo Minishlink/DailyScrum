@@ -9,7 +9,9 @@ export default {
     },
   },
   colors: {
-    primary: '#05A5D1',
+    primary: '#2196F3',
+    primaryMidDark: '#1976D2',
+    primaryDark: '#0D47A1',
     text: '#4d4d4d',
     lightText: '#FAFAFA',
     background: '#F5FCFF',

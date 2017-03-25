@@ -1,8 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { Page, TrelloCard } from 'DailyScrum/src/components';
+import { StyleSheet, Text, View } from 'react-native';
+import { Page, TrelloCard, ActionButton } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
 import { Trello, Scrumble } from 'DailyScrum/src/services';
 import { login } from 'DailyScrum/src/modules/auth';
@@ -79,13 +79,9 @@ class Home extends Component {
                 }
               </Text>}
           </View>
-          <View style={styles.actionsContainer}>
-            <TouchableOpacity style={styles.action}>
-              <Text style={styles.actionText}>What have I done yesterday?</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.action}>
-              <Text style={styles.actionText}>What will I do today?</Text>
-            </TouchableOpacity>
+          <View>
+            <ActionButton title="What have I done yesterday?"/>
+            <ActionButton title="What will I do today?"/>
           </View>
         </View>
       </Page>
@@ -120,15 +116,6 @@ const styles = StyleSheet.create({
   loading: {
     fontSize: appStyle.font.size.huge,
     textAlign: 'center',
-  },
-  actionsContainer: {},
-  action: {
-    backgroundColor: appStyle.colors.primary,
-    padding: 10,
-  },
-  actionText: {
-    color: 'white',
-    fontSize: appStyle.font.size.large,
   },
 });
 
