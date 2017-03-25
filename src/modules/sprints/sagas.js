@@ -6,7 +6,7 @@ import { authSelector } from '../auth/reducer';
 import type { AuthType } from '../auth/reducer';
 import type { ScrumbleSprintType } from '../../types/Scrumble/Sprint';
 
-function* fetchCurrent() {
+function* fetchCurrentSprint() {
   const { token } = (yield select(authSelector): AuthType);
   const sprint: ScrumbleSprintType = yield call(Scrumble.getCurrentSprint, token.scrumble);
   yield put(putSprint(sprint));
@@ -14,5 +14,5 @@ function* fetchCurrent() {
 }
 
 export default function*(): Generator<*, *, *> {
-  yield* [takeEvery('FETCH_CURRENT_SPRINT', fetchCurrent)];
+  yield* [takeEvery('FETCH_CURRENT_SPRINT', fetchCurrentSprint)];
 }
