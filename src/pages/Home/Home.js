@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, Linking, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Page, TrelloCard } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
 import { Trello, Scrumble } from 'DailyScrum/src/services';
@@ -16,6 +16,7 @@ import { currentBoardSelector } from '../../modules/boards/reducer';
 import type { SprintType } from '../../modules/sprints/reducer';
 import type { ProjectType } from '../../modules/projects/reducer';
 import type { BoardType } from '../../modules/boards/reducer';
+import Login from './components/Login';
 
 class Home extends Component {
   props: PropsType;
@@ -34,7 +35,7 @@ class Home extends Component {
     }
 
     // if not we login Scrumble if we have the trello Token
-    if (!this.props.navigation.state.params) return;
+    if (!this.props.navigation.state.params || !this.props.navigation.state.params.token) return;
     const trelloToken = this.props.navigation.state.params.token;
     Scrumble.login(trelloToken).then(scrumbleToken => {
       // store tokens
@@ -43,25 +44,9 @@ class Home extends Component {
     });
   }
 
-  authTrello = () => {
-    Linking.openURL(Trello.getLoginURL());
-  };
-
   fetchHomeData = () => {
     this.props.fetchCurrentProject();
     this.props.fetchCurrentSprint();
-  };
-
-  renderLoggedOut = () => {
-    const loggingIn = this.props.navigation.state.params && this.props.navigation.state.params.token;
-    return (
-      <View>
-        <Text style={styles.welcome}>
-          {loggingIn ? 'Logging in...' : 'Please login on Trello first. :)'}
-        </Text>
-        <Button onPress={this.authTrello} disabled={loggingIn} title="Authorize" />
-      </View>
-    );
   };
 
   renderLoggedIn = () => {
@@ -71,7 +56,7 @@ class Home extends Component {
     if (isLoading)
       return (
         <View>
-          <Text style={styles.welcome}>Loading...</Text>
+          <Text style={styles.loading}>Loading...</Text>
         </View>
       );
 
@@ -94,6 +79,14 @@ class Home extends Component {
               `You're ${lead.points >= 0 ? 'ahead' : 'late'} of ${lead.points > 0 ? lead.points : -lead.points} pts (${lead.manDays > 0 ? lead.manDays : -lead.manDays} man-days)`
             }
           </Text>}
+        <View style={styles.actionsContainer}>
+          <TouchableOpacity>
+            <Text>What have I done yesterday?</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text>What will I do today?</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   };
@@ -101,9 +94,9 @@ class Home extends Component {
   render() {
     const { currentBoard } = this.props;
     return (
-      <Page backgroundColor={currentBoard ? currentBoard.prefs.backgroundColor : ''}>
+      <Page noMargin backgroundColor={currentBoard ? currentBoard.prefs.backgroundColor : ''}>
         <View style={styles.container}>
-          {this.props.isLoggedIn ? this.renderLoggedIn() : this.renderLoggedOut()}
+          {this.props.isLoggedIn ? this.renderLoggedIn() : <Login />}
         </View>
       </Page>
     );
@@ -123,20 +116,21 @@ type PropsType = AuthType & {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: '20%',
-    alignItems: 'center',
+    marginTop: 20,
+    alignItems: 'stretch',
   },
   projectTitle: {
-    backgroundColor: appStyle.colors.background,
-    //elevation: 1,
-    //shadowColor: appStyle.colors.darkGray,
-    //shadowRadius: 10,
-    //shadowOpacity: 0.5,
+    backgroundColor: 'transparent',
+    elevation: 1,
+    shadowColor: appStyle.colors.darkGray,
+    shadowRadius: 10,
+    shadowOpacity: 0.5,
   },
   sprintGoal: {
     marginVertical: 30,
+    marginHorizontal: '5%',
   },
-  welcome: {
+  loading: {
     fontSize: appStyle.font.size.huge,
     textAlign: 'center',
   },

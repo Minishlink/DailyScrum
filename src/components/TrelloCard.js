@@ -27,6 +27,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
     borderRadius: 3,
+    elevation: 1,
+    shadowColor: appStyle.colors.darkGray,
+    shadowRadius: 5,
+    shadowOpacity: 0.5,
   },
   iconContainer: {
     alignItems: 'center',
