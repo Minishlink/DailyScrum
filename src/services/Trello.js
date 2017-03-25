@@ -14,4 +14,9 @@ export default class Trello {
     return fetch(`https://api.trello.com/1/members/me?fields=fullName&boards=all&board_fields=name&key=${TRELLO_APP_KEY}&token=${token}`)
       .then(res => res.json());
   };
+
+  static getBoard = (token, id) => {
+    return fetch(`https://api.trello.com/1/boards/${id}?fields=all&key=${TRELLO_APP_KEY}&token=${token}`)
+    .then(res => res.json());
+  };
 }
