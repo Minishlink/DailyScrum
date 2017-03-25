@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Linking, Button } from 'react-native';
-import { Page } from 'DailyScrum/src/components';
+import { Page, TrelloCard } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
 import { Trello, Scrumble } from 'DailyScrum/src/services';
 import { login } from 'DailyScrum/src/modules/auth';
@@ -50,20 +50,6 @@ class Home extends Component {
   fetchHomeData = () => {
     this.props.fetchCurrentProject();
     this.props.fetchCurrentSprint();
-
-    // get my projects
-    // TODO get projects from
-    // TODO create sagas for this
-    const { token } = this.props;
-    Trello.getUser(token.trello).then(user => {
-      this.setState({
-        boards: user.boards,
-        user: {
-          id: user.id,
-          name: user.fullName,
-        },
-      });
-    });
   };
 
   renderLoggedOut = () => {
@@ -79,8 +65,15 @@ class Home extends Component {
   };
 
   renderLoggedIn = () => {
-    const { user } = this.state;
     const { currentSprint, currentProject } = this.props;
+    const isLoading = !currentSprint || !currentProject;
+
+    if (isLoading)
+      return (
+        <View>
+          <Text style={styles.welcome}>Loading...</Text>
+        </View>
+      );
 
     let lead = null;
     if (currentSprint) {
@@ -89,11 +82,12 @@ class Home extends Component {
 
     return (
       <View>
-        <Text style={styles.welcome}>
-          {user ? `Hello ${user.name}!` : 'Loading...'}
-        </Text>
-        {currentProject && <Text style={styles.project}>{currentProject.name}</Text>}
-        {currentSprint && <Text style={styles.sprint}>{`#${currentSprint.number}: ${currentSprint.goal}`}</Text>}
+        <View style={styles.projectTitle}>
+          <Text>{ currentProject.name }</Text>
+        </View>
+        <View style={styles.sprintGoal}>
+          <TrelloCard title={`#${currentSprint.number}: ${currentSprint.goal}`} isSprintGoal />
+        </View>
         {lead !== null &&
           <Text style={{ color: lead.points >= 0 ? 'green' : 'red' }}>
             {
@@ -107,7 +101,7 @@ class Home extends Component {
   render() {
     const { currentBoard } = this.props;
     return (
-      <Page backgroundColor={currentBoard ? currentBoard.prefs.backgroundColor : ""}>
+      <Page backgroundColor={currentBoard ? currentBoard.prefs.backgroundColor : ''}>
         <View style={styles.container}>
           {this.props.isLoggedIn ? this.renderLoggedIn() : this.renderLoggedOut()}
         </View>
@@ -131,6 +125,16 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: '20%',
     alignItems: 'center',
+  },
+  projectTitle: {
+    backgroundColor: appStyle.colors.background,
+    elevation: 1,
+    shadowColor: appStyle.colors.darkGray,
+    shadowRadius: 10,
+    shadowOpacity: 0.5,
+  },
+  sprintGoal: {
+    marginVertical: 30,
   },
   welcome: {
     fontSize: appStyle.font.size.huge,
