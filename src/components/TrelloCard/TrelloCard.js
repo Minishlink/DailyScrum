@@ -1,8 +1,11 @@
 // @flow
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { Icon } from './';
+import { Icon } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
+import MemberIcon from './MemberIcon';
+
+// TODO connect this to store instead of passing every props by hand?
 
 export default (props: PropsType) => {
   return (
@@ -15,6 +18,12 @@ export default (props: PropsType) => {
         <Text style={[styles.title, props.isSprintGoal && { fontSize: appStyle.font.size.big, fontWeight: 'bold' }]}>
           {props.title}
         </Text>
+        {props.members &&
+          <View style={styles.members}>
+            {props.members.map(member => (
+              <View key={member.id} style={styles.member}><MemberIcon initials={member.initials} /></View>
+            ))}
+          </View>}
       </View>
     </View>
   );
@@ -48,9 +57,18 @@ const styles = StyleSheet.create({
     color: appStyle.colors.text,
     textAlign: 'center',
   },
+  members: {
+    marginTop: 5,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  member: {
+    marginLeft: 5,
+  },
 });
 
 type PropsType = {
   title: string,
   isSprintGoal?: boolean,
+  members?: any[],
 };

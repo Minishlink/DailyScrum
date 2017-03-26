@@ -26,7 +26,6 @@ class Yesterday extends Component {
 
   // TODO saga + store
   // TODO filter by member
-  // TODO show member on card
   // TODO identify unchecked checklists
   // TODO extract and show points
   // TODO extract and show estimated points
@@ -36,8 +35,8 @@ class Yesterday extends Component {
   // TODO on click show description
 
   fetchCards = () => {
-    if (!this.props.token || !this.props.currentSprint) return;
-    const { token, currentSprint } = this.props;
+    if (!this.props.token || !this.props.currentSprint || !this.props.currentProject) return;
+    const { token, currentSprint, currentProject } = this.props;
     this.setState({ refreshing: true });
     Trello.getCardsFromList(token.trello, currentSprint.doneColumn).then(cards => {
       const today = new Date();
@@ -56,7 +55,10 @@ class Yesterday extends Component {
 
       const lastWorkableDayTime = today.getTime() - offsetTime * 1000;
       this.setState({
-        cards: cards.filter(card => new Date(card.dateLastActivity).getTime() > lastWorkableDayTime),
+        cards: cards.filter(card => new Date(card.dateLastActivity).getTime() > lastWorkableDayTime).map(card => ({
+          ...card,
+          members: card.idMembers.map(id => currentProject.team.find(member => member.id === id)),
+        })),
         refreshing: false,
       });
     });
@@ -75,7 +77,7 @@ class Yesterday extends Component {
           >
             {this.state.cards &&
               this.state.cards.map(card => (
-                <View key={card.idShort} style={styles.cardContainer}><TrelloCard title={card.name} /></View>
+                <View key={card.idShort}><TrelloCard title={card.name} members={card.members} /></View>
               ))}
           </ScrollView>
         </View>
@@ -96,10 +98,6 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'space-between',
     marginTop: 20,
-  },
-  cardContainer: {
-    //marginBottom: 20,
-    //marginHorizontal: 10,
   },
 });
 
