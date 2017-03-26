@@ -53,6 +53,8 @@ class Yesterday extends Component {
         offsetTime += 86400;
       }
 
+      // TODO use &since=YYYY-MM-DD from Trello API
+
       const lastWorkableDayTime = today.getTime() - offsetTime * 1000;
       this.setState({
         cards: cards.filter(card => new Date(card.dateLastActivity).getTime() > lastWorkableDayTime).map(card => ({
@@ -69,9 +71,10 @@ class Yesterday extends Component {
     if (!currentSprint) return <Page isLoading />;
 
     return (
-      <Page>
+      <Page noNavBar>
         <View style={styles.container}>
           <ScrollView
+            contentContainerStyle={styles.scrollView}
             showsVerticalScrollIndicator={false}
             refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.fetchCards} />}
           >
@@ -96,8 +99,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'stretch',
-    justifyContent: 'space-between',
-    marginTop: 20,
+  },
+  scrollView: {
+    paddingVertical: 16,
   },
 });
 
