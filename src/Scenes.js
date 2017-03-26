@@ -1,20 +1,46 @@
 // @flow
 
 import React, { Component } from 'react';
-import { Linking } from 'react-native';
+import { Linking, View } from 'react-native';
 import { connect } from 'react-redux';
-import { StackNavigator, TabNavigator, addNavigationHelpers } from 'react-navigation';
+import { StackNavigator, TabNavigator, TabView, addNavigationHelpers } from 'react-navigation';
 import type { NavigationScreenProp } from 'react-navigation';
 import * as Pages from 'DailyScrum/src/pages';
 
-const HomeNavigator = TabNavigator({
-  yesterday: { screen: Pages.Home.Yesterday },
-  summary: { screen: Pages.Home.Summary },
-  today: { screen: Pages.Home.Today },
-}, {
+const sectionsNavigatorConfig = {
   initialRouteName: 'summary',
   swipeEnabled: true,
   animationEnabled: true,
+  tabBarComponent: props => (<View />),
+};
+
+const DailyNavigator = TabNavigator({
+  summary: { screen: Pages.Daily.Summary },
+  yesterday: { screen: Pages.Daily.Yesterday },
+  today: { screen: Pages.Daily.Today },
+  problems: { screen: Pages.Daily.Problems },
+}, sectionsNavigatorConfig);
+
+const SprintNavigator = TabNavigator({
+  settings: { screen: Pages.Sprint.Settings },
+  summary: { screen: Pages.Sprint.Summary },
+}, sectionsNavigatorConfig);
+
+const ProjectNavigator = TabNavigator({
+  settings: { screen: Pages.Project.Settings },
+  summary: { screen: Pages.Project.Summary },
+}, sectionsNavigatorConfig);
+
+const MainNavigator = TabNavigator({
+  project: { screen: ProjectNavigator },
+  sprint: { screen: SprintNavigator },
+  daily: { screen: DailyNavigator },
+}, {
+  initialRouteName: 'daily',
+  swipeEnabled: false,
+  animationEnabled: true,
+  tabBarComponent: TabView.TabBarTop,
+  tabBarPosition: 'bottom',
 });
 
 const appNavigatorPages = {
@@ -22,8 +48,8 @@ const appNavigatorPages = {
     screen: Pages.Login,
     path: 'login#token=:token',
   },
-  home: {
-    screen: HomeNavigator,
+  main: {
+    screen: MainNavigator,
   },
 };
 

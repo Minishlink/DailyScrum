@@ -9,7 +9,7 @@ const Page = (props: PropsType) => (
       paddingTop: props.noNavBar ? 0 : 16,
       paddingHorizontal: props.noMargin ? 0 : 24,
       backgroundColor: props.backgroundColor || appStyle.colors.background,
-    }]}
+    }, props.style]}
   >
     {props.isLoading && <View style={styles.loader}><ActivityIndicator /></View>}
     {!props.isLoading && props.children}
@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
 });
 
 type PropsType = {
+  style?: any,
   children?: any,
   noMargin?: boolean,
   noNavBar?: boolean,
@@ -35,6 +36,7 @@ type PropsType = {
 };
 
 Page.defaultProps = {
+  style: {},
   isLoading: false,
   noMargin: false,
   noNavBar: false,
