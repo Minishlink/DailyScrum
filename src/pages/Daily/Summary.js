@@ -21,11 +21,8 @@ class Summary extends Component {
   render() {
     const { currentSprint, currentProject } = this.props;
     if (!currentSprint || !currentProject) return <Page isLoading />;
-
-    let lead = null;
-    if (currentSprint) {
-      lead = currentSprint.lead;
-    }
+    // $FlowFixMe: flow is currently mixed up with spread operator
+    const { lead } = currentSprint;
 
     return (
       <Page>

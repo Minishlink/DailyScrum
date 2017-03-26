@@ -24,10 +24,8 @@ export default (state: SprintsType = initialState, action: ActionType) => {
   }
 };
 
-function scrumbleAdapter(sprint: ScrumbleSprintType) {
-  // find the most frequent date that is in data.dates
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+function scrumbleAdapter(sprint: ScrumbleSprintType): SprintType {
+  // find the dates that have a positive standard and a positive done
   const performances = sprint.bdcData.filter(data => {
     return !!data.done && !!data.standard;
   });
@@ -63,7 +61,7 @@ export function currentSprintSelector(state: StateType): ?SprintType {
 export type SprintsType = { [key: number]: SprintType, currentSprint?: number };
 
 export type SprintType = ScrumbleSprintType & {
-  lead?: {
+  lead: ?{
     points: number,
     manDays: number,
   },
