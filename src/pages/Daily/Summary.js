@@ -3,9 +3,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View } from 'react-native';
 import { Page, TrelloCard } from 'DailyScrum/src/components';
-import { Trello, Scrumble } from 'DailyScrum/src/services';
-import { authSelector } from 'DailyScrum/src/modules/auth/reducer';
-import type { AuthType } from '../../modules/auth/reducer';
 import { fetchCurrentSprint } from 'DailyScrum/src/modules/sprints';
 import { fetchCurrentProject } from 'DailyScrum/src/modules/projects';
 import { currentSprintSelector } from '../../modules/sprints/reducer';
@@ -51,7 +48,7 @@ class Summary extends Component {
   }
 }
 
-type PropsType = AuthType & {
+type PropsType = {
   navigation: any,
   login: Function,
   fetchCurrentSprint: Function,
@@ -75,7 +72,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  ...authSelector(state),
   currentSprint: currentSprintSelector(state),
   currentProject: currentProjectSelector(state),
 });
