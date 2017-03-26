@@ -4,7 +4,11 @@
 	"private": true,
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest"
+		"test": "jest",
+		"deploy": "yarn deploy:staging",
+		"deploy:staging": "yarn deploy:staging:android && yarn deploy:staging:ios",
+		"deploy:staging:android": "bundle exec fastlane android deploy --env=staging",
+		"deploy:staging:ios": "bundle exec fastlane ios deploy --env=staging"
 	},
 	"dependencies": {
 		"react": "~15.4.0-rc.4",
