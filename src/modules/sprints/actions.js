@@ -9,6 +9,8 @@ export type ActionType = {
   payload: ScrumbleSprintType,
 } | {
   type: 'FETCH_CURRENT_SPRINT',
+} | {
+  type: 'FETCH_SPRINTS',
 };
 
 export function putSprint(payload: ScrumbleSprintType): ActionType {
@@ -27,4 +29,8 @@ export function setCurrentSprint(payload: ScrumbleSprintType): ActionType {
 
 export function fetchCurrentSprint(): ActionType {
   return { type: 'FETCH_CURRENT_SPRINT' };
+}
+
+export function fetchSprints(): ActionType {
+  return { type: 'FETCH_SPRINTS' };
 }

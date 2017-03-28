@@ -7,7 +7,7 @@ import type { AuthType } from '../auth/reducer';
 import type { ScrumbleProjectType } from '../../types/Scrumble/Project';
 import { fetchBoard } from '../boards';
 
-function* fetchCurrentProject() {
+export function* fetchCurrentProject(): Generator<*, *, *> {
   const { token } = (yield select(authSelector): AuthType);
   const project: ScrumbleProjectType = yield call(Scrumble.getCurrentProject, token.scrumble);
   yield put(putProject(project));

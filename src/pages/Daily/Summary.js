@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View } from 'react-native';
 import { Page, TrelloCard } from 'DailyScrum/src/components';
-import { fetchCurrentSprint } from 'DailyScrum/src/modules/sprints';
-import { fetchCurrentProject } from 'DailyScrum/src/modules/projects';
+import { fetchBaseData } from 'DailyScrum/src/modules/common';
 import { currentSprintSelector } from '../../modules/sprints/reducer';
 import { currentProjectSelector } from '../../modules/projects/reducer';
 import type { SprintType } from '../../modules/sprints/reducer';
@@ -14,8 +13,7 @@ class Summary extends Component {
   props: PropsType;
 
   componentDidMount() {
-    this.props.fetchCurrentProject();
-    this.props.fetchCurrentSprint();
+    this.props.fetchBaseData();
   }
 
   render() {
@@ -48,9 +46,8 @@ class Summary extends Component {
 type PropsType = {
   navigation: any,
   login: Function,
-  fetchCurrentSprint: Function,
+  fetchBaseData: Function,
   currentSprint: ?SprintType,
-  fetchCurrentProject: Function,
   currentProject: ?ProjectType,
 };
 
@@ -74,8 +71,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  fetchCurrentSprint,
-  fetchCurrentProject,
+  fetchBaseData
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Summary);

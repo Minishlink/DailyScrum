@@ -41,4 +41,18 @@ export default class {
       });
     });
   };
+
+  static getSprintsFromProject = (token, projectId) => {
+    return new Promise((resolve, reject) => {
+      fetch(`https://api.scrumble.io/v1/Projects/${projectId}/sprints`, {
+        method: 'GET',
+        headers: new Headers({
+          "Authorization": token,
+        }),
+      }).then(result => result.json()).then(result => {
+        if (result.error) reject(result.error);
+        resolve(result);
+      });
+    });
+  };
 }
