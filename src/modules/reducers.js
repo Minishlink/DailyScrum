@@ -4,11 +4,13 @@ import { authReducer as auth } from './auth';
 import { sprintsReducer as sprints } from './sprints';
 import { projectsReducer as projects } from './projects';
 import { boardsReducer as boards } from './boards';
+import { cardsReducer as cards } from './cards';
 import { AppNavigator } from 'DailyScrum/src/Scenes';
 import type { AuthType } from './auth/reducer';
 import type { SprintsType } from './sprints/reducer';
 import type { ProjectsType } from './projects/reducer';
 import type { BoardsType } from './boards/reducer';
+import type { CardsType } from './cards/reducer';
 
 const navReducer = (state, action) => {
   const newState = AppNavigator.router.getStateForAction(action, state);
@@ -21,6 +23,7 @@ const appReducer = combineReducers({
   sprints,
   projects,
   boards,
+  cards,
 });
 
 const initialState = {};
@@ -32,6 +35,7 @@ export type StateType = {
   sprints: SprintsType,
   projects: ProjectsType,
   boards: BoardsType,
+  cards: CardsType,
 };
 
 export default rootReducer;

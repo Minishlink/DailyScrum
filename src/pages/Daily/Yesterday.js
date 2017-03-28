@@ -3,14 +3,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, RefreshControl, ScrollView } from 'react-native';
 import { Page, TrelloCard } from 'DailyScrum/src/components';
-import { authSelector } from '../../modules/auth/reducer';
-import { currentSprintSelector } from '../../modules/sprints/reducer';
-import { currentProjectSelector } from '../../modules/projects/reducer';
+import { yesterdayCardsSelector } from '../../modules/cards/reducer';
+import { fetchCards } from 'DailyScrum/src/modules/cards';
 import { Trello } from 'DailyScrum/src/services';
 
-import type { SprintType } from '../../modules/sprints/reducer';
-import type { AuthType } from '../../modules/auth/reducer';
-import type { ProjectType } from '../../modules/projects/reducer';
+import type { CardsType } from '../../modules/cards/reducer';
 
 class Yesterday extends Component {
   props: PropsType;
@@ -24,7 +21,6 @@ class Yesterday extends Component {
 
   // Use FlatList / SectionList when 0.43 out
 
-  // TODO saga + store
   // TODO filter by member
   // TODO identify unchecked checklists
   // TODO extract and show points
@@ -35,40 +31,15 @@ class Yesterday extends Component {
   // TODO on click show description
 
   fetchCards = () => {
-    if (!this.props.token || !this.props.currentSprint || !this.props.currentProject) return;
-    const { token, currentSprint, currentProject } = this.props;
+    //TODO loading redux store
     this.setState({ refreshing: true });
-    Trello.getCardsFromList(token.trello, currentSprint.doneColumn).then(cards => {
-      const today = new Date();
-      today.setHours(9, 0, 0, 0);
-      const todayWeekNumber = today.getDay();
-
-      let offsetTime = 86400; // one day
-      if (todayWeekNumber <= 1) {
-        // sunday or monday
-        offsetTime += 86400;
-      }
-      if (todayWeekNumber === 1) {
-        // monday
-        offsetTime += 86400;
-      }
-
-      // TODO use &since=YYYY-MM-DD from Trello API
-
-      const lastWorkableDayTime = today.getTime() - offsetTime * 1000;
-      this.setState({
-        cards: cards.filter(card => new Date(card.dateLastActivity).getTime() > lastWorkableDayTime).map(card => ({
-          ...card,
-          members: card.idMembers.map(id => currentProject.team.find(member => member.id === id)),
-        })),
-        refreshing: false,
-      });
-    });
+    this.props.fetchCards();
+    this.setState({refreshing: false,});
   };
 
   render() {
-    const { currentSprint } = this.props;
-    if (!currentSprint) return <Page isLoading />;
+    const { cards } = this.props;
+    if (!cards.length) return <Page isLoading />;
 
     return (
       <Page noNavBar>
@@ -78,8 +49,8 @@ class Yesterday extends Component {
             showsVerticalScrollIndicator={false}
             refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.fetchCards} />}
           >
-            {this.state.cards &&
-              this.state.cards.map(card => (
+            {cards &&
+              cards.map(card => (
                 <View key={card.idShort}><TrelloCard title={card.name} members={card.members} /></View>
               ))}
           </ScrollView>
@@ -89,10 +60,10 @@ class Yesterday extends Component {
   }
 }
 
-type PropsType = AuthType & {
+type PropsType = {
   navigation: any,
-  currentSprint: ?SprintType,
-  currentProject: ?ProjectType,
+  cards: CardsType,
+  fetchCards: Function,
 };
 
 const styles = StyleSheet.create({
@@ -106,9 +77,11 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  ...authSelector(state),
-  currentSprint: currentSprintSelector(state),
-  currentProject: currentProjectSelector(state),
+  cards: yesterdayCardsSelector(state),
 });
 
-export default connect(mapStateToProps)(Yesterday);
+const mapDispatchToProps = {
+  fetchCards,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Yesterday);
