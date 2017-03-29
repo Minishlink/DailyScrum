@@ -25,10 +25,17 @@ export default (state: CardsType = initialState, action: ActionType) => {
   }
 };
 
-export function yesterdayCardsSelector(state: StateType): CardType[] {
+function formatCards(state: StateType, cards: CardType[]) {
   const project = currentProjectSelector(state);
-  if (!project) return [];
+  if (!project) return cards;
 
+  return cards.map(card => ({
+    ...card,
+    members: card.idMembers.map(id => project.team.find(member => member.id === id)),
+  }));
+}
+
+export function yesterdayCardsSelector(state: StateType): CardType[] {
   const today = new Date();
   today.setHours(9, 0, 0, 0);
   const todayWeekNumber = today.getDay();
@@ -44,10 +51,7 @@ export function yesterdayCardsSelector(state: StateType): CardType[] {
   }
 
   const lastWorkableDayTime = today.getTime() - offsetTime * 1000;
-  return state.cards.done.filter(card => new Date(card.dateLastActivity).getTime() > lastWorkableDayTime).map(card => ({
-    ...card,
-    members: card.idMembers.map(id => project.team.find(member => member.id === id)),
-  }));
+  return formatCards(state, state.cards.done.filter(card => new Date(card.dateLastActivity).getTime() > lastWorkableDayTime));
 }
 
 export type CardsType = {
