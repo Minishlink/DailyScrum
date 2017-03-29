@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, RefreshControl, ScrollView } from 'react-native';
+import { StyleSheet, View, RefreshControl, ScrollView, Platform } from 'react-native';
 import { Page, TrelloCard } from 'DailyScrum/src/components';
 import { yesterdayCardsSelector } from '../../modules/cards/reducer';
 import { fetchDoneCards } from 'DailyScrum/src/modules/cards';
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
   },
   scrollView: {
-    paddingVertical: 16,
+    paddingVertical: Platform.OS === 'ios' ? 30 : 15,
   },
 });
 
