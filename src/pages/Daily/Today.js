@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { StyleSheet, View, RefreshControl, ScrollView, Platform } from 'react-native';
 import { Page, TrelloCard } from 'DailyScrum/src/components';
 import { todayCardsSelector } from '../../modules/cards/reducer';
-import { fetchNotDoneCards } from 'DailyScrum/src/modules/cards';
+import { fetchNotDoneCards as fetchNotDoneCardsSaga } from 'DailyScrum/src/modules/cards/sagas';
 import { Trello } from 'DailyScrum/src/services';
 import type { CardType } from '../../modules/cards/reducer';
 
@@ -15,10 +15,9 @@ class Today extends Component {
   // TODO Use FlatList / SectionList when 0.43 out
 
   fetchCards = () => {
-    //TODO loading redux store
-    this.setState({ refreshing: true });
-    this.props.fetchNotDoneCards();
-    this.setState({refreshing: false });
+    this.setState({ refreshing: true }, () => {
+      this.context.store.runSaga(fetchNotDoneCardsSaga).done.then(() => this.setState({refreshing: false }));
+    });
   };
 
   render() {
@@ -43,10 +42,13 @@ class Today extends Component {
   }
 }
 
+Today.contextTypes = {
+  store: React.PropTypes.any
+};
+
 type PropsType = {
   navigation: any,
   cards: CardType[],
-  fetchNotDoneCards: Function,
 };
 
 const styles = StyleSheet.create({
@@ -63,8 +65,4 @@ const mapStateToProps = state => ({
   cards: todayCardsSelector(state),
 });
 
-const mapDispatchToProps = {
-  fetchNotDoneCards,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Today);
+export default connect(mapStateToProps)(Today);

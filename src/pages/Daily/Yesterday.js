@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { StyleSheet, View, RefreshControl, ScrollView, Platform } from 'react-native';
 import { Page, TrelloCard } from 'DailyScrum/src/components';
 import { yesterdayCardsSelector } from '../../modules/cards/reducer';
-import { fetchDoneCards } from 'DailyScrum/src/modules/cards';
+import { fetchDoneCards as fetchDoneCardsSaga } from 'DailyScrum/src/modules/cards/sagas';
 import { Trello } from 'DailyScrum/src/services';
 import type { CardType } from '../../modules/cards/reducer';
 
@@ -30,10 +30,9 @@ class Yesterday extends Component {
   // TODO on click show description
 
   fetchCards = () => {
-    //TODO loading redux store
-    this.setState({ refreshing: true });
-    this.props.fetchDoneCards();
-    this.setState({refreshing: false,});
+    this.setState({ refreshing: true }, () => {
+      this.context.store.runSaga(fetchDoneCardsSaga).done.then(() => this.setState({refreshing: false }));
+    });
   };
 
   render() {
@@ -59,10 +58,13 @@ class Yesterday extends Component {
   }
 }
 
+Yesterday.contextTypes = {
+  store: React.PropTypes.any
+};
+
 type PropsType = {
   navigation: any,
   cards: CardType[],
-  fetchDoneCards: Function,
 };
 
 const styles = StyleSheet.create({
@@ -79,8 +81,4 @@ const mapStateToProps = state => ({
   cards: yesterdayCardsSelector(state),
 });
 
-const mapDispatchToProps = {
-  fetchDoneCards,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Yesterday);
+export default connect(mapStateToProps)(Yesterday);
