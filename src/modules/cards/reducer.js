@@ -3,13 +3,22 @@ import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
 import { currentProjectSelector } from '../projects/reducer';
 
-const initialState: CardsType = [];
+const initialState: CardsType = {
+  done: [],
+  blocked: [],
+  doing: [],
+  sprint: [],
+  toValidate: [],
+};
 
 export default (state: CardsType = initialState, action: ActionType) => {
   switch (action.type) {
-    case 'SET_CARDS':
+    case 'PUT_CARDS':
       // TODO add members here
-      return action.payload.cards;
+      return {
+        ...state,
+        ...action.payload.cards,
+      };
 
     default:
       return state;
@@ -35,12 +44,18 @@ export function yesterdayCardsSelector(state: StateType): CardType[] {
   }
 
   const lastWorkableDayTime = today.getTime() - offsetTime * 1000;
-  return state.cards.filter(card => new Date(card.dateLastActivity).getTime() > lastWorkableDayTime).map(card => ({
+  return state.cards.done.filter(card => new Date(card.dateLastActivity).getTime() > lastWorkableDayTime).map(card => ({
     ...card,
     members: card.idMembers.map(id => project.team.find(member => member.id === id)),
   }));
 }
 
-export type CardsType = CardType[];
+export type CardsType = {
+  done: CardType[],
+  blocked: CardType[],
+  doing: CardType[],
+  sprint: CardType[],
+  toValidate: CardType[],
+};
 
 export type CardType = any; // TODO

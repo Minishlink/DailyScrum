@@ -3,24 +3,31 @@ import type { CardsType } from './reducer';
 
 export type ActionType =
   | {
-      type: 'SET_CARDS',
+      type: 'PUT_CARDS',
       payload: {
-        cards: CardsType,
+        cards: { [name: string]: CardsType },
       },
     }
   | {
-      type: 'FETCH_CARDS',
+      type: 'FETCH_DONE_CARDS',
+    }
+  | {
+      type: 'FETCH_NOT_DONE_CARDS',
     };
 
-export function setCards(cards: CardsType): ActionType {
+export function putCards(cards: { [name: string]: CardsType }): ActionType {
   return {
-    type: 'SET_CARDS',
+    type: 'PUT_CARDS',
     payload: {
       cards,
     },
   };
 }
 
-export function fetchCards(): ActionType {
-  return { type: 'FETCH_CARDS' };
+export function fetchDoneCards(): ActionType {
+  return { type: 'FETCH_DONE_CARDS' };
+}
+
+export function fetchNotDoneCards(): ActionType {
+  return { type: 'FETCH_NOT_DONE_CARDS' };
 }

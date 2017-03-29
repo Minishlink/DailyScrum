@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { StyleSheet, View, RefreshControl, ScrollView } from 'react-native';
 import { Page, TrelloCard } from 'DailyScrum/src/components';
 import { yesterdayCardsSelector } from '../../modules/cards/reducer';
-import { fetchCards } from 'DailyScrum/src/modules/cards';
+import { fetchDoneCards } from 'DailyScrum/src/modules/cards';
 import { Trello } from 'DailyScrum/src/services';
 
 import type { CardsType } from '../../modules/cards/reducer';
@@ -33,7 +33,7 @@ class Yesterday extends Component {
   fetchCards = () => {
     //TODO loading redux store
     this.setState({ refreshing: true });
-    this.props.fetchCards();
+    this.props.fetchDoneCards();
     this.setState({refreshing: false,});
   };
 
@@ -63,7 +63,7 @@ class Yesterday extends Component {
 type PropsType = {
   navigation: any,
   cards: CardsType,
-  fetchCards: Function,
+  fetchDoneCards: Function,
 };
 
 const styles = StyleSheet.create({
@@ -81,7 +81,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  fetchCards,
+  fetchDoneCards,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Yesterday);

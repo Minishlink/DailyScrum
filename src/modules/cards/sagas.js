@@ -1,12 +1,13 @@
 // @flow
 import { select, put, call, takeEvery } from 'redux-saga/effects';
 import { Trello } from 'DailyScrum/src/services';
-import { setCards } from './';
+import { putCards } from './';
 import { authSelector } from '../auth/reducer';
 import { sprintsSelector, currentSprintSelector } from '../sprints/reducer';
+import { currentProjectSelector } from '../projects/reducer';
 import type { SprintType } from '../sprints/reducer';
 
-export function* fetchCards(): Generator<*, *, *> {
+export function* fetchDoneCards(): Generator<*, *, *> {
   const { token } = yield select(authSelector);
   const currentSprint = yield select(currentSprintSelector);
   const sprints = yield select(sprintsSelector);
@@ -22,10 +23,31 @@ export function* fetchCards(): Generator<*, *, *> {
     }
   }
 
-  // put cards
-  yield put(setCards(cards));
+  yield put(
+    putCards({
+      done: cards,
+    })
+  );
+}
+
+export function* fetchNotDoneCards(): Generator<*, *, *> {
+  const { token } = yield select(authSelector);
+  const currentProject = yield select(currentProjectSelector);
+
+  // fetch in parallel
+  const cardsCalls = yield Object.values(currentProject.columnMapping).map(id => {
+    return call(Trello.getCardsFromList, token.trello, id);
+  });
+
+  let cards = {};
+  let i = 0;
+  for (let key of Object.keys(currentProject.columnMapping)) {
+    cards[key] = cardsCalls[i++];
+  }
+
+  yield put(putCards(cards));
 }
 
 export default function*(): Generator<*, *, *> {
-  yield* [takeEvery('FETCH_CARDS', fetchCards)];
+  yield* [takeEvery('FETCH_DONE_CARDS', fetchDoneCards), takeEvery('FETCH_NOT_DONE_CARDS', fetchNotDoneCards)];
 }
