@@ -5,7 +5,6 @@ import { putCards } from './';
 import { authSelector } from '../auth/reducer';
 import { sprintsSelector, currentSprintSelector } from '../sprints/reducer';
 import { currentProjectSelector } from '../projects/reducer';
-import type { SprintType } from '../sprints/reducer';
 
 export function* fetchDoneCards(): Generator<*, *, *> {
   const { token } = yield select(authSelector);
@@ -16,7 +15,7 @@ export function* fetchDoneCards(): Generator<*, *, *> {
   if (!cards.length) {
     // if it's the day after the ceremony, you still want to have the ticket of yesterday
     const lastSprint: any = Object.values(sprints).find(
-      (sprint: SprintType) => sprint.number === currentSprint.number - 1
+      (sprint: mixed) => sprint instanceof Object && sprint.number === currentSprint.number - 1
     );
     if (lastSprint) {
       cards = yield call(Trello.getCardsFromList, token.trello, lastSprint.doneColumn);

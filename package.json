@@ -4,7 +4,9 @@
 	"private": true,
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest",
+		"test": "yarn test:flow && yarn test:unit",
+		"test:unit": "jest",
+		"test:flow": "flow",
 		"deploy": "yarn deploy:staging",
 		"deploy:staging": "yarn deploy:staging:android && yarn deploy:staging:ios",
 		"deploy:staging:android": "bundle exec fastlane android deploy --env=staging",

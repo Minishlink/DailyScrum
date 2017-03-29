@@ -6,8 +6,7 @@ import { Page, TrelloCard } from 'DailyScrum/src/components';
 import { yesterdayCardsSelector } from '../../modules/cards/reducer';
 import { fetchDoneCards } from 'DailyScrum/src/modules/cards';
 import { Trello } from 'DailyScrum/src/services';
-
-import type { CardsType } from '../../modules/cards/reducer';
+import type { CardType } from '../../modules/cards/reducer';
 
 class Yesterday extends Component {
   props: PropsType;
@@ -62,7 +61,7 @@ class Yesterday extends Component {
 
 type PropsType = {
   navigation: any,
-  cards: CardsType,
+  cards: CardType[],
   fetchDoneCards: Function,
 };
 
