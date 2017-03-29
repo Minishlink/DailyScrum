@@ -14,7 +14,6 @@ const initialState: CardsType = {
 export default (state: CardsType = initialState, action: ActionType) => {
   switch (action.type) {
     case 'PUT_CARDS':
-      // TODO add members here
       return {
         ...state,
         ...action.payload.cards,
@@ -51,7 +50,19 @@ export function yesterdayCardsSelector(state: StateType): CardType[] {
   }
 
   const lastWorkableDayTime = today.getTime() - offsetTime * 1000;
-  return formatCards(state, state.cards.done.filter(card => new Date(card.dateLastActivity).getTime() > lastWorkableDayTime));
+  return formatCards(
+    state,
+    state.cards.done.filter(card => new Date(card.dateLastActivity).getTime() > lastWorkableDayTime)
+  );
+}
+
+export function todayCardsSelector(state: StateType): CardType[] {
+  return formatCards(
+    state,
+    [...state.cards.sprint, ...state.cards.doing, ...state.cards.blocked, ...state.cards.toValidate].filter(
+      card => card.idMembers.length > 0
+    )
+  );
 }
 
 export type CardsType = {
