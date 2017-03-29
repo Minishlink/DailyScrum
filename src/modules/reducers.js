@@ -12,23 +12,25 @@ import type { ProjectsType } from './projects/reducer';
 import type { BoardsType } from './boards/reducer';
 import type { CardsType } from './cards/reducer';
 
-const navReducer = (state, action) => {
-  const newState = AppNavigator.router.getStateForAction(action, state);
-  return newState || state;
-};
-
-const appReducer = combineReducers({
-  navigation: navReducer,
-  auth,
-  sprints,
-  projects,
-  boards,
-  cards,
-});
-
 const initialState = {};
 
-const rootReducer = (state: any = initialState, action: any = {}) => appReducer(state, action);
+const rootReducer = (state: any = initialState, action: any = {}) => {
+  const navReducer = (state, action) => {
+    const newState = AppNavigator.router.getStateForAction(action, state);
+    return newState || state;
+  };
+
+  const appReducer = combineReducers({
+    navigation: navReducer,
+    auth,
+    sprints,
+    projects,
+    boards,
+    cards,
+  });
+
+  return appReducer(state, action);
+};
 
 export type StateType = {
   auth: AuthType,

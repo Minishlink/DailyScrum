@@ -8,7 +8,7 @@ import { fetchNotDoneCards } from 'DailyScrum/src/modules/cards';
 import { Trello } from 'DailyScrum/src/services';
 import type { CardType } from '../../modules/cards/reducer';
 
-class Yesterday extends Component {
+class Today extends Component {
   props: PropsType;
   state: any = { refreshing: false };
 
@@ -67,4 +67,4 @@ const mapDispatchToProps = {
   fetchNotDoneCards,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Yesterday);
+export default connect(mapStateToProps, mapDispatchToProps)(Today);

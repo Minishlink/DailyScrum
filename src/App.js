@@ -11,7 +11,7 @@ export default class extends Component {
   };
 
   componentDidMount() {
-    createStore(store => this.setState({ store }));
+    createStore().then(store => this.setState({ store }));
   }
 
   render() {
