@@ -25,9 +25,7 @@ class Summary extends Component {
     return (
       <Page>
         <View style={styles.container}>
-          <View style={styles.projectTitle}>
-            <Text>{currentProject.name}</Text>
-          </View>
+          <Text style={styles.projectTitle}>{currentProject.name}</Text>
           <View style={styles.sprintGoal}>
             <TrelloCard title={currentSprint.goal} isSprintGoal />
           </View>
@@ -54,14 +52,16 @@ type PropsType = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'stretch',
+    alignItems: 'center',
     marginTop: 20,
   },
   projectTitle: {
     backgroundColor: 'transparent',
+    fontSize: 25,
+    fontWeight: '300',
   },
   sprintGoal: {
-    marginVertical: 30,
+    marginVertical: 20,
   },
 });
 
