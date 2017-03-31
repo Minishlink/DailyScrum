@@ -33,7 +33,7 @@ class Today extends Component {
           >
             {cards &&
             cards.map(card => (
-              <View key={card.idShort}><TrelloCard title={card.name} members={card.members} /></View>
+              <View key={card.idShort}><TrelloCard card={card} /></View>
             ))}
           </ScrollView>
         </View>
