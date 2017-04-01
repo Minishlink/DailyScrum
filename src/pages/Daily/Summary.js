@@ -1,8 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View } from 'react-native';
-import { Page, TrelloCard } from 'DailyScrum/src/components';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Page, TrelloCard, Icon } from 'DailyScrum/src/components';
 import { fetchBaseData } from 'DailyScrum/src/modules/common';
 import { currentSprintSelector } from '../../modules/sprints/reducer';
 import { currentProjectSelector } from '../../modules/projects/reducer';
@@ -13,8 +13,12 @@ class Summary extends Component {
   props: PropsType;
 
   componentDidMount() {
-    this.props.fetchBaseData();
+    this.refresh();
   }
+
+  refresh = () => {
+    this.props.fetchBaseData();
+  };
 
   render() {
     const { currentSprint, currentProject } = this.props;
@@ -35,6 +39,7 @@ class Summary extends Component {
               `You're ${lead.points >= 0 ? 'ahead' : 'late'} of ${lead.points > 0 ? lead.points : -lead.points} pts (${lead.manDays > 0 ? lead.manDays : -lead.manDays} man-days)`
             }
           </Text>}
+          <TouchableOpacity style={styles.refreshButton} onPress={this.refresh}><Icon name="refresh" size={30} /></TouchableOpacity>
         </View>
       </Page>
     );
@@ -62,6 +67,10 @@ const styles = StyleSheet.create({
   },
   sprintGoal: {
     marginVertical: 20,
+  },
+  refreshButton: {
+    position: 'absolute',
+    bottom: 30,
   },
 });
 
