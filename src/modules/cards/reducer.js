@@ -28,10 +28,30 @@ function formatCards(state: StateType, cards: CardType[]) {
   const project = currentProjectSelector(state);
   if (!project) return cards;
 
-  return cards.map(card => ({
-    ...card,
-    members: card.idMembers.map(id => project.team.find(member => member.id === id)),
-  }));
+  return cards.map(card => {
+    const pointsAndNewName = formatPoints(card.name);
+    return {
+      ...card,
+      members: card.idMembers.map(id => project.team.find(member => member.id === id)),
+      points: pointsAndNewName.points,
+      name: pointsAndNewName.name,
+    };
+  });
+}
+
+function formatPoints(name) {
+  const points = name.match(/\(([0-9]*\.?[0-9]+)\)/);
+  if (!points) {
+    return {
+      name,
+      points: null,
+    };
+  }
+
+  return {
+    name: name.replace(points[0], '').trim(),
+    points: Number(points[1]),
+  };
 }
 
 export function yesterdayCardsSelector(state: StateType): CardType[] {
@@ -73,4 +93,11 @@ export type CardsType = {
   toValidate: CardType[],
 };
 
-export type CardType = any; // TODO
+export type CardType = {
+  idShort: string,
+  name: string,
+  idMembers: [],
+  dateLastActivity: string,
+  members: any[],
+  points: ?number,
+}; // TODO

@@ -4,33 +4,43 @@ import { View, StyleSheet, Text } from 'react-native';
 import { Icon } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
 import MemberIcon from './MemberIcon';
+import PointsBadge from './PointsBadge';
 import type { CardType } from 'DailyScrum/src/modules/cards/reducer';
 
-export default (props: PropsType) => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.card}>
+export default (props: PropsType) => (
+  <View style={styles.container}>
+    <View style={styles.card}>
+      <View style={styles.labelsRow}>
         {props.card &&
           <View style={styles.idShortContainer}>
             <Text style={styles.idShort}>#{props.card.idShort}</Text>
           </View>}
-        {props.isSprintGoal &&
-          <View style={styles.iconContainer}>
-            <Icon name="star" size={30} color="#e6c60d" />
-          </View>}
-        <Text style={[styles.title, props.isSprintGoal && { fontSize: appStyle.font.size.big, fontWeight: 'bold' }]}>
-          {props.card ? props.card.name : props.title}
-        </Text>
+      </View>
+      {props.isSprintGoal &&
+        <View style={styles.iconContainer}>
+          <Icon name="star" size={30} color="#e6c60d" />
+        </View>}
+      <Text style={[styles.title, props.isSprintGoal && { fontSize: appStyle.font.size.big, fontWeight: 'bold' }]}>
+        {props.card ? props.card.name : props.title}
+      </Text>
+      <View style={styles.membersRow}>
         {props.card &&
-          <View style={styles.members}>
-            {props.card.members.map(member => (
-              <View key={member.id} style={styles.member}><MemberIcon initials={member.initials} /></View>
-            ))}
+          props.card.points !== null &&
+          <View style={styles.pointsContainer}>
+            <PointsBadge points={props.card.points || 0} />
+          </View>}
+        {props.card &&
+          <View style={styles.membersContainer}>
+            <View style={styles.members}>
+              {props.card.members.map(member => (
+                <View key={member.id} style={styles.member}><MemberIcon initials={member.initials} /></View>
+              ))}
+            </View>
           </View>}
       </View>
     </View>
-  );
-};
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -51,6 +61,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowOffset: { height: 1 },
   },
+  labelsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  membersRow: {
+    flexDirection: 'row',
+  },
   iconContainer: {
     alignItems: 'center',
     marginTop: 10,
@@ -59,22 +76,27 @@ const styles = StyleSheet.create({
     fontSize: appStyle.font.size.default,
     color: appStyle.colors.text,
     textAlign: 'center',
-    marginTop: 16,
+    marginTop: 18,
     marginBottom: 10,
   },
-  members: {
-    marginTop: 5,
-    flexDirection: 'row',
-    right: -3,
+  membersContainer: {
+    flex: 5,
+    alignSelf: 'flex-end',
     justifyContent: 'flex-end',
+  },
+  members: {
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
+    justifyContent: 'flex-end',
+    right: -4,
   },
   member: {
     marginLeft: 5,
   },
   idShortContainer: {
     position: 'absolute',
-    top: 2,
-    left: 2,
+    top: -4,
+    left: -8,
     zIndex: 1,
     backgroundColor: 'gold',
     justifyContent: 'center',
@@ -86,6 +108,13 @@ const styles = StyleSheet.create({
   idShort: {
     fontSize: 11,
     fontWeight: 'bold',
+  },
+  pointsContainer: {
+    flex: 1,
+    flexShrink: 1,
+    left: -4,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-start',
   },
 });
 
