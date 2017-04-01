@@ -7,7 +7,7 @@ export type ScrumbleColumnMappingType = {
 
 export type ScrumbleTeamType = ScrumbleTeamMemberType[];
 
-type ScrumbleTeamMemberType = {
+export type ScrumbleTeamMemberType = {
   avatarHash: ?string,
   daily: string,
   email: string,

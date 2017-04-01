@@ -33,7 +33,7 @@ export default (props: PropsType) => (
           <View style={styles.membersContainer}>
             <View style={styles.members}>
               {props.card.members.map(member => (
-                <View key={member.id} style={styles.member}><MemberIcon initials={member.initials} /></View>
+                <View key={member.id} style={styles.member}><MemberIcon member={member} /></View>
               ))}
             </View>
           </View>}

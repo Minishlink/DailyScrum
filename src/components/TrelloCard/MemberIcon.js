@@ -1,30 +1,54 @@
 // @flow
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import appStyle from 'DailyScrum/src/appStyle';
+import { ScrumbleTeamMemberType } from '../../types/Scrumble/common';
 
 const colors = ['#fbb4ae', '#b3cde3', '#ccebc5', '#decbe4', '#fed9a6', '#ffffcc', '#e5d8bd', '#fddaec', '#f2f2f2'];
 
 export default (props: PropsType) => {
-  const color = props.initials ? colors[props.initials.charCodeAt(0) % 9] : colors[0];
-  // TODO show avatar 'https://trello-avatars.s3.amazonaws.com/{{hash}}/{{size}}.png'
-  return <View style={[styles.container, { backgroundColor: color }]}><Text style={styles.text}>{props.initials}</Text></View>;
+  const color = colors[props.member.initials.charCodeAt(0) % 9];
+  const avatar = getUriFromMember(props.member);
+  return (
+    <View style={[styles.textContainer, { backgroundColor: color }]}>
+      <Text style={styles.text}>{props.member.initials}</Text>
+      {avatar && <Image style={styles.image} source={{ uri: avatar }} />}
+    </View>
+  );
 };
 
+function getUriFromMember(member: ScrumbleTeamMemberType): ?string {
+  if (member.avatarHash) {
+    return `https://trello-avatars.s3.amazonaws.com/${member.avatarHash}/30.png`;
+  }
+
+  if (member.gravatarHash) {
+    return `https://www.gravatar.com/avatar/${member.avatarHash}.jpg?s=30`;
+  }
+
+  return null;
+}
+
+const size = { width: 30, height: 30 };
+const radius = 3;
 const styles = StyleSheet.create({
-  container: {
+  textContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 30,
-    height: 30,
-    borderRadius: 3,
+    ...size,
+    borderRadius: radius,
   },
   text: {
     fontWeight: '700',
     color: appStyle.colors.text,
   },
+  image: {
+    position: 'absolute',
+    ...size,
+    borderRadius: radius,
+  },
 });
 
 type PropsType = {
-  initials: ?string,
+  member: ScrumbleTeamMemberType,
 };

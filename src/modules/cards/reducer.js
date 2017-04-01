@@ -2,6 +2,7 @@
 import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
 import { currentProjectSelector } from '../projects/reducer';
+import { ScrumbleTeamMemberType } from '../../types/Scrumble/common';
 
 const initialState: CardsType = {
   done: [],
@@ -98,6 +99,6 @@ export type CardType = {
   name: string,
   idMembers: [],
   dateLastActivity: string,
-  members: any[],
+  members: ScrumbleTeamMemberType[],
   points: ?number,
 }; // TODO
