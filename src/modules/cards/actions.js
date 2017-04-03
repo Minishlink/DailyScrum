@@ -1,11 +1,11 @@
 // @flow
-import type { CardsType } from './reducer';
+import type { CardType } from './reducer';
 
 export type ActionType =
   | {
       type: 'PUT_CARDS',
       payload: {
-        cards: { [name: string]: CardsType },
+        cards: { [name: string]: CardType[] },
       },
     }
   | {
@@ -15,7 +15,7 @@ export type ActionType =
       type: 'FETCH_NOT_DONE_CARDS',
     };
 
-export function putCards(cards: { [name: string]: CardsType }): ActionType {
+export function putCards(cards: { [name: string]: CardType[] }): ActionType {
   return {
     type: 'PUT_CARDS',
     payload: {
