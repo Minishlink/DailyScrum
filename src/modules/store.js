@@ -22,7 +22,7 @@ export default function () {
       store,
       {
         storage: AsyncStorage,
-        whitelist: ['auth'],
+        blacklist: ['navigation'],
       },
       () => resolve(store)
     );
