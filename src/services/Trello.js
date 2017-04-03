@@ -25,3 +25,9 @@ export default class {
     .then(res => res.json());
   };
 }
+
+export const getPoints = text => {
+  const points = text.match(/\(([0-9]*\.?[0-9]+)\)/);
+  if (!points) return null;
+  return Number(points[1]);
+};

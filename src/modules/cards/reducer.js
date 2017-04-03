@@ -3,6 +3,8 @@ import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
 import { currentProjectSelector } from '../projects/reducer';
 import { ScrumbleTeamMemberType } from '../../types/Scrumble/common';
+import { getPoints } from '../../services/Trello';
+import { getLastWorkableDayTime } from '../../services/Time';
 
 const initialState: CardsType = {
   done: [],
@@ -41,36 +43,19 @@ function formatCards(state: StateType, cards: CardType[]) {
 }
 
 function formatPoints(name) {
-  const points = name.match(/\(([0-9]*\.?[0-9]+)\)/);
-  if (!points) {
-    return {
-      name,
-      points: null,
-    };
+  const points = getPoints(name);
+  if (points !== null) {
+    name = name.replace(`(${points})`, '').trim();
   }
 
   return {
-    name: name.replace(points[0], '').trim(),
-    points: Number(points[1]),
+    name,
+    points,
   };
 }
 
 export function yesterdayCardsSelector(state: StateType): CardType[] {
-  const today = new Date();
-  today.setHours(9, 0, 0, 0);
-  const todayWeekNumber = today.getDay();
-
-  let offsetTime = 86400; // one day
-  if (todayWeekNumber <= 1) {
-    // sunday or monday
-    offsetTime += 86400;
-  }
-  if (todayWeekNumber === 1) {
-    // monday
-    offsetTime += 86400;
-  }
-
-  const lastWorkableDayTime = today.getTime() - offsetTime * 1000;
+  const lastWorkableDayTime = getLastWorkableDayTime();
   return formatCards(
     state,
     state.cards.done.filter(card => new Date(card.dateLastActivity).getTime() > lastWorkableDayTime)

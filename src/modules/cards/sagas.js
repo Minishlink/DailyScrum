@@ -5,6 +5,9 @@ import { putCards } from './';
 import { authSelector } from '../auth/reducer';
 import { sprintsSelector, currentSprintSelector } from '../sprints/reducer';
 import { currentProjectSelector } from '../projects/reducer';
+import { getPoints } from '../../services/Trello';
+import { getLastWorkableDayTime } from '../../services/Time';
+import { putSprint } from '../sprints/actions';
 
 export function* fetchDoneCards(): Generator<*, *, *> {
   const { token } = yield select(authSelector);
@@ -19,6 +22,27 @@ export function* fetchDoneCards(): Generator<*, *, *> {
     );
     if (lastSprint) {
       cards = yield call(Trello.getCardsFromList, token.trello, lastSprint.doneColumn);
+    }
+  } else {
+    // only compute total if the sprint has started since at least one day
+    const total = cards.reduce((total, card) => total + getPoints(card.name), 0);
+    const lastWorkableDayTime = getLastWorkableDayTime();
+    for (
+      let i = 0, performance = currentSprint.bdcData[0];
+      i < currentSprint.bdcData.length;
+      performance = currentSprint.bdcData[++i]
+    ) {
+      const currentDay = new Date(performance.date);
+      currentDay.setHours(9, 0, 0, 0);
+
+      // the standard is set to the next day
+      if (lastWorkableDayTime === currentDay.getTime() && currentSprint.bdcData[i + 1]) {
+        const newSprint = { ...currentSprint };
+        newSprint.bdcData[i + 1].done = total;
+        yield put(putSprint(newSprint));
+        // TODO REMOTE PUT to Scrumble
+        break;
+      }
     }
   }
 
