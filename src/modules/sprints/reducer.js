@@ -2,6 +2,7 @@
 import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
 import type { ScrumbleSprintType } from '../../types/Scrumble/Sprint';
+import type { ScrumbleTeamType } from '../../types/Scrumble/common';
 
 const initialState: SprintsType = {};
 
@@ -56,6 +57,14 @@ export function sprintsSelector(state: StateType): SprintsType {
 export function currentSprintSelector(state: StateType): ?SprintType {
   if (state.sprints.currentSprint) {
     return state.sprints[state.sprints.currentSprint];
+  }
+
+  return null;
+}
+
+export function teamSelector(state: StateType): ?ScrumbleTeamType {
+  if (state.sprints.currentSprint) {
+    return state.sprints[state.sprints.currentSprint].resources.team;
   }
 
   return null;

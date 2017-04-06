@@ -1,17 +1,19 @@
 // @flow
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, RefreshControl, Text, TouchableOpacity } from 'react-native';
-import { TrelloCard } from 'DailyScrum/src/components';
+import { StyleSheet, View, ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+import { TrelloCard, MemberIcon } from 'DailyScrum/src/components';
+import { teamSelector } from 'DailyScrum/src/modules/sprints/reducer';
 import type { CardType } from 'DailyScrum/src/modules/cards/reducer';
-import type { ScrumbleTeamMemberType } from 'DailyScrum/src/types/Scrumble/common';
+import type { ScrumbleTeamMemberType, ScrumbleTeamType } from 'DailyScrum/src/types/Scrumble/common';
 
-export default class extends Component {
+class CardsList extends Component {
   props: PropsType;
   state: StateType = { filterableMembers: [], filteredMember: null, isRefreshing: false };
 
   // Use FlatList / SectionList when 0.43 out
 
-  // TODO filter by member
+  // TODO filter by me per default
   // TODO identify unchecked checklists
   // TODO extract and show post estimated points
   // TODO show labels
@@ -54,11 +56,14 @@ export default class extends Component {
         refreshControl={<RefreshControl refreshing={this.state.isRefreshing} onRefresh={this.handleRefresh} />}
       >
         <View style={styles.filterContainer}>
-          {this.state.filterableMembers.map(member => (
-            <TouchableOpacity key={member} onPress={() => this.filterMember(member)}>
-              <Text>{member} {this.state.filteredMember === member && '(selected)'}</Text>
-            </TouchableOpacity>
-          ))}
+          {this.props.team &&
+            this.state.filterableMembers.map(member => (
+              <TouchableOpacity key={member} onPress={() => this.filterMember(member)}>
+                <View style={this.state.filteredMember && this.state.filteredMember !== member && { opacity: 0.6 }}>
+                  <MemberIcon member={this.props.team.find(teamMember => teamMember.id === member)} />
+                </View>
+              </TouchableOpacity>
+            ))}
         </View>
         {cards &&
           cards
@@ -71,11 +76,10 @@ export default class extends Component {
 
 const styles = StyleSheet.create({
   filterContainer: {
-    paddingVertical: 6,
-    paddingHorizontal: 10,
-    borderWidth: 3,
-    borderRadius: 5,
-    borderColor: 'black',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginBottom: 10,
   },
 });
 
@@ -89,4 +93,11 @@ type PropsType = {
   style?: any,
   cards: CardType[],
   onRefresh: Function,
+  team: ?ScrumbleTeamType,
 };
+
+const mapStateToProps = state => ({
+  team: teamSelector(state),
+});
+
+export default connect(mapStateToProps)(CardsList);
