@@ -1,8 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, RefreshControl, ScrollView, Platform } from 'react-native';
-import { Page, TrelloCard } from 'DailyScrum/src/components';
+import { StyleSheet, View, Platform } from 'react-native';
+import { Page, CardsList } from 'DailyScrum/src/components';
 import { yesterdayCardsSelector } from '../../modules/cards/reducer';
 import { fetchDoneCards as fetchDoneCardsSaga } from 'DailyScrum/src/modules/cards/sagas';
 import { Trello } from 'DailyScrum/src/services';
@@ -18,22 +18,7 @@ class Yesterday extends Component {
   // show cards in blocked without identifying (should be in problems)
   // show cards in doing without identifying (should be in problems)
 
-  // Use FlatList / SectionList when 0.43 out
-
-  // TODO filter by member
-  // TODO identify unchecked checklists
-  // TODO extract and show points
-  // TODO extract and show estimated points
-  // TODO show labels
-  // TODO show ticket #shortId
-  // TODO on click show attachments
-  // TODO on click show description
-
-  fetchCards = () => {
-    this.setState({ refreshing: true }, () => {
-      this.context.store.runSaga(fetchDoneCardsSaga).done.then(() => this.setState({refreshing: false }));
-    });
-  };
+  fetchCards = () => this.context.store.runSaga(fetchDoneCardsSaga).done;
 
   render() {
     const { cards } = this.props;
@@ -42,16 +27,7 @@ class Yesterday extends Component {
     return (
       <Page noNavBar>
         <View style={styles.container}>
-          <ScrollView
-            contentContainerStyle={styles.scrollView}
-            showsVerticalScrollIndicator={false}
-            refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.fetchCards} />}
-          >
-            {cards &&
-              cards.map(card => (
-                <View key={card.idShort}><TrelloCard card={card} /></View>
-              ))}
-          </ScrollView>
+          <CardsList style={styles.list} onRefresh={this.fetchCards} cards={cards} />
         </View>
       </Page>
     );
@@ -72,7 +48,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'stretch',
   },
-  scrollView: {
+  list: {
     paddingVertical: Platform.OS === 'ios' ? 30 : 15,
   },
 });

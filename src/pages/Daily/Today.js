@@ -1,8 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, RefreshControl, ScrollView, Platform } from 'react-native';
-import { Page, TrelloCard } from 'DailyScrum/src/components';
+import { StyleSheet, View, Platform } from 'react-native';
+import { Page, CardsList } from 'DailyScrum/src/components';
 import { todayCardsSelector } from '../../modules/cards/reducer';
 import { fetchNotDoneCards as fetchNotDoneCardsSaga } from 'DailyScrum/src/modules/cards/sagas';
 import { Trello } from 'DailyScrum/src/services';
@@ -14,11 +14,7 @@ class Today extends Component {
 
   // TODO Use FlatList / SectionList when 0.43 out
 
-  fetchCards = () => {
-    this.setState({ refreshing: true }, () => {
-      this.context.store.runSaga(fetchNotDoneCardsSaga).done.then(() => this.setState({refreshing: false }));
-    });
-  };
+  fetchCards = () => this.context.store.runSaga(fetchNotDoneCardsSaga).done;
 
   render() {
     const { cards } = this.props;
@@ -26,16 +22,7 @@ class Today extends Component {
     return (
       <Page noNavBar>
         <View style={styles.container}>
-          <ScrollView
-            contentContainerStyle={styles.scrollView}
-            showsVerticalScrollIndicator={false}
-            refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.fetchCards} />}
-          >
-            {cards &&
-            cards.map(card => (
-              <View key={card.idShort}><TrelloCard card={card} /></View>
-            ))}
-          </ScrollView>
+          <CardsList style={styles.list} onRefresh={this.fetchCards} cards={cards} />
         </View>
       </Page>
     );
@@ -56,7 +43,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'stretch',
   },
-  scrollView: {
+  list: {
     paddingVertical: Platform.OS === 'ios' ? 30 : 15,
   },
 });
