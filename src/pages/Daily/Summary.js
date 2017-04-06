@@ -24,7 +24,7 @@ class Summary extends Component {
     const { currentSprint, currentProject } = this.props;
     if (!currentSprint || !currentProject) return <Page isLoading />;
     // $FlowFixMe: flow is currently mixed up with spread operator
-    const { lead } = currentSprint;
+    const { lead, pointsLeft } = currentSprint;
 
     return (
       <Page>
@@ -39,6 +39,7 @@ class Summary extends Component {
               `You're ${lead.points >= 0 ? 'ahead' : 'late'} of ${lead.points > 0 ? lead.points : -lead.points} pts (${lead.manDays > 0 ? lead.manDays : -lead.manDays} man-days)`
             }
           </Text>}
+          {pointsLeft > 0 ? <Text>There are {pointsLeft} points left.</Text> : <Text>Congratulations! You finished your sprint, and you have {-pointsLeft} points of bonus.</Text>}
           <TouchableOpacity style={styles.refreshButton} onPress={this.refresh}><Icon name="refresh" size={30} /></TouchableOpacity>
         </View>
       </Page>

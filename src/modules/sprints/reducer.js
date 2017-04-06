@@ -31,6 +31,7 @@ function scrumbleAdapter(sprint: ScrumbleSprintType): SprintType {
   });
 
   let lead = null;
+  let pointsLeft = sprint.resources.totalPoints;
   if (performances.length) {
     const todayPerformance = performances[performances.length - 1];
     const points = todayPerformance.done - todayPerformance.standard;
@@ -38,11 +39,13 @@ function scrumbleAdapter(sprint: ScrumbleSprintType): SprintType {
       points: Math.round(points * 10) / 10,
       manDays: Math.round(sprint.resources.totalManDays / sprint.resources.totalPoints * points * 10) / 10,
     };
+    pointsLeft -= todayPerformance.done;
   }
 
   return {
     ...sprint,
     lead,
+    pointsLeft,
   };
 }
 
@@ -65,4 +68,5 @@ export type SprintType = ScrumbleSprintType & {
     points: number,
     manDays: number,
   },
+  pointsLeft: number,
 };
