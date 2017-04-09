@@ -1,11 +1,12 @@
 // @flow
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, ScrollView, RefreshControl, TouchableOpacity, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { TrelloCard, MemberIcon } from 'DailyScrum/src/components';
 import { teamSelector } from 'DailyScrum/src/modules/sprints/reducer';
 import type { CardType } from 'DailyScrum/src/modules/cards/reducer';
 import type { ScrumbleTeamMemberType, ScrumbleTeamType } from 'DailyScrum/src/types/Scrumble/common';
+import { roundToDecimalPlace } from '../types/MathService';
 
 class CardsList extends Component {
   props: PropsType;
@@ -58,11 +59,24 @@ class CardsList extends Component {
         <View style={styles.filterContainer}>
           {this.props.team &&
             this.state.filterableMembers.map(member => (
-              <TouchableOpacity key={member} onPress={() => this.filterMember(member)}>
-                <View style={this.state.filteredMember && this.state.filteredMember !== member && { opacity: 0.6 }}>
-                  <MemberIcon member={this.props.team.find(teamMember => teamMember.id === member)} />
-                </View>
-              </TouchableOpacity>
+              <View key={member} style={styles.filterableMemberContainer}>
+                <TouchableOpacity onPress={() => this.filterMember(member)}>
+                  <View style={this.state.filteredMember && this.state.filteredMember !== member && { opacity: 0.6 }}>
+                    <MemberIcon member={this.props.team.find(teamMember => teamMember.id === member)} />
+                  </View>
+                </TouchableOpacity>
+                <Text style={styles.filterableMemberPoints}>
+                  {cards
+                    ? cards
+                        .filter(card => card.idMembers.includes(member))
+                        .reduce(
+                          (total: number, card: CardType) =>
+                            total + (card.points ? roundToDecimalPlace(card.points / card.idMembers.length) : 0),
+                          0
+                        )
+                    : 0}
+                </Text>
+              </View>
             ))}
         </View>
         {cards &&
@@ -80,6 +94,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     marginBottom: 10,
+  },
+  filterableMemberPoints: {
+    marginTop: 4,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#006580',
   },
 });
 

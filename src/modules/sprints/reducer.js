@@ -3,6 +3,7 @@ import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
 import type { ScrumbleSprintType } from '../../types/Scrumble/Sprint';
 import type { ScrumbleTeamType } from '../../types/Scrumble/common';
+import { roundToDecimalPlace } from '../../types/MathService';
 
 const initialState: SprintsStateType = {
   currentSprint: null,
@@ -45,8 +46,8 @@ function scrumbleAdapter(sprint: ScrumbleSprintType): SprintType {
     const todayPerformance = performances[performances.length - 1];
     const points = todayPerformance.done - todayPerformance.standard;
     lead = {
-      points: Math.round(points * 10) / 10,
-      manDays: Math.round(sprint.resources.totalManDays / sprint.resources.totalPoints * points * 10) / 10,
+      points: roundToDecimalPlace(points),
+      manDays: roundToDecimalPlace(sprint.resources.totalManDays / sprint.resources.totalPoints * points),
     };
     pointsLeft -= todayPerformance.done;
   }
