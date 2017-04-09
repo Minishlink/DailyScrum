@@ -27,7 +27,7 @@ class CardsList extends Component {
   handleRefresh = () => {
     this.setState({ isRefreshing: true }, () => {
       this.props.onRefresh().then(() => {
-        this.setState({ isRefreshing: false, filterableMembers: this.getFilterableMembers() });
+        this.setState({ isRefreshing: false, filterableMembers: this.getFilterableMembers(), filteredMember: null });
       });
     });
   };
