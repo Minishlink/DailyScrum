@@ -4,9 +4,12 @@ import type { StateType } from '../reducers';
 import type { ScrumbleSprintType } from '../../types/Scrumble/Sprint';
 import type { ScrumbleTeamType } from '../../types/Scrumble/common';
 
-const initialState: SprintsType = {};
+const initialState: SprintsStateType = {
+  currentSprint: null,
+  list: {},
+};
 
-export default (state: SprintsType = initialState, action: ActionType) => {
+export default (state: SprintsStateType = initialState, action: ActionType) => {
   switch (action.type) {
     case 'SET_CURRENT_SPRINT':
       return {
@@ -15,9 +18,11 @@ export default (state: SprintsType = initialState, action: ActionType) => {
       };
 
     case 'PUT_SPRINT':
+      const { list } = { ...state };
+      list[action.payload.id] = scrumbleAdapter(action.payload);
       return {
         ...state,
-        [action.payload.id]: scrumbleAdapter(action.payload),
+        list,
       };
 
     default:
@@ -51,27 +56,37 @@ function scrumbleAdapter(sprint: ScrumbleSprintType): SprintType {
 }
 
 export function sprintsSelector(state: StateType): SprintsType {
-  return state.sprints;
+  return state.sprints.list;
 }
 
 export function currentSprintSelector(state: StateType): ?SprintType {
+  const sprints = sprintsSelector(state);
   if (state.sprints.currentSprint) {
-    return state.sprints[state.sprints.currentSprint];
+    return sprints[state.sprints.currentSprint];
   }
 
   return null;
 }
 
 export function teamSelector(state: StateType): ?ScrumbleTeamType {
-  if (state.sprints.currentSprint) {
-    return state.sprints[state.sprints.currentSprint].resources.team;
+  const currentSprint = currentSprintSelector(state);
+  if (currentSprint) {
+    return currentSprint.resources.team;
   }
 
   return null;
 }
 
-export type SprintsType = { [key: number]: SprintType, currentSprint?: number };
+export type SprintsStateType = {
+  currentSprint: ?number,
+  list: SprintsType,
+};
 
+export type SprintsType = {
+  [key: number]: SprintType,
+};
+
+// $FlowFixMe : Flow is confused with Array<mixed> and Object.values
 export type SprintType = ScrumbleSprintType & {
   lead: ?{
     points: number,

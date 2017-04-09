@@ -4,6 +4,7 @@ import { Trello } from 'DailyScrum/src/services';
 import { putCards } from './';
 import { authSelector } from '../auth/reducer';
 import { sprintsSelector, currentSprintSelector } from '../sprints/reducer';
+import type { SprintType } from '../sprints/reducer';
 import { currentProjectSelector } from '../projects/reducer';
 import { getPoints } from '../../services/Trello';
 import { getLastWorkableDayTime } from '../../services/Time';
@@ -18,7 +19,7 @@ export function* fetchDoneCards(): Generator<*, *, *> {
   if (!cards.length) {
     // if it's the day after the ceremony, you still want to have the ticket of yesterday
     const lastSprint: any = Object.values(sprints).find(
-      (sprint: mixed) => sprint instanceof Object && sprint.number === currentSprint.number - 1
+      (sprint: SprintType) => sprint.number === currentSprint.number - 1
     );
     if (lastSprint) {
       cards = yield call(Trello.getCardsFromList, token.trello, lastSprint.doneColumn);
