@@ -17,9 +17,12 @@ export default (state: SprintsStateType = initialState, action: ActionType) => {
         currentSprint: action.payload.id,
       };
 
-    case 'PUT_SPRINT':
+    case 'PUT_SPRINTS':
       const { list } = { ...state };
-      list[action.payload.id] = scrumbleAdapter(action.payload);
+      for (let sprint of action.payload) {
+        list[sprint.id] = scrumbleAdapter(sprint);
+      }
+
       return {
         ...state,
         list,

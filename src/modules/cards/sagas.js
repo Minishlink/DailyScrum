@@ -8,7 +8,7 @@ import type { SprintType } from '../sprints/reducer';
 import { currentProjectSelector } from '../projects/reducer';
 import { getPoints } from '../../services/Trello';
 import { getLastWorkableDayTime } from '../../services/Time';
-import { putSprint } from '../sprints/actions';
+import { putSprints } from '../sprints/actions';
 
 export function* fetchDoneCards(): Generator<*, *, *> {
   const { token } = yield select(authSelector);
@@ -40,7 +40,7 @@ export function* fetchDoneCards(): Generator<*, *, *> {
       if (lastWorkableDayTime === currentDay.getTime() && currentSprint.bdcData[i + 1]) {
         const newSprint = { ...currentSprint };
         newSprint.bdcData[i + 1].done = total;
-        yield put(putSprint(newSprint));
+        yield put(putSprints([newSprint]));
         // TODO REMOTE PUT to Scrumble
         break;
       }

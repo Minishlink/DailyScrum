@@ -1,7 +1,7 @@
 // @flow
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import Scrumble from 'DailyScrum/src/services/Scrumble';
-import { putSprint, setCurrentSprint } from './actions';
+import { putSprints, setCurrentSprint } from './actions';
 import { authSelector } from '../auth/reducer';
 import type { AuthType } from '../auth/reducer';
 import type { ScrumbleSprintType } from '../../types/Scrumble/Sprint';
@@ -12,9 +12,7 @@ export function* fetchSprints(): Generator<*, *, *> {
   const project = yield select(currentProjectSelector);
   const sprints: ScrumbleSprintType[] = yield call(Scrumble.getSprintsFromProject, token.scrumble, project.id);
 
-  for (let sprint of sprints) {
-    yield put(putSprint(sprint));
-  }
+  yield put(putSprints(sprints));
 
   const currentSprint = sprints.find(sprint => sprint.isActive);
   if (currentSprint) {
@@ -25,7 +23,7 @@ export function* fetchSprints(): Generator<*, *, *> {
 function* fetchCurrentSprint() {
   const { token } = (yield select(authSelector): AuthType);
   const sprint: ScrumbleSprintType = yield call(Scrumble.getCurrentSprint, token.scrumble);
-  yield put(putSprint(sprint));
+  yield put(putSprints([sprint]));
   yield put(setCurrentSprint(sprint));
 }
 

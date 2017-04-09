@@ -2,8 +2,8 @@
 import type { ScrumbleSprintType } from 'DailyScrum/src/types/Scrumble/Sprint';
 
 export type ActionType = {
-  type: 'PUT_SPRINT',
-  payload: ScrumbleSprintType,
+  type: 'PUT_SPRINTS',
+  payload: ScrumbleSprintType[],
 } | {
   type: 'SET_CURRENT_SPRINT',
   payload: ScrumbleSprintType,
@@ -13,10 +13,10 @@ export type ActionType = {
   type: 'FETCH_SPRINTS',
 };
 
-export function putSprint(payload: ScrumbleSprintType): ActionType {
+export function putSprints(sprints: ScrumbleSprintType[]): ActionType {
   return {
-    type: 'PUT_SPRINT',
-    payload,
+    type: 'PUT_SPRINTS',
+    payload: sprints,
   };
 }
 
