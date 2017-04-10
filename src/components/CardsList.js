@@ -6,7 +6,7 @@ import { TrelloCard, MemberIcon } from 'DailyScrum/src/components';
 import { teamSelector } from 'DailyScrum/src/modules/sprints/reducer';
 import type { CardType } from 'DailyScrum/src/modules/cards/reducer';
 import type { ScrumbleTeamMemberType, ScrumbleTeamType } from 'DailyScrum/src/types/Scrumble/common';
-import { roundToDecimalPlace } from '../types/MathService';
+import { roundToDecimalPlace } from '../services/MathService';
 
 class CardsList extends Component {
   props: PropsType;
@@ -48,7 +48,7 @@ class CardsList extends Component {
   };
 
   render() {
-    const { cards } = this.props;
+    const { cards, team } = this.props;
 
     return (
       <ScrollView
@@ -57,12 +57,12 @@ class CardsList extends Component {
         refreshControl={<RefreshControl refreshing={this.state.isRefreshing} onRefresh={this.handleRefresh} />}
       >
         <View style={styles.filterContainer}>
-          {this.props.team &&
+          {team &&
             this.state.filterableMembers.map(member => (
               <View key={member} style={styles.filterableMemberContainer}>
                 <TouchableOpacity onPress={() => this.filterMember(member)}>
                   <View style={this.state.filteredMember && this.state.filteredMember !== member && { opacity: 0.6 }}>
-                    <MemberIcon member={this.props.team.find(teamMember => teamMember.id === member)} />
+                    <MemberIcon member={team.find(teamMember => teamMember.id === member)} />
                   </View>
                 </TouchableOpacity>
                 <Text style={styles.filterableMemberPoints}>

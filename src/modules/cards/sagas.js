@@ -4,7 +4,7 @@ import { Trello } from 'DailyScrum/src/services';
 import { putCards } from './';
 import { authSelector } from '../auth/reducer';
 import { sprintsSelector, currentSprintSelector } from '../sprints/reducer';
-import type { SprintType } from '../sprints/reducer';
+import type { SprintType } from '../../types/App';
 import { currentProjectSelector } from '../projects/reducer';
 import { getPoints } from '../../services/Trello';
 import { getLastWorkableDayTime } from '../../services/Time';
@@ -12,12 +12,12 @@ import { putSprints } from '../sprints/actions';
 
 export function* fetchDoneCards(): Generator<*, *, *> {
   const { token } = yield select(authSelector);
-  const currentSprint = yield select(currentSprintSelector);
+  const currentSprint: SprintType = yield select(currentSprintSelector);
   const sprints = yield select(sprintsSelector);
 
   let cards = yield call(Trello.getCardsFromList, token.trello, currentSprint.doneColumn);
   if (!cards.length) {
-    // if it's the day after the ceremony, you still want to have the ticket of yesterday
+    // if it's the day after the ceremony, you still want to have the tickets of yesterday
     const lastSprint: any = Object.values(sprints).find(
       (sprint: SprintType) => sprint.number === currentSprint.number - 1
     );
@@ -29,17 +29,17 @@ export function* fetchDoneCards(): Generator<*, *, *> {
     const total = cards.reduce((total, card) => total + getPoints(card.name), 0);
     const lastWorkableDayTime = getLastWorkableDayTime();
     for (
-      let i = 0, performance = currentSprint.bdcData[0];
-      i < currentSprint.bdcData.length;
-      performance = currentSprint.bdcData[++i]
+      let i = 0, performance = currentSprint.performance[0];
+      i < currentSprint.performance.length;
+      performance = currentSprint.performance[++i]
     ) {
       const currentDay = new Date(performance.date);
       currentDay.setHours(9, 0, 0, 0);
 
       // the standard is set to the next day
-      if (lastWorkableDayTime === currentDay.getTime() && currentSprint.bdcData[i + 1]) {
+      if (lastWorkableDayTime === currentDay.getTime() && currentSprint.performance[i + 1]) {
         const newSprint = { ...currentSprint };
-        newSprint.bdcData[i + 1].done = total;
+        newSprint.performance[i + 1].done = total;
         yield put(putSprints([newSprint]));
         // TODO REMOTE PUT to Scrumble
         break;

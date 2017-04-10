@@ -6,7 +6,7 @@ export type ScrumbleSprintType = {
   projectId: number,
   number: number,
   goal: string,
-  bdcData: [],
+  bdcData: ScrumbleBdcDataType,
   dates: {
     days: {date: string}[],
     end: string,
@@ -24,10 +24,16 @@ export type ScrumbleSprintType = {
   updatedAt: ?any, // seems deprecated
 };
 
-type ScrumbleResourcesType = {
+export type ScrumbleResourcesType = {
   matrix: [],
   speed: number,
   team: ScrumbleTeamType,
   totalManDays: number,
   totalPoints: number,
 };
+
+export type ScrumbleBdcDataType = Array<{
+  date: string,
+  standard: number,
+  done: number,
+}>;

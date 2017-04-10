@@ -6,8 +6,7 @@ import { Page, TrelloCard, Icon } from 'DailyScrum/src/components';
 import { fetchBaseData } from 'DailyScrum/src/modules/common';
 import { currentSprintSelector } from '../../modules/sprints/reducer';
 import { currentProjectSelector } from '../../modules/projects/reducer';
-import type { SprintType } from '../../modules/sprints/reducer';
-import type { ProjectType } from '../../modules/projects/reducer';
+import type { SprintType, ProjectType } from '../../types/App';
 
 class Summary extends Component {
   props: PropsType;
@@ -23,7 +22,6 @@ class Summary extends Component {
   render() {
     const { currentSprint, currentProject } = this.props;
     if (!currentSprint || !currentProject) return <Page isLoading />;
-    // $FlowFixMe: flow is currently mixed up with spread operator
     const { lead, pointsLeft } = currentSprint;
 
     return (
@@ -33,13 +31,13 @@ class Summary extends Component {
           <View style={styles.sprintGoal}>
             <TrelloCard title={currentSprint.goal} isSprintGoal />
           </View>
-          {lead !== null &&
+          {lead != null  &&
           <Text style={{ color: lead.points >= 0 ? 'green' : 'red' }}>
             {
               `You're ${lead.points >= 0 ? 'ahead' : 'late'} of ${lead.points > 0 ? lead.points : -lead.points} pts (${lead.manDays > 0 ? lead.manDays : -lead.manDays} man-days)`
             }
           </Text>}
-          {pointsLeft > 0 ? <Text>There are {pointsLeft} points left.</Text> : <Text>Congratulations! You finished your sprint, and you have {-pointsLeft} points of bonus.</Text>}
+          {pointsLeft != null && (pointsLeft > 0 ? <Text>There are {pointsLeft} points left.</Text> : <Text>Congratulations! You finished your sprint, and you have {-pointsLeft} points of bonus.</Text>)}
           <TouchableOpacity style={styles.refreshButton} onPress={this.refresh}><Icon name="refresh" size={30} /></TouchableOpacity>
         </View>
       </Page>

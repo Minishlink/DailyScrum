@@ -1,22 +1,29 @@
 // @flow
-import type { ScrumbleSprintType } from 'DailyScrum/src/types/Scrumble/Sprint';
+import type { ScrumbleSprintType } from 'DailyScrum/src/types/Scrumble';
 
-export type ActionType = {
-  type: 'PUT_SPRINTS',
-  payload: ScrumbleSprintType[],
-} | {
-  type: 'SET_CURRENT_SPRINT',
-  payload: ScrumbleSprintType,
-} | {
-  type: 'FETCH_CURRENT_SPRINT',
-} | {
-  type: 'FETCH_SPRINTS',
-};
+export type ActionType =
+  | {
+      type: 'PUT_SPRINTS',
+      payload: {
+        sprints: ScrumbleSprintType[],
+        doAdapt: boolean,
+      },
+    }
+  | {
+      type: 'SET_CURRENT_SPRINT',
+      payload: ScrumbleSprintType,
+    }
+  | {
+      type: 'FETCH_CURRENT_SPRINT',
+    }
+  | {
+      type: 'FETCH_SPRINTS',
+    };
 
-export function putSprints(sprints: ScrumbleSprintType[]): ActionType {
+export function putSprints(sprints: ScrumbleSprintType[], doAdapt: boolean = false): ActionType {
   return {
     type: 'PUT_SPRINTS',
-    payload: sprints,
+    payload: { sprints, doAdapt },
   };
 }
 

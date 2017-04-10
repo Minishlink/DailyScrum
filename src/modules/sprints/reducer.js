@@ -1,9 +1,9 @@
 // @flow
 import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
-import type { ScrumbleSprintType } from '../../types/Scrumble/Sprint';
-import type { ScrumbleTeamType } from '../../types/Scrumble/common';
-import { roundToDecimalPlace } from '../../types/MathService';
+import type { SprintType, TeamType } from 'DailyScrum/src/types/App';
+import { adaptSprintFromScrumble } from 'DailyScrum/src/services/adapter';
+import { roundToDecimalPlace } from 'DailyScrum/src/services/MathService';
 
 const initialState: SprintsStateType = {
   currentSprint: null,
@@ -20,8 +20,11 @@ export default (state: SprintsStateType = initialState, action: ActionType) => {
 
     case 'PUT_SPRINTS':
       const { list } = { ...state };
-      for (let sprint of action.payload) {
-        list[sprint.id] = scrumbleAdapter(sprint);
+      for (let sprint of action.payload.sprints) {
+        if (action.payload.doAdapt) {
+          sprint = adaptSprintFromScrumble(sprint);
+        }
+        list[sprint.id] = addAdditionalData(sprint);
       }
 
       return {
@@ -34,30 +37,27 @@ export default (state: SprintsStateType = initialState, action: ActionType) => {
   }
 };
 
-function scrumbleAdapter(sprint: ScrumbleSprintType): SprintType {
+const addAdditionalData = (sprint: SprintType): SprintType => {
   // find the dates that have a positive standard and a positive done
-  const performances = sprint.bdcData.filter(data => {
+  const performances = sprint.performance.filter(data => {
     return !!data.done && !!data.standard;
   });
 
-  let lead = null;
-  let pointsLeft = sprint.resources.totalPoints;
+  sprint.pointsLeft = sprint.resources.totalPoints;
   if (performances.length) {
     const todayPerformance = performances[performances.length - 1];
+    sprint.pointsLeft -= todayPerformance.done;
+
     const points = todayPerformance.done - todayPerformance.standard;
-    lead = {
+    sprint.lead = {
       points: roundToDecimalPlace(points),
       manDays: roundToDecimalPlace(sprint.resources.totalManDays / sprint.resources.totalPoints * points),
     };
-    pointsLeft -= todayPerformance.done;
   }
 
-  return {
-    ...sprint,
-    lead,
-    pointsLeft,
-  };
-}
+  return sprint;
+};
+
 
 export function sprintsSelector(state: StateType): SprintsType {
   return state.sprints.list;
@@ -72,7 +72,7 @@ export function currentSprintSelector(state: StateType): ?SprintType {
   return null;
 }
 
-export function teamSelector(state: StateType): ?ScrumbleTeamType {
+export function teamSelector(state: StateType): ?TeamType {
   const currentSprint = currentSprintSelector(state);
   if (currentSprint) {
     return currentSprint.resources.team;
@@ -88,13 +88,4 @@ export type SprintsStateType = {
 
 export type SprintsType = {
   [key: number]: SprintType,
-};
-
-// $FlowFixMe : Flow is confused with Array<mixed> and Object.values
-export type SprintType = ScrumbleSprintType & {
-  lead: ?{
-    points: number,
-    manDays: number,
-  },
-  pointsLeft: number,
 };

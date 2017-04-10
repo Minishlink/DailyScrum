@@ -12,7 +12,7 @@ export function* fetchSprints(): Generator<*, *, *> {
   const project = yield select(currentProjectSelector);
   const sprints: ScrumbleSprintType[] = yield call(Scrumble.getSprintsFromProject, token.scrumble, project.id);
 
-  yield put(putSprints(sprints));
+  yield put(putSprints(sprints, true));
 
   const currentSprint = sprints.find(sprint => sprint.isActive);
   if (currentSprint) {
@@ -23,7 +23,7 @@ export function* fetchSprints(): Generator<*, *, *> {
 function* fetchCurrentSprint() {
   const { token } = (yield select(authSelector): AuthType);
   const sprint: ScrumbleSprintType = yield call(Scrumble.getCurrentSprint, token.scrumble);
-  yield put(putSprints([sprint]));
+  yield put(putSprints([sprint], true));
   yield put(setCurrentSprint(sprint));
 }
 
