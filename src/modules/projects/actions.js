@@ -6,6 +6,7 @@ export type ActionType =
       type: 'PUT_PROJECTS',
       payload: {
         projects: ScrumbleProjectType[],
+        doAdapt: boolean,
       },
     }
   | {
@@ -16,10 +17,10 @@ export type ActionType =
       type: 'FETCH_CURRENT_PROJECT',
     };
 
-export function putProjects(projects: ScrumbleProjectType[]): ActionType {
+export function putProjects(projects: ScrumbleProjectType[], doAdapt: boolean = false): ActionType {
   return {
     type: 'PUT_PROJECTS',
-    payload: { projects },
+    payload: { projects, doAdapt },
   };
 }
 

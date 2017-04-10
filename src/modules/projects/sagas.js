@@ -10,7 +10,7 @@ import { fetchBoard } from '../boards';
 export function* fetchCurrentProject(): Generator<*, *, *> {
   const { token } = (yield select(authSelector): AuthType);
   const project: ScrumbleProjectType = yield call(Scrumble.getCurrentProject, token.scrumble);
-  yield put(putProjects([project]));
+  yield put(putProjects([project], true));
   yield put(setCurrentProject(project));
   yield put(fetchBoard(project.boardId));
 }

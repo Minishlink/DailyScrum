@@ -1,7 +1,7 @@
 // @flow
 import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
-import { currentProjectSelector } from '../projects/reducer';
+import { teamSelector } from '../sprints/reducer';
 import { ScrumbleTeamMemberType } from '../../types/Scrumble/common';
 import { getPoints } from '../../services/Trello';
 import { getLastWorkableDayTime } from '../../services/Time';
@@ -28,14 +28,14 @@ export default (state: CardsType = initialState, action: ActionType) => {
 };
 
 function formatCards(state: StateType, cards: CardType[]) {
-  const project = currentProjectSelector(state);
-  if (!project) return cards;
+  const team = teamSelector(state);
+  if (!team) return cards;
 
   return cards.map(card => {
     const pointsAndNewName = formatPoints(card.name);
     return {
       ...card,
-      members: card.idMembers.map(id => project.team.find(member => member.id === id)),
+      members: card.idMembers.map(id => team.find(member => member.id === id)),
       points: pointsAndNewName.points,
       name: pointsAndNewName.name,
     };
@@ -63,9 +63,10 @@ export function yesterdayCardsSelector(state: StateType): CardType[] {
 }
 
 export function todayCardsSelector(state: StateType): CardType[] {
+  const cards = [...state.cards.sprint, ...state.cards.doing, ...state.cards.blocked, ...state.cards.toValidate];
   return formatCards(
     state,
-    [...state.cards.sprint, ...state.cards.doing, ...state.cards.blocked, ...state.cards.toValidate].filter(
+    cards.filter(
       card => card.idMembers.length > 0
     )
   );

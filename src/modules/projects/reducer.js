@@ -2,6 +2,7 @@
 import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
 import type { ProjectType } from '../../types';
+import { adaptProjectFromScrumble } from 'DailyScrum/src/services/adapter';
 
 const initialState: ProjectsStateType = {
   currentProject: null,
@@ -19,6 +20,9 @@ export default (state: ProjectsStateType = initialState, action: ActionType) => 
     case 'PUT_PROJECTS':
       const { list } = { ...state };
       for (let project of action.payload.projects) {
+        if (action.payload.doAdapt) {
+          project = adaptProjectFromScrumble(project);
+        }
         list[project.id] = project;
       }
 
@@ -38,7 +42,7 @@ export function projectsSelector(state: StateType): ProjectsType {
 
 export function currentProjectSelector(state: StateType): ?ProjectType {
   if (state.projects.currentProject) {
-    return state.projects[state.projects.currentProject];
+    return state.projects.list[state.projects.currentProject];
   }
 
   return null;
