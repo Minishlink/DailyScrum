@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
 import { Page, TrelloCard } from 'DailyScrum/src/components';
 import { currentSprintSelector } from '../../modules/sprints/reducer';
-import type { SprintType } from '../../types/App';
+import type { SprintType } from '../../types';
 
 class Problems extends Component {
   props: PropsType;

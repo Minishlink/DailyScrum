@@ -1,4 +1,4 @@
-import type { ScrumbleResourcesType, ScrumbleBdcDataType } from '../Scrumble';
+import type { ScrumbleResourcesType, ScrumbleBdcDataType } from './Scrumble';
 
 export type SprintType = {|
   id: number,

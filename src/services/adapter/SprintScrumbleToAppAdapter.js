@@ -1,5 +1,5 @@
 // @flow
-import type { SprintType } from '../../types/App';
+import type { SprintType } from '../../types';
 import type { ScrumbleSprintType } from '../../types/Scrumble/Sprint';
 
 export default (sprint: ScrumbleSprintType): SprintType => {

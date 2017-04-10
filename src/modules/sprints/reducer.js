@@ -1,7 +1,7 @@
 // @flow
 import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
-import type { SprintType, TeamType } from 'DailyScrum/src/types/App';
+import type { SprintType, TeamType } from 'DailyScrum/src/types';
 import { adaptSprintFromScrumble } from 'DailyScrum/src/services/adapter';
 import { roundToDecimalPlace } from 'DailyScrum/src/services/MathService';
 

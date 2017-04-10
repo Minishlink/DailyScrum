@@ -1,22 +1,30 @@
 // @flow
 import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
-import type { ScrumbleProjectType } from '../../types/Scrumble/Project';
+import type { ProjectType } from '../../types';
 
-const initialState: ProjectsType = {};
+const initialState: ProjectsStateType = {
+  currentProject: null,
+  list: {},
+};
 
-export default (state: ProjectsType = initialState, action: ActionType) => {
+export default (state: ProjectsStateType = initialState, action: ActionType) => {
   switch (action.type) {
     case 'SET_CURRENT_PROJECT':
       return {
         ...state,
-        currentProject: action.payload.id,
+        currentProject: action.payload.project.id,
       };
 
-    case 'PUT_PROJECT':
+    case 'PUT_PROJECTS':
+      const { list } = { ...state };
+      for (let project of action.payload.projects) {
+        list[project.id] = project;
+      }
+
       return {
         ...state,
-        [action.payload.id]: action.payload,
+        list,
       };
 
     default:
@@ -25,7 +33,7 @@ export default (state: ProjectsType = initialState, action: ActionType) => {
 };
 
 export function projectsSelector(state: StateType): ProjectsType {
-  return state.projects;
+  return state.projects.list;
 }
 
 export function currentProjectSelector(state: StateType): ?ProjectType {
@@ -36,6 +44,11 @@ export function currentProjectSelector(state: StateType): ?ProjectType {
   return null;
 }
 
-export type ProjectsType = { [key: number]: ProjectType, currentProject?: number };
+export type ProjectsStateType = {|
+  currentProject: ?number,
+  list: ProjectsType,
+|};
 
-export type ProjectType = ScrumbleProjectType;
+export type ProjectsType = {
+  [key: number]: ProjectType,
+};

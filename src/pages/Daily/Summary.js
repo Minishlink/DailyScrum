@@ -6,7 +6,7 @@ import { Page, TrelloCard, Icon } from 'DailyScrum/src/components';
 import { fetchBaseData } from 'DailyScrum/src/modules/common';
 import { currentSprintSelector } from '../../modules/sprints/reducer';
 import { currentProjectSelector } from '../../modules/projects/reducer';
-import type { SprintType, ProjectType } from '../../types/App';
+import type { SprintType, ProjectType } from '../../types';
 
 class Summary extends Component {
   props: PropsType;

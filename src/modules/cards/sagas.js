@@ -4,7 +4,7 @@ import { Trello } from 'DailyScrum/src/services';
 import { putCards } from './';
 import { authSelector } from '../auth/reducer';
 import { sprintsSelector, currentSprintSelector } from '../sprints/reducer';
-import type { SprintType } from '../../types/App';
+import type { SprintType } from '../../types';
 import { currentProjectSelector } from '../projects/reducer';
 import { getPoints } from '../../services/Trello';
 import { getLastWorkableDayTime } from '../../services/Time';

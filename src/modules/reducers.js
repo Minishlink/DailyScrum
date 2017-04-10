@@ -8,7 +8,7 @@ import { cardsReducer as cards } from './cards';
 import { AppNavigator } from 'DailyScrum/src/Scenes';
 import type { AuthType } from './auth/reducer';
 import type { SprintsStateType } from './sprints/reducer';
-import type { ProjectsType } from './projects/reducer';
+import type { ProjectsStateType } from './projects/reducer';
 import type { BoardsType } from './boards/reducer';
 import type { CardsType } from './cards/reducer';
 
@@ -32,12 +32,12 @@ const rootReducer = (state: any = initialState, action: any = {}) => {
   return appReducer(state, action);
 };
 
-export type StateType = {
+export type StateType = {|
   auth: AuthType,
   sprints: SprintsStateType,
-  projects: ProjectsType,
+  projects: ProjectsStateType,
   boards: BoardsType,
   cards: CardsType,
-};
+|};
 
 export default rootReducer;
