@@ -10,8 +10,8 @@ export default class {
       "scope=read,account";
   };
 
-  static getUser = token => {
-    return fetch(`https://api.trello.com/1/members/me?fields=fullName&boards=all&board_fields=name&key=${TRELLO_APP_KEY}&token=${token}`)
+  static getCurrentUser = token => {
+    return fetch(`https://api.trello.com/1/members/me?fields=avatarHash,email,fullName,id,initials,username&key=${TRELLO_APP_KEY}&token=${token}`)
       .then(res => res.json());
   };
 

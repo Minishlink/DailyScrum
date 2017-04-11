@@ -1,7 +1,8 @@
 import type { ScrumbleTeamType } from './Scrumble';
 
 export type TeamType = ScrumbleTeamType;
-export type MemberType = {
+
+export type UserType = {
   id: string,
   avatarHash: string,
   fullName: string,
