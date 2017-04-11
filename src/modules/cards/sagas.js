@@ -2,7 +2,7 @@
 import { select, put, call, takeEvery } from 'redux-saga/effects';
 import { Trello } from 'DailyScrum/src/services';
 import { putCards } from './';
-import { authSelector } from '../auth/reducer';
+import { tokenSelector } from '../auth/reducer';
 import { sprintsSelector, currentSprintSelector } from '../sprints/reducer';
 import type { SprintType } from '../../types';
 import { currentProjectSelector } from '../projects/reducer';
@@ -11,7 +11,7 @@ import { getLastWorkableDayTime } from '../../services/Time';
 import { putSprints } from '../sprints/actions';
 
 export function* fetchDoneCards(): Generator<*, *, *> {
-  const { token } = yield select(authSelector);
+  const token = yield select(tokenSelector);
   const currentSprint: SprintType = yield select(currentSprintSelector);
   const sprints = yield select(sprintsSelector);
 
@@ -55,7 +55,7 @@ export function* fetchDoneCards(): Generator<*, *, *> {
 }
 
 export function* fetchNotDoneCards(): Generator<*, *, *> {
-  const { token } = yield select(authSelector);
+  const token = yield select(tokenSelector);
   const currentProject = yield select(currentProjectSelector);
 
   // fetch in parallel

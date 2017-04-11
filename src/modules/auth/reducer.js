@@ -1,22 +1,25 @@
 // @flow
 import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
+import type { MemberType } from '../../types';
 
-const initialState: AuthType = {
-  isLoggedIn: false,
-  token: {},
+const initialState: AuthStateType = {
+  token: {
+    trello: null,
+    scrumble: null,
+  },
+  user: null,
 };
 
-export default (state: AuthType = initialState, action: ActionType) => {
-  const token: TokenType = { ...state.token };
+export default (state: AuthStateType = initialState, action: ActionType) => {
+  const { token } = { ...state };
 
   switch (action.type) {
-    case 'LOGIN':
+    case 'PUT_TOKENS':
       token.trello = action.payload.trelloToken;
       token.scrumble = action.payload.scrumbleToken;
       return {
         ...state,
-        isLoggedIn: !!(token.trello && token.scrumble),
         token,
       };
 
@@ -25,16 +28,21 @@ export default (state: AuthType = initialState, action: ActionType) => {
   }
 }
 
-export function authSelector(state: StateType): AuthType {
-  return state.auth;
+export function tokenSelector(state: StateType): TokenType {
+  return state.auth.token;
 }
 
-export type AuthType = {
-  isLoggedIn: boolean,
+export function isLoggedInSelector(state: StateType): boolean {
+  const token = tokenSelector(state);
+  return !!token.trello && !!token.scrumble;
+}
+
+export type AuthStateType = {|
   token: TokenType,
-};
+  user: ?MemberType,
+|};
 
-type TokenType = {
-  trello?: string,
-  scrumble?: string,
-}
+export type TokenType = {|
+  trello: ?string,
+  scrumble: ?string,
+|};

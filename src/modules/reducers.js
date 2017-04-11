@@ -6,7 +6,7 @@ import { projectsReducer as projects } from './projects';
 import { boardsReducer as boards } from './boards';
 import { cardsReducer as cards } from './cards';
 import { AppNavigator } from 'DailyScrum/src/Scenes';
-import type { AuthType } from './auth/reducer';
+import type { AuthStateType } from './auth/reducer';
 import type { SprintsStateType } from './sprints/reducer';
 import type { ProjectsStateType } from './projects/reducer';
 import type { BoardsType } from './boards/reducer';
@@ -33,7 +33,7 @@ const rootReducer = (state: any = initialState, action: any = {}) => {
 };
 
 export type StateType = {|
-  auth: AuthType,
+  auth: AuthStateType,
   sprints: SprintsStateType,
   projects: ProjectsStateType,
   boards: BoardsType,

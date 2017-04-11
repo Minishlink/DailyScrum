@@ -2,13 +2,12 @@
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import Scrumble from 'DailyScrum/src/services/Scrumble';
 import { putSprints, setCurrentSprint } from './actions';
-import { authSelector } from '../auth/reducer';
-import type { AuthType } from '../auth/reducer';
+import { tokenSelector } from '../auth/reducer';
 import type { ScrumbleSprintType } from '../../types/Scrumble/Sprint';
 import { currentProjectSelector } from '../projects/reducer';
 
 export function* fetchSprints(): Generator<*, *, *> {
-  const { token } = (yield select(authSelector): AuthType);
+  const token = yield select(tokenSelector);
   const project = yield select(currentProjectSelector);
   const sprints: ScrumbleSprintType[] = yield call(Scrumble.getSprintsFromProject, token.scrumble, project.id);
 
@@ -21,7 +20,7 @@ export function* fetchSprints(): Generator<*, *, *> {
 }
 
 function* fetchCurrentSprint() {
-  const { token } = (yield select(authSelector): AuthType);
+  const token = yield select(tokenSelector);
   const sprint: ScrumbleSprintType = yield call(Scrumble.getCurrentSprint, token.scrumble);
   yield put(putSprints([sprint], true));
   yield put(setCurrentSprint(sprint));

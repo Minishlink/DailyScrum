@@ -1,14 +1,12 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Text, Button, Linking, ActivityIndicator } from 'react-native';
-import { NavigationActions } from 'react-navigation';
+import { StyleSheet, View, Text, Button, Linking } from 'react-native';
 import { Page } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
-import { Trello, Scrumble } from 'DailyScrum/src/services';
-import { login } from 'DailyScrum/src/modules/auth';
-import { authSelector } from 'DailyScrum/src/modules/auth/reducer';
-import type { AuthType } from '../../modules/auth/reducer';
+import { Trello } from 'DailyScrum/src/services';
+import { login, redirectAfterLogin } from 'DailyScrum/src/modules/auth';
+import { isLoggedInSelector } from 'DailyScrum/src/modules/auth/reducer';
 
 class Login extends Component {
   props: PropsType;
@@ -16,28 +14,15 @@ class Login extends Component {
   componentDidMount() {
     // check if tokens exist in store
     if (this.props.isLoggedIn) {
-      this.redirect();
+      this.props.redirectAfterLogin();
       return;
     }
 
     // if not we login Scrumble if we have the trello Token
     if (!this.props.navigation.state.params) return;
     const trelloToken = this.props.navigation.state.params.token;
-    Scrumble.login(trelloToken).then(scrumbleToken => {
-      // store tokens
-      this.props.login({ trelloToken, scrumbleToken });
-      this.redirect();
-    });
+    this.props.login(trelloToken);
   }
-
-  redirect = () => {
-    this.props.navigation.dispatch(
-      NavigationActions.reset({
-        index: 0,
-        actions: [NavigationActions.navigate({ routeName: 'main' })],
-      })
-    );
-  };
 
   render() {
     if (this.props.isLoggedIn || this.props.navigation.state.params) {
@@ -55,9 +40,11 @@ class Login extends Component {
   }
 }
 
-type PropsType = AuthType & {
+type PropsType = {
   navigation: any,
   login: Function,
+  redirectAfterLogin: Function,
+  isLoggedIn: boolean,
 };
 
 const styles = StyleSheet.create({
@@ -72,11 +59,12 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  ...authSelector(state),
+  isLoggedIn: isLoggedInSelector(state),
 });
 
 const mapDispatchToProps = {
   login,
+  redirectAfterLogin,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
