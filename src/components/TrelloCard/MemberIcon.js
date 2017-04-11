@@ -22,10 +22,6 @@ function getUriFromMember(member: ScrumbleTeamMemberType): ?string {
     return `https://trello-avatars.s3.amazonaws.com/${member.avatarHash}/30.png`;
   }
 
-  if (member.gravatarHash) {
-    return `https://www.gravatar.com/avatar/${member.avatarHash}.jpg?s=30`;
-  }
-
   return null;
 }
 

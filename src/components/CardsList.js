@@ -49,9 +49,35 @@ class CardsList extends Component {
     this.setState({ filteredMember: this.state.filteredMember !== member ? member : null });
   };
 
+  renderFilterableMember = (memberId: string) => {
+    const { cards, team } = this.props;
+    const member = team && team.find(teamMember => teamMember && teamMember.id === memberId);
+    if (!member) return;
+
+    return (
+      <View key={memberId} style={styles.filterableMemberContainer}>
+        <TouchableOpacity onPress={() => this.filterMember(memberId)}>
+          <View style={this.state.filteredMember && this.state.filteredMember !== memberId && { opacity: 0.6 }}>
+            <MemberIcon member={member} />
+          </View>
+        </TouchableOpacity>
+        <Text style={styles.filterableMemberPoints}>
+          {cards
+            ? cards
+                .filter(card => card.idMembers.includes(memberId))
+                .reduce(
+                  (total: number, card: CardType) =>
+                    total + (card.points ? roundToDecimalPlace(card.points / card.idMembers.length) : 0),
+                  0
+                )
+            : 0}
+        </Text>
+      </View>
+    );
+  };
+
   render() {
     const { cards, team } = this.props;
-
     return (
       <ScrollView
         contentContainerStyle={this.props.style}
@@ -59,27 +85,7 @@ class CardsList extends Component {
         refreshControl={<RefreshControl refreshing={this.state.isRefreshing} onRefresh={this.handleRefresh} />}
       >
         <View style={styles.filterContainer}>
-          {team &&
-            this.state.filterableMembers.map(member => (
-              <View key={member} style={styles.filterableMemberContainer}>
-                <TouchableOpacity onPress={() => this.filterMember(member)}>
-                  <View style={this.state.filteredMember && this.state.filteredMember !== member && { opacity: 0.6 }}>
-                    <MemberIcon member={team.find(teamMember => teamMember.id === member)} />
-                  </View>
-                </TouchableOpacity>
-                <Text style={styles.filterableMemberPoints}>
-                  {cards
-                    ? cards
-                        .filter(card => card.idMembers.includes(member))
-                        .reduce(
-                          (total: number, card: CardType) =>
-                            total + (card.points ? roundToDecimalPlace(card.points / card.idMembers.length) : 0),
-                          0
-                        )
-                    : 0}
-                </Text>
-              </View>
-            ))}
+          {team && this.state.filterableMembers.map(memberId => this.renderFilterableMember(memberId))}
         </View>
         {cards &&
           cards

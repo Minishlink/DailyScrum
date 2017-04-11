@@ -2,6 +2,7 @@
 import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
 import type { UserType } from 'DailyScrum/src/types';
+import { adaptUserFromScrumble } from 'DailyScrum/src/services/adapter';
 
 const initialState: UsersStateType = {
   currentUser: null,
@@ -21,9 +22,18 @@ export default (state: UsersStateType = initialState, action: ActionType) => {
     case 'PUT_USERS_FROM_TRELLO':
       for (let user of action.payload.users) {
         list[user.id] = {
-          ...(list[user.id]),
+          ...list[user.id],
           ...user,
         };
+      }
+      return {
+        ...state,
+        list,
+      };
+
+    case 'PUT_USERS_FROM_SCRUMBLE':
+      for (let user of action.payload.users) {
+        list[user.id] = adaptUserFromScrumble(user, list[user.id]);
       }
       return {
         ...state,
@@ -46,6 +56,11 @@ export function currentUserSelector(state: StateType): ?UserType {
   }
 
   return null;
+}
+
+export function userSelectorById(state: StateType, id: string): ?UserType {
+  const users = usersSelector(state);
+  return users[id];
 }
 
 export type UsersStateType = {

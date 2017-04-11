@@ -30,12 +30,11 @@ export default (state: CardsType = initialState, action: ActionType) => {
 function formatCards(state: StateType, cards: CardType[]) {
   const team = teamSelector(state);
   if (!team) return cards;
-
   return cards.map(card => {
     const pointsAndNewName = formatPoints(card.name);
     return {
       ...card,
-      members: card.idMembers.map(id => team.find(member => member.id === id)),
+      members: card.idMembers.map(id => team.find(member => member.id === id)).filter(Boolean),
       points: pointsAndNewName.points,
       name: pointsAndNewName.name,
     };

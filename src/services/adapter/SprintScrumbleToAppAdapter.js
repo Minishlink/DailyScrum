@@ -10,7 +10,10 @@ export default (sprint: ScrumbleSprintType): SprintType => {
     goal: sprint.goal,
     isActive: sprint.isActive,
     performance: sprint.bdcData,
-    resources: sprint.resources,
+    resources: {
+      ...sprint.resources,
+      team: sprint.resources.team.map(member => member.id),
+    },
     doneColumn: sprint.doneColumn,
     lead: null,
     pointsLeft: null,

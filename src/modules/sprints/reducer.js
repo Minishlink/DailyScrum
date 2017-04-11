@@ -4,6 +4,7 @@ import type { StateType } from '../reducers';
 import type { SprintType, TeamType } from 'DailyScrum/src/types';
 import { adaptSprintFromScrumble } from 'DailyScrum/src/services/adapter';
 import { roundToDecimalPlace } from 'DailyScrum/src/services/MathService';
+import { userSelectorById } from '../users/reducer';
 
 const initialState: SprintsStateType = {
   currentSprint: null,
@@ -75,7 +76,7 @@ export function currentSprintSelector(state: StateType): ?SprintType {
 export function teamSelector(state: StateType): ?TeamType {
   const currentSprint = currentSprintSelector(state);
   if (currentSprint) {
-    return currentSprint.resources.team;
+    return currentSprint.resources.team.map(id => userSelectorById(state, id)).filter(Boolean);
   }
 
   return null;

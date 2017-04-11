@@ -1,4 +1,5 @@
-import type { ScrumbleResourcesType, ScrumbleBdcDataType } from './Scrumble';
+import type { ScrumbleBdcDataType } from './Scrumble';
+import type { TeamType } from './';
 
 export type SprintType = {|
   id: number,
@@ -17,4 +18,11 @@ export type SprintType = {|
 |};
 
 type PerformanceType = ScrumbleBdcDataType;
-type ResourcesType = ScrumbleResourcesType;
+
+type ResourcesType = {
+  matrix: [],
+  speed: number,
+  team: string[]|TeamType, // string array in store, TeamType when selected
+  totalManDays: number,
+  totalPoints: number,
+};

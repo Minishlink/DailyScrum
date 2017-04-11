@@ -1,11 +1,18 @@
 // @flow
 import type { TrelloMemberType } from '../../types/Trello';
+import type { ScrumbleTeamType } from '../../types/Scrumble';
 
 export type ActionType =
   | {
       type: 'PUT_USERS_FROM_TRELLO',
       payload: {
         users: TrelloMemberType[],
+      },
+    }
+  | {
+      type: 'PUT_USERS_FROM_SCRUMBLE',
+      payload: {
+        users: ScrumbleTeamType,
       },
     }
   | {
@@ -18,6 +25,13 @@ export type ActionType =
 export function putUsersFromTrello(users: TrelloMemberType[]): ActionType {
   return {
     type: 'PUT_USERS_FROM_TRELLO',
+    payload: { users },
+  };
+}
+
+export function putUsersFromScrumble(users: ScrumbleTeamType): ActionType {
+  return {
+    type: 'PUT_USERS_FROM_SCRUMBLE',
     payload: { users },
   };
 }
