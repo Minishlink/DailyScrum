@@ -4,9 +4,11 @@ import { StyleSheet, View, ScrollView, RefreshControl, TouchableOpacity, Text } 
 import { connect } from 'react-redux';
 import { TrelloCard, MemberIcon } from 'DailyScrum/src/components';
 import { teamSelector } from 'DailyScrum/src/modules/sprints/reducer';
+import { currentUserSelector } from 'DailyScrum/src/modules/users/reducer';
 import type { CardType } from 'DailyScrum/src/modules/cards/reducer';
 import type { ScrumbleTeamMemberType, ScrumbleTeamType } from 'DailyScrum/src/types/Scrumble/common';
 import { roundToDecimalPlace } from '../services/MathService';
+import type { UserType } from '../types';
 
 class CardsList extends Component {
   props: PropsType;
@@ -14,7 +16,6 @@ class CardsList extends Component {
 
   // Use FlatList / SectionList when 0.43 out
 
-  // TODO filter by me per default
   // TODO identify unchecked checklists
   // TODO extract and show post estimated points
   // TODO show labels
@@ -22,7 +23,8 @@ class CardsList extends Component {
   // TODO on click show description
 
   componentDidMount() {
-    this.setState({ filterableMembers: this.getFilterableMembers() });
+    const filteredMember = this.props.user ? this.props.user.id : null;
+    this.setState({ filterableMembers: this.getFilterableMembers(), filteredMember });
   }
 
   handleRefresh = () => {
@@ -114,10 +116,12 @@ type PropsType = {
   cards: CardType[],
   onRefresh: Function,
   team: ?ScrumbleTeamType,
+  user: ?UserType,
 };
 
 const mapStateToProps = state => ({
   team: teamSelector(state),
+  user: currentUserSelector(state),
 });
 
 export default connect(mapStateToProps)(CardsList);
