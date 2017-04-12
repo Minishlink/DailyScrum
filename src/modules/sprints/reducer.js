@@ -55,6 +55,7 @@ const addAdditionalData = (sprint: SprintType): SprintType => {
       manDays: roundToDecimalPlace(sprint.resources.totalManDays / sprint.resources.totalPoints * points),
     };
   }
+  sprint.pointsLeft = roundToDecimalPlace(sprint.pointsLeft);
 
   return sprint;
 };
