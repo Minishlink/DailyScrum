@@ -1,7 +1,7 @@
 // @flow
 import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
-import type { TrelloBoardType } from '../../types/Trello';
+import type { BoardType } from '../../types';
 import { currentProjectSelector } from '../projects/reducer';
 
 const initialState: BoardsStateType = {
@@ -30,6 +30,10 @@ export function boardsSelector(state: StateType): BoardsType {
   return state.boards.list;
 }
 
+export function boardsListSelector(state: StateType): BoardType[] {
+  return Object.values(state.boards.list);
+}
+
 export function currentBoardSelector(state: StateType): ?BoardType {
   const boards = boardsSelector(state);
   const currentProject = currentProjectSelector(state);
@@ -46,5 +50,3 @@ export type BoardsStateType = {
 };
 
 export type BoardsType = { [key: string]: BoardType };
-
-export type BoardType = TrelloBoardType;
