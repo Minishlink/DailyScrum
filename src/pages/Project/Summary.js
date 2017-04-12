@@ -3,17 +3,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text } from 'react-native';
 import { Page, Icon } from 'DailyScrum/src/components';
+import { currentProjectSelector } from '../../modules/projects/reducer';
+import type { ProjectType } from '../../types/Project';
 
 class Summary extends Component {
   props: PropsType;
 
   render() {
+    const { project } = this.props;
+    if (!project) return <Page isLoading />;
+
     return (
       <Page style={styles.container}>
-        <Icon name="warning" size={40} color="black" />
-        <Text>Project summary is building itself</Text>
-        <Text>Want to contribute?</Text>
-        <Text>Head over to GitHub or msg me :)</Text>
+        <Text>{project.name}</Text>
       </Page>
     );
   }
@@ -21,6 +23,7 @@ class Summary extends Component {
 
 type PropsType = {
   navigation: any,
+  project: ProjectType,
 };
 
 const styles = StyleSheet.create({
@@ -30,4 +33,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect()(Summary);
+const mapStateToProps = state => ({
+  project: currentProjectSelector(state),
+});
+
+export default connect(mapStateToProps)(Summary);
