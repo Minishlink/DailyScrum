@@ -3,6 +3,7 @@ import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
 import type { BoardType } from '../../types';
 import { currentProjectSelector } from '../projects/reducer';
+import { adaptBoardFromTrello } from '../../services/adapter';
 
 const initialState: BoardsStateType = {
   list: {},
@@ -13,7 +14,7 @@ export default (state: BoardsStateType = initialState, action: ActionType) => {
     case 'PUT_BOARDS':
       const { list } = { ...state };
       for (let board of action.payload.boards) {
-        list[board.id] = board;
+        list[board.id] = adaptBoardFromTrello(board);
       }
 
       return {

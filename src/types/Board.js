@@ -1,3 +1,6 @@
-import type { TrelloBoardType } from './Trello';
+// @flow
 
-export type BoardType = TrelloBoardType;
+export type BoardType = {
+  id: string,
+  name: string,
+};
