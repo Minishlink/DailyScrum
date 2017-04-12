@@ -1,12 +1,12 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Text, ScrollView, RefreshControl } from 'react-native';
+import { StyleSheet, ScrollView, RefreshControl, Platform } from 'react-native';
 import { Page, Icon } from 'DailyScrum/src/components';
 import { fetchBoards } from 'DailyScrum/src/modules/boards/sagas';
 import { boardsListSelector } from '../../modules/boards/reducer';
-import type { BoardsType } from '../../modules/boards/reducer';
 import type { BoardType } from '../../types';
+import BoardCard from "./components/BoardCard";
 
 class Settings extends Component {
   props: PropsType;
@@ -20,19 +20,17 @@ class Settings extends Component {
     });
   };
 
-  renderBoard = (board: BoardType) => {
-    return <Text>{board.name}</Text>
-  };
-
+  // TODO Use FlatList / SectionList when 0.43 stable
   render() {
     const { boards } = this.props;
     return (
-      <Page style={styles.container}>
+      <Page noNavBar>
         <ScrollView
+          contentContainerStyle={styles.scrollView}
           showsVerticalScrollIndicator={false}
           refreshControl={<RefreshControl refreshing={this.state.isRefreshing} onRefresh={this.handleRefresh} />}
         >
-          {boards.map(board => <View key={board.id}>{this.renderBoard(board)}</View>)}
+          {boards.map(board => <BoardCard key={board.id} board={board} onPress={() => console.log(board)} />)}
         </ScrollView>
       </Page>
     );
@@ -45,7 +43,7 @@ Settings.contextTypes = {
 
 type PropsType = {
   navigation: any,
-  boards: BoardsType,
+  boards: BoardType[],
 };
 
 type StateType = {
@@ -53,10 +51,9 @@ type StateType = {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  scrollView: {
+    paddingVertical: Platform.OS === 'ios' ? 30 : 15,
+  }
 });
 
 const mapStateToProps = state => ({
