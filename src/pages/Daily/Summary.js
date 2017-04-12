@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
   },
   sprintGoal: {
     marginVertical: 20,
+    minWidth: '80%',
   },
   refreshButton: {
     position: 'absolute',
