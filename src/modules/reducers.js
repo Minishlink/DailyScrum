@@ -11,7 +11,7 @@ import type { AuthStateType } from './auth/reducer';
 import type { UsersStateType } from './users/reducer';
 import type { SprintsStateType } from './sprints/reducer';
 import type { ProjectsStateType } from './projects/reducer';
-import type { BoardsType } from './boards/reducer';
+import type { BoardsStateType } from './boards/reducer';
 import type { CardsType } from './cards/reducer';
 
 const initialState = {};
@@ -40,7 +40,7 @@ export type StateType = {|
   users: UsersStateType,
   sprints: SprintsStateType,
   projects: ProjectsStateType,
-  boards: BoardsType,
+  boards: BoardsStateType,
   cards: CardsType,
 |};
 

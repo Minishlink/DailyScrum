@@ -1,23 +1,24 @@
 // @flow
-import type { TrelloBoardType } from 'DailyScrum/src/types/Trello/Board';
+import type { TrelloBoardType } from 'DailyScrum/src/types/Trello';
 
-export type ActionType = {
-  type: 'PUT_BOARD',
-  payload: TrelloBoardType,
-} | {
-  type: 'FETCH_BOARD',
-  payload: {
-    id: string,
-  },
-};
+export type ActionType =
+  | {
+      type: 'PUT_BOARDS',
+      payload: {
+        boards: TrelloBoardType[],
+      },
+    }
+  | {
+      type: 'FETCH_BOARDS',
+    };
 
-export function putBoard(payload: TrelloBoardType): ActionType {
+export function putBoards(boards: TrelloBoardType[]): ActionType {
   return {
-    type: 'PUT_BOARD',
-    payload,
+    type: 'PUT_BOARDS',
+    payload : { boards },
   };
 }
 
-export function fetchBoard(id: string): ActionType {
-  return { type: 'FETCH_BOARD', payload: { id } };
+export function fetchBoards(): ActionType {
+  return { type: 'FETCH_BOARDS' };
 }

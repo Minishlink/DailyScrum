@@ -15,6 +15,11 @@ export default class {
       .then(res => res.json());
   };
 
+  static getBoards = token => {
+    return fetch(`https://api.trello.com/1/members/me/boards?key=${TRELLO_APP_KEY}&token=${token}`)
+    .then(res => res.json());
+  };
+
   static getBoard = (token, id) => {
     return fetch(`https://api.trello.com/1/boards/${id}?fields=all&key=${TRELLO_APP_KEY}&token=${token}`)
     .then(res => res.json());

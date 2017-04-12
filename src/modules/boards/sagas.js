@@ -1,17 +1,15 @@
 // @flow
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { Trello } from 'DailyScrum/src/services';
-import { putBoard } from './actions';
+import { putBoards } from './actions';
 import { tokenSelector } from '../auth/reducer';
-import type { ActionType } from './actions'
-import type { TrelloBoardType } from '../../types/Trello/Board';
 
-function* fetchBoard(action: ActionType) {
+export function* fetchBoards(): Generator<*, *, *> {
   const token = yield select(tokenSelector);
-  const board: TrelloBoardType = yield call(Trello.getBoard, token.trello, action.payload.id);
-  yield put(putBoard(board));
+  const boards = yield call(Trello.getBoards, token.trello);
+  yield put(putBoards(boards));
 }
 
 export default function*(): Generator<*, *, *> {
-  yield* [takeEvery('FETCH_BOARD', fetchBoard)];
+  yield* [takeEvery('FETCH_BOARDS', fetchBoards)];
 }

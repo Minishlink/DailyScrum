@@ -3,9 +3,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text } from 'react-native';
 import { Page, Icon } from 'DailyScrum/src/components';
+import { fetchBoards } from 'DailyScrum/src/modules/boards';
 
 class Settings extends Component {
   props: PropsType;
+
+  refresh = () => {
+    this.props.fetchBoards();
+  };
 
   render() {
     return (
@@ -21,6 +26,7 @@ class Settings extends Component {
 
 type PropsType = {
   navigation: any,
+  fetchBoards: Function,
 };
 
 const styles = StyleSheet.create({
@@ -30,4 +36,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect()(Settings);
+const mapDispatchToProps = {
+  fetchBoards,
+};
+
+export default connect(null, mapDispatchToProps)(Settings);

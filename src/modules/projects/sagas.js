@@ -4,7 +4,6 @@ import { Scrumble } from 'DailyScrum/src/services';
 import { putProjects, setCurrentProject } from './actions';
 import { tokenSelector } from '../auth/reducer';
 import type { ScrumbleProjectType } from '../../types/Scrumble/Project';
-import { fetchBoard } from '../boards';
 import { putUsersFromScrumble } from '../users';
 
 export function* fetchCurrentProject(): Generator<*, *, *> {
@@ -13,7 +12,6 @@ export function* fetchCurrentProject(): Generator<*, *, *> {
   yield put(putProjects([project], true));
   yield put(putUsersFromScrumble(project.team));
   yield put(setCurrentProject(project));
-  yield put(fetchBoard(project.boardId));
 }
 
 export default function*(): Generator<*, *, *> {
