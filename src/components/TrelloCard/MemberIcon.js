@@ -19,7 +19,7 @@ export default (props: PropsType) => {
 
 function getUriFromMember(member: ScrumbleTeamMemberType): ?string {
   if (member.avatarHash) {
-    return `https://trello-avatars.s3.amazonaws.com/${member.avatarHash}/30.png`;
+    return `https://trello-avatars.s3.amazonaws.com/${member.avatarHash}/50.png`;
   }
 
   return null;
