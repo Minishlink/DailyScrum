@@ -6,7 +6,8 @@ import { Page, Icon } from 'DailyScrum/src/components';
 import { fetchBoards } from 'DailyScrum/src/modules/boards/sagas';
 import { boardsListSelector } from '../../modules/boards/reducer';
 import type { BoardType } from '../../types';
-import BoardCard from "./components/BoardCard";
+import BoardCard from './components/BoardCard';
+import { changeCurrentRemoteProject } from '../../modules/projects';
 
 class Settings extends Component {
   props: PropsType;
@@ -30,7 +31,7 @@ class Settings extends Component {
           showsVerticalScrollIndicator={false}
           refreshControl={<RefreshControl refreshing={this.state.isRefreshing} onRefresh={this.handleRefresh} />}
         >
-          {boards.map(board => <BoardCard key={board.id} board={board} onPress={() => console.log(board)} />)}
+          {boards.map(board => <BoardCard key={board.id} board={board} onPress={() => this.props.changeCurrentRemoteProject(board)} />)}
         </ScrollView>
       </Page>
     );
@@ -44,6 +45,7 @@ Settings.contextTypes = {
 type PropsType = {
   navigation: any,
   boards: BoardType[],
+  changeCurrentRemoteProject: Function,
 };
 
 type StateType = {
@@ -60,4 +62,8 @@ const mapStateToProps = state => ({
   boards: boardsListSelector(state),
 });
 
-export default connect(mapStateToProps)(Settings);
+const mapDispatchToProps = {
+  changeCurrentRemoteProject,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);
