@@ -12,18 +12,10 @@ class Yesterday extends Component {
   props: PropsType;
   state: any = { refreshing: false };
 
-  // points done
-  // show cards in done
-  // show cards in to be validated without identifying (should be in problems)
-  // show cards in blocked without identifying (should be in problems)
-  // show cards in doing without identifying (should be in problems)
-
   fetchCards = () => this.context.store.runSaga(fetchDoneCardsSaga).done;
 
   render() {
     const { cards } = this.props;
-    if (!cards.length) return <Page isLoading />;
-
     return (
       <Page noNavBar>
         <View style={styles.container}>

@@ -78,6 +78,7 @@ class CardsList extends Component {
 
   render() {
     const { cards, team } = this.props;
+    if (!cards.length) return <View style={this.props.style}><Text style={styles.noCardsText}>No cards yet</Text></View>;
     return (
       <ScrollView
         contentContainerStyle={this.props.style}
@@ -97,6 +98,9 @@ class CardsList extends Component {
 }
 
 const styles = StyleSheet.create({
+  noCardsText: {
+    textAlign: 'center',
+  },
   filterContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',

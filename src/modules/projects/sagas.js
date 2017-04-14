@@ -1,12 +1,14 @@
 // @flow
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { Scrumble } from 'DailyScrum/src/services';
-import { putProjects, setCurrentProject } from './actions';
+import { putProjects, setCurrentProject } from './';
 import { tokenSelector } from '../auth/reducer';
 import type { ScrumbleProjectType } from '../../types/Scrumble';
-import { putUsersFromScrumble } from '../users';
+import { putUsersFromScrumble, clearOtherUsers } from '../users';
 import type { ActionType } from './';
 import { fetchProjectData } from '../common/sagas';
+import { clearSprints } from '../sprints';
+import { clearCards } from '../cards';
 
 export function* fetchCurrentProject(): Generator<*, *, *> {
   const token = yield select(tokenSelector);
@@ -24,11 +26,11 @@ function* changeCurrentRemoteProject(action: ActionType): Generator<*, *, *> {
   const project = yield call(Scrumble.getProjectByBoard, token.scrumble, boardId);
   if (project) {
     yield call(Scrumble.setCurrentProject, token.scrumble, project.id);
-    //yield [put(clearSprints()), put(clearCards())];
-    yield put(setCurrentProject(project));
+    yield [put(clearCards()), put(clearOtherUsers()), put(clearSprints())];
     yield* fetchProjectData();
   } else {
-    // show a Toast/Modal asking the user to create the project on Scrumble for the moment
+    console.warn('Not a project');
+    // TODO show a Toast/Modal asking the user to create the project on Scrumble for the moment
   }
 }
 

@@ -14,6 +14,9 @@ export type ActionType =
       payload: ScrumbleSprintType,
     }
   | {
+      type: 'CLEAR_SPRINTS',
+    }
+  | {
       type: 'FETCH_CURRENT_SPRINT',
     }
   | {
@@ -32,6 +35,10 @@ export function setCurrentSprint(payload: ScrumbleSprintType): ActionType {
     type: 'SET_CURRENT_SPRINT',
     payload,
   };
+}
+
+export function clearSprints(): ActionType {
+  return { type: 'CLEAR_SPRINTS' };
 }
 
 export function fetchCurrentSprint(): ActionType {

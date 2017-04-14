@@ -40,6 +40,13 @@ export default (state: UsersStateType = initialState, action: ActionType) => {
         list,
       };
 
+    case 'CLEAR_OTHER_USERS':
+      const currentUser = state.currentUser ? list[state.currentUser] : null;
+      return {
+        ...state,
+        list: currentUser ? { [currentUser.id]: currentUser } : {},
+      };
+
     default:
       return state;
   }

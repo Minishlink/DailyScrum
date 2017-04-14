@@ -9,11 +9,11 @@ import { fetchDoneCards, fetchNotDoneCards } from '../cards/sagas';
 function* fetchBaseData(): Generator<*, *, *> {
   yield* fetchCurrentUser();
   yield* fetchBoards();
-  yield* fetchCurrentProject();
   yield* fetchProjectData();
 }
 
 export function* fetchProjectData(): Generator<*, *, *> {
+  yield* fetchCurrentProject();
   yield* fetchSprints();
   yield* fetchNotDoneCards();
   yield* fetchDoneCards();

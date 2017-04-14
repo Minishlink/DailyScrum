@@ -20,6 +20,9 @@ export type ActionType =
       payload: {
         id: string,
       },
+    }
+  | {
+      type: 'CLEAR_OTHER_USERS',
     };
 
 export function putUsersFromTrello(users: TrelloMemberType[]): ActionType {
@@ -40,5 +43,11 @@ export function setCurrentUser(id: string): ActionType {
   return {
     type: 'SET_CURRENT_USER',
     payload: { id },
+  };
+}
+
+export function clearOtherUsers(): ActionType {
+  return {
+    type: 'CLEAR_OTHER_USERS',
   };
 }

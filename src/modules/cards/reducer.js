@@ -22,14 +22,16 @@ export default (state: CardsType = initialState, action: ActionType) => {
         ...action.payload.cards,
       };
 
+    case 'CLEAR_CARDS':
+      return { ...initialState };
+
     default:
       return state;
   }
 };
 
 function formatCards(state: StateType, cards: CardType[]) {
-  const team = teamSelector(state);
-  if (!team) return cards;
+  const team = teamSelector(state) || [];
   return cards.map(card => {
     const pointsAndNewName = formatPoints(card.name);
     return {

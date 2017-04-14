@@ -12,13 +12,10 @@ class Today extends Component {
   props: PropsType;
   state: any = { refreshing: false };
 
-  // TODO Use FlatList / SectionList when 0.43 out
-
   fetchCards = () => this.context.store.runSaga(fetchNotDoneCardsSaga).done;
 
   render() {
     const { cards } = this.props;
-    if (!cards.length) return <Page isLoading />;
     return (
       <Page noNavBar>
         <View style={styles.container}>

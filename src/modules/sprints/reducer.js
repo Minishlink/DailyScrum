@@ -33,6 +33,9 @@ export default (state: SprintsStateType = initialState, action: ActionType) => {
         list,
       };
 
+    case 'CLEAR_SPRINTS':
+      return { ...initialState };
+
     default:
       return state;
   }
