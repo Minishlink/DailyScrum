@@ -8,7 +8,6 @@ const initialState: AuthStateType = {
     trello: null,
     scrumble: null,
   },
-  user: null,
 };
 
 export default (state: AuthStateType = initialState, action: ActionType) => {
@@ -39,7 +38,6 @@ export function isLoggedInSelector(state: StateType): boolean {
 
 export type AuthStateType = {|
   token: TokenType,
-  user: ?MemberType,
 |};
 
 export type TokenType = {|

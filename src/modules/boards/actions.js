@@ -2,15 +2,15 @@
 import type { TrelloBoardType } from 'DailyScrum/src/types/Trello';
 
 export type ActionType =
-  | {
+  | {|
       type: 'PUT_BOARDS',
-      payload: {
+      payload: {|
         boards: TrelloBoardType[],
-      },
-    }
-  | {
+      |},
+    |}
+  | {|
       type: 'FETCH_BOARDS',
-    };
+    |};
 
 export function putBoards(boards: TrelloBoardType[]): ActionType {
   return {

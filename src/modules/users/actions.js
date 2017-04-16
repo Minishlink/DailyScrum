@@ -3,27 +3,27 @@ import type { TrelloMemberType } from '../../types/Trello';
 import type { ScrumbleTeamType } from '../../types/Scrumble';
 
 export type ActionType =
-  | {
+  | {|
       type: 'PUT_USERS_FROM_TRELLO',
-      payload: {
+      payload: {|
         users: TrelloMemberType[],
-      },
-    }
-  | {
+      |},
+    |}
+  | {|
       type: 'PUT_USERS_FROM_SCRUMBLE',
-      payload: {
+      payload: {|
         users: ScrumbleTeamType,
-      },
-    }
-  | {
+      |},
+    |}
+  | {|
       type: 'SET_CURRENT_USER',
-      payload: {
+      payload: {|
         id: string,
-      },
-    }
-  | {
+      |},
+    |}
+  | {|
       type: 'CLEAR_OTHER_USERS',
-    };
+    |};
 
 export function putUsersFromTrello(users: TrelloMemberType[]): ActionType {
   return {

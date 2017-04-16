@@ -70,10 +70,10 @@ export function userSelectorById(state: StateType, id: string): ?UserType {
   return users[id];
 }
 
-export type UsersStateType = {
+export type UsersStateType = {|
   currentUser: ?string,
   list: UsersType,
-};
+|};
 
 export type UsersType = {
   [key: string]: UserType,

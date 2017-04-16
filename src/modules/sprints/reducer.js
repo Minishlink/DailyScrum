@@ -86,10 +86,10 @@ export function teamSelector(state: StateType): ?TeamType {
   return null;
 }
 
-export type SprintsStateType = {
+export type SprintsStateType = {|
   currentSprint: ?number,
   list: SprintsType,
-};
+|};
 
 export type SprintsType = {
   [key: number]: SprintType,

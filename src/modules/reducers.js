@@ -12,7 +12,7 @@ import type { UsersStateType } from './users/reducer';
 import type { SprintsStateType } from './sprints/reducer';
 import type { ProjectsStateType } from './projects/reducer';
 import type { BoardsStateType } from './boards/reducer';
-import type { CardsType } from './cards/reducer';
+import type { CardsStateType } from './cards/reducer';
 
 const initialState = {};
 
@@ -41,7 +41,7 @@ export type StateType = {|
   sprints: SprintsStateType,
   projects: ProjectsStateType,
   boards: BoardsStateType,
-  cards: CardsType,
+  cards: CardsStateType,
 |};
 
 export default rootReducer;

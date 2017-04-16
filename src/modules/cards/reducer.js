@@ -6,7 +6,7 @@ import { ScrumbleTeamMemberType } from '../../types/Scrumble/common';
 import { getPoints } from '../../services/Trello';
 import { getLastWorkableDayTime } from '../../services/Time';
 
-const initialState: CardsType = {
+const initialState: CardsStateType = {
   done: [],
   blocked: [],
   doing: [],
@@ -14,7 +14,7 @@ const initialState: CardsType = {
   toValidate: [],
 };
 
-export default (state: CardsType = initialState, action: ActionType) => {
+export default (state: CardsStateType = initialState, action: ActionType) => {
   switch (action.type) {
     case 'PUT_CARDS':
       return {
@@ -73,13 +73,13 @@ export function todayCardsSelector(state: StateType): CardType[] {
   );
 }
 
-export type CardsType = {
+export type CardsStateType = {|
   done: CardType[],
   blocked: CardType[],
   doing: CardType[],
   sprint: CardType[],
   toValidate: CardType[],
-};
+|};
 
 export type CardType = {
   idShort: string,

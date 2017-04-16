@@ -2,19 +2,19 @@
 import { NavigationActions } from 'react-navigation';
 
 export type ActionType =
-  | {
+  | {|
       type: 'PUT_TOKENS',
-      payload: {
+      payload: {|
         trelloToken: string,
         scrumbleToken: string,
-      },
-    }
-  | {
+      |},
+    |}
+  | {|
       type: 'LOGIN',
-      payload: {
+      payload: {|
         trelloToken: string,
-      },
-    };
+      |},
+    |};
 
 export function putTokens(trelloToken: string, scrumbleToken: string): ActionType {
   return {
