@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, ScrollView, RefreshControl, Platform } from 'react-native';
+import { StyleSheet, ScrollView, RefreshControl, Text, TextInput } from 'react-native';
 import { Page, Icon } from 'DailyScrum/src/components';
 import { fetchBoards } from 'DailyScrum/src/modules/boards/sagas';
 import { boardsListSelector } from '../../modules/boards/reducer';
@@ -11,7 +11,7 @@ import { changeCurrentRemoteProject } from '../../modules/projects';
 
 class Settings extends Component {
   props: PropsType;
-  state: StateType = { isRefreshing: false };
+  state: StateType = { filterBoard: '', isRefreshing: false };
 
   handleRefresh = () => {
     this.setState({ isRefreshing: true }, () => {
@@ -23,15 +23,27 @@ class Settings extends Component {
 
   // TODO Use FlatList / SectionList when 0.43 stable
   render() {
-    const { boards } = this.props;
+    const boards = this.props.boards.filter(board =>
+      board.name.toLowerCase().includes(this.state.filterBoard.toLowerCase()));
     return (
-      <Page noNavBar>
+      <Page>
+        <TextInput
+          style={styles.searchInput}
+          onChangeText={filterBoard => this.setState({ filterBoard })}
+          value={this.state.filterBoard}
+          autoCorrect={false}
+          placeholder="Search a board"
+        />
         <ScrollView
           contentContainerStyle={styles.scrollView}
           showsVerticalScrollIndicator={false}
           refreshControl={<RefreshControl refreshing={this.state.isRefreshing} onRefresh={this.handleRefresh} />}
         >
-          {boards.map(board => <BoardCard key={board.id} board={board} onPress={() => this.props.changeCurrentRemoteProject(board)} />)}
+          {boards.length
+            ? boards.map(board => (
+                <BoardCard key={board.id} board={board} onPress={() => this.props.changeCurrentRemoteProject(board)} />
+              ))
+            : <Text style={styles.noBoardsText}>No boards found</Text>}
         </ScrollView>
       </Page>
     );
@@ -39,7 +51,7 @@ class Settings extends Component {
 }
 
 Settings.contextTypes = {
-  store: React.PropTypes.any
+  store: React.PropTypes.any,
 };
 
 type PropsType = {
@@ -50,12 +62,23 @@ type PropsType = {
 
 type StateType = {
   isRefreshing: boolean,
+  filterBoard: string,
 };
 
 const styles = StyleSheet.create({
+  searchInput: {
+    height: 40,
+    marginTop: 10,
+    paddingHorizontal: 10,
+    borderColor: 'gray',
+    borderWidth: 1,
+  },
+  noBoardsText: {
+    textAlign: 'center',
+  },
   scrollView: {
-    paddingVertical: Platform.OS === 'ios' ? 30 : 15,
-  }
+    paddingTop: 15,
+  },
 });
 
 const mapStateToProps = state => ({
