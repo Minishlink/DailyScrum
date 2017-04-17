@@ -8,6 +8,7 @@ import { boardsListSelector } from '../../modules/boards/reducer';
 import type { BoardType } from '../../types';
 import BoardCard from './components/BoardCard';
 import { changeCurrentRemoteProject } from '../../modules/projects';
+import { currentProjectSelector } from '../../modules/projects/reducer';
 
 class Settings extends Component {
   props: PropsType;
@@ -41,7 +42,7 @@ class Settings extends Component {
         >
           {boards.length
             ? boards.map(board => (
-                <BoardCard key={board.id} board={board} onPress={() => this.props.changeCurrentRemoteProject(board)} />
+                <BoardCard key={board.id} board={board} isActive={board.id === this.props.currentBoardId} onPress={() => this.props.changeCurrentRemoteProject(board)} />
               ))
             : <Text style={styles.noBoardsText}>No boards found</Text>}
         </ScrollView>
@@ -57,6 +58,7 @@ Settings.contextTypes = {
 type PropsType = {
   navigation: any,
   boards: BoardType[],
+  currentBoardId: ?string,
   changeCurrentRemoteProject: Function,
 };
 
@@ -81,9 +83,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({
-  boards: boardsListSelector(state),
-});
+const mapStateToProps = state => {
+  const currentProject = currentProjectSelector(state);
+  return {
+    boards: boardsListSelector(state),
+    currentBoardId: currentProject ? currentProject.boardId : null,
+  };
+};
 
 const mapDispatchToProps = {
   changeCurrentRemoteProject,
