@@ -23,8 +23,11 @@ class CardsList extends Component {
   // TODO on click show description
 
   componentDidMount() {
-    const filteredMember = this.props.user ? this.props.user.id : null;
-    this.setState({ filterableMembers: this.getFilterableMembers(), filteredMember });
+    const filterableMembers = this.getFilterableMembers();
+    const filteredMember = this.props.user && filterableMembers.includes(this.props.user.id)
+      ? this.props.user.id
+      : null;
+    this.setState({ filterableMembers, filteredMember });
   }
 
   handleRefresh = () => {
@@ -78,7 +81,8 @@ class CardsList extends Component {
 
   render() {
     const { cards, team } = this.props;
-    if (!cards.length) return <View style={this.props.style}><Text style={styles.noCardsText}>No cards yet</Text></View>;
+    if (!cards.length)
+      return <View style={this.props.style}><Text style={styles.noCardsText}>No cards yet</Text></View>;
     return (
       <ScrollView
         contentContainerStyle={this.props.style}
