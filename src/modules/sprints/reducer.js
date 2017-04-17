@@ -5,6 +5,7 @@ import type { SprintType, TeamType } from 'DailyScrum/src/types';
 import { adaptSprintFromScrumble } from 'DailyScrum/src/services/adapter';
 import { roundToDecimalPlace } from 'DailyScrum/src/services/MathService';
 import { userSelectorById } from '../users/reducer';
+import { currentProjectSelector } from '../projects/reducer';
 
 const initialState: SprintsStateType = {
   currentSprint: null,
@@ -94,18 +95,23 @@ export function teamSelector(state: StateType): ?TeamType {
 
 export function sprintsSuccessMatrixSelector(state: StateType): SprintsSuccessMatrixType {
   const sprints = sprintsListSelector(state);
+  const project = currentProjectSelector(state);
+  if (!project) return [];
 
-  return sprints.sort((a: SprintType, b: SprintType) => a.number - b.number).map(sprint => {
-    const lastPerformance = sprint.performance[sprint.performance.length - 1];
-    const isSprintFinished = lastPerformance && new Date().getTime() >= new Date(lastPerformance.date).getTime();
-    return {
-      number: sprint.number,
-      manDays: sprint.resources.totalManDays,
-      foreseenPoints: roundToDecimalPlace(sprint.resources.totalPoints),
-      donePoints: roundToDecimalPlace(sprint.resources.totalPoints - sprint.pointsLeft),
-      result: isSprintFinished ? sprint.pointsLeft <= 0 : null,
-    };
-  });
+  return sprints
+    .filter(sprint => sprint.projectId === project.id)
+    .sort((a: SprintType, b: SprintType) => a.number - b.number)
+    .map(sprint => {
+      const lastPerformance = sprint.performance[sprint.performance.length - 1];
+      const isSprintFinished = lastPerformance && new Date().getTime() >= new Date(lastPerformance.date).getTime();
+      return {
+        number: sprint.number,
+        manDays: sprint.resources.totalManDays,
+        foreseenPoints: roundToDecimalPlace(sprint.resources.totalPoints),
+        donePoints: roundToDecimalPlace(sprint.resources.totalPoints - sprint.pointsLeft),
+        result: isSprintFinished ? sprint.pointsLeft <= 0 : null,
+      };
+    });
 }
 
 export type SprintsSuccessMatrixType = Array<{|
