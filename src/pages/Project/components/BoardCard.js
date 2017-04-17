@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, TouchableHighlight, Text, Image } from 'react-native';
 import type { BoardType } from '../../../types';
 
+const borderRadius = 3;
 export default class BoardCard extends Component {
   props: PropsType;
 
@@ -20,7 +21,7 @@ export default class BoardCard extends Component {
 
     if (board.background.image) {
       return (
-        <Image style={styles.content} resizeMode="cover" source={{ uri: board.background.image }}>
+        <Image style={styles.content} resizeMode="cover" borderRadius={borderRadius} source={{ uri: board.background.image }}>
           {this.renderName()}
         </Image>
       );
@@ -47,7 +48,6 @@ type PropsType = {
   onPress: Function,
 };
 
-const borderRadius = 3;
 const styles = StyleSheet.create({
   container: {
     marginBottom: 8,
