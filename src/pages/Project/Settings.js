@@ -31,9 +31,11 @@ class Settings extends Component {
         <TextInput
           style={styles.searchInput}
           onChangeText={filterBoard => this.setState({ filterBoard })}
+          onSubmitEditing={() => boards.length > 0 && this.props.changeCurrentRemoteProject(boards[0])}
           value={this.state.filterBoard}
           autoCorrect={false}
           placeholder="Search a board"
+          returnKeyType="go"
         />
         <ScrollView
           contentContainerStyle={styles.scrollView}
@@ -42,7 +44,12 @@ class Settings extends Component {
         >
           {boards.length
             ? boards.map(board => (
-                <BoardCard key={board.id} board={board} isActive={board.id === this.props.currentBoardId} onPress={() => this.props.changeCurrentRemoteProject(board)} />
+                <BoardCard
+                  key={board.id}
+                  board={board}
+                  isActive={board.id === this.props.currentBoardId}
+                  onPress={() => this.props.changeCurrentRemoteProject(board)}
+                />
               ))
             : <Text style={styles.noBoardsText}>No boards found</Text>}
         </ScrollView>
