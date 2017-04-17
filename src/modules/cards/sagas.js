@@ -11,65 +11,75 @@ import { getLastWorkableDayTime } from '../../services/Time';
 import { putSprints } from '../sprints/actions';
 
 export function* fetchDoneCards(): Generator<*, *, *> {
-  const token = yield select(tokenSelector);
-  const currentSprint: SprintType = yield select(currentSprintSelector);
-  const sprints = yield select(sprintsSelector);
+  try {
+    const token = yield select(tokenSelector);
+    const currentSprint: SprintType = yield select(currentSprintSelector);
+    const sprints = yield select(sprintsSelector);
 
-  let cards = yield call(Trello.getCardsFromList, token.trello, currentSprint.doneColumn);
-  if (!cards.length) {
-    // if it's the day after the ceremony, you still want to have the tickets of yesterday
-    const lastSprint: any = Object.values(sprints).find(
-      (sprint: SprintType) => sprint.number === currentSprint.number - 1
-    );
-    if (lastSprint) {
-      cards = yield call(Trello.getCardsFromList, token.trello, lastSprint.doneColumn);
-    }
-  } else {
-    // only compute total if the sprint has started since at least one day
-    const total = cards.reduce((total, card) => total + getPoints(card.name), 0);
-    const lastWorkableDayTime = getLastWorkableDayTime();
-    for (
-      let i = 0, performance = currentSprint.performance[0];
-      i < currentSprint.performance.length;
-      performance = currentSprint.performance[++i]
-    ) {
-      const currentDay = new Date(performance.date);
-      currentDay.setHours(9, 0, 0, 0);
+    let cards = yield call(Trello.getCardsFromList, token.trello, currentSprint.doneColumn);
+    if (!cards.length) {
+      // if it's the day after the ceremony, you still want to have the tickets of yesterday
+      const lastSprint: any = Object.values(sprints).find(
+        (sprint: SprintType) => sprint.number === currentSprint.number - 1
+      );
+      if (lastSprint) {
+        cards = yield call(Trello.getCardsFromList, token.trello, lastSprint.doneColumn);
+      }
+    } else {
+      // only compute total if the sprint has started since at least one day
+      const total = cards.reduce((total, card) => total + getPoints(card.name), 0);
+      const lastWorkableDayTime = getLastWorkableDayTime();
+      for (
+        let i = 0, performance = currentSprint.performance[0];
+        i < currentSprint.performance.length;
+        performance = currentSprint.performance[++i]
+      ) {
+        const currentDay = new Date(performance.date);
+        currentDay.setHours(9, 0, 0, 0);
 
-      // the standard is set to the next day
-      if (lastWorkableDayTime === currentDay.getTime() && currentSprint.performance[i + 1]) {
-        const newSprint = { ...currentSprint };
-        newSprint.performance[i + 1].done = total;
-        yield put(putSprints([newSprint]));
-        // TODO REMOTE PUT to Scrumble
-        break;
+        // the standard is set to the next day
+        if (lastWorkableDayTime === currentDay.getTime() && currentSprint.performance[i + 1]) {
+          const newSprint = { ...currentSprint };
+          newSprint.performance[i + 1].done = total;
+          yield put(putSprints([newSprint]));
+          // TODO REMOTE PUT to Scrumble
+          break;
+        }
       }
     }
-  }
 
-  yield put(
-    putCards({
-      done: cards,
-    })
-  );
+    yield put(
+      putCards({
+        done: cards,
+      })
+    );
+  } catch (error) {
+    console.warn('[saga] fetchDoneCards', error);
+    // TODO show modal with error
+  }
 }
 
 export function* fetchNotDoneCards(): Generator<*, *, *> {
-  const token = yield select(tokenSelector);
-  const currentProject = yield select(currentProjectSelector);
+  try {
+    const token = yield select(tokenSelector);
+    const currentProject = yield select(currentProjectSelector);
 
-  // fetch in parallel
-  const cardsCalls = yield Object.values(currentProject.columnMapping).map(id => {
-    return call(Trello.getCardsFromList, token.trello, id);
-  });
+    // fetch in parallel
+    const cardsCalls = yield Object.values(currentProject.columnMapping).map(id => {
+      return call(Trello.getCardsFromList, token.trello, id);
+    });
 
-  let cards = {};
-  let i = 0;
-  for (let key of Object.keys(currentProject.columnMapping)) {
-    cards[key] = cardsCalls[i++];
+    let cards = {};
+    let i = 0;
+    for (let key of Object.keys(currentProject.columnMapping)) {
+      cards[key] = cardsCalls[i++];
+    }
+
+    yield put(putCards(cards));
+  } catch (error) {
+    console.warn('[saga] fetchNotDoneCards', error);
+    // TODO show modal with error
   }
-
-  yield put(putCards(cards));
 }
 
 export default function*(): Generator<*, *, *> {

@@ -5,9 +5,14 @@ import { putBoards } from './actions';
 import { tokenSelector } from '../auth/reducer';
 
 export function* fetchBoards(): Generator<*, *, *> {
-  const token = yield select(tokenSelector);
-  const boards = yield call(Trello.getBoards, token.trello);
-  yield put(putBoards(boards));
+  try {
+    const token = yield select(tokenSelector);
+    const boards = yield call(Trello.getBoards, token.trello);
+    yield put(putBoards(boards));
+  } catch (error) {
+    console.warn('[saga] fetchBoards', error);
+    // TODO show modal with error
+  }
 }
 
 export default function*(): Generator<*, *, *> {

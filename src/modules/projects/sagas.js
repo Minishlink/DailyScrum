@@ -11,26 +11,36 @@ import { clearSprints } from '../sprints';
 import { clearCards } from '../cards';
 
 export function* fetchCurrentProject(): Generator<*, *, *> {
-  const token = yield select(tokenSelector);
-  const project: ScrumbleProjectType = yield call(Scrumble.getCurrentProject, token.scrumble);
-  yield put(putProjects([project], true));
-  yield put(putUsersFromScrumble(project.team));
-  yield put(setCurrentProject(project));
+  try {
+    const token = yield select(tokenSelector);
+    const project: ScrumbleProjectType = yield call(Scrumble.getCurrentProject, token.scrumble);
+    yield put(putProjects([project], true));
+    yield put(putUsersFromScrumble(project.team));
+    yield put(setCurrentProject(project));
+  } catch (error) {
+    console.warn('[saga] fetchCurrentProject', error);
+    // TODO show modal with error
+  }
 }
 
 function* changeCurrentRemoteProject(action: ActionType): Generator<*, *, *> {
-  const token = yield select(tokenSelector);
-  const boardId = action.payload.boardId;
+  try {
+    const token = yield select(tokenSelector);
+    const boardId = action.payload.boardId;
 
-  // verify that the project exists
-  const project = yield call(Scrumble.getProjectByBoard, token.scrumble, boardId);
-  if (project) {
-    yield call(Scrumble.setCurrentProject, token.scrumble, project.id);
-    yield [put(clearCards()), put(clearOtherUsers()), put(clearSprints())];
-    yield* fetchProjectData();
-  } else {
-    console.warn('Not a project');
-    // TODO show a Toast/Modal asking the user to create the project on Scrumble for the moment
+    // verify that the project exists
+    const project = yield call(Scrumble.getProjectByBoard, token.scrumble, boardId);
+    if (project) {
+      yield call(Scrumble.setCurrentProject, token.scrumble, project.id);
+      yield [put(clearCards()), put(clearOtherUsers()), put(clearSprints())];
+      yield* fetchProjectData();
+    } else {
+      console.warn('Not a project');
+      // TODO show a Toast/Modal asking the user to create the project on Scrumble for the moment
+    }
+  } catch (error) {
+    console.warn('[saga] changeCurrentRemoteProject', error);
+    // TODO show modal with error
   }
 }
 

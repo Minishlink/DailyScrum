@@ -5,10 +5,15 @@ import { tokenSelector } from '../auth/reducer';
 import { putUsersFromTrello, setCurrentUser } from './';
 
 export function* fetchCurrentUser(): Generator<*, *, *> {
-  const token = yield select(tokenSelector);
-  const user = yield call(Trello.getCurrentUser, token.trello);
-  yield put(putUsersFromTrello([user]));
-  yield put(setCurrentUser(user.id));
+  try {
+    const token = yield select(tokenSelector);
+    const user = yield call(Trello.getCurrentUser, token.trello);
+    yield put(putUsersFromTrello([user]));
+    yield put(setCurrentUser(user.id));
+  } catch (error) {
+    console.warn('[saga] fetchCurrentUser', error);
+    // TODO show modal with error
+  }
 }
 
 export default function*(): Generator<*, *, *> {

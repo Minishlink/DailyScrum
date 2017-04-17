@@ -7,23 +7,33 @@ import type { ScrumbleSprintType } from '../../types/Scrumble/Sprint';
 import { currentProjectSelector } from '../projects/reducer';
 
 export function* fetchSprints(): Generator<*, *, *> {
-  const token = yield select(tokenSelector);
-  const project = yield select(currentProjectSelector);
-  const sprints: ScrumbleSprintType[] = yield call(Scrumble.getSprintsFromProject, token.scrumble, project.id);
+  try {
+    const token = yield select(tokenSelector);
+    const project = yield select(currentProjectSelector);
+    const sprints: ScrumbleSprintType[] = yield call(Scrumble.getSprintsFromProject, token.scrumble, project.id);
 
-  yield put(putSprints(sprints, true));
+    yield put(putSprints(sprints, true));
 
-  const currentSprint = sprints.find(sprint => sprint.isActive);
-  if (currentSprint) {
-    yield put(setCurrentSprint(currentSprint));
+    const currentSprint = sprints.find(sprint => sprint.isActive);
+    if (currentSprint) {
+      yield put(setCurrentSprint(currentSprint));
+    }
+  } catch (error) {
+    console.warn('[saga] fetchSprints', error);
+    // TODO show modal with error
   }
 }
 
 function* fetchCurrentSprint() {
-  const token = yield select(tokenSelector);
-  const sprint: ScrumbleSprintType = yield call(Scrumble.getCurrentSprint, token.scrumble);
-  yield put(putSprints([sprint], true));
-  yield put(setCurrentSprint(sprint));
+  try {
+    const token = yield select(tokenSelector);
+    const sprint: ScrumbleSprintType = yield call(Scrumble.getCurrentSprint, token.scrumble);
+    yield put(putSprints([sprint], true));
+    yield put(setCurrentSprint(sprint));
+  } catch (error) {
+    console.warn('[saga] fetchCurrentSprint', error);
+    // TODO show modal with error
+  }
 }
 
 export default function*(): Generator<*, *, *> {

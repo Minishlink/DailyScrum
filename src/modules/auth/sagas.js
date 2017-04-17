@@ -5,9 +5,14 @@ import { putTokens, redirectAfterLogin } from './actions';
 import type { ActionType } from './actions';
 
 function* login(action: ActionType): Generator<*, *, *> {
-  const scrumbleToken = yield call(Scrumble.login, action.payload.trelloToken);
-  yield put(putTokens(action.payload.trelloToken, scrumbleToken));
-  yield put(redirectAfterLogin());
+  try {
+    const scrumbleToken = yield call(Scrumble.login, action.payload.trelloToken);
+    yield put(putTokens(action.payload.trelloToken, scrumbleToken));
+    yield put(redirectAfterLogin());
+  } catch (error) {
+    console.warn('[saga] login', error);
+    // TODO show error modal
+  }
 }
 
 export default function*(): Generator<*, *, *> {
