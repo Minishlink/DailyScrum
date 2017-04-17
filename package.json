@@ -26,7 +26,6 @@
 	},
 	"devDependencies": {
 		"babel-eslint": "^7.2.2",
-		"babel-jest": "18.0.0",
 		"babel-preset-react-native": "1.9.1",
 		"babel-preset-react-native-stage-0": "^1.0.1",
 		"eslint": "^3.19.0",
@@ -38,7 +37,7 @@
 		"eslint-plugin-prettier": "^2.0.1",
 		"eslint-plugin-react": "^6.10.3",
 		"flow-bin": "^0.38.0",
-		"jest": "18.1.0",
+		"jest": "^19.0.2",
 		"prettier": "^1.1.0",
 		"react-test-renderer": "~15.4.0-rc.4"
 	},
