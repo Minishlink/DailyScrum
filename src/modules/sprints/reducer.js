@@ -93,6 +93,15 @@ export function teamSelector(state: StateType): ?TeamType {
   return null;
 }
 
+export function devTeamSelector(state: StateType): ?TeamType {
+  const team = teamSelector(state);
+  if (team) {
+    return team.filter(member => member.role === 'dev' || member.role === 'archi');
+  }
+
+  return null;
+}
+
 export function sprintsSuccessMatrixSelector(state: StateType): SprintsSuccessMatrixType {
   const sprints = sprintsListSelector(state);
   const project = currentProjectSelector(state);

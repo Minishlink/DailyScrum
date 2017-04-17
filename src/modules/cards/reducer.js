@@ -1,7 +1,7 @@
 // @flow
 import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
-import { teamSelector } from '../sprints/reducer';
+import { devTeamSelector } from '../sprints/reducer';
 import { getLastWorkableDayTime } from '../../services/Time';
 import { adaptCardsFromTrello } from '../../services/adapter';
 import { CardType, StoreCardType } from '../../types';
@@ -34,11 +34,14 @@ export default (state: CardsStateType = initialState, action: ActionType) => {
 };
 
 function formatCards(state: StateType, cards: StoreCardType[]): CardType[] {
-  const team = teamSelector(state) || [];
+  const team = devTeamSelector(state) || [];
   return cards.map(card => {
+    const members = card.idMembers.map(id => team.find(member => member.id === id)).filter(Boolean);
+    const idMembers = members.map(member => member.id); // filter dev/archi
     return {
       ...card,
-      members: card.idMembers.map(id => team.find(member => member.id === id)).filter(Boolean),
+      members,
+      idMembers,
     };
   });
 }

@@ -9,8 +9,6 @@ export default (cards: TrelloCardType[]): StoreCardType[] => {
 
 function adaptCard(card: TrelloCardType): StoreCardType {
   const pointsAndNewName = formatPoints(card.name);
-  // TODO filter idMembers that aren't dev or archi
-  // .filter(member => member.role === 'dev' || member.role === 'archi')
   return {
     id: card.id,
     idShort: card.idShort,
