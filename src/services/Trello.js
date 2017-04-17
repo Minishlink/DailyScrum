@@ -1,9 +1,10 @@
-const TRELLO_APP_KEY = '***REMOVED***'; // Scrumble App Key
+import { TRELLO_APP_KEY, TRELLO_API_URL } from 'DailyScrum/environment';
 
 export default class {
   static getLoginURL = () => {
     return (
-      'https://trello.com/1/authorize?' +
+      TRELLO_API_URL +
+      '/authorize?' +
       `key=${TRELLO_APP_KEY}&` +
       'expiration=never&' +
       'name=Daily%20Scrum&' +
@@ -14,13 +15,13 @@ export default class {
 
   static getCurrentUser = token => {
     return fetch(
-      `https://api.trello.com/1/members/me?fields=avatarHash,email,fullName,id,initials,username&key=${TRELLO_APP_KEY}&token=${token}`
+      `${TRELLO_API_URL}/members/me?fields=avatarHash,email,fullName,id,initials,username&key=${TRELLO_APP_KEY}&token=${token}`
     ).then(res => res.json());
   };
 
   static getBoards = token => {
     return fetch(
-      `https://api.trello.com/1/members/me/boards?filter=open&fields=name,prefs,dateLastActivity&key=${TRELLO_APP_KEY}&token=${token}`
+      `${TRELLO_API_URL}/members/me/boards?filter=open&fields=name,prefs,dateLastActivity&key=${TRELLO_APP_KEY}&token=${token}`
     )
       .then(res => res.json())
       .then(boards =>
@@ -29,9 +30,9 @@ export default class {
   };
 
   static getCardsFromList = (token, listId) => {
-    return fetch(
-      `https://api.trello.com/1/lists/${listId}/cards?fields=all&key=${TRELLO_APP_KEY}&token=${token}`
-    ).then(res => res.json());
+    return fetch(`${TRELLO_API_URL}/lists/${listId}/cards?fields=all&key=${TRELLO_APP_KEY}&token=${token}`).then(res =>
+      res.json()
+    );
   };
 }
 

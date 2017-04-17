@@ -1,7 +1,9 @@
+import { SCRUMBLE_API_URL } from 'DailyScrum/environment';
+
 export default class {
   static login = trelloToken => {
     return new Promise((resolve, reject) => {
-      fetch('https://api.scrumble.io/v1/ScrumbleUsers/trello-login', {
+      fetch(SCRUMBLE_API_URL + '/ScrumbleUsers/trello-login', {
         method: 'POST',
         headers: new Headers({
           'Content-Type': 'application/json',
@@ -18,7 +20,7 @@ export default class {
 
   static getCurrentProject = token => {
     return new Promise((resolve, reject) => {
-      fetch('https://api.scrumble.io/v1/Projects/current', {
+      fetch(SCRUMBLE_API_URL + '/Projects/current', {
         method: 'GET',
         headers: new Headers({
           Authorization: token,
@@ -34,7 +36,7 @@ export default class {
 
   static getProjectByBoard = (token, boardId) => {
     return new Promise((resolve, reject) => {
-      fetch(`https://api.scrumble.io/v1/Projects?filter=${JSON.stringify({ where: { boardId: boardId } })}`, {
+      fetch(SCRUMBLE_API_URL + `/Projects?filter=${JSON.stringify({ where: { boardId: boardId } })}`, {
         method: 'GET',
         headers: new Headers({
           Authorization: token,
@@ -50,7 +52,7 @@ export default class {
 
   static setCurrentProject = (token, projectId) => {
     return new Promise((resolve, reject) => {
-      fetch('https://api.scrumble.io/v1/ScrumbleUsers/project', {
+      fetch(SCRUMBLE_API_URL + '/ScrumbleUsers/project', {
         method: 'PUT',
         headers: new Headers({
           Authorization: token,
@@ -68,7 +70,7 @@ export default class {
 
   static getCurrentSprint = token => {
     return new Promise((resolve, reject) => {
-      fetch('https://api.scrumble.io/v1/Sprints/active', {
+      fetch(SCRUMBLE_API_URL + '/Sprints/active', {
         method: 'GET',
         headers: new Headers({
           Authorization: token,
@@ -84,7 +86,7 @@ export default class {
 
   static getSprintsFromProject = (token, projectId) => {
     return new Promise((resolve, reject) => {
-      fetch(`https://api.scrumble.io/v1/Projects/${projectId}/sprints`, {
+      fetch(SCRUMBLE_API_URL + `/Projects/${projectId}/sprints`, {
         method: 'GET',
         headers: new Headers({
           Authorization: token,
