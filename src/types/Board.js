@@ -9,5 +9,5 @@ export type BoardType = {
 type BackgroundType = {
   color: ?string,
   image: ?string,
-  brightness: 'light'|'dark',
+  brightness: 'light' | 'dark',
 };

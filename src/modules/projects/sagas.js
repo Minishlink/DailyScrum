@@ -27,6 +27,7 @@ export function* fetchCurrentProject(): Generator<*, *, *> {
 function* changeCurrentRemoteProject(action: ActionType): Generator<*, *, *> {
   try {
     const token = yield select(tokenSelector);
+    // TODO $FlowFixMe
     const boardId = action.payload.boardId;
 
     // verify that the project exists

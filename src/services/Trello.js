@@ -2,12 +2,14 @@ const TRELLO_APP_KEY = '***REMOVED***'; // Scrumble App Key
 
 export default class {
   static getLoginURL = () => {
-    return 'https://trello.com/1/authorize?' +
+    return (
+      'https://trello.com/1/authorize?' +
       `key=${TRELLO_APP_KEY}&` +
       'expiration=never&' +
       'name=Daily%20Scrum&' +
       'return_url=dailyscrum://login&' +
-      'scope=read,account';
+      'scope=read,account'
+    );
   };
 
   static getCurrentUser = token => {
@@ -22,7 +24,8 @@ export default class {
     )
       .then(res => res.json())
       .then(boards =>
-        boards.sort((a, b) => new Date(b.dateLastActivity).getTime() - new Date(a.dateLastActivity).getTime()));
+        boards.sort((a, b) => new Date(b.dateLastActivity).getTime() - new Date(a.dateLastActivity).getTime())
+      );
   };
 
   static getCardsFromList = (token, listId) => {

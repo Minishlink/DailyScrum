@@ -14,7 +14,7 @@ const configureStore = () => {
   return { ...createStore(reducers, composeEnhancers(...enhancers)), runSaga: sagaMiddleware.run };
 };
 
-export default function () {
+export default function() {
   return new Promise(resolve => {
     const store = configureStore();
     store.runSaga(rootSaga);

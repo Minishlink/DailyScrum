@@ -4,9 +4,11 @@
 	"private": true,
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "yarn test:flow && yarn test:unit",
+		"test": "yarn test:lint && yarn test:flow && yarn test:unit",
+		"test:lint": "eslint . --quiet",
 		"test:unit": "jest",
 		"test:flow": "flow",
+		"prettify": "prettier --trailing-comma es5 --single-quote --print-width 120 --write \"{src,__{tests,mocks}__}/**/*.js\"",
 		"deploy": "yarn deploy:staging",
 		"deploy:staging": "yarn deploy:staging:android && yarn deploy:staging:ios",
 		"deploy:staging:android": "bundle exec fastlane android deploy --env=staging",
@@ -23,11 +25,21 @@
 		"redux-saga": "^0.14.3"
 	},
 	"devDependencies": {
+		"babel-eslint": "^7.2.2",
 		"babel-jest": "18.0.0",
 		"babel-preset-react-native": "1.9.1",
 		"babel-preset-react-native-stage-0": "^1.0.1",
+		"eslint": "^3.19.0",
+		"eslint-config-prettier": "^1.6.0",
+		"eslint-config-react-app": "^0.6.2",
+		"eslint-plugin-flowtype": "^2.30.4",
+		"eslint-plugin-import": "^2.2.0",
+		"eslint-plugin-jsx-a11y": "^4.0.0",
+		"eslint-plugin-prettier": "^2.0.1",
+		"eslint-plugin-react": "^6.10.3",
 		"flow-bin": "^0.38.0",
 		"jest": "18.1.0",
+		"prettier": "^1.1.0",
 		"react-test-renderer": "~15.4.0-rc.4"
 	},
 	"jest": {

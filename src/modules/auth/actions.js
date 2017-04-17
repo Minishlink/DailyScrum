@@ -35,7 +35,8 @@ export function login(trelloToken: string): ActionType {
   };
 }
 
-export const redirectAfterLogin = () => NavigationActions.reset({
-  index: 0,
-  actions: [NavigationActions.navigate({ routeName: 'main' })],
-});
+export const redirectAfterLogin = () =>
+  NavigationActions.reset({
+    index: 0,
+    actions: [NavigationActions.navigate({ routeName: 'main' })],
+  });

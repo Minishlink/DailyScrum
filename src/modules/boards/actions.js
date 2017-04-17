@@ -15,7 +15,7 @@ export type ActionType =
 export function putBoards(boards: TrelloBoardType[]): ActionType {
   return {
     type: 'PUT_BOARDS',
-    payload : { boards },
+    payload: { boards },
   };
 }
 

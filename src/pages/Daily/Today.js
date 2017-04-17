@@ -5,7 +5,6 @@ import { StyleSheet, View, Platform } from 'react-native';
 import { Page, CardsList } from 'DailyScrum/src/components';
 import { todayCardsSelector } from '../../modules/cards/reducer';
 import { fetchNotDoneCards as fetchNotDoneCardsSaga } from 'DailyScrum/src/modules/cards/sagas';
-import { Trello } from 'DailyScrum/src/services';
 import type { CardType } from '../../modules/cards/reducer';
 
 class Today extends Component {
@@ -27,7 +26,7 @@ class Today extends Component {
 }
 
 Today.contextTypes = {
-  store: React.PropTypes.any
+  store: React.PropTypes.any,
 };
 
 type PropsType = {

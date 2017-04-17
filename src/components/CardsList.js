@@ -94,7 +94,7 @@ class CardsList extends Component {
         </View>
         {cards &&
           cards
-            .filter(card => this.state.filteredMember ? card.idMembers.includes(this.state.filteredMember) : true)
+            .filter(card => (this.state.filteredMember ? card.idMembers.includes(this.state.filteredMember) : true))
             .map(card => <View key={card.idShort}><TrelloCard card={card} /></View>)}
       </ScrollView>
     );

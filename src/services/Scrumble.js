@@ -4,13 +4,15 @@ export default class {
       fetch('https://api.scrumble.io/v1/ScrumbleUsers/trello-login', {
         method: 'POST',
         headers: new Headers({
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         }),
-        body: JSON.stringify({trelloToken}),
-      }).then(result => result.json()).then(result => {
-        if (!result || !result.token) reject(result.error);
-        resolve(result.token);
-      });
+        body: JSON.stringify({ trelloToken }),
+      })
+        .then(result => result.json())
+        .then(result => {
+          if (!result || !result.token) reject(result.error);
+          resolve(result.token);
+        });
     });
   };
 
@@ -19,26 +21,30 @@ export default class {
       fetch('https://api.scrumble.io/v1/Projects/current', {
         method: 'GET',
         headers: new Headers({
-          "Authorization": token,
+          Authorization: token,
         }),
-      }).then(result => result.json()).then(result => {
-        if (result.error) reject(result.error);
-        resolve(result);
-      });
+      })
+        .then(result => result.json())
+        .then(result => {
+          if (result.error) reject(result.error);
+          resolve(result);
+        });
     });
   };
 
   static getProjectByBoard = (token, boardId) => {
     return new Promise((resolve, reject) => {
-      fetch(`https://api.scrumble.io/v1/Projects?filter=${JSON.stringify({"where":{"boardId": boardId}})}`, {
+      fetch(`https://api.scrumble.io/v1/Projects?filter=${JSON.stringify({ where: { boardId: boardId } })}`, {
         method: 'GET',
         headers: new Headers({
-          "Authorization": token,
+          Authorization: token,
         }),
-      }).then(result => result.json()).then(result => {
-        if (result.error) reject(result.error);
-        resolve(result[0]);
-      });
+      })
+        .then(result => result.json())
+        .then(result => {
+          if (result.error) reject(result.error);
+          resolve(result[0]);
+        });
     });
   };
 
@@ -47,14 +53,16 @@ export default class {
       fetch('https://api.scrumble.io/v1/ScrumbleUsers/project', {
         method: 'PUT',
         headers: new Headers({
-          "Authorization": token,
-          "Content-Type": "application/json",
+          Authorization: token,
+          'Content-Type': 'application/json',
         }),
-        body: JSON.stringify({projectId}),
-      }).then(result => result.json()).then(result => {
-        if (result.error) reject(result.error);
-        resolve();
-      });
+        body: JSON.stringify({ projectId }),
+      })
+        .then(result => result.json())
+        .then(result => {
+          if (result.error) reject(result.error);
+          resolve();
+        });
     });
   };
 
@@ -63,12 +71,14 @@ export default class {
       fetch('https://api.scrumble.io/v1/Sprints/active', {
         method: 'GET',
         headers: new Headers({
-          "Authorization": token,
+          Authorization: token,
         }),
-      }).then(result => result.json()).then(result => {
-        if (result.error) reject(result.error);
-        resolve(result);
-      });
+      })
+        .then(result => result.json())
+        .then(result => {
+          if (result.error) reject(result.error);
+          resolve(result);
+        });
     });
   };
 
@@ -77,12 +87,14 @@ export default class {
       fetch(`https://api.scrumble.io/v1/Projects/${projectId}/sprints`, {
         method: 'GET',
         headers: new Headers({
-          "Authorization": token,
+          Authorization: token,
         }),
-      }).then(result => result.json()).then(result => {
-        if (result.error) reject(result.error);
-        resolve(result);
-      });
+      })
+        .then(result => result.json())
+        .then(result => {
+          if (result.error) reject(result.error);
+          resolve(result);
+        });
     });
   };
 }

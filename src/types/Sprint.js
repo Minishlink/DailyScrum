@@ -22,7 +22,7 @@ type PerformanceType = ScrumbleBdcDataType;
 type ResourcesType = {
   matrix: [],
   speed: number,
-  team: string[]|TeamType, // string array in store, TeamType when selected
+  team: string[] | TeamType, // string array in store, TeamType when selected
   totalManDays: number,
   totalPoints: number,
 };

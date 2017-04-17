@@ -35,7 +35,7 @@ class Problems extends Component {
   }
 }
 
-type PropsType =  {
+type PropsType = {
   navigation: any,
   currentSprint: ?SprintType,
 };

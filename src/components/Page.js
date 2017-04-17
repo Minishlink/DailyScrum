@@ -5,11 +5,15 @@ import appStyle from 'DailyScrum/src/appStyle';
 
 const Page = (props: PropsType) => (
   <View
-    style={[styles.page, {
-      paddingTop: props.noNavBar ? 0 : 16,
-      paddingHorizontal: props.noMargin ? 0 : 24,
-      backgroundColor: props.backgroundColor || appStyle.colors.background,
-    }, props.style]}
+    style={[
+      styles.page,
+      {
+        paddingTop: props.noNavBar ? 0 : 16,
+        paddingHorizontal: props.noMargin ? 0 : 24,
+        backgroundColor: props.backgroundColor || appStyle.colors.background,
+      },
+      props.style,
+    ]}
   >
     {props.isLoading && <View style={styles.loader}><ActivityIndicator /></View>}
     {!props.isLoading && props.children}

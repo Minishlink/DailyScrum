@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, ScrollView, RefreshControl, Text, TextInput } from 'react-native';
-import { Page, Icon } from 'DailyScrum/src/components';
+import { Page } from 'DailyScrum/src/components';
 import { fetchBoards } from 'DailyScrum/src/modules/boards/sagas';
 import { boardsListSelector } from '../../modules/boards/reducer';
 import type { BoardType } from '../../types';
@@ -25,7 +25,8 @@ class Settings extends Component {
   // TODO Use FlatList / SectionList when 0.43 stable
   render() {
     const boards = this.props.boards.filter(board =>
-      board.name.toLowerCase().includes(this.state.filterBoard.toLowerCase()));
+      board.name.toLowerCase().includes(this.state.filterBoard.toLowerCase())
+    );
     return (
       <Page>
         <TextInput

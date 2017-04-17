@@ -1,4 +1,4 @@
-const ONE_DAY = 86400*1000;
+const ONE_DAY = 86400 * 1000;
 
 export const getLastWorkableDayTime = () => {
   const today = new Date();

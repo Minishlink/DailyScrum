@@ -65,12 +65,7 @@ export function yesterdayCardsSelector(state: StateType): CardType[] {
 
 export function todayCardsSelector(state: StateType): CardType[] {
   const cards = [...state.cards.sprint, ...state.cards.doing, ...state.cards.blocked, ...state.cards.toValidate];
-  return formatCards(
-    state,
-    cards.filter(
-      card => card.idMembers.length > 0
-    )
-  );
+  return formatCards(state, cards.filter(card => card.idMembers.length > 0));
 }
 
 export type CardsStateType = {|

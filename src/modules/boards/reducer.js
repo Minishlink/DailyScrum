@@ -47,7 +47,7 @@ export function currentBoardSelector(state: StateType): ?BoardType {
 }
 
 export type BoardsStateType = {|
-  list: BoardsType
+  list: BoardsType,
 |};
 
 export type BoardsType = { [key: string]: BoardType };

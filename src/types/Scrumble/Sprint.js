@@ -8,7 +8,7 @@ export type ScrumbleSprintType = {
   goal: string,
   bdcData: ScrumbleBdcDataType,
   dates: {
-    days: {date: string}[],
+    days: { date: string }[],
     end: string,
     start: string,
   },

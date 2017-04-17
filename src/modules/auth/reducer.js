@@ -1,7 +1,6 @@
 // @flow
 import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
-import type { MemberType } from '../../types';
 
 const initialState: AuthStateType = {
   token: {
@@ -25,7 +24,7 @@ export default (state: AuthStateType = initialState, action: ActionType) => {
     default:
       return state;
   }
-}
+};
 
 export function tokenSelector(state: StateType): TokenType {
   return state.auth.token;
