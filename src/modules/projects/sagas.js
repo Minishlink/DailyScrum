@@ -1,4 +1,5 @@
 // @flow
+import { NavigationActions } from 'react-navigation';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { Scrumble } from 'DailyScrum/src/services';
 import { putProjects, setCurrentProject } from './';
@@ -34,6 +35,7 @@ function* changeCurrentRemoteProject(action: ActionType): Generator<*, *, *> {
       yield call(Scrumble.setCurrentProject, token.scrumble, project.id);
       yield [put(clearCards()), put(clearOtherUsers()), put(clearSprints())];
       yield* fetchProjectData();
+      yield [put(NavigationActions.navigate({ routeName: 'summary' }))];
     } else {
       console.warn('Not a project');
       // TODO show a Toast/Modal asking the user to create the project on Scrumble for the moment
