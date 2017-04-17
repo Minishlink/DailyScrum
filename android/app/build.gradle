@@ -88,8 +88,8 @@ def _versionCode = (System.getenv("ANDROID_VERSION_CODE") ?: "1") as Integer
 def _versionName = System.getenv("ANDROID_VERSION_NAME") ?: "1.0.0"
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '25.0.2'
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId _applicationId
