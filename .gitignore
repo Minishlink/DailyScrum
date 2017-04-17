@@ -57,3 +57,7 @@ dist
 fastlane/report.xml
 fastlane/.env.*.secret
 *.back
+
+# environment
+environment/*
+!environment/*.dist.js
