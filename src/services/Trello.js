@@ -25,11 +25,6 @@ export default class {
         boards.sort((a, b) => new Date(b.dateLastActivity).getTime() - new Date(a.dateLastActivity).getTime()));
   };
 
-  static getBoard = (token, id) => {
-    return fetch(`https://api.trello.com/1/boards/${id}?fields=all&key=${TRELLO_APP_KEY}&token=${token}`).then(res =>
-      res.json());
-  };
-
   static getCardsFromList = (token, listId) => {
     return fetch(
       `https://api.trello.com/1/lists/${listId}/cards?fields=all&key=${TRELLO_APP_KEY}&token=${token}`

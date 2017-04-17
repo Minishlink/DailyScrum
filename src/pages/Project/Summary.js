@@ -2,9 +2,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text } from 'react-native';
-import { Page, Icon } from 'DailyScrum/src/components';
+import { Page, Icon, Table } from 'DailyScrum/src/components';
 import { currentProjectSelector } from '../../modules/projects/reducer';
 import type { ProjectType } from '../../types/Project';
+import SuccessMatrix from './components/SuccessMatrix';
 
 class Summary extends Component {
   props: PropsType;
@@ -16,6 +17,7 @@ class Summary extends Component {
     return (
       <Page style={styles.container}>
         <Text>{project.name}</Text>
+        <SuccessMatrix style={styles.matrix} />
       </Page>
     );
   }
@@ -28,8 +30,11 @@ type PropsType = {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 30,
+  },
+  matrix: {
+    marginTop: 10,
   },
 });
 
