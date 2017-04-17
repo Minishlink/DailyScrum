@@ -5,7 +5,7 @@ import { StyleSheet, View, Platform } from 'react-native';
 import { Page, CardsList } from 'DailyScrum/src/components';
 import { yesterdayCardsSelector } from '../../modules/cards/reducer';
 import { fetchDoneCards as fetchDoneCardsSaga } from 'DailyScrum/src/modules/cards/sagas';
-import type { CardType } from '../../modules/cards/reducer';
+import type { CardType } from '../../types';
 
 class Yesterday extends Component {
   props: PropsType;

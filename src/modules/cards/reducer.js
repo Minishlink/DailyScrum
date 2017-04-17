@@ -2,9 +2,9 @@
 import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
 import { teamSelector } from '../sprints/reducer';
-import { ScrumbleTeamMemberType } from '../../types/Scrumble/common';
-import { getPoints } from '../../services/Trello';
 import { getLastWorkableDayTime } from '../../services/Time';
+import { adaptCardsFromTrello } from '../../services/adapter';
+import { CardType, StoreCardType } from '../../types';
 
 const initialState: CardsStateType = {
   done: [],
@@ -17,6 +17,9 @@ const initialState: CardsStateType = {
 export default (state: CardsStateType = initialState, action: ActionType) => {
   switch (action.type) {
     case 'PUT_CARDS':
+      for (let key in action.payload.cards) {
+        action.payload.cards[key] = adaptCardsFromTrello(action.payload.cards[key]);
+      }
       return {
         ...state,
         ...action.payload.cards,
@@ -30,29 +33,14 @@ export default (state: CardsStateType = initialState, action: ActionType) => {
   }
 };
 
-function formatCards(state: StateType, cards: CardType[]) {
+function formatCards(state: StateType, cards: StoreCardType[]): CardType[] {
   const team = teamSelector(state) || [];
   return cards.map(card => {
-    const pointsAndNewName = formatPoints(card.name);
     return {
       ...card,
       members: card.idMembers.map(id => team.find(member => member.id === id)).filter(Boolean),
-      points: pointsAndNewName.points,
-      name: pointsAndNewName.name,
     };
   });
-}
-
-function formatPoints(name) {
-  const points = getPoints(name);
-  if (points !== null) {
-    name = name.replace(`(${points})`, '').trim();
-  }
-
-  return {
-    name,
-    points,
-  };
 }
 
 export function yesterdayCardsSelector(state: StateType): CardType[] {
@@ -75,12 +63,3 @@ export type CardsStateType = {|
   sprint: CardType[],
   toValidate: CardType[],
 |};
-
-export type CardType = {
-  idShort: string,
-  name: string,
-  idMembers: [],
-  dateLastActivity: string,
-  members: ScrumbleTeamMemberType[],
-  points: ?number,
-}; // TODO

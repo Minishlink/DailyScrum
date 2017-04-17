@@ -1,5 +1,5 @@
 // @flow
-import type { CardType } from './reducer';
+import type { CardType } from '../../types';
 
 export type ActionType =
   | {|

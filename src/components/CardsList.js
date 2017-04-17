@@ -5,10 +5,9 @@ import { connect } from 'react-redux';
 import { TrelloCard, MemberIcon } from 'DailyScrum/src/components';
 import { teamSelector } from 'DailyScrum/src/modules/sprints/reducer';
 import { currentUserSelector } from 'DailyScrum/src/modules/users/reducer';
-import type { CardType } from 'DailyScrum/src/modules/cards/reducer';
 import type { ScrumbleTeamMemberType, ScrumbleTeamType } from 'DailyScrum/src/types/Scrumble/common';
 import { roundToDecimalPlace } from '../services/MathService';
-import type { UserType } from '../types';
+import type { UserType, CardType } from '../types';
 
 class CardsList extends Component {
   props: PropsType;

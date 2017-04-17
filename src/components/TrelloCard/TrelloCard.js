@@ -5,7 +5,7 @@ import { Icon } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
 import MemberIcon from './MemberIcon';
 import PointsBadge from './PointsBadge';
-import type { CardType } from 'DailyScrum/src/modules/cards/reducer';
+import type { CardType } from '../../types';
 
 export default (props: PropsType) => (
   <View style={styles.container}>
