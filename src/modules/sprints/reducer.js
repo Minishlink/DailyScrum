@@ -118,7 +118,7 @@ export function sprintsSuccessMatrixSelector(state: StateType): SprintsSuccessMa
         manDays: sprint.resources.totalManDays,
         foreseenPoints: roundToDecimalPlace(sprint.resources.totalPoints),
         donePoints: roundToDecimalPlace(sprint.resources.totalPoints - sprint.pointsLeft),
-        result: isSprintFinished ? sprint.pointsLeft <= 0 : null,
+        result: sprint.pointsLeft <= 0 ? true : isSprintFinished ? false : null, // return true even if the sprint is not finished in case of success
       };
     });
 }
