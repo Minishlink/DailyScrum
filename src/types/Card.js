@@ -10,6 +10,6 @@ export type StoreCardType = {|
   idMembers: string[],
 |};
 
-export type CardType = CardType & {|
+export type CardType = StoreCardType & {|
   members: ScrumbleTeamMemberType[],
 |};

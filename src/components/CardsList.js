@@ -4,6 +4,7 @@ import { StyleSheet, View, ScrollView, RefreshControl, TouchableOpacity, Text } 
 import { connect } from 'react-redux';
 import { TrelloCard, MemberIcon } from 'DailyScrum/src/components';
 import { teamSelector } from 'DailyScrum/src/modules/sprints/reducer';
+import type { CardListsType } from 'DailyScrum/src/modules/cards/reducer';
 import { currentUserSelector } from 'DailyScrum/src/modules/users/reducer';
 import type { ScrumbleTeamMemberType, ScrumbleTeamType } from 'DailyScrum/src/types/Scrumble/common';
 import { roundToDecimalPlace } from '../services/MathService';
@@ -11,7 +12,7 @@ import type { UserType, CardType } from '../types';
 
 class CardsList extends Component {
   props: PropsType;
-  state: StateType = { filterableMembers: [], filteredMember: null, isRefreshing: false };
+  state: StateType;
 
   // Use FlatList / SectionList when 0.43 out
 
@@ -20,6 +21,14 @@ class CardsList extends Component {
   // TODO show labels
   // TODO on click show attachments
   // TODO on click show description
+
+  constructor(props) {
+    super(props);
+
+    let cards = [];
+    Object.values(props.cardLists).forEach(list => list.forEach(card => cards.push(card)));
+    this.state = { cards, filterableMembers: [], filteredMember: null, isRefreshing: false };
+  }
 
   componentDidMount() {
     const filterableMembers = this.getFilterableMembers();
@@ -32,14 +41,18 @@ class CardsList extends Component {
   handleRefresh = () => {
     this.setState({ isRefreshing: true }, () => {
       this.props.onRefresh().then(() => {
-        this.setState({ isRefreshing: false, filterableMembers: this.getFilterableMembers(), filteredMember: null });
+        this.setState({
+          isRefreshing: false,
+          filterableMembers: this.getFilterableMembers(),
+          filteredMember: null,
+        });
       });
     });
   };
 
   getFilterableMembers = () => {
     let members = {};
-    for (let card of this.props.cards) {
+    for (let card of this.state.cards) {
       for (let member of card.idMembers) {
         members[member] = true;
       }
@@ -52,7 +65,8 @@ class CardsList extends Component {
   };
 
   renderFilterableMember = (memberId: string) => {
-    const { cards, team } = this.props;
+    const { team } = this.props;
+    const { cards } = this.state;
     const member = team && team.find(teamMember => teamMember && teamMember.id === memberId);
     if (!member) return;
 
@@ -78,8 +92,24 @@ class CardsList extends Component {
     );
   };
 
+  renderCardList = ([listKey, cards]: [string, Array<CardType>]) => {
+    cards = cards.filter(
+      card => (this.state.filteredMember ? card.idMembers.includes(this.state.filteredMember) : true)
+    );
+
+    if (cards.length) {
+      return (
+        <View key={listKey}>
+          <Text>{listKey}</Text>
+          {cards.map(card => <View key={card.idShort}><TrelloCard card={card} /></View>)}
+        </View>
+      );
+    }
+  };
+
   render() {
-    const { cards, team } = this.props;
+    const { team, cardLists } = this.props;
+    const { cards } = this.state;
     if (!cards.length)
       return <View style={this.props.style}><Text style={styles.noCardsText}>No cards yet</Text></View>;
     return (
@@ -89,12 +119,9 @@ class CardsList extends Component {
         refreshControl={<RefreshControl refreshing={this.state.isRefreshing} onRefresh={this.handleRefresh} />}
       >
         <View style={styles.filterContainer}>
-          {team && this.state.filterableMembers.map(memberId => this.renderFilterableMember(memberId))}
+          {team && this.state.filterableMembers.map(this.renderFilterableMember)}
         </View>
-        {cards &&
-          cards
-            .filter(card => (this.state.filteredMember ? card.idMembers.includes(this.state.filteredMember) : true))
-            .map(card => <View key={card.idShort}><TrelloCard card={card} /></View>)}
+        {Object.entries(cardLists).map(this.renderCardList)}
       </ScrollView>
     );
   }
@@ -122,11 +149,12 @@ type StateType = {
   isRefreshing: boolean,
   filterableMembers: string[],
   filteredMember: ?string,
+  cards: CardType[],
 };
 
 type PropsType = {
   style?: any,
-  cards: CardType[],
+  cardLists: CardListsType,
   onRefresh: Function,
   team: ?ScrumbleTeamType,
   user: ?UserType,
