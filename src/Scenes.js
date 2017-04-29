@@ -3,14 +3,14 @@
 import React, { Component } from 'react';
 import { Linking, View } from 'react-native';
 import { connect } from 'react-redux';
-import { StackNavigator, TabNavigator, TabView, addNavigationHelpers } from 'react-navigation';
+import { StackNavigator, TabNavigator, TabBarTop, addNavigationHelpers } from 'react-navigation';
 import * as Pages from 'DailyScrum/src/pages';
 
 const sectionsNavigatorConfig = {
   initialRouteName: 'summary',
   swipeEnabled: true,
   animationEnabled: true,
-  lazyLoad: true,
+  lazy: true,
   tabBarComponent: props => <View />,
 };
 
@@ -50,7 +50,7 @@ const MainNavigator = TabNavigator(
     initialRouteName: 'daily',
     swipeEnabled: false,
     animationEnabled: true,
-    tabBarComponent: TabView.TabBarTop,
+    tabBarComponent: TabBarTop,
     tabBarPosition: 'bottom',
   }
 );
