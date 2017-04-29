@@ -3,4 +3,4 @@ export { default as Icon } from './Icon';
 export { default as TrelloCard } from './TrelloCard/TrelloCard';
 export { default as MemberIcon } from './TrelloCard/MemberIcon';
 export { default as ActionButton } from './ActionButton';
-export { default as CardsList } from './CardsList';
+export { CardLists } from './CardLists';

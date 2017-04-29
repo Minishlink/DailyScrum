@@ -1,6 +1,7 @@
 // @flow
 import { applyMiddleware, createStore, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+// $FlowFixMe https://github.com/rt2zz/redux-persist/pull/340
 import { persistStore, autoRehydrate } from 'redux-persist';
 import { AsyncStorage } from 'react-native';
 import reducers from './reducers';

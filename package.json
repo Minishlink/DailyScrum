@@ -15,13 +15,14 @@
 		"deploy:staging:ios": "bundle exec fastlane ios deploy --env=staging"
 	},
 	"dependencies": {
+		"lodash": "^4.17.4",
 		"react": "16.0.0-alpha.6",
 		"react-native": "0.43.4",
 		"react-native-vector-icons": "^4.0.0",
 		"react-navigation": "^1.0.0-beta.7",
 		"react-redux": "^5.0.3",
 		"redux": "^3.6.0",
-		"redux-persist": "^4.5.0",
+		"redux-persist": "^4.7.0",
 		"redux-saga": "^0.14.3"
 	},
 	"devDependencies": {
@@ -36,10 +37,9 @@
 		"eslint-plugin-jsx-a11y": "^4.0.0",
 		"eslint-plugin-prettier": "^2.0.1",
 		"eslint-plugin-react": "^6.10.3",
-		"flow-bin": "^0.38.0",
+		"flow-bin": "^0.40.0",
 		"jest": "^19.0.2",
-		"prettier": "^1.1.0",
-		"react-test-renderer": "~15.4.0-rc.4"
+		"prettier": "^1.1.0"
 	},
 	"jest": {
 		"preset": "react-native"

@@ -51,10 +51,7 @@ export function yesterdayCardsSelector(state: StateType): CardListsType {
   const cards = state.cards.done;
   if (!cards) return { done: [] };
   return {
-    done: formatCards(
-      state,
-      cards.filter(card => new Date(card.dateLastActivity).getTime() > lastWorkableDayTime)
-    ),
+    done: formatCards(state, cards.filter(card => new Date(card.dateLastActivity).getTime() > lastWorkableDayTime)),
   };
 }
 

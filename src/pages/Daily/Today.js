@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, Platform } from 'react-native';
-import { Page, CardsList } from 'DailyScrum/src/components';
+import { Page, CardLists } from 'DailyScrum/src/components';
 import { todayCardsSelector } from '../../modules/cards/reducer';
 import { fetchNotDoneCards as fetchNotDoneCardsSaga } from 'DailyScrum/src/modules/cards/sagas';
 import type { CardListsType } from 'DailyScrum/src/modules/cards/reducer';
@@ -17,7 +17,7 @@ class Today extends Component {
     return (
       <Page noNavBar>
         <View style={styles.container}>
-          <CardsList style={styles.list} onRefresh={this.fetchCards} cardLists={this.props.cardLists} />
+          <CardLists style={styles.list} onRefresh={this.fetchCards} cardLists={this.props.cardLists} />
         </View>
       </Page>
     );
@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
   },
   list: {
-    paddingVertical: Platform.OS === 'ios' ? 30 : 15,
+    marginTop: Platform.OS === 'ios' ? 30 : 15, // header
+    marginBottom: 60, // bottom nav
   },
 });
 
