@@ -17,7 +17,7 @@ class Yesterday extends Component {
     return (
       <Page noNavBar>
         <View style={styles.container}>
-          <CardLists style={styles.list} onRefresh={this.fetchCards} cardLists={this.props.cardLists} />
+          <CardLists onRefresh={this.fetchCards} cardLists={this.props.cardLists} />
         </View>
       </Page>
     );
@@ -36,11 +36,7 @@ type PropsType = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'stretch',
-  },
-  list: {
     marginTop: Platform.OS === 'ios' ? 30 : 15, // header
-    marginBottom: 60, // bottom nav
   },
 });
 

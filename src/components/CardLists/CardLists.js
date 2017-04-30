@@ -72,41 +72,47 @@ class CardsList extends Component {
     }));
 
     return (
-      <View style={this.props.style}>
-        <FilterMembers
-          style={styles.filterContainer}
-          cards={this.state.cards}
-          filtered={this.state.filteredMember}
-          onFilter={this.filterMember}
-        />
-        <SectionList
-          contentContainerStyle={styles.listsContainer}
-          showsVerticalScrollIndicator={false}
-          refreshing={this.state.isRefreshing}
-          onRefresh={this.handleRefresh}
-          SectionSeparatorComponent={() => <View style={styles.listSeparator} />}
-          renderSectionHeader={this.renderSectionHeader}
-          renderItem={this.renderCard}
-          keyExtractor={(card: CardType) => card.idShort}
-          sections={sections}
-        />
+      <View style={[styles.container, this.props.style]}>
+        <View>
+          <FilterMembers
+            style={styles.filterContainer}
+            cards={this.state.cards}
+            filtered={this.state.filteredMember}
+            onFilter={this.filterMember}
+          />
+        </View>
+        <View style={{ flex: 1 }}>
+          <SectionList
+            contentContainerStyle={styles.listsContainer}
+            showsVerticalScrollIndicator={false}
+            refreshing={this.state.isRefreshing}
+            onRefresh={this.handleRefresh}
+            SectionSeparatorComponent={() => <View style={styles.listSeparator} />}
+            renderSectionHeader={this.renderSectionHeader}
+            renderItem={this.renderCard}
+            keyExtractor={(card: CardType) => card.idShort}
+            sections={sections}
+          />
+        </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+  },
   noCardsText: {
     textAlign: 'center',
   },
   filterContainer: {
     flexGrow: 1,
     justifyContent: 'space-around',
-    alignItems: 'stretch',
     paddingBottom: 10,
   },
   listsContainer: {
-    paddingBottom: 20,
+    paddingBottom: 10,
   },
   listName: {
     marginBottom: 5,
