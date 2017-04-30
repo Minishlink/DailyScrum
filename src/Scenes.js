@@ -1,10 +1,11 @@
 // @flow
 
 import React, { Component } from 'react';
-import { Linking, View } from 'react-native';
+import { Linking, View, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { StackNavigator, TabNavigator, TabBarTop, addNavigationHelpers } from 'react-navigation';
 import * as Pages from 'DailyScrum/src/pages';
+import appStyle from 'DailyScrum/src/appStyle';
 
 const sectionsNavigatorConfig = {
   initialRouteName: 'summary',
@@ -49,7 +50,7 @@ const MainNavigator = TabNavigator(
   {
     initialRouteName: 'daily',
     swipeEnabled: false,
-    animationEnabled: true,
+    animationEnabled: Platform.OS === 'ios', // TODO FUTURE enable on Android when react-navigation bug is fixed
     tabBarComponent: TabBarTop,
     tabBarPosition: 'bottom',
   }
@@ -69,6 +70,9 @@ const appNavigatorConfig = {
   initialRouteName: 'login',
   URIPrefix: 'dailyscrum://',
   headerMode: 'none',
+  cardStyle: {
+    backgroundColor: appStyle.colors.background,
+  },
 };
 
 export const AppNavigator = StackNavigator(appNavigatorPages, appNavigatorConfig);
