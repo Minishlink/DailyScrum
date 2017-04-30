@@ -22,6 +22,17 @@ export default (state: BoardsStateType = initialState, action: ActionType) => {
         list,
       };
 
+    case 'SET_BOARDS':
+      const newList = {};
+      for (let board of action.payload.boards) {
+        newList[board.id] = adaptBoardFromTrello(board);
+      }
+
+      return {
+        ...state,
+        list: newList,
+      };
+
     default:
       return state;
   }
