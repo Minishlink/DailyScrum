@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, ScrollView, RefreshControl, Text, TextInput } from 'react-native';
+import { StyleSheet, FlatList, Text, TextInput } from 'react-native';
 import { Page } from 'DailyScrum/src/components';
 import { fetchBoards } from 'DailyScrum/src/modules/boards/sagas';
 import { boardsListSelector } from '../../modules/boards/reducer';
@@ -22,7 +22,14 @@ class Settings extends Component {
     });
   };
 
-  // TODO Use FlatList / SectionList when 0.43 stable
+  renderBoard = ({ item: board }) => (
+    <BoardCard
+      board={board}
+      isActive={board.id === this.props.currentBoardId}
+      onPress={() => this.props.changeCurrentRemoteProject(board)}
+    />
+  );
+
   render() {
     const boards = this.props.boards.filter(board =>
       board.name.toLowerCase().includes(this.state.filterBoard.toLowerCase())
@@ -38,22 +45,16 @@ class Settings extends Component {
           placeholder="Search a board"
           returnKeyType="go"
         />
-        <ScrollView
+        <FlatList
           contentContainerStyle={styles.scrollView}
           showsVerticalScrollIndicator={false}
-          refreshControl={<RefreshControl refreshing={this.state.isRefreshing} onRefresh={this.handleRefresh} />}
-        >
-          {boards.length
-            ? boards.map(board => (
-                <BoardCard
-                  key={board.id}
-                  board={board}
-                  isActive={board.id === this.props.currentBoardId}
-                  onPress={() => this.props.changeCurrentRemoteProject(board)}
-                />
-              ))
-            : <Text style={styles.noBoardsText}>No boards found</Text>}
-        </ScrollView>
+          data={boards}
+          renderItem={this.renderBoard}
+          keyExtractor={board => board.id}
+          refreshing={this.state.isRefreshing}
+          onRefresh={this.handleRefresh}
+          ListHeaderComponent={() => (!boards.length ? <Text style={styles.noBoardsText}>No boards found</Text> : null)}
+        />
       </Page>
     );
   }

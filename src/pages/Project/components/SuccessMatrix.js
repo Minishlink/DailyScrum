@@ -9,12 +9,13 @@ import type { SprintsSuccessMatrixType } from '../../../modules/sprints/reducer'
 class SuccessMatrix extends Component {
   props: PropsType;
 
+  // TODO FUTURE remove the toStrings when RN 0.44 is out (https://github.com/facebook/react-native/issues/13080)
   renderRow = ({ item: sprint }) => (
     <View style={styles.row}>
-      <Text>{sprint.number}</Text>
-      <Text>{sprint.manDays}</Text>
-      <Text>{sprint.foreseenPoints}</Text>
-      <Text>{sprint.donePoints}</Text>
+      <Text>{sprint.number.toString()}</Text>
+      <Text>{sprint.manDays.toString()}</Text>
+      <Text>{sprint.foreseenPoints.toString()}</Text>
+      <Text>{sprint.donePoints.toString()}</Text>
       <Text>
         {sprint.result !== null
           ? sprint.result
