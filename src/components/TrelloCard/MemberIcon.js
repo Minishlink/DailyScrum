@@ -1,21 +1,28 @@
 // @flow
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import appStyle from 'DailyScrum/src/appStyle';
 import { ScrumbleTeamMemberType } from '../../types/Scrumble/common';
 
 const colors = ['#fbb4ae', '#b3cde3', '#ccebc5', '#decbe4', '#fed9a6', '#ffffcc', '#e5d8bd', '#fddaec', '#f2f2f2'];
 
-export default (props: PropsType) => {
-  const color = colors[props.member.initials.charCodeAt(0) % 9];
-  const avatar = getUriFromMember(props.member);
-  return (
-    <View style={[styles.textContainer, { backgroundColor: color }]}>
-      <Text style={styles.text}>{props.member.initials}</Text>
-      {avatar && <Image style={styles.image} source={{ uri: avatar }} />}
-    </View>
-  );
-};
+export default class MemberIcon extends Component {
+  props: PropsType;
+  state: StateType = { isImageLoaded: false };
+
+  render() {
+    const { member } = this.props;
+    const color = colors[member.initials.charCodeAt(0) % 9];
+    const avatar = getUriFromMember(member);
+    return (
+      <View style={[styles.textContainer, { backgroundColor: color }]}>
+        {!this.state.isImageLoaded && <Text style={styles.text}>{member.initials}</Text>}
+        {avatar &&
+          <Image style={styles.image} source={{ uri: avatar }} onLoad={() => this.setState({ isImageLoaded: true })} />}
+      </View>
+    );
+  }
+}
 
 function getUriFromMember(member: ScrumbleTeamMemberType): ?string {
   if (member.avatarHash) {
@@ -44,6 +51,10 @@ const styles = StyleSheet.create({
     borderRadius: radius,
   },
 });
+
+type StateType = {
+  isImageLoaded: boolean,
+};
 
 type PropsType = {
   member: ScrumbleTeamMemberType,
