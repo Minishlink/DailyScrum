@@ -1,10 +1,10 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, TouchableOpacity, Dimensions, Text } from 'react-native';
+import { StyleSheet, View, Dimensions, Text } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { distanceInWordsToNow } from 'date-fns';
-import { Page, TrelloCard, Icon } from 'DailyScrum/src/components';
+import { Page, TrelloCard, Icon, Button } from 'DailyScrum/src/components';
 import { fetchBaseData } from 'DailyScrum/src/modules/common';
 import { currentSprintSelector } from '../../modules/sprints/reducer';
 import { currentProjectSelector } from '../../modules/projects/reducer';
@@ -45,11 +45,11 @@ class Summary extends Component {
                   Congratulations! You finished your sprint, and you have {-pointsLeft} points of bonus.
                 </Animatable.Text>)}
           <Animatable.View animation="fadeIn" style={styles.sync}>
-            <TouchableOpacity onPress={this.refresh}>
+            <Button disabled={this.props.isSyncing} onPress={this.refresh}>
               <Animatable.View animation={this.props.isSyncing ? 'rotate' : null} iterationCount="infinite">
                 <Icon name="refresh" size={25} />
               </Animatable.View>
-            </TouchableOpacity>
+            </Button>
             {this.props.lastSuccessfulSync &&
               <Text>Last: {distanceInWordsToNow(this.props.lastSuccessfulSync, { addSuffix: true })}</Text>}
           </Animatable.View>
@@ -66,6 +66,7 @@ type PropsType = {
   currentSprint: ?SprintType,
   currentProject: ?ProjectType,
   lastSuccessfulSync: ?Date,
+  isSyncing: boolean,
 };
 
 const styles = StyleSheet.create({
