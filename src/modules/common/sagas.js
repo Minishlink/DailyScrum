@@ -6,11 +6,14 @@ import { fetchCurrentProject } from '../projects/sagas';
 import { fetchSprints } from '../sprints/sagas';
 import { fetchDoneCards, fetchNotDoneCards } from '../cards/sagas';
 import { syncIsSuccessful } from './';
+import { startSync, endSync } from '../sync';
 import { isSyncSuccessfulSelector } from '../sync';
 
 function* fetchBaseData(): Generator<*, *, *> {
+  yield put(startSync('common', 'base'));
   yield [call(fetchCurrentUser), call(fetchBoards)];
   yield call(fetchProjectData);
+  yield put(endSync('common', 'base'));
 
   if (yield select(isSyncSuccessfulSelector)) {
     yield put(syncIsSuccessful());

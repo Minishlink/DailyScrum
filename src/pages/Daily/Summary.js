@@ -3,13 +3,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, TouchableOpacity, Dimensions, Text } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import { distanceInWordsToNow } from 'date-fns';
 import { Page, TrelloCard, Icon } from 'DailyScrum/src/components';
 import { fetchBaseData } from 'DailyScrum/src/modules/common';
 import { currentSprintSelector } from '../../modules/sprints/reducer';
 import { currentProjectSelector } from '../../modules/projects/reducer';
-import type { SprintType, ProjectType } from '../../types';
+import { isSyncingSelector } from '../../modules/sync';
 import { lastSuccessfulSyncDateSelector } from '../../modules/common/reducer';
-import { distanceInWordsToNow } from 'date-fns';
+import type { SprintType, ProjectType } from '../../types';
 
 class Summary extends Component {
   props: PropsType;
@@ -45,7 +46,9 @@ class Summary extends Component {
                 </Animatable.Text>)}
           <Animatable.View animation="fadeIn" style={styles.sync}>
             <TouchableOpacity onPress={this.refresh}>
-              <Icon name="refresh" size={25} />
+              <Animatable.View animation={this.props.isSyncing ? 'rotate' : null} iterationCount="infinite">
+                <Icon name="refresh" size={25} />
+              </Animatable.View>
             </TouchableOpacity>
             {this.props.lastSuccessfulSync &&
               <Text>Last: {distanceInWordsToNow(this.props.lastSuccessfulSync, { addSuffix: true })}</Text>}
@@ -91,6 +94,7 @@ const mapStateToProps = state => ({
   currentSprint: currentSprintSelector(state),
   currentProject: currentProjectSelector(state),
   lastSuccessfulSync: lastSuccessfulSyncDateSelector(state),
+  isSyncing: isSyncingSelector(state, 'common', 'base'),
 });
 
 const mapDispatchToProps = {
