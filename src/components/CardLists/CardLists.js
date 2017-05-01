@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { StyleSheet, View, SectionList, Text } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import { TrelloCard } from 'DailyScrum/src/components';
 import type { CardListsType } from 'DailyScrum/src/modules/cards/reducer';
 import type { CardType } from '../../types';
@@ -73,15 +74,15 @@ class CardsList extends Component {
 
     return (
       <View style={[styles.container, this.props.style]}>
-        <View>
+        <Animatable.View animation="slideInDown">
           <FilterMembers
             style={styles.filterContainer}
             cards={this.state.cards}
             filtered={this.state.filteredMember}
             onFilter={this.filterMember}
           />
-        </View>
-        <View style={{ flex: 1 }}>
+        </Animatable.View>
+        <Animatable.View animation="fadeIn" style={{ flex: 1 }}>
           <SectionList
             contentContainerStyle={styles.listsContainer}
             showsVerticalScrollIndicator={false}
@@ -93,7 +94,7 @@ class CardsList extends Component {
             keyExtractor={(card: CardType) => card.idShort}
             sections={sections}
           />
-        </View>
+        </Animatable.View>
       </View>
     );
   }
