@@ -1,5 +1,5 @@
 // @flow
-import { call, put, select } from 'redux-saga/effects';
+import { call, put, select, cancelled } from 'redux-saga/effects';
 import { Trello } from 'DailyScrum/src/services';
 import { tokenSelector } from '../auth/reducer';
 import { putUsersFromTrello, setCurrentUser } from './';
@@ -16,6 +16,10 @@ export function* fetchCurrentUser(): Generator<*, *, *> {
   } catch (error) {
     console.warn('[saga] fetchCurrentUser', error);
     yield put(endSync('users', 'current', error.message)); // TODO show modal with error
+  } finally {
+    if (yield cancelled()) {
+      yield put(endSync('users', 'current', 'cancelled'));
+    }
   }
 }
 

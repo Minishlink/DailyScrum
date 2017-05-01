@@ -1,5 +1,5 @@
 // @flow
-import { call, put, select, takeEvery } from 'redux-saga/effects';
+import { call, put, select, takeEvery, cancelled } from 'redux-saga/effects';
 import { Trello } from 'DailyScrum/src/services';
 import { setBoards } from './actions';
 import { tokenSelector } from '../auth/reducer';
@@ -15,6 +15,10 @@ export function* fetchBoards(): Generator<*, *, *> {
   } catch (error) {
     console.warn('[saga] fetchBoards', error);
     yield put(endSync('boards', 'all', error.message)); // TODO show modal with error
+  } finally {
+    if (yield cancelled()) {
+      yield put(endSync('boards', 'all', 'cancelled'));
+    }
   }
 }
 

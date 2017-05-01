@@ -1,6 +1,6 @@
 // @flow
 import { NavigationActions } from 'react-navigation';
-import { call, put, select, takeEvery } from 'redux-saga/effects';
+import { call, put, select, takeEvery, cancelled } from 'redux-saga/effects';
 import { Scrumble } from 'DailyScrum/src/services';
 import { putProjects, setCurrentProject } from './';
 import { tokenSelector } from '../auth/reducer';
@@ -24,6 +24,10 @@ export function* fetchCurrentProject(): Generator<*, *, *> {
   } catch (error) {
     console.warn('[saga] fetchCurrentProject', error);
     yield put(endSync('projects', 'current', error.message)); // TODO show modal with error
+  } finally {
+    if (yield cancelled()) {
+      yield put(endSync('projects', 'current', 'cancelled'));
+    }
   }
 }
 
@@ -49,6 +53,10 @@ function* changeCurrentRemoteProject(action: ActionType): Generator<*, *, *> {
   } catch (error) {
     console.warn('[saga] changeCurrentRemoteProject', error);
     yield put(endSync('projects', 'change', error.message)); // TODO show modal with error
+  } finally {
+    if (yield cancelled()) {
+      yield put(endSync('projects', 'change', 'cancelled'));
+    }
   }
 }
 

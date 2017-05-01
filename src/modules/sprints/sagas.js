@@ -1,5 +1,5 @@
 // @flow
-import { call, put, select, takeEvery } from 'redux-saga/effects';
+import { call, put, select, takeEvery, cancelled } from 'redux-saga/effects';
 import Scrumble from 'DailyScrum/src/services/Scrumble';
 import { putSprints, setCurrentSprint } from './actions';
 import { tokenSelector } from '../auth/reducer';
@@ -24,6 +24,10 @@ export function* fetchSprints(): Generator<*, *, *> {
   } catch (error) {
     console.warn('[saga] fetchSprints', error);
     yield put(endSync('sprints', 'all', error.message)); // TODO show modal with error
+  } finally {
+    if (yield cancelled()) {
+      yield put(endSync('sprints', 'all', 'cancelled'));
+    }
   }
 }
 
@@ -38,6 +42,10 @@ function* fetchCurrentSprint() {
   } catch (error) {
     console.warn('[saga] fetchCurrentSprint', error);
     yield put(endSync('sprints', 'current', error.message)); // TODO show modal with error
+  } finally {
+    if (yield cancelled()) {
+      yield put(endSync('sprints', 'current', 'cancelled'));
+    }
   }
 }
 

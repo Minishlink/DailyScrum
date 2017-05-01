@@ -16,7 +16,7 @@ export type ActionType =
       },
     |};
 
-export const startSync = (name: string, key: string = 'main'): ActionType => ({
+export const startSync = (name: string, key: string): ActionType => ({
   type: 'START_SYNC',
   payload: { name, key },
 });

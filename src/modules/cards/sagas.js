@@ -1,5 +1,5 @@
 // @flow
-import { select, put, call, takeEvery } from 'redux-saga/effects';
+import { select, put, call, takeEvery, cancelled } from 'redux-saga/effects';
 import { Trello } from 'DailyScrum/src/services';
 import { putCards } from './';
 import { tokenSelector } from '../auth/reducer';
@@ -60,6 +60,10 @@ export function* fetchDoneCards(): Generator<*, *, *> {
   } catch (error) {
     console.warn('[saga] fetchDoneCards', error);
     yield put(endSync('cards', 'done', error.message)); // TODO show modal with error
+  } finally {
+    if (yield cancelled()) {
+      yield put(endSync('cards', 'done', 'cancelled'));
+    }
   }
 }
 
@@ -85,6 +89,10 @@ export function* fetchNotDoneCards(): Generator<*, *, *> {
   } catch (error) {
     console.warn('[saga] fetchNotDoneCards', error);
     yield put(endSync('cards', 'notDone', error.message)); // TODO show modal with error
+  } finally {
+    if (yield cancelled()) {
+      yield put(endSync('cards', 'notDone', 'cancelled'));
+    }
   }
 }
 

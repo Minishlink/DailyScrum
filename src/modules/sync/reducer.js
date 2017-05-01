@@ -11,7 +11,7 @@ const assignState = (
   sync: SyncType
 ): SyncStateType => {
   // yep that's pure laziness
-  return _.merge(currentState, { [name]: { [key]: sync } });
+  return _.merge({ ...currentState }, { [name]: { [key]: sync } });
 };
 
 export default (state: SyncStateType = initialState, action: ActionType) => {

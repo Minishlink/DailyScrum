@@ -1,5 +1,6 @@
 // @flow
-import { takeEvery, put, call, select } from 'redux-saga/effects';
+import { takeEvery, put, call, select, race } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 import { fetchCurrentUser } from '../users/sagas';
 import { fetchBoards } from '../boards/sagas';
 import { fetchCurrentProject } from '../projects/sagas';
@@ -11,13 +12,25 @@ import { isSyncSuccessfulSelector } from '../sync';
 
 function* fetchBaseData(): Generator<*, *, *> {
   yield put(startSync('common', 'base'));
-  yield [call(fetchCurrentUser), call(fetchBoards)];
-  yield call(fetchProjectData);
-  yield put(endSync('common', 'base'));
+
+  const { timeout } = yield race({
+    base: call(fetchBaseDataCalls),
+    timeout: call(delay, 10000),
+  });
+
+  yield put(endSync('common', 'base', timeout ? 'timeout' : null));
 
   if (yield select(isSyncSuccessfulSelector)) {
     yield put(syncIsSuccessful());
+  } else {
+    // TODO show modal/info
+    console.warn('[saga] fetchBaseData', 'Probably a timeout');
   }
+}
+
+function* fetchBaseDataCalls(): Generator<*, *, *> {
+  yield [call(fetchCurrentUser), call(fetchBoards)];
+  yield call(fetchProjectData);
 }
 
 export function* fetchProjectData(): Generator<*, *, *> {
