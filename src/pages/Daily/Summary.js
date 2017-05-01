@@ -1,13 +1,15 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Dimensions, Text } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Page, TrelloCard, Icon } from 'DailyScrum/src/components';
 import { fetchBaseData } from 'DailyScrum/src/modules/common';
 import { currentSprintSelector } from '../../modules/sprints/reducer';
 import { currentProjectSelector } from '../../modules/projects/reducer';
 import type { SprintType, ProjectType } from '../../types';
+import { lastSuccessfulSyncDateSelector } from '../../modules/common/reducer';
+import { distanceInWordsToNow } from 'date-fns';
 
 class Summary extends Component {
   props: PropsType;
@@ -24,7 +26,6 @@ class Summary extends Component {
     const { currentSprint, currentProject } = this.props;
     if (!currentSprint || !currentProject) return <Page isLoading />;
     const { lead, pointsLeft } = currentSprint;
-
     return (
       <Page>
         <View style={styles.container}>
@@ -42,9 +43,13 @@ class Summary extends Component {
               : <Animatable.Text animation="fadeInRight">
                   Congratulations! You finished your sprint, and you have {-pointsLeft} points of bonus.
                 </Animatable.Text>)}
-          <TouchableOpacity style={styles.refreshButton} onPress={this.refresh}>
-            <Animatable.View animation="fadeIn"><Icon name="refresh" size={30} /></Animatable.View>
-          </TouchableOpacity>
+          <Animatable.View animation="fadeIn" style={styles.sync}>
+            <TouchableOpacity onPress={this.refresh}>
+              <Icon name="refresh" size={25} />
+            </TouchableOpacity>
+            {this.props.lastSuccessfulSync &&
+              <Text>Last: {distanceInWordsToNow(this.props.lastSuccessfulSync, { addSuffix: true })}</Text>}
+          </Animatable.View>
         </View>
       </Page>
     );
@@ -57,6 +62,7 @@ type PropsType = {
   fetchBaseData: Function,
   currentSprint: ?SprintType,
   currentProject: ?ProjectType,
+  lastSuccessfulSync: ?Date,
 };
 
 const styles = StyleSheet.create({
@@ -74,15 +80,17 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     width: 0.75 * Dimensions.get('window').width,
   },
-  refreshButton: {
+  sync: {
     position: 'absolute',
     bottom: 30,
+    alignItems: 'center',
   },
 });
 
 const mapStateToProps = state => ({
   currentSprint: currentSprintSelector(state),
   currentProject: currentProjectSelector(state),
+  lastSuccessfulSync: lastSuccessfulSyncDateSelector(state),
 });
 
 const mapDispatchToProps = {

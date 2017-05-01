@@ -3,15 +3,18 @@ import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { Trello } from 'DailyScrum/src/services';
 import { setBoards } from './actions';
 import { tokenSelector } from '../auth/reducer';
+import { startSync, endSync } from '../sync';
 
 export function* fetchBoards(): Generator<*, *, *> {
   try {
+    yield put(startSync('boards', 'all'));
     const token = yield select(tokenSelector);
     const boards = yield call(Trello.getBoards, token.trello);
     yield put(setBoards(boards));
+    yield put(endSync('boards', 'all'));
   } catch (error) {
     console.warn('[saga] fetchBoards', error);
-    // TODO show modal with error
+    yield put(endSync('boards', 'all', error.message)); // TODO show modal with error
   }
 }
 

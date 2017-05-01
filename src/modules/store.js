@@ -23,7 +23,7 @@ export default function() {
       store,
       {
         storage: AsyncStorage,
-        blacklist: ['navigation'],
+        blacklist: ['navigation', 'sync'],
       },
       () => resolve(store)
     );

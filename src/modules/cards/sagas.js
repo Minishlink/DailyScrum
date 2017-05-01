@@ -9,9 +9,11 @@ import { currentProjectSelector } from '../projects/reducer';
 import { getPoints } from '../../services/Trello';
 import { getLastWorkableDayTime } from '../../services/Time';
 import { putSprints } from '../sprints/actions';
+import { startSync, endSync } from '../sync';
 
 export function* fetchDoneCards(): Generator<*, *, *> {
   try {
+    yield put(startSync('cards', 'done'));
     const token = yield select(tokenSelector);
     const currentSprint: SprintType = yield select(currentSprintSelector);
     const sprints = yield select(sprintsSelector);
@@ -53,14 +55,17 @@ export function* fetchDoneCards(): Generator<*, *, *> {
         done: cards,
       })
     );
+
+    yield put(endSync('cards', 'done'));
   } catch (error) {
     console.warn('[saga] fetchDoneCards', error);
-    // TODO show modal with error
+    yield put(endSync('cards', 'done', error.message)); // TODO show modal with error
   }
 }
 
 export function* fetchNotDoneCards(): Generator<*, *, *> {
   try {
+    yield put(startSync('cards', 'notDone'));
     const token = yield select(tokenSelector);
     const currentProject = yield select(currentProjectSelector);
 
@@ -76,9 +81,10 @@ export function* fetchNotDoneCards(): Generator<*, *, *> {
     }
 
     yield put(putCards(cards));
+    yield put(endSync('cards', 'notDone'));
   } catch (error) {
     console.warn('[saga] fetchNotDoneCards', error);
-    // TODO show modal with error
+    yield put(endSync('cards', 'notDone', error.message)); // TODO show modal with error
   }
 }
 

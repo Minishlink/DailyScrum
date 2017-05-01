@@ -10,22 +10,26 @@ import type { ActionType } from './';
 import { fetchProjectData } from '../common/sagas';
 import { clearSprints } from '../sprints';
 import { clearCards } from '../cards';
+import { startSync, endSync } from '../sync';
 
 export function* fetchCurrentProject(): Generator<*, *, *> {
   try {
+    yield put(startSync('projects', 'current'));
     const token = yield select(tokenSelector);
     const project: ScrumbleProjectType = yield call(Scrumble.getCurrentProject, token.scrumble);
     yield put(putProjects([project], true));
     yield put(putUsersFromScrumble(project.team));
     yield put(setCurrentProject(project));
+    yield put(endSync('projects', 'current'));
   } catch (error) {
     console.warn('[saga] fetchCurrentProject', error);
-    // TODO show modal with error
+    yield put(endSync('projects', 'current', error.message)); // TODO show modal with error
   }
 }
 
 function* changeCurrentRemoteProject(action: ActionType): Generator<*, *, *> {
   try {
+    yield put(startSync('projects', 'change'));
     const token = yield select(tokenSelector);
     // TODO $FlowFixMe
     const boardId = action.payload.boardId;
@@ -41,9 +45,10 @@ function* changeCurrentRemoteProject(action: ActionType): Generator<*, *, *> {
       console.warn('Not a project');
       // TODO show a Toast/Modal asking the user to create the project on Scrumble for the moment
     }
+    yield put(endSync('projects', 'change'));
   } catch (error) {
     console.warn('[saga] changeCurrentRemoteProject', error);
-    // TODO show modal with error
+    yield put(endSync('projects', 'change', error.message)); // TODO show modal with error
   }
 }
 
