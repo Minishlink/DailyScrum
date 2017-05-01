@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import { Icon } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
 import MemberIcon from './MemberIcon';
@@ -17,9 +18,9 @@ export default (props: PropsType) => (
           </View>}
       </View>
       {props.isSprintGoal &&
-        <View style={styles.iconContainer}>
+        <Animatable.View animation="pulse" iterationCount="infinite" style={styles.iconContainer}>
           <Icon name="star" size={30} color="#e6c60d" />
-        </View>}
+        </Animatable.View>}
       <Text style={[styles.title, props.isSprintGoal && { fontSize: appStyle.font.size.big, fontWeight: 'bold' }]}>
         {props.card ? props.card.name : props.title}
       </Text>

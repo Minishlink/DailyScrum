@@ -4,7 +4,6 @@ import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { MemberIcon } from 'DailyScrum/src/components';
 import { roundToDecimalPlace } from '../../services/MathService';
 import type { CardType, UserType } from '../../types';
-import appStyle from 'DailyScrum/src/appStyle';
 
 export default class FilterableMember extends Component {
   props: PropsType;

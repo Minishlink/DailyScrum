@@ -1,7 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import { Page, TrelloCard, Icon } from 'DailyScrum/src/components';
 import { fetchBaseData } from 'DailyScrum/src/modules/common';
 import { currentSprintSelector } from '../../modules/sprints/reducer';
@@ -27,20 +28,22 @@ class Summary extends Component {
     return (
       <Page>
         <View style={styles.container}>
-          <Text style={styles.projectTitle}>{currentProject.name}</Text>
-          <View style={styles.sprintGoal}>
+          <Animatable.Text animation="slideInDown" style={styles.projectTitle}>{currentProject.name}</Animatable.Text>
+          <Animatable.View animation="fadeIn" delay={200} style={styles.sprintGoal}>
             <TrelloCard title={currentSprint.goal} isSprintGoal />
-          </View>
+          </Animatable.View>
           {lead != null &&
-            <Text style={{ color: lead.points >= 0 ? 'green' : 'red' }}>
+            <Animatable.Text animation="fadeInLeft" style={{ color: lead.points >= 0 ? 'green' : 'red' }}>
               {`You're ${lead.points >= 0 ? 'ahead' : 'late'} of ${lead.points > 0 ? lead.points : -lead.points} pts (${lead.manDays > 0 ? lead.manDays : -lead.manDays} man-days)`}
-            </Text>}
+            </Animatable.Text>}
           {pointsLeft != null &&
             (pointsLeft > 0
-              ? <Text>There are {pointsLeft} points left.</Text>
-              : <Text>Congratulations! You finished your sprint, and you have {-pointsLeft} points of bonus.</Text>)}
+              ? <Animatable.Text animation="fadeInRight">There are {pointsLeft} points left.</Animatable.Text>
+              : <Animatable.Text animation="fadeInRight">
+                  Congratulations! You finished your sprint, and you have {-pointsLeft} points of bonus.
+                </Animatable.Text>)}
           <TouchableOpacity style={styles.refreshButton} onPress={this.refresh}>
-            <Icon name="refresh" size={30} />
+            <Animatable.View animation="fadeIn"><Icon name="refresh" size={30} /></Animatable.View>
           </TouchableOpacity>
         </View>
       </Page>
@@ -69,7 +72,7 @@ const styles = StyleSheet.create({
   },
   sprintGoal: {
     marginVertical: 20,
-    minWidth: '80%',
+    width: 0.75 * Dimensions.get('window').width,
   },
   refreshButton: {
     position: 'absolute',

@@ -7,7 +7,6 @@ import { currentUserSelector } from 'DailyScrum/src/modules/users/reducer';
 import { teamSelector } from 'DailyScrum/src/modules/sprints/reducer';
 import type { CardType, UserType, TeamType } from '../../types';
 import { FilterableMember } from './';
-import appStyle from 'DailyScrum/src/appStyle';
 
 class FilterMembers extends Component {
   state: StateType = { filterable: [] };
