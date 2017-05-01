@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   listsContainer: {
-    paddingBottom: 10,
+    paddingVertical: 10,
   },
   listName: {
     marginBottom: 5,

@@ -1,12 +1,13 @@
 // @flow
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { currentUserSelector } from 'DailyScrum/src/modules/users/reducer';
 import { teamSelector } from 'DailyScrum/src/modules/sprints/reducer';
 import type { CardType, UserType, TeamType } from '../../types';
 import { FilterableMember } from './';
+import appStyle from 'DailyScrum/src/appStyle';
 
 class FilterMembers extends Component {
   state: StateType = { filterable: [] };
@@ -70,9 +71,11 @@ class FilterMembers extends Component {
 
   render() {
     return (
-      <ScrollView contentContainerStyle={this.props.style} horizontal={true} showsHorizontalScrollIndicator={false}>
-        {this.state.filterable.map(this.renderFilterableMember)}
-      </ScrollView>
+      <View style={this.state.filterable.length && styles.container}>
+        <ScrollView contentContainerStyle={this.props.style} horizontal={true} showsHorizontalScrollIndicator={false}>
+          {this.state.filterable.map(this.renderFilterableMember)}
+        </ScrollView>
+      </View>
     );
   }
 }
@@ -91,6 +94,18 @@ type PropsType = {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    paddingTop: Platform.OS === 'ios' ? 25 : 5, // header
+    paddingHorizontal: 10,
+    marginBottom: 4,
+    borderBottomLeftRadius: 4,
+    borderBottomRightRadius: 4,
+    shadowColor: 'black',
+    shadowRadius: 2,
+    shadowOpacity: 0.5,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 2,
+  },
   filterableMemberContainer: {
     marginHorizontal: 4,
   },

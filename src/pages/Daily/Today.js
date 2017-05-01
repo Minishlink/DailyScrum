@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Platform } from 'react-native';
 import { Page, CardLists } from 'DailyScrum/src/components';
 import { todayCardsSelector } from '../../modules/cards/reducer';
 import { fetchNotDoneCards as fetchNotDoneCardsSaga } from 'DailyScrum/src/modules/cards/sagas';
@@ -16,9 +15,7 @@ class Today extends Component {
   render() {
     return (
       <Page noNavBar>
-        <View style={styles.container}>
-          <CardLists onRefresh={this.fetchCards} cardLists={this.props.cardLists} />
-        </View>
+        <CardLists onRefresh={this.fetchCards} cardLists={this.props.cardLists} />
       </Page>
     );
   }
@@ -32,13 +29,6 @@ type PropsType = {
   navigation: any,
   cardLists: CardListsType,
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: Platform.OS === 'ios' ? 30 : 15, // header
-  },
-});
 
 const mapStateToProps = state => ({
   cardLists: todayCardsSelector(state),

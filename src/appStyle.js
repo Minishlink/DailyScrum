@@ -1,3 +1,5 @@
+import chroma from 'chroma-js';
+const primaryColor = '#2196F3';
 export default {
   font: {
     size: {
@@ -9,9 +11,11 @@ export default {
     },
   },
   colors: {
-    primary: '#2196F3',
-    primaryMidDark: '#1976D2',
-    primaryDark: '#0D47A1',
+    primaryLight: chroma(primaryColor).brighten().hex(),
+    primaryMidLight: chroma(primaryColor).brighten(0.5).hex(),
+    primary: primaryColor,
+    primaryMidDark: chroma(primaryColor).darken(0.5).hex(),
+    primaryDark: chroma(primaryColor).darken().hex(),
     text: '#4d4d4d',
     lightText: '#FAFAFA',
     background: '#F5FCFF',
