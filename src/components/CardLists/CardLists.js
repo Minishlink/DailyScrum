@@ -59,10 +59,14 @@ class CardsList extends Component {
   renderSectionHeader = ({ section }: { section: { data: [], key: string } }) =>
     (section.data.length ? <ListHeader listKey={section.key} /> : null);
 
-  render() {
-    if (!this.state.cards.length)
-      return <View style={this.props.style}><Text style={styles.noCardsText}>No cards yet</Text></View>;
+  renderEmpty = () =>
+    !this.state.cards.length &&
+    <View style={styles.emptyContainer}>
+      <Text>No cards yet</Text>
+      <Text>Pull to refresh :)</Text>
+    </View>;
 
+  render() {
     const { cardLists } = this.props;
     // $FlowFixMe https://github.com/facebook/flow/issues/2221
     const sections = Object.entries(cardLists).map(([listKey, listCards]: [string, CardType[]]) => ({
@@ -74,14 +78,15 @@ class CardsList extends Component {
 
     return (
       <View style={[styles.container, this.props.style]}>
-        <Animatable.View animation="slideInDown">
-          <FilterMembers
-            style={styles.filterContainer}
-            cards={this.state.cards}
-            filtered={this.state.filteredMember}
-            onFilter={this.filterMember}
-          />
-        </Animatable.View>
+        {!!this.state.cards.length &&
+          <Animatable.View animation="slideInDown">
+            <FilterMembers
+              style={styles.filterContainer}
+              cards={this.state.cards}
+              filtered={this.state.filteredMember}
+              onFilter={this.filterMember}
+            />
+          </Animatable.View>}
         <Animatable.View animation="fadeIn" style={{ flex: 1 }}>
           <SectionList
             contentContainerStyle={styles.listsContainer}
@@ -91,6 +96,7 @@ class CardsList extends Component {
             SectionSeparatorComponent={() => <View style={styles.listSeparator} />}
             renderSectionHeader={this.renderSectionHeader}
             renderItem={this.renderCard}
+            ListHeaderComponent={this.renderEmpty}
             keyExtractor={(card: CardType) => card.idShort}
             sections={sections}
           />
@@ -104,8 +110,9 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
   },
-  noCardsText: {
-    textAlign: 'center',
+  emptyContainer: {
+    marginTop: 100,
+    alignItems: 'center',
   },
   filterContainer: {
     flexGrow: 1,
