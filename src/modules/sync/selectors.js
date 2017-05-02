@@ -8,6 +8,11 @@ const initialSyncState = {
 
 const AndLogicReducer = (all, current) => all && current;
 const OrLogicReducer = (all, current) => all || current;
+const FlattenArrayReducer = (all, current) => {
+  const toAdd = Array.isArray(current) ? current.reduce(FlattenArrayReducer, []) : current;
+  return all.concat(all.includes(Array.isArray(toAdd) ? toAdd[0] : toAdd) ? undefined : toAdd);
+};
+
 const mapReducer = (
   state: StateType,
   reducer: Function,
@@ -36,9 +41,13 @@ const mapReducer = (
 };
 
 export const isSyncSuccessfulSelector = (state: StateType, name: ?string, key: ?string) => {
-  return mapReducer(state, AndLogicReducer, true, syncState => !syncState.isLoading && !syncState.error, name, key);
+  return mapReducer(state, AndLogicReducer, true, syncState => !syncState.error, name, key);
 };
 
 export const isSyncingSelector = (state: StateType, name: ?string, key: ?string) => {
   return mapReducer(state, OrLogicReducer, false, syncState => syncState.isLoading, name, key);
+};
+
+export const errorsSelector = (state: StateType, name: ?string, key: ?string) => {
+  return mapReducer(state, FlattenArrayReducer, [], syncState => [syncState.error], name, key).filter(Boolean);
 };

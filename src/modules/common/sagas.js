@@ -18,13 +18,15 @@ function* fetchBaseData(): Generator<*, *, *> {
     timeout: call(delay, 10000),
   });
 
-  yield put(endSync('common', 'base', timeout ? 'timeout' : null));
-
   if (yield select(isSyncSuccessfulSelector)) {
+    yield put(endSync('common', 'base'));
     yield put(syncIsSuccessful());
   } else {
-    // TODO show modal/info
-    console.warn('[saga] fetchBaseData', 'Probably a timeout');
+    if (timeout) {
+      yield put(endSync('common', 'base', 'Timeout'));
+    } else {
+      yield put(endSync('common', 'base', 'Network request failed'));
+    }
   }
 }
 

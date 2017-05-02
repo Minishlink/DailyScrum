@@ -13,8 +13,8 @@ export function* fetchBoards(): Generator<*, *, *> {
     yield put(setBoards(boards));
     yield put(endSync('boards', 'all'));
   } catch (error) {
-    console.warn('[saga] fetchBoards', error);
-    yield put(endSync('boards', 'all', error.message)); // TODO show modal with error
+    console.info('[saga] fetchBoards', error);
+    yield put(endSync('boards', 'all', error.message));
   } finally {
     if (yield cancelled()) {
       yield put(endSync('boards', 'all', 'cancelled'));

@@ -22,8 +22,8 @@ export function* fetchSprints(): Generator<*, *, *> {
     }
     yield put(endSync('sprints', 'all'));
   } catch (error) {
-    console.warn('[saga] fetchSprints', error);
-    yield put(endSync('sprints', 'all', error.message)); // TODO show modal with error
+    console.info('[saga] fetchSprints', error);
+    yield put(endSync('sprints', 'all', error.message));
   } finally {
     if (yield cancelled()) {
       yield put(endSync('sprints', 'all', 'cancelled'));
@@ -40,8 +40,8 @@ function* fetchCurrentSprint() {
     yield put(setCurrentSprint(sprint));
     yield put(endSync('sprints', 'current'));
   } catch (error) {
-    console.warn('[saga] fetchCurrentSprint', error);
-    yield put(endSync('sprints', 'current', error.message)); // TODO show modal with error
+    console.info('[saga] fetchCurrentSprint', error);
+    yield put(endSync('sprints', 'current', error.message));
   } finally {
     if (yield cancelled()) {
       yield put(endSync('sprints', 'current', 'cancelled'));

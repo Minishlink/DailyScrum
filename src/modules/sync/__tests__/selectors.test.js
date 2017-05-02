@@ -1,4 +1,4 @@
-import { isSyncSuccessfulSelector, isSyncingSelector, syncReducer } from '../';
+import { isSyncSuccessfulSelector, isSyncingSelector, errorsSelector, syncReducer } from '../';
 
 describe('sync selectors', () => {
   let state;
@@ -82,52 +82,6 @@ describe('sync selectors', () => {
         page2: {
           task1: {
             isLoading: false,
-            error: true,
-          },
-        },
-      };
-      expect(isSyncSuccessfulSelector(state)).toEqual(false);
-    });
-
-    it('should return false if there is something loading but no error', () => {
-      state.sync = {
-        ...state.sync,
-        page1: {
-          task1: {
-            isLoading: false,
-            error: null,
-          },
-          task2: {
-            isLoading: false,
-            error: null,
-          },
-        },
-        page2: {
-          task1: {
-            isLoading: true,
-            error: null,
-          },
-        },
-      };
-      expect(isSyncSuccessfulSelector(state)).toEqual(false);
-    });
-
-    it('should return false if there is something loading and an error', () => {
-      state.sync = {
-        ...state.sync,
-        page1: {
-          task1: {
-            isLoading: false,
-            error: null,
-          },
-          task2: {
-            isLoading: false,
-            error: null,
-          },
-        },
-        page2: {
-          task1: {
-            isLoading: true,
             error: true,
           },
         },
@@ -265,6 +219,115 @@ describe('sync selectors', () => {
         },
       };
       expect(isSyncingSelector(state, 'page1', 'task1')).toEqual(false);
+    });
+  });
+
+  describe('errorsSelector', () => {
+    it('should return no errors if there is nothing', () => {
+      expect(errorsSelector(state)).toEqual([]);
+    });
+
+    it('should return no errors if not initialized', () => {
+      state.sync = {
+        ...state.sync,
+        page1: {},
+      };
+      expect(errorsSelector(state)).toEqual([]);
+    });
+
+    it('should return no errors if there are no errors', () => {
+      state.sync = {
+        ...state.sync,
+        page1: {
+          task1: {
+            isLoading: false,
+            error: null,
+          },
+          task2: {
+            isLoading: false,
+            error: null,
+          },
+        },
+        page2: {
+          task1: {
+            isLoading: false,
+            error: null,
+          },
+        },
+      };
+      expect(errorsSelector(state)).toEqual([]);
+    });
+
+    it('should return an error if there is one error', () => {
+      state.sync = {
+        ...state.sync,
+        page1: {
+          task1: {
+            isLoading: false,
+            error: null,
+          },
+          task2: {
+            isLoading: false,
+            error: true,
+          },
+        },
+        page2: {
+          task1: {
+            isLoading: false,
+            error: null,
+          },
+        },
+      };
+      expect(errorsSelector(state)).toEqual([true]);
+    });
+
+    it('should return two errors if there are two errors', () => {
+      state.sync = {
+        ...state.sync,
+        page1: {
+          task1: {
+            isLoading: false,
+            error: 'error',
+          },
+          task2: {
+            isLoading: false,
+            error: null,
+          },
+        },
+        page2: {
+          task1: {
+            isLoading: false,
+            error: true,
+          },
+        },
+      };
+      expect(errorsSelector(state)).toEqual(['error', true]);
+    });
+
+    it('should return an error for a given name', () => {
+      state.sync = {
+        ...state.sync,
+        page: {
+          task: {
+            isLoading: false,
+            error: 'error',
+          },
+        },
+      };
+      expect(errorsSelector(state, 'page')).toEqual(['error']);
+    });
+
+    it('should return an error for a given name and key', () => {
+      state.sync = {
+        ...state.sync,
+        page: {
+          task: {
+            isLoading: false,
+            error: 'error',
+          },
+        },
+      };
+      expect(errorsSelector(state, 'page', 'task')).toEqual(['error']);
     });
   });
 });

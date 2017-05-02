@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 import { StyleSheet, View, Dimensions, Text } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { distanceInWordsToNow } from 'date-fns';
-import { Page, TrelloCard, Icon, Button } from 'DailyScrum/src/components';
+import { Page, TrelloCard, Icon, Button, createErrorBar } from 'DailyScrum/src/components';
 import { fetchBaseData } from 'DailyScrum/src/modules/common';
 import { currentSprintSelector } from '../../modules/sprints/reducer';
 import { currentProjectSelector } from '../../modules/projects/reducer';
 import { isSyncingSelector } from '../../modules/sync';
 import { lastSuccessfulSyncDateSelector } from '../../modules/common/reducer';
 import type { SprintType, ProjectType } from '../../types';
+const ErrorBar = createErrorBar('common', 'base');
 
 class Summary extends Component {
   props: PropsType;
@@ -29,6 +30,7 @@ class Summary extends Component {
     const { lead, pointsLeft } = currentSprint;
     return (
       <Page>
+        <ErrorBar />
         <View style={styles.container}>
           <Animatable.Text animation="slideInDown" style={styles.projectTitle}>{currentProject.name}</Animatable.Text>
           <Animatable.View animation="fadeIn" delay={200} style={styles.sprintGoal}>

@@ -14,8 +14,8 @@ export function* fetchCurrentUser(): Generator<*, *, *> {
     yield put(setCurrentUser(user.id));
     yield put(endSync('users', 'current'));
   } catch (error) {
-    console.warn('[saga] fetchCurrentUser', error);
-    yield put(endSync('users', 'current', error.message)); // TODO show modal with error
+    console.info('[saga] fetchCurrentUser', error);
+    yield put(endSync('users', 'current', error.message));
   } finally {
     if (yield cancelled()) {
       yield put(endSync('users', 'current', 'cancelled'));

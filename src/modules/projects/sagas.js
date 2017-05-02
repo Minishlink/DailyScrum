@@ -22,8 +22,8 @@ export function* fetchCurrentProject(): Generator<*, *, *> {
     yield put(setCurrentProject(project));
     yield put(endSync('projects', 'current'));
   } catch (error) {
-    console.warn('[saga] fetchCurrentProject', error);
-    yield put(endSync('projects', 'current', error.message)); // TODO show modal with error
+    console.info('[saga] fetchCurrentProject', error);
+    yield put(endSync('projects', 'current', error.message));
   } finally {
     if (yield cancelled()) {
       yield put(endSync('projects', 'current', 'cancelled'));
@@ -51,8 +51,8 @@ function* changeCurrentRemoteProject(action: ActionType): Generator<*, *, *> {
     }
     yield put(endSync('projects', 'change'));
   } catch (error) {
-    console.warn('[saga] changeCurrentRemoteProject', error);
-    yield put(endSync('projects', 'change', error.message)); // TODO show modal with error
+    console.info('[saga] changeCurrentRemoteProject', error);
+    yield put(endSync('projects', 'change', error.message));
   } finally {
     if (yield cancelled()) {
       yield put(endSync('projects', 'change', 'cancelled'));

@@ -58,8 +58,8 @@ export function* fetchDoneCards(): Generator<*, *, *> {
 
     yield put(endSync('cards', 'done'));
   } catch (error) {
-    console.warn('[saga] fetchDoneCards', error);
-    yield put(endSync('cards', 'done', error.message)); // TODO show modal with error
+    console.info('[saga] fetchDoneCards', error);
+    yield put(endSync('cards', 'done', error.message));
   } finally {
     if (yield cancelled()) {
       yield put(endSync('cards', 'done', 'cancelled'));
@@ -87,8 +87,8 @@ export function* fetchNotDoneCards(): Generator<*, *, *> {
     yield put(putCards(cards));
     yield put(endSync('cards', 'notDone'));
   } catch (error) {
-    console.warn('[saga] fetchNotDoneCards', error);
-    yield put(endSync('cards', 'notDone', error.message)); // TODO show modal with error
+    console.info('[saga] fetchNotDoneCards', error);
+    yield put(endSync('cards', 'notDone', error.message));
   } finally {
     if (yield cancelled()) {
       yield put(endSync('cards', 'notDone', 'cancelled'));

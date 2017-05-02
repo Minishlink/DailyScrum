@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import chroma from 'chroma-js';
 const primaryColor = '#2196F3';
 export default {
@@ -26,3 +27,5 @@ export default {
     visibleButtonHeight: 36,
   },
 };
+
+export const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
