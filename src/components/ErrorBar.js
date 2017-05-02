@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Text, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, Dimensions, Platform } from 'react-native';
 import _ from 'lodash';
 import { errorsSelector } from '../modules/sync';
 import { STATUSBAR_HEIGHT } from '../appStyle';
@@ -26,7 +26,18 @@ class ErrorBar extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    zIndex: 999,
+    ...Platform.select({
+      ios: {
+        zIndex: 999,
+        shadowColor: 'black',
+        shadowRadius: 2,
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.5,
+      },
+      android: {
+        elevation: 2,
+      },
+    }),
     position: 'absolute',
     width: Dimensions.get('window').width,
     paddingTop: STATUSBAR_HEIGHT,
