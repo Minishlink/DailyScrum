@@ -329,5 +329,18 @@ describe('sync selectors', () => {
       };
       expect(errorsSelector(state, 'page', 'task')).toEqual(['error']);
     });
+
+    it('should return no error for a given name and key', () => {
+      state.sync = {
+        ...state.sync,
+        page: {
+          task: {
+            isLoading: false,
+            error: null,
+          },
+        },
+      };
+      expect(errorsSelector(state, 'page', 'task')).toEqual([]);
+    });
   });
 });

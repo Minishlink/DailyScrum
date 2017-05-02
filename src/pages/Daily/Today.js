@@ -1,10 +1,11 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Page, CardLists } from 'DailyScrum/src/components';
+import { Page, CardLists, createErrorBar } from 'DailyScrum/src/components';
 import { todayCardsSelector } from '../../modules/cards/reducer';
 import { fetchNotDoneCards as fetchNotDoneCardsSaga } from 'DailyScrum/src/modules/cards/sagas';
 import type { CardListsType } from 'DailyScrum/src/modules/cards/reducer';
+const ErrorBar = createErrorBar({ cards: 'notDone' });
 
 class Today extends Component {
   props: PropsType;
@@ -15,6 +16,7 @@ class Today extends Component {
   render() {
     return (
       <Page noNavBar>
+        <ErrorBar />
         <CardLists onRefresh={this.fetchCards} cardLists={this.props.cardLists} />
       </Page>
     );

@@ -11,7 +11,7 @@ import { currentProjectSelector } from '../../modules/projects/reducer';
 import { isSyncingSelector } from '../../modules/sync';
 import { lastSuccessfulSyncDateSelector } from '../../modules/common/reducer';
 import type { SprintType, ProjectType } from '../../types';
-const ErrorBar = createErrorBar('common', 'base');
+const ErrorBar = createErrorBar({ common: 'base' });
 
 class Summary extends Component {
   props: PropsType;

@@ -39,10 +39,39 @@ const styles = StyleSheet.create({
   },
 });
 
-export default (name?: string, key?: string) => {
-  const mapStateToProps = state => ({
-    errors: errorsSelector(state, name, key),
-  });
+export default (wantedErrors?: WantedErrorsType) => {
+  const mapStateToProps = state => {
+    let selectErrors = [];
+
+    if (wantedErrors) {
+      Object.entries(wantedErrors).forEach(([name, key]) => {
+        if (key === true) {
+          selectErrors.push([name]);
+        } else if (Array.isArray(key)) {
+          key.forEach(key => selectErrors.push([name, key]));
+        } else {
+          selectErrors.push([name, key]);
+        }
+      });
+    } else {
+      selectErrors.push([]);
+    }
+
+    return {
+      errors: _.flatten(selectErrors.map(([name, key]) => errorsSelector(state, name, key))),
+    };
+  };
 
   return connect(mapStateToProps)(ErrorBar);
+};
+
+/*
+ * can be
+ * { boards: true } // all errors from boards
+ * { projects: 'change' } // only the change error from projects
+ * { boards: true, projects: 'change' } // both above errors
+ * { cards: ['done', 'notDone'] }
+ */
+type WantedErrorsType = {
+  [name: string]: true | string | string[],
 };

@@ -27,17 +27,23 @@ const mapReducer = (
       .reduce(reducer, reducerInitialValue);
   }
 
+  const syncName = state.sync[name];
+  if (!syncName) {
+    return condition(initialSyncState);
+  }
+
   if (!key) {
-    return Object.keys(state.sync[name])
+    return Object.keys(syncName)
       .map(key => mapReducer(state, reducer, reducerInitialValue, condition, name, key))
       .reduce(reducer, reducerInitialValue);
   }
 
-  if (!state.sync[name] || !state.sync[name][key]) {
+  const syncNameKey = state.sync[name][key];
+  if (!syncNameKey) {
     return condition(initialSyncState);
   }
 
-  return condition(state.sync[name][key]);
+  return condition(syncNameKey);
 };
 
 export const isSyncSuccessfulSelector = (state: StateType, name: ?string, key: ?string) => {

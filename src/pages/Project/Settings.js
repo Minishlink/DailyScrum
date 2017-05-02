@@ -2,13 +2,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, FlatList, Text, TextInput } from 'react-native';
-import { Page } from 'DailyScrum/src/components';
+import { Page, createErrorBar } from 'DailyScrum/src/components';
 import { fetchBoards } from 'DailyScrum/src/modules/boards/sagas';
 import { boardsListSelector } from '../../modules/boards/reducer';
 import type { BoardType } from '../../types';
 import BoardCard from './components/BoardCard';
 import { changeCurrentRemoteProject } from '../../modules/projects';
 import { currentProjectSelector } from '../../modules/projects/reducer';
+const ErrorBar = createErrorBar({ boards: 'all', projects: 'change' });
 
 class Settings extends Component {
   props: PropsType;
@@ -36,6 +37,7 @@ class Settings extends Component {
     );
     return (
       <Page>
+        <ErrorBar />
         <TextInput
           style={styles.searchInput}
           onChangeText={filterBoard => this.setState({ filterBoard })}
