@@ -8,14 +8,13 @@ import MemberIcon from './MemberIcon';
 import PointsBadge from './PointsBadge';
 import type { CardType } from '../../types';
 
-// TODO FUTURE remove the toStrings when RN 0.44 is installed (https://github.com/facebook/react-native/issues/13080)
 export default (props: PropsType) => (
   <View style={styles.container}>
     <View style={styles.card}>
       <View style={styles.labelsRow}>
         {props.card &&
           <View style={styles.idShortContainer}>
-            <Text style={styles.idShort}>#{props.card.idShort.toString()}</Text>
+            <Text style={styles.idShort}>#{props.card.idShort}</Text>
           </View>}
       </View>
       {props.isSprintGoal &&
@@ -29,7 +28,7 @@ export default (props: PropsType) => (
         {props.card &&
           props.card.points !== null &&
           <View style={styles.pointsContainer}>
-            <PointsBadge points={(props.card.points || 0).toString()} />
+            <PointsBadge points={(props.card.points || 0).toLocaleString()} />
           </View>}
         {props.card &&
           <View style={styles.membersContainer}>

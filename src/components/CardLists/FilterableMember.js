@@ -10,7 +10,6 @@ export default class FilterableMember extends Component {
 
   render() {
     const { member, cards } = this.props;
-    // TODO FUTURE remove the toString of the points when RN 0.44 is out (https://github.com/facebook/react-native/issues/13080)
     return (
       <View key={member.id} style={this.props.style}>
         <TouchableOpacity
@@ -28,7 +27,7 @@ export default class FilterableMember extends Component {
                 total + (card.points ? roundToDecimalPlace(card.points / card.idMembers.length) : 0),
               0
             )
-            .toString()}
+            .toLocaleString()}
         </Text>
       </View>
     );

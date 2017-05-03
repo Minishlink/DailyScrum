@@ -19,7 +19,7 @@
 		"date-fns": "^1.28.4",
 		"lodash": "^4.17.4",
 		"react": "16.0.0-alpha.6",
-		"react-native": "0.43.4",
+		"react-native": "0.44.0",
 		"react-native-animatable": "^1.1.1",
 		"react-native-vector-icons": "^4.0.0",
 		"react-navigation": "^1.0.0-beta.7",
@@ -40,7 +40,7 @@
 		"eslint-plugin-jsx-a11y": "^4.0.0",
 		"eslint-plugin-prettier": "^2.0.1",
 		"eslint-plugin-react": "^6.10.3",
-		"flow-bin": "^0.40.0",
+		"flow-bin": "^0.42.0",
 		"jest": "^19.0.2",
 		"prettier": "^1.1.0"
 	},
