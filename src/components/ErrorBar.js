@@ -6,6 +6,9 @@ import { errorsSelector } from '../modules/sync';
 import { STATUSBAR_HEIGHT } from '../appStyle';
 
 class ErrorBar extends Component {
+  props: PropsType;
+  state: StateType = { show: false };
+
   getErrorMessage = (error: string) => {
     switch (error) {
       case 'Network request failed':
@@ -17,12 +20,35 @@ class ErrorBar extends Component {
     }
   };
 
+  componentWillReceiveProps(nextProps: PropsType) {
+    if (!_.isEqual(nextProps.errors, this.props.errors)) {
+      clearTimeout(this.timeout);
+      const show = nextProps.errors.length;
+      this.setState({ show });
+      if (show) {
+        this.timeout = setTimeout(() => this.setState({ show: false }), 5000);
+      }
+    }
+  }
+
   render() {
-    if (!this.props.errors.length) return null;
+    if (!this.state.show) return null;
     const errors = _.uniq(this.props.errors.map(this.getErrorMessage));
-    return <View style={styles.container}><Text style={styles.text}>{errors.map(error => error)}</Text></View>;
+    return (
+      <View style={styles.container}>
+        {errors.map(error => <Text key={error} style={styles.text}>{error}</Text>)}
+      </View>
+    );
   }
 }
+
+type PropsType = {
+  errors: string[],
+};
+
+type StateType = {
+  show: boolean,
+};
 
 const styles = StyleSheet.create({
   container: {
