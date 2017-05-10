@@ -57,7 +57,7 @@ class CardsList extends Component {
 
   renderCard = ({ item }: { item: CardType }) => <TrelloCard card={item} />;
   renderSectionHeader = ({ section }: { section: { data: [], key: string } }) =>
-    (section.data.length ? <ListHeader listKey={section.key} /> : null);
+    section.data.length ? <ListHeader listKey={section.key} /> : null;
 
   renderEmpty = () =>
     !this.state.cards.length &&

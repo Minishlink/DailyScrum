@@ -3,11 +3,11 @@ import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 
 export default ({ children, disabled, ...props }: PropsType) =>
-  (disabled
+  disabled
     ? <View {...props}>{children}</View>
     : <TouchableOpacity {...props}>
         {children}
-      </TouchableOpacity>);
+      </TouchableOpacity>;
 
 type PropsType = {
   disabled?: boolean,
