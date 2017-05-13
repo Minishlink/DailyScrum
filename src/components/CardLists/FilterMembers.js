@@ -94,7 +94,7 @@ type PropsType = {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Platform.OS === 'ios' ? 25 : 5, // header
+    paddingTop: 10,
     paddingHorizontal: 10,
     marginBottom: 4,
     borderBottomLeftRadius: 4,
@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowOffset: { width: 0, height: 2 },
     elevation: 2,
+    backgroundColor: 'white',
   },
   filterableMemberContainer: {
     marginHorizontal: 4,
