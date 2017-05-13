@@ -1,9 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Dimensions, Text } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { Page, TrelloCard, Button, createErrorBar } from 'DailyScrum/src/components';
+import { Page, TrelloCard, BigButton, createErrorBar } from 'DailyScrum/src/components';
 import { fetchBaseData } from 'DailyScrum/src/modules/common';
 import { currentSprintSelector } from '../../modules/sprints/reducer';
 import { currentProjectSelector } from '../../modules/projects/reducer';
@@ -38,8 +38,20 @@ class Summary extends Component {
               : <Animatable.Text animation="fadeInRight">
                   Congratulations! You finished your sprint, and you have {-pointsLeft} points of bonus.
                 </Animatable.Text>)}
-          <Button onPress={() => this.props.navigation.navigate('yesterday')}><Text>Yesterday</Text></Button>
-          <Button onPress={() => this.props.navigation.navigate('today')}><Text>Today</Text></Button>
+          <View style={styles.buttons}>
+            <BigButton
+              style={styles.button}
+              icon={{ name: 'chevron-left' }}
+              title="Yesterday"
+              onPress={() => this.props.navigation.navigate('yesterday')}
+            />
+            <BigButton
+              style={styles.button}
+              icon={{ name: 'chevron-right', right: true }}
+              title="Today"
+              onPress={() => this.props.navigation.navigate('today')}
+            />
+          </View>
         </View>
       </Page>
     );
@@ -63,6 +75,13 @@ const styles = StyleSheet.create({
   sprintGoal: {
     marginVertical: 20,
     width: 0.75 * Dimensions.get('window').width,
+  },
+  buttons: {
+    position: 'absolute',
+    bottom: 25,
+  },
+  button: {
+    marginTop: 10,
   },
 });
 
