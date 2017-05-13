@@ -18,9 +18,12 @@ export default (props: PropsType) => (
           </View>}
       </View>
       {props.isSprintGoal &&
-        <Animatable.View animation="pulse" iterationCount="infinite" style={styles.iconContainer}>
-          <Icon name="star" size={30} color="#e6c60d" />
-        </Animatable.View>}
+        <View style={styles.sprintGoalContainer}>
+          <Animatable.View animation="pulse" iterationCount="infinite" style={styles.iconContainer}>
+            <Icon name="star" size={30} color="#e6c60d" />
+          </Animatable.View>
+          <Text style={styles.sprintGoalText}>Sprint Goal</Text>
+        </View>}
       <Text style={[styles.title, props.isSprintGoal && { fontSize: appStyle.font.size.big, fontWeight: 'bold' }]}>
         {props.card ? props.card.name : props.title}
       </Text>
@@ -116,6 +119,14 @@ const styles = StyleSheet.create({
     left: -4,
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
+  },
+  sprintGoalContainer: {
+    alignItems: 'center',
+  },
+  sprintGoalText: {
+    color: appStyle.primaryDark,
+    fontSize: 12,
+    fontWeight: '300',
   },
 });
 
