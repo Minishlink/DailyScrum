@@ -15,6 +15,10 @@ class Settings extends Component {
   props: PropsType;
   state: StateType = { filterBoard: '', isRefreshing: false };
 
+  static navigationOptions = {
+    headerTitle: 'Change project',
+  };
+
   handleRefresh = () => {
     this.setState({ isRefreshing: true }, () => {
       this.context.store.runSaga(fetchBoards).done.then(() => {

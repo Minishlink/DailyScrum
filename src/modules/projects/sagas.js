@@ -44,7 +44,7 @@ function* changeCurrentRemoteProject(action: ActionType): Generator<*, *, *> {
       yield call(Scrumble.setCurrentProject, token.scrumble, project.id);
       yield [put(clearCards()), put(clearOtherUsers()), put(clearSprints())];
       yield* fetchProjectData();
-      yield [put(NavigationActions.navigate({ routeName: 'summary' }))];
+      yield [put(NavigationActions.back())];
     } else {
       console.warn('Not a project');
       // TODO show a Toast/Modal asking the user to create the project on Scrumble for the moment

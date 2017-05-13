@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { StackNavigator, TabNavigator, TabBarTop, addNavigationHelpers } from 'react-navigation';
 import * as Pages from 'DailyScrum/src/pages';
 import appStyle from 'DailyScrum/src/appStyle';
+import { Header } from './components';
 
 const sectionsNavigatorConfig = {
   initialRouteName: 'summary',
@@ -17,17 +18,15 @@ const sectionsNavigatorConfig = {
 
 const DailyNavigator = TabNavigator(
   {
-    summary: { screen: Pages.Daily.Summary },
     yesterday: { screen: Pages.Daily.Yesterday },
+    summary: { screen: Pages.Daily.Summary },
     today: { screen: Pages.Daily.Today },
-    problems: { screen: Pages.Daily.Problems },
   },
   sectionsNavigatorConfig
 );
 
 const SprintNavigator = TabNavigator(
   {
-    settings: { screen: Pages.Sprint.Settings },
     summary: { screen: Pages.Sprint.Summary },
   },
   sectionsNavigatorConfig
@@ -35,7 +34,6 @@ const SprintNavigator = TabNavigator(
 
 const ProjectNavigator = TabNavigator(
   {
-    settings: { screen: Pages.Project.Settings },
     summary: { screen: Pages.Project.Summary },
   },
   sectionsNavigatorConfig
@@ -60,16 +58,20 @@ const appNavigatorPages = {
   login: {
     screen: Pages.Login,
     path: 'login#token=:token',
+    navigationOptions: { header: null },
   },
   main: {
     screen: MainNavigator,
+    navigationOptions: {
+      header: props => <Header {...props} />,
+    },
   },
+  projectSettings: { screen: Pages.Settings.Project },
 };
 
 const appNavigatorConfig = {
   initialRouteName: 'login',
   URIPrefix: 'dailyscrum://',
-  headerMode: 'none',
   cardStyle: {
     backgroundColor: appStyle.colors.background,
   },

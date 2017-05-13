@@ -11,6 +11,10 @@ class Yesterday extends Component {
   props: PropsType;
   state: any = { refreshing: false };
 
+  static navigationOptions = {
+    headerTitle: 'Yesterday',
+  };
+
   fetchCards = () => this.context.store.runSaga(fetchDoneCardsSaga).done;
 
   render() {
