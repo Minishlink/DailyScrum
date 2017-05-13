@@ -30,11 +30,11 @@ class Summary extends Component {
           </Animatable.View>
           {lead != null &&
             <Animatable.Text animation="fadeInLeft" style={{ color: lead.points >= 0 ? 'green' : 'red' }}>
-              {`You're ${lead.points >= 0 ? 'ahead' : 'late'} of ${lead.points > 0 ? lead.points : -lead.points} pts (${lead.manDays > 0 ? lead.manDays : -lead.manDays} man-days)`}
+              {`${lead.points >= 0 ? 'Lead' : 'Lateness'}: ${lead.points > 0 ? lead.points : -lead.points} pts / ${lead.manDays > 0 ? lead.manDays : -lead.manDays} man-days`}
             </Animatable.Text>}
           {pointsLeft != null &&
             (pointsLeft > 0
-              ? <Animatable.Text animation="fadeInRight">There are {pointsLeft} points left.</Animatable.Text>
+              ? <Animatable.Text animation="fadeInRight">Left overall: {pointsLeft} pts</Animatable.Text>
               : <Animatable.Text animation="fadeInRight">
                   Congratulations! You finished your sprint, and you have {-pointsLeft} points of bonus.
                 </Animatable.Text>)}
