@@ -9,8 +9,8 @@ import { currentProjectSelector } from '../modules/projects/reducer';
 import { isSyncingSelector } from '../modules/sync';
 import { lastSuccessfulSyncDateSelector } from '../modules/common/reducer';
 import type { ProjectType } from '../types';
+import { STATUSBAR_HEIGHT } from '../appStyle';
 
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 const iconSize = 20;
 
 class Header extends Component {
@@ -33,7 +33,7 @@ class Header extends Component {
               <Text style={styles.lastSyncText}>
                 last {distanceInWordsToNow(this.props.lastSuccessfulSync, { addSuffix: true })}
               </Text>}
-            <Button disabled={this.props.isSyncing} onPress={this.refresh}>
+            <Button disabled={this.props.isSyncing} onPress={this.props.fetchBaseData}>
               <Animatable.View animation={this.props.isSyncing ? 'rotate' : null} iterationCount="infinite">
                 <Icon name="refresh" size={iconSize} />
               </Animatable.View>
@@ -62,11 +62,11 @@ const styles = StyleSheet.create({
     paddingTop: STATUSBAR_HEIGHT + 5,
     paddingBottom: 5,
     backgroundColor: 'white',
-    elevation: 4,
+    elevation: 2,
     shadowColor: 'black',
-    shadowRadius: 2,
-    shadowOpacity: 0.5,
-    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 1,
+    shadowOpacity: 0.3,
+    shadowOffset: { width: 0, height: 1 },
   },
   actions: {
     flexDirection: 'row',

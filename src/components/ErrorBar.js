@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { StyleSheet, View, Text, Dimensions, Platform } from 'react-native';
 import _ from 'lodash';
 import { errorsSelector } from '../modules/sync';
-import { STATUSBAR_HEIGHT } from '../appStyle';
 
 class ErrorBar extends Component {
   props: PropsType;
@@ -14,7 +13,6 @@ class ErrorBar extends Component {
       case 'Network request failed':
       case 'Timeout':
         return 'Connection failed. Please try again later :)';
-
       default:
         return `Error: ${error}`;
     }
@@ -66,8 +64,7 @@ const styles = StyleSheet.create({
     }),
     position: 'absolute',
     width: Dimensions.get('window').width,
-    paddingTop: STATUSBAR_HEIGHT,
-    paddingBottom: 2,
+    paddingVertical: 2,
     backgroundColor: 'orange',
   },
   text: {
