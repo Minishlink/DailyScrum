@@ -18,7 +18,6 @@ class Header extends Component {
 
   render() {
     const { project } = this.props;
-    if (!project) return null;
     return (
       <View style={styles.container}>
         <View style={styles.actions}>
@@ -47,7 +46,7 @@ class Header extends Component {
             </View>
           </Button>
         </View>
-        <Text style={styles.projectTitle}>{project.name}</Text>
+        {project && <Text style={styles.projectTitle}>{project.name}</Text>}
       </View>
     );
   }

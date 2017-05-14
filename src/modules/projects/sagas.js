@@ -1,6 +1,7 @@
 // @flow
 import { NavigationActions } from 'react-navigation';
 import { call, put, select, takeEvery, cancelled } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 import { Scrumble } from 'DailyScrum/src/services';
 import { putProjects, setCurrentProject } from './';
 import { tokenSelector } from '../auth/reducer';
@@ -22,8 +23,13 @@ export function* fetchCurrentProject(): Generator<*, *, *> {
     yield put(setCurrentProject(project));
     yield put(endSync('projects', 'current'));
   } catch (error) {
-    console.info('[saga] fetchCurrentProject', error);
     yield put(endSync('projects', 'current', error.message));
+    if (error.statusCode === 404) {
+      yield call(delay, 1000); // for some reason react-navigation enters an infinite loop at this point if there's no delay
+      yield put(NavigationActions.navigate({ routeName: 'projectSettings' }));
+    } else {
+      console.info('[saga] fetchCurrentProject', error);
+    }
   } finally {
     if (yield cancelled()) {
       yield put(endSync('projects', 'current', 'cancelled'));
@@ -45,11 +51,10 @@ function* changeCurrentRemoteProject(action: ActionType): Generator<*, *, *> {
       yield [put(clearCards()), put(clearOtherUsers()), put(clearSprints())];
       yield* fetchProjectData();
       yield [put(NavigationActions.back())];
+      yield put(endSync('projects', 'change'));
     } else {
-      console.warn('Not a project');
-      // TODO show a Toast/Modal asking the user to create the project on Scrumble for the moment
+      yield put(endSync('projects', 'change', 'NOT_SCRUMBLE_PROJECT'));
     }
-    yield put(endSync('projects', 'change'));
   } catch (error) {
     console.info('[saga] changeCurrentRemoteProject', error);
     yield put(endSync('projects', 'change', error.message));

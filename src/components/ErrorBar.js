@@ -13,6 +13,8 @@ class ErrorBar extends Component {
       case 'Network request failed':
       case 'Timeout':
         return 'Connection failed. Please try again later :)';
+      case 'NOT_SCRUMBLE_PROJECT':
+        return 'DailyScrum does not let you create a new project at the moment. Please do it on Scrumble.';
       default:
         return `Error: ${error}`;
     }
