@@ -1,9 +1,9 @@
 // @flow
 
 import React, { Component } from 'react';
-import { Linking, View, Platform } from 'react-native';
+import { Linking, View, Platform, BackHandler } from 'react-native';
 import { connect } from 'react-redux';
-import { StackNavigator, TabNavigator, TabBarTop, addNavigationHelpers } from 'react-navigation';
+import { StackNavigator, TabNavigator, TabBarTop, addNavigationHelpers, NavigationActions } from 'react-navigation';
 import * as Pages from 'DailyScrum/src/pages';
 import appStyle from 'DailyScrum/src/appStyle';
 import { Header, Icon } from './components';
@@ -122,6 +122,10 @@ function urlToPathAndParams(url: string) {
 }
 
 class Scenes extends Component {
+  backPressListener: ?{
+    remove: () => void,
+  } = null;
+
   componentDidMount() {
     Linking.addEventListener('url', this._handleOpenURL);
     Linking.getInitialURL().then((url: string) => {
@@ -129,10 +133,15 @@ class Scenes extends Component {
         this._handleOpenURL({ url });
       }
     });
+
+    this.backPressListener = BackHandler.addEventListener('backPress', () =>
+      this.props.dispatch(NavigationActions.back())
+    );
   }
 
   componentWillUnmount() {
     Linking.removeEventListener('url', this._handleOpenURL);
+    this.backPressListener && this.backPressListener.remove();
   }
 
   _handleOpenURL = ({ url }: { url: string }) => {
