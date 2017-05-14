@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableHighlight, Text, Image } from 'react-native';
+import { StyleSheet, View, TouchableHighlight, Text, Image, ActivityIndicator } from 'react-native';
 import type { BoardType } from '../../../types';
 import { Icon } from '../../../components';
 
@@ -8,7 +8,7 @@ export default class BoardCard extends Component {
   props: PropsType;
 
   renderName = () => {
-    const { board, isActive } = this.props;
+    const { board, isActive, isLoading } = this.props;
     const color = board.background.brightness === 'light' ? 'black' : 'white';
 
     return (
@@ -16,7 +16,10 @@ export default class BoardCard extends Component {
         <Text style={[styles.name, { color }]}>
           {board.name}
         </Text>
-        {isActive && <View style={styles.activeIcon}><Icon name="check-circle" size={20} color={color} /></View>}
+        {isActive &&
+          !isLoading &&
+          <View style={[styles.icon, styles.activeIcon]}><Icon name="check-circle" size={20} color={color} /></View>}
+        {isLoading && <View style={styles.icon}><ActivityIndicator color={color} /></View>}
       </View>
     );
   };
@@ -81,8 +84,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     backgroundColor: 'transparent',
   },
+  icon: {
+    marginLeft: 10,
+  },
   activeIcon: {
     backgroundColor: 'transparent',
-    marginLeft: 10,
   },
 });
