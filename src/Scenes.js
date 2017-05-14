@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { StackNavigator, TabNavigator, TabBarTop, addNavigationHelpers } from 'react-navigation';
 import * as Pages from 'DailyScrum/src/pages';
 import appStyle from 'DailyScrum/src/appStyle';
-import { Header } from './components';
+import { Header, Icon } from './components';
 
 const sectionsNavigatorConfig = {
   initialRouteName: 'summary',
@@ -41,9 +41,27 @@ const ProjectNavigator = TabNavigator(
 
 const MainNavigator = TabNavigator(
   {
-    project: { screen: ProjectNavigator },
-    sprint: { screen: SprintNavigator },
-    daily: { screen: DailyNavigator },
+    project: {
+      screen: ProjectNavigator,
+      navigationOptions: {
+        tabBarLabel: 'Project',
+        tabBarIcon: ({ tintColor }) => <Icon name="folder" size={24} type="material" color={tintColor} />,
+      },
+    },
+    sprint: {
+      screen: SprintNavigator,
+      navigationOptions: {
+        tabBarLabel: 'Sprint',
+        tabBarIcon: ({ tintColor }) => <Icon name="trending-up" size={24} type="material" color={tintColor} />,
+      },
+    },
+    daily: {
+      screen: DailyNavigator,
+      navigationOptions: {
+        tabBarLabel: 'Daily',
+        tabBarIcon: ({ tintColor }) => <Icon name="today" size={24} type="material" color={tintColor} />,
+      },
+    },
   },
   {
     initialRouteName: 'daily',
@@ -51,6 +69,16 @@ const MainNavigator = TabNavigator(
     animationEnabled: Platform.OS === 'ios', // TODO FUTURE enable on Android when react-navigation bug is fixed
     tabBarComponent: TabBarTop,
     tabBarPosition: 'bottom',
+    tabBarOptions: {
+      showIcon: true,
+      upperCaseLabel: false,
+      tabStyle: {
+        height: 56,
+      },
+      labelStyle: {
+        marginVertical: 0,
+      },
+    },
   }
 );
 
