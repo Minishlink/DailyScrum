@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, View, Text, ActivityIndicator } from 'react-native';
 import { Button, Icon } from 'DailyScrum/src/components';
 import appStyle from '../appStyle';
 
@@ -7,11 +7,14 @@ export default class BigButton extends Component {
   props: PropsType;
 
   render() {
-    const { icon, title, style, ...buttonProps } = this.props;
+    const { icon, title, style, isLoading, ...buttonProps } = this.props;
     return (
       <Button style={[styles.container, style]} {...buttonProps}>
         {icon && !icon.right && <Icon color="white" size={20} name={icon.name} />}
-        <Text style={styles.buttonText}>{title}</Text>
+        <View style={styles.contentContainer}>
+          {isLoading && <ActivityIndicator color="white" />}
+          {!isLoading && <Text style={styles.buttonText}>{title}</Text>}
+        </View>
         {icon && icon.right && <Icon color="white" size={20} name={icon.name} />}
       </Button>
     );
@@ -20,6 +23,7 @@ export default class BigButton extends Component {
 
 type PropsType = {
   style: any,
+  isLoading?: boolean,
   icon?: {
     name: string,
     type?: string,
@@ -36,6 +40,11 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     borderRadius: 3,
     backgroundColor: appStyle.colors.primary,
+    height: 36,
+  },
+  contentContainer: {
+    flexGrow: 1,
+    alignItems: 'center',
   },
   buttonText: {
     paddingHorizontal: 10,
