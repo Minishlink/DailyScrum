@@ -22,27 +22,32 @@ class Header extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.actions}>
-          <Button onPress={() => this.props.navigation.navigate('projectSettings')}>
+          <Button
+            onPress={() => this.props.navigation.navigate('projectSettings')}
+            hitSlop={{ top: 5, bottom: 5, left: 10, right: 10 }}
+          >
             <View style={styles.action}>
               <Icon type="material" name="view-module" size={iconSize} />
               <Text>Change project</Text>
             </View>
           </Button>
-          <View style={styles.action}>
-            {this.props.lastSuccessfulSync &&
-              <Text style={styles.lastSyncText}>
-                last {distanceInWordsToNow(this.props.lastSuccessfulSync, { addSuffix: true })}
-              </Text>}
-            <Button disabled={this.props.isSyncing} onPress={this.props.fetchBaseData}>
+          <Button
+            disabled={this.props.isSyncing}
+            onPress={this.props.fetchBaseData}
+            hitSlop={{ top: 5, bottom: 5, left: 10, right: 10 }}
+          >
+            <View style={styles.action}>
+              {this.props.lastSuccessfulSync &&
+                <Text style={styles.lastSyncText}>
+                  last {distanceInWordsToNow(this.props.lastSuccessfulSync, { addSuffix: true })}
+                </Text>}
               <Animatable.View animation={this.props.isSyncing ? 'rotate' : null} iterationCount="infinite">
                 <Icon name="refresh" size={iconSize} />
               </Animatable.View>
-            </Button>
-          </View>
+            </View>
+          </Button>
         </View>
-        <Button onPress={() => this.props.navigation.navigate('summary')}>
-          <Text style={styles.projectTitle}>{project.name}</Text>
-        </Button>
+        <Text style={styles.projectTitle}>{project.name}</Text>
       </View>
     );
   }
@@ -85,6 +90,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 25,
     fontWeight: '300',
+    marginTop: 5,
   },
 });
 
