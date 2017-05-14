@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   scrollView: {
-    paddingTop: 15,
+    paddingVertical: 15,
   },
 });
 

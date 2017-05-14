@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   matrix: {
-    paddingTop: 30,
+    paddingVertical: 30,
   },
 });
 
