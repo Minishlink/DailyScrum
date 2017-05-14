@@ -22,13 +22,17 @@ class ErrorBar extends Component {
 
   componentWillReceiveProps(nextProps: PropsType) {
     if (!_.isEqual(nextProps.errors, this.props.errors)) {
-      clearTimeout(this.timeout);
+      this.timeout && clearTimeout(this.timeout);
       const show = nextProps.errors.length;
       this.setState({ show });
       if (show) {
         this.timeout = setTimeout(() => this.setState({ show: false }), 5000);
       }
     }
+  }
+
+  componentWillUnmount() {
+    this.timeout && clearTimeout(this.timeout);
   }
 
   render() {
