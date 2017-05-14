@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, SectionList, Text } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { TrelloCard } from 'DailyScrum/src/components';
-import type { CardListsType } from 'DailyScrum/src/modules/cards/reducer';
+import type { CardListsType, CardListType} from 'DailyScrum/src/modules/cards/reducer';
 import type { CardType } from '../../types';
 import { FilterMembers, ListHeader } from './';
 
@@ -34,7 +34,7 @@ class CardsList extends Component {
   configure = (props: PropsType) => {
     let cards = [];
     // $FlowFixMe https://github.com/facebook/flow/issues/2221
-    Object.values(props.cardLists).forEach(list => list.forEach(card => cards.push(card)));
+    Object.values(props.cardLists).forEach(column => column.list.forEach(card => cards.push(card)));
 
     this.setState({
       cards,
@@ -56,8 +56,8 @@ class CardsList extends Component {
   };
 
   renderCard = ({ item }: { item: CardType }) => <TrelloCard card={item} />;
-  renderSectionHeader = ({ section }: { section: { data: [], key: string } }) =>
-    section.data.length ? <ListHeader listKey={section.key} /> : null;
+  renderSectionHeader = ({ section }: { section: { data: [], key: string, points: number } }) =>
+    section.data.length ? <ListHeader listKey={section.key} total={section.points} /> : null;
 
   renderEmpty = () =>
     !this.state.cards.length &&
@@ -69,9 +69,10 @@ class CardsList extends Component {
   render() {
     const { cardLists } = this.props;
     // $FlowFixMe https://github.com/facebook/flow/issues/2221
-    const sections = Object.entries(cardLists).map(([listKey, listCards]: [string, CardType[]]) => ({
-      key: listKey,
-      data: listCards.filter(
+    const sections = Object.entries(cardLists).map(([columnKey, column]: [string, CardListType]) => ({
+      key: columnKey,
+      points: column.points,
+      data: column.list.filter(
         card => (this.state.filteredMember ? card.idMembers.includes(this.state.filteredMember) : true)
       ),
     }));

@@ -7,6 +7,7 @@ import { Page, TrelloCard, BigButton, createErrorBar } from 'DailyScrum/src/comp
 import { fetchBaseData } from 'DailyScrum/src/modules/common';
 import { currentSprintSelector } from '../../modules/sprints/reducer';
 import { currentProjectSelector } from '../../modules/projects/reducer';
+import { yesterdayTotalSelector, todayTotalSelector } from '../../modules/cards/reducer';
 import type { SprintType, ProjectType } from '../../types';
 const ErrorBar = createErrorBar({ common: 'base' });
 
@@ -42,13 +43,13 @@ class Summary extends Component {
             <BigButton
               style={styles.button}
               icon={{ name: 'chevron-left' }}
-              title="Yesterday"
+              title={`Yesterday (${this.props.yesterdayTotal.toLocaleString()})`}
               onPress={() => this.props.navigation.navigate('yesterday')}
             />
             <BigButton
               style={styles.button}
               icon={{ name: 'chevron-right', right: true }}
-              title="Today"
+              title={`Today (${this.props.todayTotal.toLocaleString()})`}
               onPress={() => this.props.navigation.navigate('today')}
             />
           </View>
@@ -64,6 +65,8 @@ type PropsType = {
   fetchBaseData: Function,
   currentSprint: ?SprintType,
   currentProject: ?ProjectType,
+  yesterdayTotal: number,
+  todayTotal: number,
 };
 
 const styles = StyleSheet.create({
@@ -88,6 +91,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   currentSprint: currentSprintSelector(state),
   currentProject: currentProjectSelector(state),
+  yesterdayTotal: yesterdayTotalSelector(state),
+  todayTotal: todayTotalSelector(state),
 });
 
 const mapDispatchToProps = {
