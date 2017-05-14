@@ -11,11 +11,11 @@ class SuccessMatrix extends Component {
 
   renderRow = ({ item: sprint }) => (
     <View style={styles.row}>
-      <Text>{sprint.number}</Text>
-      <Text>{sprint.manDays.toLocaleString()}</Text>
-      <Text>{sprint.foreseenPoints.toLocaleString()}</Text>
-      <Text>{sprint.donePoints.toLocaleString()}</Text>
-      <Text>
+      <Text style={[styles.column, styles.idColumn]}>{sprint.number}</Text>
+      <Text style={styles.column}>{sprint.manDays.toLocaleString()}</Text>
+      <Text style={styles.column}>{sprint.foreseenPoints.toLocaleString()}</Text>
+      <Text style={styles.column}>{sprint.donePoints.toLocaleString()}</Text>
+      <Text style={[styles.column, styles.okColumn]}>
         {sprint.result !== null
           ? sprint.result
               ? <Icon type="entypo" name="emoji-happy" size={20} color="green" />
@@ -27,11 +27,11 @@ class SuccessMatrix extends Component {
 
   renderHeader = () => (
     <View style={[styles.row, styles.labelRow]}>
-      <Text style={styles.label}>#</Text>
-      <Text style={styles.label}>Man-days</Text>
-      <Text style={styles.label}>Foreseen</Text>
-      <Text style={styles.label}>Done</Text>
-      <Text style={styles.label}>OK?</Text>
+      <Text style={[styles.column, styles.idColumn, styles.label]}>#</Text>
+      <Text style={[styles.column, styles.label]}>Man-days</Text>
+      <Text style={[styles.column, styles.label]}>Foreseen</Text>
+      <Text style={[styles.column, styles.label]}>Done</Text>
+      <Text style={[styles.column, styles.okColumn, styles.label]}>OK?</Text>
     </View>
   );
 
@@ -69,6 +69,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 8,
     backgroundColor: 'white',
+  },
+  column: {
+    width: '25%',
+    textAlign: 'center',
+  },
+  idColumn: {
+    width: 20,
+  },
+  okColumn: {
+    width: 25,
   },
 });
 
