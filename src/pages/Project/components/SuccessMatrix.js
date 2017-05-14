@@ -37,9 +37,10 @@ class SuccessMatrix extends Component {
 
   render() {
     return (
-      <View style={this.props.style}>
+      <View>
         <FlatList
           data={this.props.successMatrix}
+          contentContainerStyle={this.props.style}
           renderItem={this.renderRow}
           keyExtractor={sprint => sprint.number}
           showsVerticalScrollIndicator={false}
@@ -66,7 +67,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'grey',
     paddingHorizontal: 10,
-    paddingVertical: 2,
+    paddingVertical: 8,
+    backgroundColor: 'white',
   },
 });
 

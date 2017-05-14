@@ -15,7 +15,7 @@ class Summary extends Component {
     if (!project) return <Page isLoading />;
 
     return (
-      <Page style={styles.container}>
+      <Page noNavBar style={styles.container}>
         <SuccessMatrix style={styles.matrix} />
       </Page>
     );
@@ -30,10 +30,9 @@ type PropsType = {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    paddingTop: 30,
   },
   matrix: {
-    marginTop: 10,
+    paddingTop: 30,
   },
 });
 
