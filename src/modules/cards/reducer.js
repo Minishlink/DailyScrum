@@ -57,8 +57,12 @@ export default (state: CardsStateType = initialState, action: ActionType) => {
         points[columnKey] = cards.reduce(cardsArrayToPointsReducer, 0);
 
         // cards of today are those in sprint backlog / toValidate / doing / blocked that have points
+        // in sprint backlog, only those assigned are shown
         if (['sprint', 'toValidate', 'doing', 'blocked'].indexOf(columnKey) !== -1) {
-          const todayCards = cards.filter(card => card.points !== null);
+          const isSprint = columnKey === 'sprint';
+          const todayCards = cards.filter(
+            card => card.points !== null && ((isSprint && card.idMembers.length) || !isSprint)
+          );
           today[columnKey] = todayCards.map(card => card.id);
           points.today[columnKey] = todayCards.reduce(cardsArrayToPointsReducer, 0);
         }
