@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, SectionList, Text } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { TrelloCard } from 'DailyScrum/src/components';
-import type { CardListsType, CardListType} from 'DailyScrum/src/modules/cards/reducer';
+import type { CardListsType, CardListType } from 'DailyScrum/src/modules/cards/reducer';
 import type { CardType } from '../../types';
 import { FilterMembers, ListHeader } from './';
 

@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Platform } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { currentUserSelector } from 'DailyScrum/src/modules/users/reducer';
