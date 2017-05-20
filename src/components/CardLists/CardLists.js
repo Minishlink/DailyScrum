@@ -15,12 +15,6 @@ class CardsList extends Component {
     isRefreshing: false,
   };
 
-  // TODO identify unchecked checklists
-  // TODO extract and show post estimated points
-  // TODO show labels
-  // TODO on click show attachments
-  // TODO on click show description
-
   componentDidMount() {
     this.configure(this.props);
   }

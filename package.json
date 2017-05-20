@@ -15,6 +15,7 @@
 		"deploy:staging:ios": "bundle exec fastlane ios deploy --env=staging"
 	},
 	"dependencies": {
+		"@yfuks/react-native-action-sheet": "^0.0.3",
 		"chroma-js": "^1.3.3",
 		"date-fns": "^1.28.4",
 		"lodash": "^4.17.4",

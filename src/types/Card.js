@@ -8,6 +8,7 @@ export type StoreCardType = {|
   points: ?number,
   dateLastActivity: string,
   idMembers: string[],
+  url: string,
 |};
 
 export type CardType = StoreCardType & {|

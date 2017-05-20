@@ -18,6 +18,7 @@ function adaptCard(card: TrelloCardType): StoreCardType {
     name: pointsAndNewName.name,
     dateLastActivity: lastMoveCardToListAction ? lastMoveCardToListAction.date : card.dateLastActivity,
     idMembers: card.idMembers,
+    url: card.shortUrl,
   };
 }
 

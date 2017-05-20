@@ -31,7 +31,7 @@ export default class {
 
   static getCardsFromList = (token, listId) => {
     return fetch(
-      `${TRELLO_API_URL}/lists/${listId}/cards?fields=id,idShort,idMembers,name,dateLastActivity&actions=updateCard:idList&key=${TRELLO_APP_KEY}&token=${token}`
+      `${TRELLO_API_URL}/lists/${listId}/cards?fields=id,idShort,idMembers,name,dateLastActivity,shortUrl&actions=updateCard:idList&key=${TRELLO_APP_KEY}&token=${token}`
     ).then(res => res.json());
   };
 }
