@@ -50,10 +50,11 @@ describe('cards reducer', () => {
     {
       id: 'macro',
       idShort: 1,
-      name: 'Macro',
+      name: 'Macro [20]',
       idMembers: ['foo'],
       dateLastActivity: 1495133134992,
       actions: [],
+      shortUrl: 'link',
     },
     {
       id: 'story',
@@ -62,6 +63,7 @@ describe('cards reducer', () => {
       idMembers: ['foo'],
       dateLastActivity: 1495133134992,
       actions: [],
+      shortUrl: 'link',
     },
     {
       id: 'unassignedStory',
@@ -70,6 +72,7 @@ describe('cards reducer', () => {
       idMembers: [],
       dateLastActivity: 1495133134992,
       actions: [],
+      shortUrl: 'link',
     },
     {
       id: 'oldStory',
@@ -78,6 +81,7 @@ describe('cards reducer', () => {
       name: 'Old story (5)',
       dateLastActivity: 1494960334992,
       actions: [],
+      shortUrl: 'link',
     },
   ];
 
@@ -88,7 +92,9 @@ describe('cards reducer', () => {
       idMembers: ['foo'],
       name: 'Macro',
       points: null,
+      postPoints: 20,
       dateLastActivity: 1495133134992,
+      url: 'link',
     },
     story: {
       id: 'story',
@@ -96,15 +102,19 @@ describe('cards reducer', () => {
       idMembers: ['foo'],
       name: 'User story',
       points: 3,
+      postPoints: null,
       dateLastActivity: 1495133134992,
+      url: 'link',
     },
     unassignedStory: {
       id: 'unassignedStory',
       idShort: 3,
       name: 'Unassigned story',
       points: 1,
+      postPoints: null,
       idMembers: [],
       dateLastActivity: 1495133134992,
+      url: 'link',
     },
     oldStory: {
       id: 'oldStory',
@@ -112,7 +122,9 @@ describe('cards reducer', () => {
       idMembers: ['bar'],
       name: 'Old story',
       points: 5,
+      postPoints: null,
       dateLastActivity: 1494960334992,
+      url: 'link',
     },
   };
 
@@ -282,6 +294,7 @@ describe('cards reducer', () => {
               idMembers: ['bar'],
               dateLastActivity: 1495133134992,
               actions: [],
+              shortUrl: 'link',
             },
           ],
         })
@@ -297,6 +310,8 @@ describe('cards reducer', () => {
           points: 2,
           idMembers: ['bar'],
           dateLastActivity: 1495133134992,
+          url: 'link',
+          postPoints: null,
         },
       },
       yesterday: {

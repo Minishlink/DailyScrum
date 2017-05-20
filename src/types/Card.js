@@ -6,6 +6,7 @@ export type StoreCardType = {|
   idShort: number,
   name: string,
   points: ?number,
+  postPoints: ?number,
   dateLastActivity: string,
   idMembers: string[],
   url: string,

@@ -8,8 +8,6 @@ import PointsBadge from './PointsBadge';
 import ActionSheet from '@yfuks/react-native-action-sheet';
 import type { CardType } from '../../types';
 
-// TODO extract and show post estimated points
-
 export default ({ card }: PropsType) => (
   <TouchableOpacity
     activeOpacity={0.7}
@@ -41,10 +39,11 @@ export default ({ card }: PropsType) => (
           {card.name}
         </Text>
         <View style={styles.membersRow}>
-          {card.points !== null &&
-            <View style={styles.pointsContainer}>
-              <PointsBadge points={(card.points || 0).toLocaleString()} />
-            </View>}
+          <View style={styles.pointsContainer}>
+            {card.points != null && <PointsBadge points={card.points.toLocaleString()} />}
+            {card.points != null && card.postPoints != null && <View style={{ width: 4 }} />}
+            {card.postPoints != null && <PointsBadge points={card.postPoints.toLocaleString()} isPostEstimation />}
+          </View>
           <View style={styles.membersContainer}>
             <View style={styles.members}>
               {card.members.map(member => (
@@ -105,10 +104,10 @@ const styles = StyleSheet.create({
   },
   pointsContainer: {
     flex: 1,
+    flexDirection: 'row',
     flexShrink: 1,
     left: -4,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-start',
+    alignItems: 'flex-end',
   },
 });
 

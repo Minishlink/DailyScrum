@@ -41,3 +41,9 @@ export const getPoints = text => {
   if (!points) return null;
   return Number(points[1]);
 };
+
+export const getPostPoints = text => {
+  const points = text.match(/\[([0-9]*\.?[0-9]+)]/);
+  if (!points) return null;
+  return Number(points[1]);
+};

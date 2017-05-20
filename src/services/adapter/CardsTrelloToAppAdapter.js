@@ -1,5 +1,5 @@
 // @flow
-import { getPoints } from '../../services/Trello';
+import { getPoints, getPostPoints } from '../../services/Trello';
 import type { StoreCardType } from '../../types';
 import type { TrelloCardType } from '../../types/Trello';
 
@@ -12,10 +12,9 @@ function adaptCard(card: TrelloCardType): StoreCardType {
   // our Trello endpoint returns cards with actions of moving the card to other list (updateCard:idList) sorted by desc date
   const lastMoveCardToListAction = card.actions.length ? card.actions[0] : null;
   return {
+    ...pointsAndNewName,
     id: card.id,
     idShort: card.idShort,
-    points: pointsAndNewName.points,
-    name: pointsAndNewName.name,
     dateLastActivity: lastMoveCardToListAction ? lastMoveCardToListAction.date : card.dateLastActivity,
     idMembers: card.idMembers,
     url: card.shortUrl,
@@ -24,12 +23,17 @@ function adaptCard(card: TrelloCardType): StoreCardType {
 
 function formatPoints(name) {
   const points = getPoints(name);
+  const postPoints = getPostPoints(name);
   if (points !== null) {
     name = name.replace(`(${points})`, '').trim();
+  }
+  if (postPoints !== null) {
+    name = name.replace(`[${postPoints}]`, '').trim();
   }
 
   return {
     name,
     points,
+    postPoints,
   };
 }
