@@ -1,0 +1,30 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: reactcommunity/node-ci:7.10.0-1
+    working_directory: ~/DailyScrum
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - cache-{{ .Branch }}-{{ checksum "package.json" }}
+      - run:
+          name: Copy dist environment
+          command: cp environment/index.dist.js environment/index.js
+      - run:
+          name: Install deps
+          command: yarn
+      - run:
+          name: Unit tests
+          command: yarn test:unit
+      - run:
+          name: Flow
+          command: yarn test:flow
+      - run:
+          name: Linter
+          command: yarn test:lint
+      - save_cache:
+          key: cache-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - ~/.cache/yarn
