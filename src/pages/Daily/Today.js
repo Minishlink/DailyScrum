@@ -3,37 +3,46 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Page, CardLists, createErrorBar } from 'DailyScrum/src/components';
 import { todayCardsSelector } from '../../modules/cards/reducer';
-import { fetchNotDoneCards as fetchNotDoneCardsSaga } from 'DailyScrum/src/modules/cards/sagas';
+import { fetchNotDoneCards } from 'DailyScrum/src/modules/cards';
 import type { CardListsType } from 'DailyScrum/src/modules/cards/reducer';
+import { isSyncingSelector } from '../../modules/sync';
 const ErrorBar = createErrorBar({ cards: 'notDone' });
 
 class Today extends Component {
   props: PropsType;
-  state: any = { refreshing: false };
 
-  fetchCards = () => this.context.store.runSaga(fetchNotDoneCardsSaga).done;
+  static navigationOptions = {
+    headerTitle: 'Today',
+  };
 
   render() {
     return (
       <Page noNavBar>
         <ErrorBar />
-        <CardLists onRefresh={this.fetchCards} cardLists={this.props.cardLists} />
+        <CardLists
+          onRefresh={this.props.fetchCards}
+          isRefreshing={this.props.isSyncing}
+          cardLists={this.props.cardLists}
+        />
       </Page>
     );
   }
 }
 
-Today.contextTypes = {
-  store: React.PropTypes.any,
-};
-
 type PropsType = {
   navigation: any,
   cardLists: CardListsType,
+  isSyncing: boolean,
+  fetchCards: Function,
 };
 
 const mapStateToProps = state => ({
   cardLists: todayCardsSelector(state),
+  isSyncing: isSyncingSelector(state, 'cards', 'notDone'),
 });
 
-export default connect(mapStateToProps)(Today);
+const mapDispatchToProps = {
+  fetchCards: fetchNotDoneCards,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Today);

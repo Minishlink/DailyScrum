@@ -12,7 +12,6 @@ class CardsList extends Component {
   state: StateType = {
     cards: [],
     filteredMember: null,
-    isRefreshing: false,
   };
 
   componentDidMount() {
@@ -30,23 +29,11 @@ class CardsList extends Component {
     // $FlowFixMe https://github.com/facebook/flow/issues/2221
     Object.values(props.cardLists).forEach(column => column.list.forEach(card => cards.push(card)));
 
-    this.setState({
-      cards,
-    });
-  };
-
-  handleRefresh = () => {
-    this.setState({ isRefreshing: true }, () => {
-      this.props.onRefresh().then(() =>
-        this.setState({
-          isRefreshing: false,
-        })
-      );
-    });
+    this.setState({ cards });
   };
 
   filterMember = (memberId: string) => {
-    this.setState({ filteredMember: this.state.filteredMember !== memberId ? memberId : null });
+    this.setState((state: StateType) => ({ filteredMember: state.filteredMember !== memberId ? memberId : null }));
   };
 
   renderCard = ({ item }: { item: CardType }) => <TrelloCard card={item} />;
@@ -86,8 +73,8 @@ class CardsList extends Component {
           <SectionList
             contentContainerStyle={styles.listsContainer}
             showsVerticalScrollIndicator={false}
-            refreshing={this.state.isRefreshing}
-            onRefresh={this.handleRefresh}
+            refreshing={this.props.isRefreshing}
+            onRefresh={this.props.onRefresh}
             SectionSeparatorComponent={() => <View style={styles.listSeparator} />}
             renderSectionHeader={this.renderSectionHeader}
             renderItem={this.renderCard}
@@ -126,7 +113,6 @@ const styles = StyleSheet.create({
 });
 
 type StateType = {
-  isRefreshing: boolean,
   filteredMember: ?string,
   cards: CardType[],
 };
@@ -135,6 +121,7 @@ type PropsType = {
   style?: any,
   cardLists: CardListsType,
   onRefresh: Function,
+  isRefreshing: boolean,
 };
 
 export default CardsList;
