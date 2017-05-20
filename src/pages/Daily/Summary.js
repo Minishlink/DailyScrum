@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { Page, TrelloCard, BigButton, createErrorBar } from 'DailyScrum/src/components';
+import { Page, BigButton, createErrorBar } from 'DailyScrum/src/components';
+import { SprintGoalCard } from './components';
 import { fetchBaseData } from 'DailyScrum/src/modules/common';
 import { currentSprintSelector } from '../../modules/sprints/reducer';
 import { currentProjectSelector } from '../../modules/projects/reducer';
@@ -27,7 +28,7 @@ class Summary extends Component {
         <ErrorBar />
         <View style={styles.container}>
           <Animatable.View animation="fadeIn" delay={200} style={styles.sprintGoal}>
-            <TrelloCard title={currentSprint.goal} isSprintGoal />
+            <SprintGoalCard title={currentSprint.goal} />
           </Animatable.View>
           {lead != null &&
             <Animatable.Text animation="fadeInLeft" style={{ color: lead.points >= 0 ? 'green' : 'red' }}>
