@@ -6,7 +6,7 @@ import { getLastWorkableDayTime } from '../../services/Time';
 import { adaptCardsFromTrello } from '../../services/adapter';
 import { CardType, StoreCardType } from '../../types';
 
-const initialState: CardsStateType = {
+export const initialState: CardsStateType = {
   list: {},
   yesterday: {
     done: [],
@@ -43,18 +43,18 @@ const initialState: CardsStateType = {
 const cardsArrayToPointsReducer = (total: number, card: CardType) => total + card.points;
 
 export default (state: CardsStateType = initialState, action: ActionType) => {
-  const { list, points, yesterday, today } = { ...state };
+  const { list: { ...list }, points: { ...points }, yesterday: { ...yesterday }, today: { ...today } } = { ...state };
 
   switch (action.type) {
     case 'PUT_CARDS':
       const lastWorkableDayTime = getLastWorkableDayTime();
       const columns = action.payload.cards;
-
+      const newPoints = { today: {}, yesterday: {} };
       for (let columnKey in columns) {
         const cards = adaptCardsFromTrello(columns[columnKey]);
         cards.forEach(card => (list[card.id] = card));
         columns[columnKey] = cards.map(card => card.id);
-        points[columnKey] = cards.reduce(cardsArrayToPointsReducer, 0);
+        newPoints[columnKey] = cards.reduce(cardsArrayToPointsReducer, 0);
 
         // cards of today are those in sprint backlog / toValidate / doing / blocked that have points
         // in sprint backlog, only those assigned are shown
@@ -64,16 +64,20 @@ export default (state: CardsStateType = initialState, action: ActionType) => {
             card => card.points !== null && ((isSprint && card.idMembers.length) || !isSprint)
           );
           today[columnKey] = todayCards.map(card => card.id);
-          points.today[columnKey] = todayCards.reduce(cardsArrayToPointsReducer, 0);
+          newPoints.today[columnKey] = todayCards.reduce(cardsArrayToPointsReducer, 0);
         }
 
-        // cards of yesterday are those in done whose last activity was after the start of the last workable day and that have points
+        // cards of yesterday are those in done
+        // whose last activity was after the start of the last workable day
+        // and that have poins.
+        // Last activity being last time somebody put the card in the column
+        // or, if not available, the last "general" activity returned by Trello
         if (columnKey === 'done') {
           const yesterdayCards = cards.filter(
             card => new Date(card.dateLastActivity).getTime() > lastWorkableDayTime && card.points !== null
           );
           yesterday[columnKey] = yesterdayCards.map(card => card.id);
-          points.yesterday[columnKey] = yesterdayCards.reduce(cardsArrayToPointsReducer, 0);
+          newPoints.yesterday[columnKey] = yesterdayCards.reduce(cardsArrayToPointsReducer, 0);
         }
       }
 
@@ -81,7 +85,18 @@ export default (state: CardsStateType = initialState, action: ActionType) => {
         ...state,
         list,
         ...columns,
-        points,
+        points: {
+          ...points,
+          ...newPoints,
+          today: {
+            ...points.today,
+            ...newPoints.today,
+          },
+          yesterday: {
+            ...points.yesterday,
+            ...newPoints.yesterday,
+          },
+        },
         yesterday,
         today,
       };
