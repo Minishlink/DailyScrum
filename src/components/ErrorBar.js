@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default (wantedErrors?: WantedErrorsType) => {
+export default (wantedErrors?: ErrorBarOptionsType) => {
   const mapStateToProps = state => {
     let selectErrors = [];
 
@@ -112,6 +112,6 @@ export default (wantedErrors?: WantedErrorsType) => {
  * { boards: true, projects: 'change' } // both above errors
  * { cards: ['done', 'notDone'] }
  */
-type WantedErrorsType = {
+export type ErrorBarOptionsType = {
   [name: string]: true | string | string[],
 };
