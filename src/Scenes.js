@@ -7,13 +7,15 @@ import { StackNavigator, TabNavigator, TabBarTop, addNavigationHelpers, Navigati
 import * as Pages from 'DailyScrum/src/pages';
 import appStyle from 'DailyScrum/src/appStyle';
 import { Header, Icon } from './components';
+import DailyHeader from 'DailyScrum/src/pages/Daily/components/Header';
 
 const sectionsNavigatorConfig = {
   initialRouteName: 'summary',
   swipeEnabled: true,
   animationEnabled: true,
   lazy: true,
-  tabBarComponent: props => <View />,
+  tabBarComponent: props => <View style={{ height: 1, ...appStyle.header.containerShadowStyle }} />,
+  tabBarPosition: 'top',
 };
 
 const DailyNavigator = TabNavigator(
@@ -22,7 +24,10 @@ const DailyNavigator = TabNavigator(
     summary: { screen: Pages.Daily.Summary },
     today: { screen: Pages.Daily.Today },
   },
-  sectionsNavigatorConfig
+  {
+    ...sectionsNavigatorConfig,
+    tabBarComponent: props => <DailyHeader {...props} />,
+  }
 );
 
 const SprintNavigator = TabNavigator(

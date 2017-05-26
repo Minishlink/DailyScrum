@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Animated } from 'react-native';
 import { connect } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
 import { distanceInWordsToNow } from 'date-fns';
@@ -9,8 +9,9 @@ import { currentProjectSelector } from '../modules/projects/reducer';
 import { isSyncingSelector } from '../modules/sync';
 import { lastSuccessfulSyncDateSelector } from '../modules/common/reducer';
 import type { ProjectType } from '../types';
-import { STATUSBAR_HEIGHT } from '../appStyle';
+import appStyle, { STATUSBAR_HEIGHT } from '../appStyle';
 
+export const HEADER_HEIGHT = 85;
 const iconSize = 20;
 
 class Header extends Component {
@@ -18,8 +19,11 @@ class Header extends Component {
 
   render() {
     const { project } = this.props;
+
     return (
-      <View style={styles.container}>
+      <Animated.View
+        style={[styles.container, this.props.withShadows && styles.containerShadows, this.props.containerStyle]}
+      >
         <View style={styles.actions}>
           <Button
             onPress={() => this.props.navigation.navigate('projectSettings')}
@@ -47,7 +51,8 @@ class Header extends Component {
           </Button>
         </View>
         {project && <Text style={styles.projectTitle}>{project.name}</Text>}
-      </View>
+        {this.props.children}
+      </Animated.View>
     );
   }
 }
@@ -58,20 +63,17 @@ type PropsType = {
   lastSuccessfulSync: ?Date,
   isSyncing: boolean,
   navigation: any,
+  containerStyle: any,
 };
 
 const styles = StyleSheet.create({
   container: {
+    ...appStyle.header.containerStyle,
     paddingHorizontal: 10,
     paddingTop: STATUSBAR_HEIGHT + 5,
     paddingBottom: 5,
-    backgroundColor: 'white',
-    elevation: 2,
-    shadowColor: 'black',
-    shadowRadius: 1,
-    shadowOpacity: 0.3,
-    shadowOffset: { width: 0, height: 1 },
   },
+  containerShadows: appStyle.header.containerShadowStyle,
   actions: {
     flexDirection: 'row',
     justifyContent: 'space-between',
