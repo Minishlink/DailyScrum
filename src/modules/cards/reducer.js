@@ -5,6 +5,7 @@ import { devTeamSelector } from '../sprints/reducer';
 import { getLastWorkableDayTime } from '../../services/Time';
 import { adaptCardsFromTrello } from '../../services/adapter';
 import { CardType, StoreCardType } from '../../types';
+import type { CardListsKeyType } from '../cardLists/reducer';
 
 export const initialState: CardsStateType = {
   list: {},
@@ -122,7 +123,7 @@ function formatCards(state: StateType, cards: StoreCardType[]): CardType[] {
   });
 }
 
-function dailyPointsSelector(state: StateType, time: TimeType, column?: ColumnType) {
+function dailyPointsSelector(state: StateType, time: CardListsKeyType, column?: ColumnType) {
   const dailyPoints = state.cards.points[time];
   if (!dailyPoints) return 0;
 
@@ -147,7 +148,7 @@ function everyCardsSelector(state: StateType) {
   return state.cards.list;
 }
 
-function dailyCardsSelector(state: StateType, time: TimeType): CardListsType {
+function dailyCardsSelector(state: StateType, time: CardListsKeyType): CardListsType {
   const everyCards = everyCardsSelector(state);
   const dailyCards = state.cards[time];
   const lists = Object.keys(dailyCards);
@@ -219,7 +220,5 @@ type PointsStateType = {
   sprint: number,
   toValidate: number,
 };
-
-type TimeType = 'today' | 'yesterday';
 
 type ColumnType = 'done' | 'blocked' | 'doing' | 'sprint' | 'toValidate' | 'today' | 'yesterday';

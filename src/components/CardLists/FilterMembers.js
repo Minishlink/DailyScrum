@@ -2,119 +2,68 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import _ from 'lodash';
-import { currentUserSelector } from 'DailyScrum/src/modules/users/reducer';
-import { teamSelector } from 'DailyScrum/src/modules/sprints/reducer';
-import type { CardType, UserType, TeamType } from '../../types';
+import type { UserType } from '../../types';
 import { FilterableMember } from './';
+import { makeFilterByMember, filteredMemberSelector, filterableMembersSelector } from '../../modules/cardLists';
+import type { CardListsKeyType } from '../../modules/cardLists/reducer';
+import { userPointsSelector } from '../../modules/cardLists/selectors';
 
-class FilterMembers extends Component {
-  state: StateType = { filterable: [] };
+export class FilterMembers extends Component {
   props: PropsType;
 
-  componentDidMount() {
-    this.configure(this.props, true);
-  }
-
-  componentWillReceiveProps(nextProps: PropsType) {
-    if (nextProps.cards !== this.props.cards) {
-      if (
-        nextProps.cards.length !== this.props.cards.length ||
-        !_.isEqual(nextProps.cards.map(card => card.id).sort(), this.props.cards.map(card => card.id).sort())
-      ) {
-        this.configure(nextProps);
-        return;
-      }
-    }
-  }
-
-  getFilterableMembers = (cards: CardType[]) => {
-    let members = {};
-    for (let card of cards) {
-      for (let member of card.idMembers) {
-        members[member] = true;
-      }
-    }
-    return Object.keys(members);
-  };
-
-  configure = (props: PropsType, init: boolean = false) => {
-    const filterableMembers = this.getFilterableMembers(this.props.cards);
-    const filteredMember = this.props.filtered && filterableMembers.includes(this.props.filtered)
-      ? this.props.filtered
-      : init && this.props.user && filterableMembers.includes(this.props.user.id) ? this.props.user.id : null;
-
-    this.setState({
-      filterable: filterableMembers,
-    });
-
-    this.props.onFilter(filteredMember);
-  };
-
-  renderFilterableMember = (memberId: string) => {
-    const { team } = this.props;
-    const member = team && team.find(teamMember => teamMember && teamMember.id === memberId);
-    const cards = this.props.cards.filter(card => card.idMembers.includes(memberId));
-    if (!member || !cards.length) return;
+  renderFilterableMember = (user: UserType) => {
     return (
       <FilterableMember
-        key={member.id}
+        key={user.id}
         style={styles.filterableMemberContainer}
-        member={member}
-        cards={cards}
-        isFiltered={!this.props.filtered || this.props.filtered === memberId}
-        onFilter={this.props.onFilter}
+        member={user}
+        points={this.props.userPoints[user.id]}
+        isFiltered={!this.props.filtered || this.props.filtered === user.id}
+        onFilter={memberId => this.props.filterByMember(this.props.filtered === memberId ? null : memberId)}
       />
     );
   };
 
   render() {
+    if (!this.props.filterable.length) return null;
     return (
-      <View style={this.state.filterable.length && styles.container}>
+      <View style={styles.container}>
         <ScrollView contentContainerStyle={this.props.style} horizontal={true} showsHorizontalScrollIndicator={false}>
-          {this.state.filterable.map(this.renderFilterableMember)}
+          {this.props.filterable.map(this.renderFilterableMember)}
         </ScrollView>
       </View>
     );
   }
 }
 
-type StateType = {
-  filterable: string[],
-};
-
 type PropsType = {
   style?: any,
-  team: ?TeamType,
-  cards: CardType[],
   filtered: ?string,
-  onFilter: (memberId: ?string) => void,
-  user: ?UserType,
+  filterable: UserType[],
+  filterByMember: Function,
+  userPoints: { [userId: string]: number },
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 10,
+    paddingVertical: 4,
     paddingHorizontal: 10,
-    marginBottom: 4,
-    marginHorizontal: 2, // shadows
-    borderBottomLeftRadius: 4,
-    borderBottomRightRadius: 4,
-    shadowColor: 'black',
-    shadowRadius: 2,
-    shadowOpacity: 0.5,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 2,
-    backgroundColor: 'white',
   },
   filterableMemberContainer: {
     marginHorizontal: 4,
   },
 });
 
-const mapStateToProps = state => ({
-  team: teamSelector(state),
-  user: currentUserSelector(state),
-});
+export default (cardListsKey: CardListsKeyType) => {
+  const mapStateToProps = state => ({
+    filtered: filteredMemberSelector(state, cardListsKey),
+    filterable: filterableMembersSelector(state, cardListsKey),
+    userPoints: userPointsSelector(state, cardListsKey),
+  });
 
-export default connect(mapStateToProps)(FilterMembers);
+  const mapDispatchToProps = {
+    filterByMember: makeFilterByMember(cardListsKey),
+  };
+
+  return connect(mapStateToProps, mapDispatchToProps)(FilterMembers);
+};

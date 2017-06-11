@@ -21,6 +21,7 @@ export default (title: string, errorBarOptions: ErrorBarOptionsType) => {
             onRefresh={this.props.fetchCards}
             isRefreshing={this.props.isSyncing}
             cardLists={this.props.cardLists}
+            filteredMember={this.props.filteredMember}
           />
         </Page>
       );
@@ -33,4 +34,5 @@ type PropsType = {
   cardLists: CardListsType,
   isSyncing: boolean,
   fetchCards: Function,
+  filteredMember: ?string,
 };

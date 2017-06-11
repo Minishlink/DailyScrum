@@ -8,6 +8,7 @@ import { sprintsReducer as sprints } from './sprints';
 import { projectsReducer as projects } from './projects';
 import { boardsReducer as boards } from './boards';
 import { cardsReducer as cards } from './cards';
+import { cardListsReducer as cardLists } from './cardLists';
 import { AppNavigator } from 'DailyScrum/src/Scenes';
 import type { CommonStateType } from './common/reducer';
 import type { SyncStateType } from './sync/reducer';
@@ -17,6 +18,7 @@ import type { SprintsStateType } from './sprints/reducer';
 import type { ProjectsStateType } from './projects/reducer';
 import type { BoardsStateType } from './boards/reducer';
 import type { CardsStateType } from './cards/reducer';
+import type { CardListsStateType } from './cardLists/reducer';
 
 const initialState = {};
 
@@ -36,6 +38,7 @@ const rootReducer = (state: any = initialState, action: any = {}) => {
     projects,
     boards,
     cards,
+    cardLists,
   });
 
   return appReducer(state, action);
@@ -50,6 +53,7 @@ export type StateType = {|
   projects: ProjectsStateType,
   boards: BoardsStateType,
   cards: CardsStateType,
+  cardLists: CardListsStateType,
 |};
 
 export default rootReducer;

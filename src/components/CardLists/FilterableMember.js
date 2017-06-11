@@ -2,14 +2,13 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { MemberIcon } from 'DailyScrum/src/components';
-import { roundToDecimalPlace } from '../../services/MathService';
-import type { CardType, UserType } from '../../types';
+import type { UserType } from '../../types';
 
 export default class FilterableMember extends Component {
   props: PropsType;
 
   render() {
-    const { member, cards } = this.props;
+    const { member, points } = this.props;
     return (
       <View key={member.id} style={this.props.style}>
         <TouchableOpacity
@@ -21,13 +20,7 @@ export default class FilterableMember extends Component {
           </View>
         </TouchableOpacity>
         <Text style={styles.filterableMemberPoints}>
-          {cards
-            .reduce(
-              (total: number, card: CardType) =>
-                total + (card.points ? roundToDecimalPlace(card.points / card.idMembers.length) : 0),
-              0
-            )
-            .toLocaleString()}
+          {points.toLocaleString()}
         </Text>
       </View>
     );
@@ -38,7 +31,7 @@ type PropsType = {
   style?: any,
   isFiltered: boolean,
   member: UserType,
-  cards: CardType[],
+  points: number,
   onFilter: (memberId: string) => void,
 };
 

@@ -10,6 +10,7 @@ import { getPoints } from '../../services/Trello';
 import { getLastWorkableDayTime } from '../../services/Time';
 import { putSprints } from '../sprints/actions';
 import { startSync, endSync } from '../sync';
+import { configureTodayCardList, configureYesterdayCardList } from '../cardLists/sagas';
 
 export function* fetchDoneCards(): Generator<*, *, *> {
   try {
@@ -55,6 +56,7 @@ export function* fetchDoneCards(): Generator<*, *, *> {
         done: cards,
       })
     );
+    yield call(configureYesterdayCardList);
 
     yield put(endSync('cards', 'done'));
   } catch (error) {
@@ -85,6 +87,8 @@ export function* fetchNotDoneCards(): Generator<*, *, *> {
     }
 
     yield put(putCards(cards));
+    yield call(configureTodayCardList);
+
     yield put(endSync('cards', 'notDone'));
   } catch (error) {
     console.info('[saga] fetchNotDoneCards', error);
