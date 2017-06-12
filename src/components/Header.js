@@ -21,9 +21,7 @@ class Header extends Component {
     const { project } = this.props;
 
     return (
-      <Animated.View
-        style={[styles.container, this.props.withShadows && styles.containerShadows, this.props.containerStyle]}
-      >
+      <Animated.View style={[styles.container, this.props.containerStyle]}>
         <View style={styles.actions}>
           <Button
             onPress={() => this.props.navigation.navigate('projectSettings')}
@@ -51,7 +49,6 @@ class Header extends Component {
           </Button>
         </View>
         {project && <Text style={styles.projectTitle}>{project.name}</Text>}
-        {this.props.children}
       </Animated.View>
     );
   }
@@ -73,7 +70,6 @@ const styles = StyleSheet.create({
     paddingTop: STATUSBAR_HEIGHT + 5,
     paddingBottom: 5,
   },
-  containerShadows: appStyle.header.containerShadowStyle,
   actions: {
     flexDirection: 'row',
     justifyContent: 'space-between',
