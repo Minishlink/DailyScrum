@@ -9,38 +9,17 @@ import { ListHeader } from './';
 
 class CardsList extends Component {
   props: PropsType;
-  state: StateType = {
-    cards: [],
-  };
-
-  componentDidMount() {
-    this.configure(this.props);
-  }
-
-  componentWillReceiveProps(nextProps: PropsType) {
-    if (nextProps.cardLists !== this.props.cardLists) {
-      this.configure(nextProps);
-    }
-  }
-
-  configure = (props: PropsType) => {
-    let cards = [];
-    // $FlowFixMe https://github.com/facebook/flow/issues/2221
-    Object.values(props.cardLists).forEach(column => column.list.forEach(card => cards.push(card)));
-
-    this.setState({ cards });
-  };
 
   renderCard = ({ item }: { item: CardType }) => <TrelloCard card={item} />;
   renderSectionHeader = ({ section }: { section: { data: [], key: string, points: number } }) =>
     section.data.length ? <ListHeader listKey={section.key} total={section.points} /> : null;
 
-  renderEmpty = () =>
-    !this.state.cards.length &&
+  renderEmpty = () => (
     <View style={styles.emptyContainer}>
       <Text>No cards yet</Text>
       <Text>Pull to refresh :)</Text>
-    </View>;
+    </View>
+  );
 
   render() {
     const { cardLists } = this.props;
@@ -64,7 +43,7 @@ class CardsList extends Component {
             SectionSeparatorComponent={() => <View style={styles.listSeparator} />}
             renderSectionHeader={this.renderSectionHeader}
             renderItem={this.renderCard}
-            ListHeaderComponent={this.renderEmpty}
+            ListEmptyComponent={this.renderEmpty}
             keyExtractor={(card: CardType) => card.idShort}
             sections={sections}
           />
@@ -92,10 +71,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
-
-type StateType = {
-  cards: CardType[],
-};
 
 type PropsType = {
   style?: any,
