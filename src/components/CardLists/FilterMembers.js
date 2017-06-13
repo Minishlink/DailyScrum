@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import type { UserType } from '../../types';
 import { FilterableMember } from './';
@@ -11,26 +11,28 @@ import { userPointsSelector } from '../../modules/cardLists/selectors';
 export class FilterMembers extends Component {
   props: PropsType;
 
-  renderFilterableMember = (user: UserType) => {
-    return (
-      <FilterableMember
-        key={user.id}
-        style={styles.filterableMemberContainer}
-        member={user}
-        points={this.props.userPoints[user.id]}
-        isFiltered={!this.props.filtered || this.props.filtered === user.id}
-        onFilter={memberId => this.props.filterByMember(this.props.filtered === memberId ? null : memberId)}
-      />
-    );
-  };
+  renderFilterableMember = ({ item: user }: { item: UserType }) => (
+    <FilterableMember
+      style={styles.filterableMemberContainer}
+      member={user}
+      points={this.props.userPoints[user.id]}
+      isFiltered={!this.props.filtered || this.props.filtered === user.id}
+      onFilter={memberId => this.props.filterByMember(this.props.filtered === memberId ? null : memberId)}
+    />
+  );
 
   render() {
     if (!this.props.filterable.length) return null;
     return (
-      <View style={styles.container}>
-        <ScrollView contentContainerStyle={this.props.style} horizontal={true} showsHorizontalScrollIndicator={false}>
-          {this.props.filterable.map(this.renderFilterableMember)}
-        </ScrollView>
+      <View style={[styles.container, this.props.style]}>
+        <FlatList
+          contentContainerStyle={this.props.contentContainerStyle}
+          data={this.props.filterable}
+          renderItem={this.renderFilterableMember}
+          keyExtractor={user => user.id}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        />
       </View>
     );
   }
@@ -38,6 +40,7 @@ export class FilterMembers extends Component {
 
 type PropsType = {
   style?: any,
+  contentContainerStyle?: any,
   filtered: ?string,
   filterable: UserType[],
   filterByMember: Function,

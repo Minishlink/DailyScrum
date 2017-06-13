@@ -22,7 +22,10 @@ class DailyHeader extends Component {
           }}
         >
           <View onLayout={({ nativeEvent }) => this.setState({ yesterdayHeight: nativeEvent.layout.height })}>
-            <YesterdayFilterMembers style={styles.filterContainer} />
+            <YesterdayFilterMembers
+              contentContainerStyle={styles.filterContentContainer}
+              style={styles.filterContainer}
+            />
           </View>
         </Animated.View>
         <Animated.View
@@ -34,7 +37,7 @@ class DailyHeader extends Component {
           }}
         >
           <View onLayout={({ nativeEvent }) => this.setState({ todayHeight: nativeEvent.layout.height })}>
-            <TodayFilterMembers style={styles.filterContainer} />
+            <TodayFilterMembers contentContainerStyle={styles.filterContentContainer} style={styles.filterContainer} />
           </View>
         </Animated.View>
       </View>
@@ -54,6 +57,9 @@ const styles = StyleSheet.create({
     minHeight: 1,
   },
   filterContainer: {
+    height: 60, // fixes slow animation
+  },
+  filterContentContainer: {
     flex: 1,
     justifyContent: 'space-around',
   },

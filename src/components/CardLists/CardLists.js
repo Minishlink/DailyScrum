@@ -24,13 +24,15 @@ class CardsList extends Component {
   render() {
     const { cardLists } = this.props;
     // $FlowFixMe https://github.com/facebook/flow/issues/2221
-    const sections = Object.entries(cardLists).map(([columnKey, column]: [string, CardListType]) => ({
-      key: columnKey,
-      points: column.points,
-      data: column.list.filter(
-        card => (this.props.filteredMember ? card.idMembers.includes(this.props.filteredMember) : true)
-      ),
-    }));
+    const sections = Object.entries(cardLists)
+      .map(([columnKey, column]: [string, CardListType]) => ({
+        key: columnKey,
+        points: column.points,
+        data: column.list.filter(
+          card => (this.props.filteredMember ? card.idMembers.includes(this.props.filteredMember) : true)
+        ),
+      }))
+      .filter(section => section.data.length > 0);
 
     return (
       <View style={[styles.container, this.props.style]}>
