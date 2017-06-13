@@ -135,7 +135,7 @@ class Scenes extends Component {
 
   componentDidMount() {
     Linking.addEventListener('url', this._handleOpenURL);
-    Linking.getInitialURL().then((url: string) => {
+    Linking.getInitialURL().then((url: ?string) => {
       if (url) {
         this._handleOpenURL({ url });
       }

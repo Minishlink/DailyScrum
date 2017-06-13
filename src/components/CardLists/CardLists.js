@@ -11,7 +11,7 @@ class CardsList extends Component {
   props: PropsType;
 
   renderCard = ({ item }: { item: CardType }) => <TrelloCard card={item} />;
-  renderSectionHeader = ({ section }: { section: { data: [], key: string, points: number } }) =>
+  renderSectionHeader = ({ section }: { section: any }) =>
     section.data.length ? <ListHeader listKey={section.key} total={section.points} /> : null;
 
   renderEmpty = () => (

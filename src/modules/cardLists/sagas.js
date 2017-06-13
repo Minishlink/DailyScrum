@@ -13,7 +13,7 @@ export function* configureCardList(cardLists: CardListsType, cardListsKey: CardL
     column.list.forEach(card =>
       card.idMembers.forEach(memberId => {
         const currentPoints = userPoints[memberId];
-        const newPoints = !!card.points ? roundToDecimalPlace(card.points/card.idMembers.length) : 0;
+        const newPoints = !!card.points ? roundToDecimalPlace(card.points / card.idMembers.length) : 0;
         if (currentPoints) {
           userPoints[memberId] += newPoints;
         } else {

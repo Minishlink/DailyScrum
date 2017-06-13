@@ -14,7 +14,7 @@ class SuccessMatrix extends Component {
       <Text style={[styles.column, styles.idColumn]}>{sprint.number}</Text>
       <Text style={styles.column}>{sprint.manDays.toLocaleString()}</Text>
       <Text style={styles.column}>{sprint.foreseenPoints.toLocaleString()}</Text>
-      <Text style={styles.column}>{sprint.donePoints.toLocaleString()}</Text>
+      <Text style={styles.column}>{sprint.donePoints && sprint.donePoints.toLocaleString()}</Text>
       <Text style={[styles.column, styles.okColumn]}>
         {sprint.result !== null
           ? sprint.result
