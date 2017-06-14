@@ -17,7 +17,7 @@ export type SprintType = {|
   pointsLeft: ?number,
 |};
 
-type PerformanceType = ScrumbleBdcDataType;
+export type PerformanceType = ScrumbleBdcDataType;
 
 type ResourcesType = {
   matrix: [],

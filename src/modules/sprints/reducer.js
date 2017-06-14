@@ -6,6 +6,7 @@ import { adaptSprintFromScrumble } from 'DailyScrum/src/services/adapter';
 import { roundToDecimalPlace } from 'DailyScrum/src/services/MathService';
 import { userSelectorById } from '../users/reducer';
 import { currentProjectSelector } from '../projects/reducer';
+import { PerformanceType } from '../../types';
 
 const initialState: SprintsStateType = {
   currentSprint: null,
@@ -122,6 +123,31 @@ export function sprintsSuccessMatrixSelector(state: StateType): SprintsSuccessMa
       };
     });
 }
+
+export function bdcDataPointsSelector(state: StateType): ?BdcDataPointsType {
+  const currentSprint = currentSprintSelector(state);
+  if (!currentSprint) return null;
+
+  let doneDataPoints = [];
+  let standardDataPoints = [];
+
+  const totalPoints = currentSprint.resources.totalPoints;
+
+  Object.values(currentSprint.performance).forEach((performance: PerformanceType) => {
+    const date = new Date(performance.date).getTime();
+    standardDataPoints.push({ x: date, y: totalPoints - performance.standard });
+
+    if (performance.done || (!performance.done && !performance.standard)) {
+      doneDataPoints.push({ x: date, y: totalPoints - performance.done });
+    }
+  });
+
+  return [doneDataPoints, standardDataPoints].filter(array => array.length > 0);
+}
+
+type DataPointsType = Array<{ x: number, y: number }>;
+
+export type BdcDataPointsType = Array<DataPointsType>;
 
 export type SprintsSuccessMatrixType = Array<{|
   number: number,

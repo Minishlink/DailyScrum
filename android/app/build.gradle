@@ -151,6 +151,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-svg')
     compile project(':@yfuks/react-native-action-sheet')
     compile project(':react-native-vector-icons')
     compile fileTree(dir: "libs", include: ["*.jar"])

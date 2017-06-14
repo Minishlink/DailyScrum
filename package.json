@@ -22,6 +22,7 @@
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.45.1",
 		"react-native-animatable": "^1.1.1",
+		"react-native-pathjs-charts": "git+ssh://git@github.com/Minishlink/react-native-pathjs-charts.git#9c1fa4d50a75d7b35aa7b6da5c5785678fd839f0",
 		"react-native-vector-icons": "^4.0.0",
 		"react-navigation": "1.0.0-beta.11",
 		"react-redux": "^5.0.3",
