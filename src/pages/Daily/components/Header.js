@@ -19,6 +19,7 @@ class DailyHeader extends Component {
               inputRange: [0, 1, 2],
               outputRange: [yesterdayHeight + 1, 0, 0],
             }),
+            overflow: 'hidden',
           }}
         >
           <View onLayout={({ nativeEvent }) => this.setState({ yesterdayHeight: nativeEvent.layout.height })}>
@@ -34,6 +35,7 @@ class DailyHeader extends Component {
               inputRange: [0, 1, 2],
               outputRange: [0, 0, todayHeight + 1],
             }),
+            overflow: 'hidden',
           }}
         >
           <View onLayout={({ nativeEvent }) => this.setState({ todayHeight: nativeEvent.layout.height })}>
