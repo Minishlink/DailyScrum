@@ -15,7 +15,7 @@ function* fetchBaseData(): Generator<*, *, *> {
 
   const { timeout } = yield race({
     base: call(fetchBaseDataCalls),
-    timeout: call(delay, 10000),
+    timeout: call(delay, 30000),
   });
 
   if (yield select(isSyncSuccessfulSelector)) {
