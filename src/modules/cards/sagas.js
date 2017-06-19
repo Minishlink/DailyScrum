@@ -3,7 +3,7 @@ import { select, put, call, takeEvery, cancelled } from 'redux-saga/effects';
 import { Trello } from 'DailyScrum/src/services';
 import { putCards } from './';
 import { tokenSelector } from '../auth/reducer';
-import { sprintsSelector, currentSprintSelector } from '../sprints/reducer';
+import { sprintsSelector, currentSprintSelector, isCurrentSprintActiveSelector } from '../sprints/reducer';
 import type { SprintType } from '../../types';
 import { currentProjectSelector } from '../projects/reducer';
 import { getPoints } from '../../services/Trello';
@@ -72,12 +72,15 @@ export function* fetchDoneCards(): Generator<*, *, *> {
 export function* fetchNotDoneCards(): Generator<*, *, *> {
   try {
     yield put(startSync('cards', 'notDone'));
+
+    const isCurrentSprintActive = yield select(isCurrentSprintActiveSelector);
     const token = yield select(tokenSelector);
     const currentProject = yield select(currentProjectSelector);
 
     // fetch in parallel
     const cardsCalls = yield Object.values(currentProject.columnMapping).map(id => {
-      return call(Trello.getCardsFromList, token.trello, id);
+      // if it's not the active sprint, there's no cards that are not done
+      return !isCurrentSprintActive ? [] : call(Trello.getCardsFromList, token.trello, id);
     });
 
     let cards = {};

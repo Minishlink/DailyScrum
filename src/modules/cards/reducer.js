@@ -103,6 +103,12 @@ export default (state: CardsStateType = initialState, action: ActionType) => {
       };
 
     case 'CLEAR_CARDS':
+      if (Object.keys(list).length <= 100) {
+        return {
+          ...initialState,
+          list,
+        };
+      }
       return { ...initialState };
 
     default:

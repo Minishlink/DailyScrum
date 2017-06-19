@@ -18,7 +18,7 @@ export default (state: SprintsStateType = initialState, action: ActionType) => {
     case 'SET_CURRENT_SPRINT':
       return {
         ...state,
-        currentSprint: action.payload.id,
+        currentSprint: action.payload.sprintId,
       };
 
     case 'PUT_SPRINTS':
@@ -74,6 +74,13 @@ export function sprintsSelector(state: StateType): SprintsType {
 
 export function sprintsListSelector(state: StateType): SprintType[] {
   return Object.values(state.sprints.list);
+}
+
+export function sprintsListForCurrentProjectSelector(state: StateType): SprintType[] {
+  const currentProject = currentProjectSelector(state);
+  if (!currentProject) return [];
+  const sprintsList = sprintsListSelector(state);
+  return sprintsList.filter(sprint => sprint.projectId === currentProject.id);
 }
 
 export function currentSprintSelector(state: StateType): ?SprintType {
@@ -143,6 +150,11 @@ export function bdcDataPointsSelector(state: StateType): ?BdcDataPointsType {
   });
 
   return [doneDataPoints, standardDataPoints].filter(array => array.length > 0);
+}
+
+export function isCurrentSprintActiveSelector(state: StateType): boolean {
+  const currentSprint = currentSprintSelector(state);
+  return !!currentSprint && currentSprint.isActive;
 }
 
 type DataPointsType = Array<{ x: number, y: number }>;

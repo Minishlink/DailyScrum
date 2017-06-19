@@ -6,6 +6,7 @@ import { tokenSelector } from '../auth/reducer';
 import type { ScrumbleSprintType } from '../../types/Scrumble/Sprint';
 import { currentProjectSelector } from '../projects/reducer';
 import { startSync, endSync } from '../sync';
+import { fetchDoneCards, fetchNotDoneCards } from '../cards/sagas';
 
 export function* fetchSprints(): Generator<*, *, *> {
   try {
@@ -18,7 +19,7 @@ export function* fetchSprints(): Generator<*, *, *> {
 
     const currentSprint = sprints.find(sprint => sprint.isActive);
     if (currentSprint) {
-      yield put(setCurrentSprint(currentSprint));
+      yield put(setCurrentSprint(currentSprint.id));
     }
     yield put(endSync('sprints', 'all'));
   } catch (error) {
@@ -37,7 +38,7 @@ function* fetchCurrentSprint() {
     const token = yield select(tokenSelector);
     const sprint: ScrumbleSprintType = yield call(Scrumble.getCurrentSprint, token.scrumble);
     yield put(putSprints([sprint], true));
-    yield put(setCurrentSprint(sprint));
+    yield put(setCurrentSprint(sprint.id));
     yield put(endSync('sprints', 'current'));
   } catch (error) {
     console.info('[saga] fetchCurrentSprint', error);
@@ -49,6 +50,15 @@ function* fetchCurrentSprint() {
   }
 }
 
+function* changeCurrentSprint(action: { payload: { sprintId: number } }): Generator<*, *, *> {
+  yield put(setCurrentSprint(action.payload.sprintId));
+  yield [call(fetchNotDoneCards), call(fetchDoneCards)];
+}
+
 export default function*(): Generator<*, *, *> {
-  yield* [takeEvery('FETCH_CURRENT_SPRINT', fetchCurrentSprint), takeEvery('FETCH_SPRINTS', fetchSprints)];
+  yield* [
+    takeEvery('FETCH_CURRENT_SPRINT', fetchCurrentSprint),
+    takeEvery('FETCH_SPRINTS', fetchSprints),
+    takeEvery('CHANGE_CURRENT_SPRINT', changeCurrentSprint),
+  ];
 }

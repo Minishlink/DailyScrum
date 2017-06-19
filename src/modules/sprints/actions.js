@@ -11,7 +11,15 @@ export type ActionType =
     |}
   | {|
       type: 'SET_CURRENT_SPRINT',
-      payload: ScrumbleSprintType,
+      payload: {
+        sprintId: number,
+      },
+    |}
+  | {|
+      type: 'CHANGE_CURRENT_SPRINT',
+      payload: {
+        sprintId: number,
+      },
     |}
   | {|
       type: 'CLEAR_SPRINTS',
@@ -30,10 +38,17 @@ export function putSprints(sprints: ScrumbleSprintType[], doAdapt: boolean = fal
   };
 }
 
-export function setCurrentSprint(payload: ScrumbleSprintType): ActionType {
+export function setCurrentSprint(sprintId: number): ActionType {
   return {
     type: 'SET_CURRENT_SPRINT',
-    payload,
+    payload: { sprintId },
+  };
+}
+
+export function changeCurrentSprint(sprintId: number): ActionType {
+  return {
+    type: 'CHANGE_CURRENT_SPRINT',
+    payload: { sprintId },
   };
 }
 

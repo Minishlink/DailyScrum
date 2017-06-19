@@ -1,11 +1,13 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, Dimensions } from 'react-native';
+import { StyleSheet, Text, Dimensions, View } from 'react-native';
 import { Page } from 'DailyScrum/src/components';
 import { StockLine } from 'react-native-pathjs-charts';
 import { bdcDataPointsSelector } from '../../modules/sprints/reducer';
+import type { BdcDataPointsType } from '../../modules/sprints/reducer';
 import { format } from 'date-fns';
+import SprintPicker from './components/SprintPicker';
 
 const graphOptions = {
   width: Dimensions.get('window').width * 0.80,
@@ -57,10 +59,15 @@ class Summary extends Component {
 
   render() {
     return (
-      <Page style={styles.container}>
-        {this.props.bdcDataPoints
-          ? <StockLine data={this.props.bdcDataPoints} options={graphOptions} pallete={pallete} xKey="x" yKey="y" />
-          : <Text>You don't have any sprint yet!</Text>}
+      <Page noMargin style={styles.container}>
+        <View style={styles.pickerContainer}>
+          <SprintPicker />
+        </View>
+        <View style={styles.bdcContainer}>
+          {this.props.bdcDataPoints
+            ? <StockLine data={this.props.bdcDataPoints} options={graphOptions} pallete={pallete} xKey="x" yKey="y" />
+            : <Text>You don't have any sprint yet!</Text>}
+        </View>
       </Page>
     );
   }
@@ -68,11 +75,17 @@ class Summary extends Component {
 
 type PropsType = {
   navigation: any,
+  bdcDataPoints: BdcDataPointsType,
 };
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+  },
+  pickerContainer: {
+    marginHorizontal: 20,
+  },
+  bdcContainer: {
     alignItems: 'center',
   },
 });
