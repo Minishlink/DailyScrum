@@ -3676,9 +3676,9 @@ react-native-drawer-layout@1.3.1:
   dependencies:
     react-native-dismiss-keyboard "1.0.0"
 
-"react-native-pathjs-charts@git+ssh://git@github.com/Minishlink/react-native-pathjs-charts.git#9c1fa4d50a75d7b35aa7b6da5c5785678fd839f0":
-  version "0.0.28"
-  resolved "git+ssh://git@github.com/Minishlink/react-native-pathjs-charts.git#9c1fa4d50a75d7b35aa7b6da5c5785678fd839f0"
+react-native-pathjs-charts@^0.0.29:
+  version "0.0.29"
+  resolved "https://registry.yarnpkg.com/react-native-pathjs-charts/-/react-native-pathjs-charts-0.0.29.tgz#6ddf17d13f353a9271b47b1686198533431f1a9a"
   dependencies:
     babel-polyfill "^6.23.0"
     lodash "^4.12.0"
