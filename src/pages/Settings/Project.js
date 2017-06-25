@@ -24,15 +24,17 @@ class Settings extends Component {
     this.props.fetchBoards();
   };
 
+  changeProject = (board: BoardType) => {
+    this.setState({ lastSelectedBoard: board.id });
+    this.props.changeCurrentRemoteProject(board);
+  };
+
   renderBoard = ({ item: board }) => (
     <BoardCard
       board={board}
       isActive={board.id === this.props.currentBoardId}
       isLoading={this.props.isChangingProject && board.id === this.state.lastSelectedBoard}
-      onPress={() => {
-        this.setState({ lastSelectedBoard: board.id });
-        this.props.changeCurrentRemoteProject(board);
-      }}
+      onPress={() => this.changeProject(board)}
     />
   );
 
@@ -46,7 +48,7 @@ class Settings extends Component {
         <TextInput
           style={styles.searchInput}
           onChangeText={filterBoard => this.setState({ filterBoard })}
-          onSubmitEditing={() => boards.length > 0 && this.props.changeCurrentRemoteProject(boards[0])}
+          onSubmitEditing={() => boards.length > 0 && this.changeProject(boards[0])}
           value={this.state.filterBoard}
           editable={!this.props.isChangingProject && !this.props.isSyncingBoards}
           autoCorrect={false}
