@@ -26,6 +26,6 @@ export default (props: PropsType) => {
 type PropsType = {
   type?: 'font-awesome',
   name: string,
-  size: number,
-  color: string,
+  size?: number,
+  color?: string,
 };
