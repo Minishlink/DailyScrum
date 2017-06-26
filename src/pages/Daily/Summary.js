@@ -28,17 +28,19 @@ class Summary extends Component {
       <Page>
         <ErrorBar />
         <View style={styles.container}>
-          <Animatable.View animation="fadeIn" delay={200} style={styles.sprintGoal}>
-            <SprintGoalCard title={currentSprint.goal} />
-          </Animatable.View>
-          {currentSprint.lead != null &&
-            <Animatable.View animation="fadeInLeft">
-              <LeadCard lead={currentSprint.lead} />
-            </Animatable.View>}
-          {currentSprint.pointsLeft != null &&
-            <Animatable.View animation="fadeInRight">
-              <PointsLeftCard pointsLeft={currentSprint.pointsLeft} />
-            </Animatable.View>}
+          <View style={styles.infos}>
+            <Animatable.View animation="fadeIn" delay={200} style={styles.sprintGoal}>
+              <SprintGoalCard title={currentSprint.goal} />
+            </Animatable.View>
+            {currentSprint.lead != null &&
+              <Animatable.View animation="fadeInLeft">
+                <LeadCard lead={currentSprint.lead} />
+              </Animatable.View>}
+            {currentSprint.pointsLeft != null &&
+              <Animatable.View animation="fadeInRight">
+                <PointsLeftCard pointsLeft={currentSprint.pointsLeft} />
+              </Animatable.View>}
+          </View>
           <View style={styles.buttons}>
             <BigButton
               style={styles.button}
@@ -73,15 +75,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'space-between',
     marginTop: 20,
   },
   sprintGoal: {
-    marginVertical: 20,
+    marginBottom: 20,
     width: 0.75 * Dimensions.get('window').width,
   },
+  infos: {
+    alignItems: 'center',
+  },
   buttons: {
-    position: 'absolute',
-    bottom: 25,
+    marginBottom: 25,
   },
   button: {
     marginTop: 10,

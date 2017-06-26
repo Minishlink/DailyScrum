@@ -9,7 +9,7 @@ export default class BigButton extends Component {
   render() {
     const { icon, title, style, isLoading, ...buttonProps } = this.props;
     return (
-      <Button style={[styles.container, style]} {...buttonProps}>
+      <Button activeOpacity={0.8} style={[styles.container, style]} {...buttonProps}>
         {icon && !icon.right && <Icon color="white" size={20} name={icon.name} />}
         <View style={styles.contentContainer}>
           {isLoading && <ActivityIndicator color="white" />}
@@ -41,6 +41,11 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     backgroundColor: appStyle.colors.primary,
     height: 36,
+    elevation: 2,
+    shadowColor: appStyle.colors.darkGray,
+    shadowRadius: 2,
+    shadowOpacity: 0.5,
+    shadowOffset: { height: 1 },
   },
   contentContainer: {
     flexGrow: 1,
