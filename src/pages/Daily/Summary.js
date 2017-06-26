@@ -10,6 +10,8 @@ import { currentSprintSelector } from '../../modules/sprints/reducer';
 import { currentProjectSelector } from '../../modules/projects/reducer';
 import { yesterdayTotalSelector, todayTotalSelector } from '../../modules/cards/reducer';
 import type { SprintType, ProjectType } from '../../types';
+import LeadCard from './components/LeadCard';
+import PointsLeftCard from './components/PointsLeftCard';
 const ErrorBar = createErrorBar({ common: 'base' });
 
 class Summary extends Component {
@@ -22,7 +24,6 @@ class Summary extends Component {
   render() {
     const { currentSprint, currentProject } = this.props;
     if (!currentSprint || !currentProject) return <Page isLoading />;
-    const { lead, pointsLeft } = currentSprint;
     return (
       <Page>
         <ErrorBar />
@@ -30,16 +31,14 @@ class Summary extends Component {
           <Animatable.View animation="fadeIn" delay={200} style={styles.sprintGoal}>
             <SprintGoalCard title={currentSprint.goal} />
           </Animatable.View>
-          {lead != null &&
-            <Animatable.Text animation="fadeInLeft" style={{ color: lead.points >= 0 ? 'green' : 'red' }}>
-              {`${lead.points >= 0 ? 'Lead' : 'Lateness'}: ${lead.points > 0 ? lead.points : -lead.points} pts / ${lead.manDays > 0 ? lead.manDays : -lead.manDays} man-days`}
-            </Animatable.Text>}
-          {pointsLeft != null &&
-            (pointsLeft > 0
-              ? <Animatable.Text animation="fadeInRight">Left overall: {pointsLeft} pts</Animatable.Text>
-              : <Animatable.Text animation="fadeInRight">
-                  Congratulations! You finished your sprint, and you have {-pointsLeft} points of bonus.
-                </Animatable.Text>)}
+          {currentSprint.lead != null &&
+            <Animatable.View animation="fadeInLeft">
+              <LeadCard lead={currentSprint.lead} />
+            </Animatable.View>}
+          {currentSprint.pointsLeft != null &&
+            <Animatable.View animation="fadeInRight">
+              <PointsLeftCard pointsLeft={currentSprint.pointsLeft} />
+            </Animatable.View>}
           <View style={styles.buttons}>
             <BigButton
               style={styles.button}
