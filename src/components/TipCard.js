@@ -9,7 +9,7 @@ import { markTipAsRead } from '../modules/tips';
 import type { TipType } from '../modules/tips/reducer';
 
 const TipCard = (props: PropsType) => (
-  <Animatable.View animation="bounceIn" delay={200} style={styles.sprintGoal}>
+  <Animatable.View animation="bounceIn" delay={200}>
     <Card>
       <View style={styles.container}>
         <Text style={[styles.text, styles.content]}>{props.tip.text}</Text>

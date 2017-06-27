@@ -33,7 +33,7 @@ export type TipsStateType = {|
   read: TipIDType[],
 |};
 
-export type TipIDType = 'DAILY_SUMMARY';
+export type TipIDType = 'DAILY_SUMMARY' | 'CARDLISTS_OPEN_TRELLO';
 
 export type TipType = {
   id: TipIDType,
@@ -44,5 +44,9 @@ export const tips = {
   DAILY_SUMMARY: {
     id: 'DAILY_SUMMARY',
     text: "From the summary, you can also swipe left to access yesterday's cards, or right for today's cards",
+  },
+  CARDLISTS_OPEN_TRELLO: {
+    id: 'CARDLISTS_OPEN_TRELLO',
+    text: "Long press a card for more actions, like opening the card on Trello! It's even better when you have the Trello app ;)",
   },
 };

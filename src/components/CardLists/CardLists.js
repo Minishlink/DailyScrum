@@ -1,11 +1,15 @@
 // @flow
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, View, SectionList, Text } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { TrelloCard } from 'DailyScrum/src/components';
 import type { CardListsType, CardListType } from 'DailyScrum/src/modules/cards/reducer';
 import type { CardType } from '../../types';
 import { ListHeader } from './';
+import { getTipIfNotReadSelector } from '../../modules/tips/reducer';
+import type { TipType } from '../../modules/tips/reducer';
+import TipCard from '../TipCard';
 
 class CardsList extends Component {
   props: PropsType;
@@ -20,6 +24,8 @@ class CardsList extends Component {
       <Text>Pull to refresh :)</Text>
     </View>
   );
+
+  renderTip = () => this.props.tip && <View style={styles.tipContainer}><TipCard tip={this.props.tip} /></View>;
 
   render() {
     const { cardLists } = this.props;
@@ -45,6 +51,7 @@ class CardsList extends Component {
             SectionSeparatorComponent={() => <View style={styles.listSeparator} />}
             renderSectionHeader={this.renderSectionHeader}
             renderItem={this.renderCard}
+            ListHeaderComponent={this.renderTip}
             ListEmptyComponent={this.renderEmpty}
             keyExtractor={(card: CardType) => card.idShort}
             sections={sections}
@@ -72,6 +79,9 @@ const styles = StyleSheet.create({
   listSeparator: {
     marginTop: 20,
   },
+  tipContainer: {
+    marginVertical: 10,
+  },
 });
 
 type PropsType = {
@@ -80,6 +90,11 @@ type PropsType = {
   filteredMember: ?string,
   onRefresh: Function,
   isRefreshing: boolean,
+  tip: ?TipType,
 };
 
-export default CardsList;
+const mapStateToProps = state => ({
+  tip: getTipIfNotReadSelector(state, 'CARDLISTS_OPEN_TRELLO'),
+});
+
+export default connect(mapStateToProps)(CardsList);
