@@ -38,6 +38,8 @@ class Settings extends Component {
     />
   );
 
+  renderEmpty = () => <Text style={styles.noBoardsText}>No boards found</Text>;
+
   render() {
     const boards = this.props.boards.filter(board =>
       board.name.toLowerCase().includes(this.state.filterBoard.toLowerCase())
@@ -63,7 +65,7 @@ class Settings extends Component {
           keyExtractor={board => board.id}
           refreshing={this.props.isSyncingBoards}
           onRefresh={this.handleRefresh}
-          ListHeaderComponent={() => (!boards.length ? <Text style={styles.noBoardsText}>No boards found</Text> : null)}
+          ListEmptyComponent={this.renderEmpty}
         />
       </Page>
     );
