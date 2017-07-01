@@ -11,9 +11,18 @@ export default class BigButton extends Component {
     return (
       <Button activeOpacity={0.8} style={[styles.container, style]} {...buttonProps}>
         {icon && !icon.right && <Icon color="white" size={20} name={icon.name} />}
-        <View style={styles.contentContainer}>
+        <View
+          style={[
+            styles.contentContainer,
+            icon && icon.right && { paddingRight: 5 },
+            icon && !icon.right && { paddingLeft: 5 },
+          ]}
+        >
           {isLoading && <ActivityIndicator color="white" />}
-          {!isLoading && <Text style={styles.buttonText}>{title}</Text>}
+          {!isLoading &&
+            <Text style={styles.buttonText}>
+              {title}
+            </Text>}
         </View>
         {icon && icon.right && <Icon color="white" size={20} name={icon.name} />}
       </Button>
@@ -33,6 +42,7 @@ type PropsType = {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -52,7 +62,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    paddingHorizontal: 10,
     color: 'white',
     fontSize: 20,
   },

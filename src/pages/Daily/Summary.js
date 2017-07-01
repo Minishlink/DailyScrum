@@ -61,13 +61,13 @@ class Summary extends Component {
           </View>
           <View style={styles.buttons}>
             <BigButton
-              style={styles.button}
+              style={[styles.button, { marginRight: 4 }]}
               icon={{ name: 'chevron-left' }}
               title={`Yesterday (${this.props.yesterdayTotal.toLocaleString()})`}
               onPress={() => this.goToCardPage('yesterday')}
             />
             <BigButton
-              style={styles.button}
+              style={[styles.button, { marginLeft: 4 }]}
               icon={{ name: 'chevron-right', right: true }}
               title={`Today (${this.props.todayTotal.toLocaleString()})`}
               onPress={() => this.goToCardPage('today')}
@@ -104,6 +104,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginBottom: 25,
   },
   button: {
