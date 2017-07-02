@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, SectionList, Text } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { TrelloCard } from 'DailyScrum/src/components';
+import { TrelloCard, LottieAnimation } from 'DailyScrum/src/components';
 import type { CardListsType, CardListType } from 'DailyScrum/src/modules/cards/reducer';
 import type { CardType } from '../../types';
 import { ListHeader } from './';
@@ -22,6 +22,7 @@ class CardsList extends Component {
     <View style={styles.emptyContainer}>
       <Text>No cards yet</Text>
       <Text>Pull to refresh :)</Text>
+      <LottieAnimation source={require('../../../assets/lottie/empty_status.json')} duration={6000} />
     </View>
   );
 

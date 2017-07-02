@@ -1,9 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions, Platform } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { Page, BigButton, createErrorBar, Modal } from 'DailyScrum/src/components';
+import { Page, BigButton, createErrorBar, Modal, LottieAnimation } from 'DailyScrum/src/components';
 import { SprintGoalCard } from './components';
 import { fetchBaseData } from 'DailyScrum/src/modules/common';
 import { currentSprintSelector } from '../../modules/sprints/reducer';
@@ -41,6 +41,11 @@ class Summary extends Component {
     return (
       <Page>
         <ErrorBar />
+        {currentSprint.pointsLeft != null &&
+          currentSprint.pointsLeft <= 0 &&
+          <View style={styles.pointsLeftAnimationContainer}>
+            <LottieAnimation source={require('../../../assets/lottie/colorline.json')} />
+          </View>}
         {!!this.props.tip &&
           <Modal visible={this.state.showTip} onRequestClose={() => this.setState({ showTip: false })}>
             <View style={styles.tipContainer}><TipCard tip={this.props.tip} /></View>
@@ -120,6 +125,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 20,
+  },
+  pointsLeftAnimationContainer: {
+    ...StyleSheet.absoluteFillObject,
+    alignItems: 'center',
+    ...Platform.select({
+      ios: {
+        top: 150, // iOS lottie positioning is buggy
+      },
+      android: {
+        justifyContent: 'center', // normal behaviour
+      },
+    }),
   },
 });
 

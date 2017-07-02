@@ -8,5 +8,6 @@ export { default as Button } from './Button';
 export { default as BigButton } from './BigButton';
 export { default as Picker } from './Picker';
 export { default as Modal } from './Modal';
+export { default as LottieAnimation } from './LottieAnimation';
 export { default as createErrorBar } from './ErrorBar';
 export { CardLists } from './CardLists';
