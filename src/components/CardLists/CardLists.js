@@ -55,7 +55,7 @@ class CardsList extends Component {
             SectionSeparatorComponent={() => <View style={styles.listSeparator} />}
             renderSectionHeader={this.renderSectionHeader}
             renderItem={this.renderCard}
-            ListHeaderComponent={this.renderTip}
+            ListHeaderComponent={() => sections.length > 0 && this.renderTip()}
             ListEmptyComponent={this.renderEmpty}
             keyExtractor={(card: CardType) => card.idShort}
             sections={sections}
