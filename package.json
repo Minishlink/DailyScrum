@@ -22,13 +22,13 @@
 		"lottie-react-native": "^1.1.1",
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.45.1",
-		"react-native-animatable": "^1.1.1",
+		"react-native-animatable": "^1.2.2",
 		"react-native-pathjs-charts": "^0.0.29",
-		"react-native-vector-icons": "^4.0.0",
+		"react-native-vector-icons": "^4.2.0",
 		"react-navigation": "1.0.0-beta.11",
-		"react-redux": "^5.0.3",
-		"redux": "^3.6.0",
-		"redux-persist": "^4.7.0",
+		"react-redux": "^5.0.5",
+		"redux": "^3.7.0",
+		"redux-persist": "^4.8.0",
 		"redux-saga": "^0.14.3"
 	},
 	"devDependencies": {
