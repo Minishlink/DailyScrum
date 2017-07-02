@@ -25,10 +25,10 @@ export default (state: CardListsStateType = initialState, action: ActionType) =>
 
     case 'SET_USER_POINTS':
       const cardListState = state[action.payload.cardListKey];
-      const filteredMember = cardListState.filteredMember &&
-        Object.keys(action.payload.userPoints).includes(cardListState.filteredMember)
-        ? cardListState.filteredMember
-        : null;
+      const filteredMember =
+        cardListState.filteredMember && Object.keys(action.payload.userPoints).includes(cardListState.filteredMember)
+          ? cardListState.filteredMember
+          : null;
       return {
         ...state,
         [action.payload.cardListKey]: {

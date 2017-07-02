@@ -47,6 +47,7 @@ export const tips = {
   },
   CARDLISTS_OPEN_TRELLO: {
     id: 'CARDLISTS_OPEN_TRELLO',
-    text: "Long press a card for more actions, like opening the card on Trello! It's even better when you have the Trello app ;)",
+    text:
+      "Long press a card for more actions, like opening the card on Trello! It's even better when you have the Trello app ;)",
   },
 };

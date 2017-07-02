@@ -3,13 +3,12 @@ import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { Card } from 'DailyScrum/src/components';
 
-export default (props: PropsType) => (
+export default (props: PropsType) =>
   <Card>
     <Text style={styles.text}>
       {props.pointsLeft > 0 ? `Left overall: ${props.pointsLeft} pts` : `Congratulations, this sprint is a success!`}
     </Text>
-  </Card>
-);
+  </Card>;
 
 type PropsType = {
   pointsLeft: number,

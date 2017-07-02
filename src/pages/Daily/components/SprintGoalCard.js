@@ -5,7 +5,7 @@ import * as Animatable from 'react-native-animatable';
 import { Card, Icon } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
 
-export default (props: PropsType) => (
+export default (props: PropsType) =>
   <Card>
     <View style={styles.container}>
       <Animatable.View animation="pulse" iterationCount="infinite" style={styles.iconContainer}>
@@ -16,8 +16,7 @@ export default (props: PropsType) => (
     <Text style={styles.title}>
       {props.title}
     </Text>
-  </Card>
-);
+  </Card>;
 
 type PropsType = {
   title: string,

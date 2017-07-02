@@ -48,7 +48,9 @@ class Summary extends Component {
           </View>}
         {!!this.props.tip &&
           <Modal visible={this.state.showTip} onRequestClose={() => this.setState({ showTip: false })}>
-            <View style={styles.tipContainer}><TipCard tip={this.props.tip} /></View>
+            <View style={styles.tipContainer}>
+              <TipCard tip={this.props.tip} />
+            </View>
           </Modal>}
         <View style={styles.container}>
           <View style={styles.infos}>

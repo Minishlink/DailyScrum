@@ -18,15 +18,18 @@ class CardsList extends Component {
   renderSectionHeader = ({ section }: { section: any }) =>
     section.data.length ? <ListHeader listKey={section.key} total={section.points} /> : null;
 
-  renderEmpty = () => (
+  renderEmpty = () =>
     <View style={styles.emptyContainer}>
       <Text>No cards yet</Text>
       <Text>Pull to refresh :)</Text>
       <LottieAnimation source={require('../../../assets/lottie/empty_status.json')} duration={6000} />
-    </View>
-  );
+    </View>;
 
-  renderTip = () => this.props.tip && <View style={styles.tipContainer}><TipCard tip={this.props.tip} /></View>;
+  renderTip = () =>
+    this.props.tip &&
+    <View style={styles.tipContainer}>
+      <TipCard tip={this.props.tip} />
+    </View>;
 
   render() {
     const { cardLists } = this.props;

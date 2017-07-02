@@ -10,7 +10,7 @@ import { format } from 'date-fns';
 import SprintPicker from './components/SprintPicker';
 
 const graphOptions = {
-  width: Dimensions.get('window').width * 0.80,
+  width: Dimensions.get('window').width * 0.8,
   height: 300,
   color: '#2980B9',
   showAreas: false,

@@ -14,9 +14,8 @@ const sectionsNavigatorConfig = {
   swipeEnabled: true,
   animationEnabled: true,
   lazy: true,
-  tabBarComponent: props => (
-    <View style={{ height: 1, ...appStyle.header.containerStyle, ...appStyle.header.containerShadowStyle }} />
-  ),
+  tabBarComponent: props =>
+    <View style={{ height: 1, ...appStyle.header.containerStyle, ...appStyle.header.containerShadowStyle }} />,
   tabBarPosition: 'top',
 };
 

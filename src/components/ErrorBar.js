@@ -40,7 +40,11 @@ class ErrorBar extends Component {
     const errors = _.uniq(this.props.errors.map(this.getErrorMessage));
     return (
       <View style={styles.container}>
-        {errors.map(error => <Text key={error} style={styles.text}>{error}</Text>)}
+        {errors.map(error =>
+          <Text key={error} style={styles.text}>
+            {error}
+          </Text>
+        )}
       </View>
     );
   }

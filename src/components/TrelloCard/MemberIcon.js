@@ -16,7 +16,10 @@ export default class MemberIcon extends Component {
     const avatar = getUriFromMember(member);
     return (
       <View style={[styles.textContainer, { backgroundColor: color }]}>
-        {!this.state.isImageLoaded && <Text style={styles.text}>{member.initials}</Text>}
+        {!this.state.isImageLoaded &&
+          <Text style={styles.text}>
+            {member.initials}
+          </Text>}
         {avatar &&
           <Image style={styles.image} source={{ uri: avatar }} onLoad={() => this.setState({ isImageLoaded: true })} />}
       </View>

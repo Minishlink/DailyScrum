@@ -23,7 +23,9 @@ export default class Picker extends Component {
       <View>
         {selectedValueText &&
           <TouchableOpacity style={styles.selectedValueContainer} onPress={() => this.setState({ isPicking: true })}>
-            <Text style={styles.selectedValueStyle} numberOfLines={1}>{selectedValueText}</Text>
+            <Text style={styles.selectedValueStyle} numberOfLines={1}>
+              {selectedValueText}
+            </Text>
             <View style={styles.selectedValueChevron}>
               <Icon type="material" name="arrow-drop-down" color="grey" size={25} />
             </View>
@@ -33,8 +35,13 @@ export default class Picker extends Component {
             <View style={styles.pickerModalBackground} />
           </TouchableWithoutFeedback>
           <View style={[styles.pickerContainer, style]}>
-            {this.props.prompt && <Text style={styles.prompt}>{this.props.prompt}</Text>}
-            <RCTPicker itemStyle={{ fontSize: 16 }} {...rest}>{children}</RCTPicker>
+            {this.props.prompt &&
+              <Text style={styles.prompt}>
+                {this.props.prompt}
+              </Text>}
+            <RCTPicker itemStyle={{ fontSize: 16 }} {...rest}>
+              {children}
+            </RCTPicker>
           </View>
         </Modal>
       </View>

@@ -18,8 +18,13 @@ export default class BoardCard extends Component {
         </Text>
         {isActive &&
           !isLoading &&
-          <View style={[styles.icon, styles.activeIcon]}><Icon name="check-circle" size={20} color={color} /></View>}
-        {isLoading && <View style={styles.icon}><ActivityIndicator color={color} /></View>}
+          <View style={[styles.icon, styles.activeIcon]}>
+            <Icon name="check-circle" size={20} color={color} />
+          </View>}
+        {isLoading &&
+          <View style={styles.icon}>
+            <ActivityIndicator color={color} />
+          </View>}
       </View>
     );
   };

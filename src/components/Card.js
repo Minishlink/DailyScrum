@@ -3,11 +3,10 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import appStyle from 'DailyScrum/src/appStyle';
 
-export default (props: PropsType) => (
+export default (props: PropsType) =>
   <View style={[styles.container, styles.card]}>
     {props.children}
-  </View>
-);
+  </View>;
 
 type PropsType = {
   children: any,

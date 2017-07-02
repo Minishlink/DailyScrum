@@ -48,7 +48,10 @@ class Header extends Component {
             </View>
           </Button>
         </View>
-        {project && <Text style={styles.projectTitle}>{project.name}</Text>}
+        {project &&
+          <Text style={styles.projectTitle}>
+            {project.name}
+          </Text>}
       </Animated.View>
     );
   }

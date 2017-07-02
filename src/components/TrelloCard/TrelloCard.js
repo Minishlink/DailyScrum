@@ -8,7 +8,7 @@ import PointsBadge from './PointsBadge';
 import ActionSheet from '@yfuks/react-native-action-sheet';
 import type { CardType } from '../../types';
 
-export default ({ card }: PropsType) => (
+export default ({ card }: PropsType) =>
   <TouchableOpacity
     activeOpacity={0.7}
     onLongPress={() =>
@@ -32,7 +32,9 @@ export default ({ card }: PropsType) => (
       <Card>
         <View style={styles.labelsRow}>
           <View style={styles.idShortContainer}>
-            <Text style={styles.idShort}>#{card.idShort}</Text>
+            <Text style={styles.idShort}>
+              #{card.idShort}
+            </Text>
           </View>
         </View>
         <Text style={styles.title}>
@@ -46,16 +48,17 @@ export default ({ card }: PropsType) => (
           </View>
           <View style={styles.membersContainer}>
             <View style={styles.members}>
-              {card.members.map(member => (
-                <View key={member.id} style={styles.member}><MemberIcon member={member} /></View>
-              ))}
+              {card.members.map(member =>
+                <View key={member.id} style={styles.member}>
+                  <MemberIcon member={member} />
+                </View>
+              )}
             </View>
           </View>
         </View>
       </Card>
     </View>
-  </TouchableOpacity>
-);
+  </TouchableOpacity>;
 
 const styles = StyleSheet.create({
   labelsRow: {
