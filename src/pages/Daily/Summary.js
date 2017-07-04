@@ -14,6 +14,8 @@ import LeadCard from './components/LeadCard';
 import PointsLeftCard from './components/PointsLeftCard';
 import TipCard from '../../components/TipCard';
 import { getTipIfNotReadSelector } from '../../modules/tips/reducer';
+import { format } from 'date-fns';
+import { getLastWorkableDayTime } from '../../services/Time';
 
 const ErrorBar = createErrorBar({ common: 'base' });
 
@@ -36,6 +38,7 @@ class Summary extends Component {
   };
 
   render() {
+    const lastWorkableDayTime = getLastWorkableDayTime();
     const { currentSprint, currentProject } = this.props;
     if (!currentSprint || !currentProject) return <Page isLoading />;
     return (
@@ -70,13 +73,13 @@ class Summary extends Component {
             <BigButton
               style={[styles.button, { marginRight: 4 }]}
               icon={{ name: 'chevron-left' }}
-              title={`Yesterday (${this.props.yesterdayTotal.toLocaleString()})`}
+              title={`${format(lastWorkableDayTime, 'ddd')}. (${Math.round(this.props.yesterdayTotal).toLocaleString()})`}
               onPress={() => this.goToCardPage('yesterday')}
             />
             <BigButton
               style={[styles.button, { marginLeft: 4 }]}
               icon={{ name: 'chevron-right', right: true }}
-              title={`Today (${this.props.todayTotal.toLocaleString()})`}
+              title={`Today (${Math.round(this.props.todayTotal).toLocaleString()})`}
               onPress={() => this.goToCardPage('today')}
             />
           </View>
