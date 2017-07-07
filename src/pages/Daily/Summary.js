@@ -73,7 +73,9 @@ class Summary extends Component {
             <BigButton
               style={[styles.button, { marginRight: 4 }]}
               icon={{ name: 'chevron-left' }}
-              title={`${format(lastWorkableDayTime, 'ddd')}. (${Math.round(this.props.yesterdayTotal).toLocaleString()})`}
+              title={`${format(lastWorkableDayTime, 'ddd')}. (${Math.round(
+                this.props.yesterdayTotal
+              ).toLocaleString()})`}
               onPress={() => this.goToCardPage('yesterday')}
             />
             <BigButton
