@@ -7,6 +7,6 @@ An app for your daily dose of Scrum
 * [Code quality](doc/code_quality.md)
 
 ## Team
-* Made with :heart: by [**BAM**](http://www.bam.tech/equipe-bam).
+* Made with :heart: by [**BAM**](http://www.bam.tech/equipe-bam) people.
 * Developer team: see [contributors](../../graphs/contributors).
-* Contact: **Louis Lagrange** (louisl@bam.tech)
+* Release manager / Contact: **Louis Lagrange** (louisl@bam.tech)

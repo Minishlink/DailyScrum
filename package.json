@@ -9,7 +9,9 @@
 		"test:unit": "jest",
 		"test:flow": "flow",
 		"format": "find ./src -name '*.js' | xargs ./node_modules/.bin/prettier --write --print-width 120 --single-quote --trailing-comma es5",
-		"deploy": "yarn deploy:staging",
+		"deploy": "./bin/code-push.sh --android --ios",
+		"deploy:android": "./bin/code-push.sh --android",
+		"deploy:ios": "./bin/code-push.sh --ios",
 		"deploy:staging": "yarn deploy:staging:android && yarn deploy:staging:ios",
 		"deploy:staging:android": "bundle exec fastlane android deploy --env=staging",
 		"deploy:staging:ios": "bundle exec fastlane ios deploy --env=staging"
