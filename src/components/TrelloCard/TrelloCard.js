@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   idShort: {
-    fontSize: 11,
+    fontSize: appStyle.font.size.small,
     fontWeight: 'bold',
   },
   pointsContainer: {

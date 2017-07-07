@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import appStyle from '../../appStyle';
 
 export default class ListHeader extends Component {
   props: PropsType;
@@ -44,12 +45,12 @@ type PropsType = {
 
 const styles = StyleSheet.create({
   listName: {
-    fontSize: 18,
+    fontSize: appStyle.font.size.default,
     textAlign: 'center',
   },
   total: {
     textAlign: 'center',
     color: '#666',
-    fontSize: 12,
+    fontSize: appStyle.font.size.small,
   },
 });

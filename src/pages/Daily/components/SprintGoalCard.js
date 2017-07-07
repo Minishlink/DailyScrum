@@ -32,11 +32,11 @@ const styles = StyleSheet.create({
   },
   label: {
     color: appStyle.primaryDark,
-    fontSize: 12,
+    fontSize: appStyle.font.size.small,
     fontWeight: '300',
   },
   title: {
-    fontSize: appStyle.font.size.big,
+    fontSize: appStyle.font.size.default,
     fontWeight: 'bold',
     color: appStyle.colors.text,
     textAlign: 'center',

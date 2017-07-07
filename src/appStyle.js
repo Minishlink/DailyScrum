@@ -1,14 +1,13 @@
 import { Platform } from 'react-native';
 import chroma from 'chroma-js';
+
 const primaryColor = '#2196F3';
 export default {
   font: {
     size: {
       small: 12,
-      default: 14,
-      big: 16,
-      large: 18,
-      huge: 20,
+      default: 15,
+      big: 20,
     },
   },
   colors: {
@@ -21,6 +20,7 @@ export default {
     lightText: '#FAFAFA',
     background: '#F5FCFF',
     darkGray: '#333333',
+    points: '#006580',
   },
   header: {
     containerStyle: {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, TouchableHighlight, Text, Image, ActivityIndicator } from 'react-native';
 import type { BoardType } from '../../../types';
 import { Icon } from '../../../components';
+import appStyle from '../../../appStyle';
 
 const borderRadius = 3;
 export default class BoardCard extends Component {
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
   name: {
     color: 'white',
     fontWeight: '700',
-    fontSize: 20,
+    fontSize: appStyle.font.size.big,
     backgroundColor: 'transparent',
   },
   icon: {

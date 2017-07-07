@@ -11,9 +11,6 @@ import { lastSuccessfulSyncDateSelector } from '../modules/common/reducer';
 import type { ProjectType } from '../types';
 import appStyle, { STATUSBAR_HEIGHT } from '../appStyle';
 
-export const HEADER_HEIGHT = 85;
-const iconSize = 20;
-
 class Header extends Component {
   props: PropsType;
 
@@ -28,8 +25,8 @@ class Header extends Component {
             hitSlop={{ top: 5, bottom: 5, left: 10, right: 10 }}
           >
             <View style={styles.action}>
-              <Icon type="material" name="view-module" size={iconSize} />
-              <Text>Change project</Text>
+              <Icon type="material" name="view-module" size={16} />
+              <Text style={styles.actionText}>Change project</Text>
             </View>
           </Button>
           <Button
@@ -39,11 +36,11 @@ class Header extends Component {
           >
             <View style={styles.action}>
               {this.props.lastSuccessfulSync &&
-                <Text style={styles.lastSyncText}>
+                <Text style={[styles.lastSyncText, styles.actionText]}>
                   last {distanceInWordsToNow(this.props.lastSuccessfulSync, { addSuffix: true })}
                 </Text>}
               <Animatable.View animation={this.props.isSyncing ? 'rotate' : null} iterationCount="infinite">
-                <Icon name="refresh" size={iconSize} />
+                <Icon name="refresh" size={14} />
               </Animatable.View>
             </View>
           </Button>
@@ -81,16 +78,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  actionText: {
+    fontSize: appStyle.font.size.small,
+  },
   lastSyncText: {
-    color: '#666',
-    fontSize: 11,
     marginRight: 5,
   },
   projectTitle: {
     textAlign: 'center',
-    fontSize: 25,
+    fontSize: appStyle.font.size.big,
     fontWeight: '300',
-    marginTop: 5,
+    marginTop: 2,
   },
 });
 

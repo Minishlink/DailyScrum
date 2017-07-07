@@ -2,6 +2,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import chroma from 'chroma-js';
+import appStyle from '../../appStyle';
 
 export default (props: PropsType) => {
   return (
@@ -18,13 +19,13 @@ type PropsType = {
   isPostEstimation?: boolean,
 };
 
-const backgroundColor = chroma('#006580');
+const backgroundColor = chroma(appStyle.colors.points);
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: backgroundColor.hex(),
-    borderColor: '#005B72',
+    borderColor: backgroundColor.darken().hex(),
     borderRadius: 3,
     paddingHorizontal: 6,
     paddingVertical: 3,
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#E1FAFB',
-    fontSize: 12,
+    fontSize: appStyle.font.size.small,
     fontWeight: 'bold',
   },
 });

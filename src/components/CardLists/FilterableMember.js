@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { MemberIcon } from 'DailyScrum/src/components';
 import type { UserType } from '../../types';
+import appStyle from '../../appStyle';
 
 export default class FilterableMember extends Component {
   props: PropsType;
@@ -40,6 +41,6 @@ const styles = StyleSheet.create({
     marginTop: 4,
     textAlign: 'center',
     fontWeight: 'bold',
-    color: '#006580',
+    color: appStyle.colors.points,
   },
 });

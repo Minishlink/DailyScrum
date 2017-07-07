@@ -8,6 +8,7 @@ import { bdcDataPointsSelector } from '../../modules/sprints/reducer';
 import type { BdcDataPointsType } from '../../modules/sprints/reducer';
 import { format } from 'date-fns';
 import SprintPicker from './components/SprintPicker';
+import appStyle from '../../appStyle';
 
 const graphOptions = {
   width: Dimensions.get('window').width * 0.8,
@@ -32,7 +33,7 @@ const graphOptions = {
     orient: 'bottom',
     label: {
       fontFamily: 'Arial',
-      fontSize: 14,
+      fontSize: appStyle.font.size.small,
       fontWeight: true,
       fill: '#34495E',
     },
@@ -45,7 +46,7 @@ const graphOptions = {
     orient: 'left',
     label: {
       fontFamily: 'Arial',
-      fontSize: 14,
+      fontSize: appStyle.font.size.small,
       fontWeight: true,
       fill: '#34495E',
     },

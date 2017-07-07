@@ -39,7 +39,7 @@ export default class Picker extends Component {
               <Text style={styles.prompt}>
                 {this.props.prompt}
               </Text>}
-            <RCTPicker itemStyle={{ fontSize: 16 }} {...rest}>
+            <RCTPicker itemStyle={{ fontSize: appStyle.font.size.default }} {...rest}>
               {children}
             </RCTPicker>
           </View>
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   prompt: {
     marginTop: 10,
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: appStyle.font.size.default,
     fontWeight: 'bold',
   },
   pickerModalBackground: {
