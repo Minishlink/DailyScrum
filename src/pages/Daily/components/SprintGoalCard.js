@@ -1,8 +1,8 @@
 // @flow
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { Card, Icon } from 'DailyScrum/src/components';
+import { Text, Card, Icon } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
 
 export default (props: PropsType) =>
@@ -36,11 +36,9 @@ const styles = StyleSheet.create({
     fontWeight: '300',
   },
   title: {
-    fontSize: appStyle.font.size.default,
     fontWeight: 'bold',
-    color: appStyle.colors.text,
     textAlign: 'center',
-    marginTop: 18,
+    marginTop: 14,
     marginBottom: 10,
   },
 });

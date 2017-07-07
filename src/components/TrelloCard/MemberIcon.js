@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
-import appStyle from 'DailyScrum/src/appStyle';
+import { StyleSheet, View, Image } from 'react-native';
+import { Text } from '../';
 import { ScrumbleTeamMemberType } from '../../types/Scrumble/common';
 
 const colors = ['#fbb4ae', '#b3cde3', '#ccebc5', '#decbe4', '#fed9a6', '#ffffcc', '#e5d8bd', '#fddaec', '#f2f2f2'];
@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: '700',
-    color: appStyle.colors.text,
   },
   image: {
     position: 'absolute',

@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Picker as RCTPicker,
-  Modal,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import { StyleSheet, View, Picker as RCTPicker, Modal, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { Text, Icon } from './';
 import appStyle from '../appStyle';
-import Icon from './Icon';
 
 export default class Picker extends Component {
   props: PropsType;
@@ -83,7 +75,6 @@ const styles = StyleSheet.create({
   prompt: {
     marginTop: 10,
     textAlign: 'center',
-    fontSize: appStyle.font.size.default,
     fontWeight: 'bold',
   },
   pickerModalBackground: {

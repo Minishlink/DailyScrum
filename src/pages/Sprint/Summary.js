@@ -1,8 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, Dimensions, View } from 'react-native';
-import { Page } from 'DailyScrum/src/components';
+import { StyleSheet, Dimensions, View } from 'react-native';
+import { Page, Text } from 'DailyScrum/src/components';
 import { StockLine } from 'react-native-pathjs-charts';
 import { bdcDataPointsSelector } from '../../modules/sprints/reducer';
 import type { BdcDataPointsType } from '../../modules/sprints/reducer';

@@ -45,7 +45,6 @@ type PropsType = {
 
 const styles = StyleSheet.create({
   listName: {
-    fontSize: appStyle.font.size.default,
     textAlign: 'center',
   },
   total: {

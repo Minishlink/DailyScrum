@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Animated } from 'react-native';
+import { StyleSheet, View, Animated } from 'react-native';
 import { connect } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
 import { distanceInWordsToNow } from 'date-fns';
-import { Icon, Button } from 'DailyScrum/src/components';
+import { Text, Icon, Button } from 'DailyScrum/src/components';
 import { fetchBaseData } from 'DailyScrum/src/modules/common';
 import { currentProjectSelector } from '../modules/projects/reducer';
 import { isSyncingSelector } from '../modules/sync';

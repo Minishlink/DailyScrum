@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Text, Dimensions, Platform } from 'react-native';
+import { StyleSheet, View, Dimensions, Platform } from 'react-native';
+import { Text } from './';
 import _ from 'lodash';
 import { errorsSelector } from '../modules/sync';
 

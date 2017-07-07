@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
-import { Text } from 'react-native';
-import { Card } from 'DailyScrum/src/components';
+import { Text, Card } from 'DailyScrum/src/components';
 
 export default (props: PropsType) =>
   <Card>

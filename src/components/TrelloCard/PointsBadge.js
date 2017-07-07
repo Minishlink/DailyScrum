@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Text } from '../';
 import chroma from 'chroma-js';
 import appStyle from '../../appStyle';
 

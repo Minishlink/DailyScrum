@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Linking } from 'react-native';
-import { Card } from 'DailyScrum/src/components';
+import { View, StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import { Text, Card } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
 import MemberIcon from './MemberIcon';
 import PointsBadge from './PointsBadge';
@@ -69,8 +69,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   title: {
-    fontSize: appStyle.font.size.default,
-    color: appStyle.colors.text,
     textAlign: 'center',
     marginTop: 18,
     marginBottom: 10,
