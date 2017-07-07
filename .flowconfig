@@ -47,5 +47,7 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 
 unsafe.enable_getters_and_setters=true
 
+esproposal.decorators=ignore
+
 [version]
 ^0.45.0

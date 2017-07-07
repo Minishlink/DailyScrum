@@ -2,9 +2,11 @@
 
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
+import codePush from 'react-native-code-push';
 import Scenes from './Scenes';
 import createStore from './modules/store';
 
+@codePush
 export default class extends Component {
   state = {
     store: null,
