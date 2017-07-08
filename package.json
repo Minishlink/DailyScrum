@@ -12,6 +12,7 @@
 		"deploy": "./bin/code-push.sh --android --ios",
 		"deploy:android": "./bin/code-push.sh --android",
 		"deploy:ios": "./bin/code-push.sh --ios",
+		"deploy:info": "code-push deployment history DailyScrum-Android Staging && code-push deployment history DailyScrum-iOS Staging",
 		"deploy:staging": "yarn deploy:staging:android && yarn deploy:staging:ios",
 		"deploy:staging:android": "bundle exec fastlane android deploy --env=staging",
 		"deploy:staging:ios": "bundle exec fastlane ios deploy --env=staging"
