@@ -10,15 +10,17 @@ import BoardCard from './components/BoardCard';
 import { changeCurrentRemoteProject } from '../../modules/projects';
 import { currentProjectSelector } from '../../modules/projects/reducer';
 import { isSyncingSelector } from '../../modules/sync';
+import InfoButton from './components/InfoButton';
 const ErrorBar = createErrorBar({ boards: 'all', projects: 'change' });
 
 class Settings extends Component {
   props: PropsType;
   state: StateType = { filterBoard: '', lastSelectedBoard: '' };
 
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     headerTitle: 'Change project',
-  };
+    headerRight: <InfoButton navigation={navigation} />,
+  });
 
   handleRefresh = () => {
     this.props.fetchBoards();

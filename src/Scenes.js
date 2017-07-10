@@ -101,6 +101,7 @@ const appNavigatorPages = {
     },
   },
   projectSettings: { screen: Pages.Settings.Project },
+  about: { screen: Pages.Settings.About },
 };
 
 const appNavigatorConfig = {
