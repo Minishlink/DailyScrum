@@ -7,7 +7,7 @@ import { sprintsSelector, currentSprintSelector, isCurrentSprintActiveSelector }
 import type { SprintType } from '../../types';
 import { currentProjectSelector } from '../projects/reducer';
 import { getPoints } from '../../services/Trello';
-import { getLastWorkableDayTime } from '../../services/Time';
+import { getLastWorkableDayTime, BOUNDARY_HOUR, BOUNDARY_MINUTES } from '../../services/Time';
 import { putSprints } from '../sprints/actions';
 import { startSync, endSync } from '../sync';
 import { configureTodayCardList, configureYesterdayCardList } from '../cardLists/sagas';
@@ -38,7 +38,7 @@ export function* fetchDoneCards(): Generator<*, *, *> {
         performance = currentSprint.performance[++i]
       ) {
         const currentDay = new Date(performance.date);
-        currentDay.setHours(9, 0, 0, 0);
+        currentDay.setHours(BOUNDARY_HOUR, BOUNDARY_MINUTES, 0, 0);
 
         // the standard is set to the next day
         if (lastWorkableDayTime === currentDay.getTime() && currentSprint.performance[i + 1]) {
