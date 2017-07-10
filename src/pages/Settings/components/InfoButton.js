@@ -9,7 +9,7 @@ export default (props: PropsType) =>
   <TouchableOpacity
     onPress={() => props.navigation.navigate('about')}
     style={styles.infoButton}
-    hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+    hitSlop={{ top: 30, bottom: 30, left: 40, right: 40 }}
   >
     <Icon name="info" size={20} color={appStyle.colors.primary} />
   </TouchableOpacity>;
