@@ -47,7 +47,7 @@ class Summary extends Component {
         {currentSprint.pointsLeft != null &&
           currentSprint.pointsLeft <= 0 &&
           <View style={styles.pointsLeftAnimationContainer}>
-            <LottieAnimation source={require('../../../assets/lottie/colorline.json')} />
+            <LottieAnimation source={require('../../../assets/lottie/colorline.json')} loop />
           </View>}
         {!!this.props.tip &&
           <Modal visible={this.state.showTip} onRequestClose={() => this.setState({ showTip: false })}>

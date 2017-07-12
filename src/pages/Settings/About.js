@@ -1,8 +1,8 @@
 // @flow
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import codePush from 'react-native-code-push';
-import { Page, Text } from 'DailyScrum/src/components';
+import { Page, Text, LottieAnimation } from 'DailyScrum/src/components';
 import appStyle from '../../appStyle';
 
 export default class About extends Component {
@@ -10,6 +10,7 @@ export default class About extends Component {
     codePushInfo: null,
     codePushUpdateStatus: null,
   };
+
   static navigationOptions = {
     headerTitle: 'About',
   };
@@ -59,22 +60,42 @@ export default class About extends Component {
 
   render() {
     return (
-      <Page>
-        {this.state.codePushInfo &&
-          <Text style={[styles.text, styles.codePushInfo]}>
-            {this.state.codePushInfo}
-          </Text>}
-        <TouchableOpacity onPress={this.updateWithCodePush}>
-          <Text style={styles.text}>
-            {this.state.codePushUpdateStatus || 'Check if there is an update'}
-          </Text>
-        </TouchableOpacity>
+      <Page noMargin>
+        <View style={styles.container}>
+          <View>
+            <LottieAnimation
+              source={require('../../../assets/lottie/bam.json')}
+              style={styles.bamLogo}
+              duration={4000}
+            />
+          </View>
+          <View>
+            {this.state.codePushInfo &&
+              <Text style={[styles.text, styles.codePushInfo]}>
+                {this.state.codePushInfo}
+              </Text>}
+            <TouchableOpacity onPress={this.updateWithCodePush}>
+              <Text style={styles.text}>
+                {this.state.codePushUpdateStatus || 'Check if there is an update'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </Page>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginVertical: 30,
+  },
+  bamLogo: {
+    transform: [{ scaleX: 0.5 }, { scaleY: 0.5 }],
+  },
   text: {
     textAlign: 'center',
   },

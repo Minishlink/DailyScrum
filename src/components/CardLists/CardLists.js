@@ -22,7 +22,7 @@ class CardsList extends Component {
     <View style={styles.emptyContainer}>
       <Text>No cards yet</Text>
       <Text>Pull to refresh :)</Text>
-      <LottieAnimation source={require('../../../assets/lottie/empty_status.json')} duration={6000} />
+      <LottieAnimation source={require('../../../assets/lottie/empty_status.json')} loop duration={6000} />
     </View>;
 
   renderTip = () =>
