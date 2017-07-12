@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Linking } from 'react-native';
 import codePush from 'react-native-code-push';
 import { Page, Text, LottieAnimation } from 'DailyScrum/src/components';
 import appStyle from '../../appStyle';
@@ -58,6 +58,10 @@ export default class About extends Component {
     );
   };
 
+  openURL = (url: string) => Linking.canOpenURL(url).then(() => Linking.openURL(url)).catch(() => {});
+  sendAnEmail = () => this.openURL('mailto:louisl@bam.tech');
+  goToGitHub = () => this.openURL('https://github.com/Minishlink/DailyScrum');
+
   render() {
     return (
       <Page noMargin>
@@ -68,6 +72,15 @@ export default class About extends Component {
               style={styles.bamLogo}
               duration={4000}
             />
+          </View>
+          <View style={styles.feedbackContainer}>
+            <Text>Feedback is welcome !</Text>
+            <TouchableOpacity onPress={this.sendAnEmail}>
+              <Text style={styles.link}>louisl@bam.tech</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.goToGitHub}>
+              <Text style={styles.link}>github.com/Minishlink/DailyScrum</Text>
+            </TouchableOpacity>
           </View>
           <View>
             {this.state.codePushInfo &&
@@ -101,6 +114,12 @@ const styles = StyleSheet.create({
   },
   codePushInfo: {
     fontSize: appStyle.font.size.small,
+  },
+  feedbackContainer: {
+    alignItems: 'center',
+  },
+  link: {
+    textDecorationLine: 'underline',
   },
 });
 
