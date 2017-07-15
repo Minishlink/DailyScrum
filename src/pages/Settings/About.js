@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     marginVertical: 30,
   },
   bamLogo: {
-    transform: [{ scaleX: 0.5 }, { scaleY: 0.5 }],
+    width: '100%',
   },
   text: {
     textAlign: 'center',

@@ -39,8 +39,8 @@ export default class LottieAnimation extends Component<void, PropsType, StateTyp
         progress={this.state.progress}
         style={[
           {
+            aspectRatio: source.w / source.h,
             width: source.w,
-            height: source.h,
           },
           style,
         ]}

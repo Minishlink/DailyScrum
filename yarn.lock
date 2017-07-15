@@ -3232,9 +3232,9 @@ lottie-ios@^1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/lottie-ios/-/lottie-ios-1.5.2.tgz#c188f1baa1c308a291538fc585a76e0cfc060711"
 
-lottie-react-native@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/lottie-react-native/-/lottie-react-native-1.1.1.tgz#1c87a3afca96edfa0869227140a2cff9bcc62c9b"
+lottie-react-native@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/lottie-react-native/-/lottie-react-native-1.2.0.tgz#ba1903b0ff1206c3735fddb1309759822eaa7423"
   dependencies:
     invariant "^2.2.2"
     lottie-ios "^1.5.2"
