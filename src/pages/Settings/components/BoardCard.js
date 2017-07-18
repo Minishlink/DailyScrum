@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableHighlight, Image, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, TouchableHighlight, ImageBackground, ActivityIndicator } from 'react-native';
 import type { BoardType } from '../../../types';
 import { Text, Icon } from '../../../components';
 import appStyle from '../../../appStyle';
@@ -35,14 +35,14 @@ export default class BoardCard extends Component {
 
     if (board.background.image) {
       return (
-        <Image
+        <ImageBackground
           style={styles.content}
           resizeMode="cover"
           borderRadius={borderRadius}
           source={{ uri: board.background.image }}
         >
           {this.renderName()}
-        </Image>
+        </ImageBackground>
       );
     }
 
@@ -56,7 +56,9 @@ export default class BoardCard extends Component {
   render() {
     return (
       <TouchableHighlight style={styles.container} onPress={this.props.onPress}>
-        {this.renderContent()}
+        <View>
+          {this.renderContent()}
+        </View>
       </TouchableHighlight>
     );
   }
