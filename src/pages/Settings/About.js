@@ -70,7 +70,7 @@ export default class About extends Component {
             <LottieAnimation
               source={require('../../../assets/lottie/bam.json')}
               style={styles.bamLogo}
-              duration={4000}
+              duration={1000}
             />
           </View>
           <View style={styles.feedbackContainer}>
