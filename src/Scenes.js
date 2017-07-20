@@ -89,6 +89,7 @@ const MainNavigator = TabNavigator(
       },
       labelStyle: {
         marginVertical: 0,
+        fontSize: appStyle.font.size.small,
       },
     },
   }
