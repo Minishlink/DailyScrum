@@ -3954,9 +3954,9 @@ react-native-animatable@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.2.2.tgz#a873550e6f7cb95f90baf46b9eb15b1ab56425cb"
 
-react-native-code-push@^4.0.0-beta:
-  version "4.0.0-beta"
-  resolved "https://registry.yarnpkg.com/react-native-code-push/-/react-native-code-push-4.0.0-beta.tgz#c18ad53429aac3497ee1e2b56e90e7fbe888cfa3"
+react-native-code-push@^4.1.0-beta:
+  version "4.1.0-beta"
+  resolved "https://registry.yarnpkg.com/react-native-code-push/-/react-native-code-push-4.1.0-beta.tgz#2692c62a7b93a639fc57c1dd9a3502fa6d497952"
   dependencies:
     code-push "1.11.2-beta"
     glob "^5.0.15"

@@ -1,14 +1,24 @@
 // @flow
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, Linking } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Linking, Platform } from 'react-native';
 import codePush from 'react-native-code-push';
 import { Page, Text, LottieAnimation } from 'DailyScrum/src/components';
 import appStyle from '../../appStyle';
+import { ENV } from '../../../environment';
+
+const storeName =
+  ENV === 'staging'
+    ? 'HockeyApp'
+    : Platform.select({
+        ios: 'AppStore',
+        android: 'Play Store',
+      });
 
 export default class About extends Component {
   state: StateType = {
     codePushInfo: null,
     codePushUpdateStatus: null,
+    codePushMismatch: false,
   };
 
   static navigationOptions = {
@@ -54,7 +64,9 @@ export default class About extends Component {
           default:
             this.setState({ codePushUpdateStatus: 'No update found' });
         }
-      }
+      },
+      null,
+      mismatch => mismatch && this.setState({ codePushMismatch: true })
     );
   };
 
@@ -87,11 +99,15 @@ export default class About extends Component {
               <Text style={[styles.text, styles.codePushInfo]}>
                 {this.state.codePushInfo}
               </Text>}
-            <TouchableOpacity onPress={this.updateWithCodePush}>
-              <Text style={styles.text}>
-                {this.state.codePushUpdateStatus || 'Check if there is an update'}
-              </Text>
-            </TouchableOpacity>
+            {this.state.codePushMismatch
+              ? <Text style={styles.text}>
+                  There is a new version available on the {storeName}.
+                </Text>
+              : <TouchableOpacity onPress={this.updateWithCodePush}>
+                  <Text style={styles.text}>
+                    {this.state.codePushUpdateStatus || 'Check if there is an update'}
+                  </Text>
+                </TouchableOpacity>}
           </View>
         </View>
       </Page>
@@ -126,4 +142,5 @@ const styles = StyleSheet.create({
 type StateType = {
   codePushInfo: ?string,
   codePushUpdateStatus: ?string,
+  codePushMismatch: boolean,
 };
