@@ -81,6 +81,12 @@ const MainNavigator = TabNavigator(
       tabStyle: {
         height: 56,
       },
+      style: {
+        backgroundColor: appStyle.colors.primary,
+      },
+      indicatorStyle: {
+        backgroundColor: appStyle.colors.secondary,
+      },
       labelStyle: {
         marginVertical: 0,
       },

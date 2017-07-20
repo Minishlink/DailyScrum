@@ -9,7 +9,7 @@ export default (props: PropsType) =>
   <Card>
     <View style={styles.container}>
       <Animatable.View animation="pulse" iterationCount="infinite" style={styles.iconContainer}>
-        <Icon name="star" size={30} color="#e6c60d" />
+        <Icon name="star" size={30} color={appStyle.colors.secondary} />
       </Animatable.View>
       <Text style={styles.label}>Sprint Goal</Text>
     </View>
