@@ -14,6 +14,9 @@
 .*/Libraries/react-native/React.js
 .*/Libraries/react-native/ReactNative.js
 
+; TODO Ignore temporarily react-navigation
+.*/node_modules/react-navigation
+
 ; tests
 .*/*.tests.js
 .*/__tests__/*
@@ -29,8 +32,6 @@ flow/
 emoji=true
 
 module.system=haste
-
-experimental.strict_type_args=true
 
 munge_underscores=true
 
@@ -50,4 +51,4 @@ unsafe.enable_getters_and_setters=true
 esproposal.decorators=ignore
 
 [version]
-^0.45.0
+^0.47.0

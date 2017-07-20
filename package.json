@@ -30,7 +30,7 @@
 		"react-native-pathjs-charts": "^0.0.30",
 		"react-native-splash-screen": "^2.1.0",
 		"react-native-vector-icons": "^4.2.0",
-		"react-navigation": "1.0.0-beta.11",
+		"react-navigation": "1.0.0-beta.12",
 		"react-redux": "^5.0.5",
 		"redux": "^3.7.0",
 		"redux-persist": "^4.8.0",
@@ -48,7 +48,7 @@
 		"eslint-plugin-jsx-a11y": "^4.0.0",
 		"eslint-plugin-prettier": "^2.1.2",
 		"eslint-plugin-react": "^6.10.3",
-		"flow-bin": "^0.45.0",
+		"flow-bin": "^0.47.0",
 		"jest": "^19.0.2",
 		"prettier": "^1.5.2"
 	},
