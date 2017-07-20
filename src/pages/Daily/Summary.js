@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, Dimensions, Platform } from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 import * as Animatable from 'react-native-animatable';
 import { Page, BigButton, createErrorBar, Modal, LottieAnimation } from 'DailyScrum/src/components';
 import { SprintGoalCard } from './components';
@@ -25,6 +26,7 @@ class Summary extends Component {
 
   componentDidMount() {
     this.props.fetchBaseData();
+    SplashScreen.hide();
   }
 
   goToCardPage = pageName => {

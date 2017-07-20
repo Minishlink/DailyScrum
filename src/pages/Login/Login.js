@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, Text, Button, Linking } from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 import { Page } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
 import { Trello } from 'DailyScrum/src/services';
@@ -17,6 +18,8 @@ class Login extends Component {
       this.props.redirectAfterLogin();
       return;
     }
+
+    SplashScreen.hide();
 
     // if not we login Scrumble if we have the trello Token
     if (!this.props.navigation.state.params) return;
