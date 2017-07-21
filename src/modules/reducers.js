@@ -1,6 +1,7 @@
 // @flow
 import { combineReducers } from 'redux';
 import { commonReducer as common } from './common';
+import { navigationReducer as navigation } from './navigation';
 import { syncReducer as sync } from './sync';
 import { authReducer as auth } from './auth';
 import { usersReducer as users } from './users';
@@ -10,7 +11,6 @@ import { boardsReducer as boards } from './boards';
 import { cardsReducer as cards } from './cards';
 import { cardListsReducer as cardLists } from './cardLists';
 import { tipsReducer as tips } from './tips';
-import { AppNavigator } from 'DailyScrum/src/Scenes';
 import type { CommonStateType } from './common/reducer';
 import type { SyncStateType } from './sync/reducer';
 import type { AuthStateType } from './auth/reducer';
@@ -25,13 +25,8 @@ import type { TipsStateType } from './tips/reducer';
 const initialState = {};
 
 const rootReducer = (state: any = initialState, action: any = {}) => {
-  const navReducer = (state, action) => {
-    const newState = AppNavigator.router.getStateForAction(action, state);
-    return newState || state;
-  };
-
   const appReducer = combineReducers({
-    navigation: navReducer,
+    navigation,
     common,
     sync,
     auth,
@@ -48,6 +43,7 @@ const rootReducer = (state: any = initialState, action: any = {}) => {
 };
 
 export type StateType = {|
+  navigation: any,
   common: CommonStateType,
   sync: SyncStateType,
   auth: AuthStateType,
