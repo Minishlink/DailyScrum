@@ -39,7 +39,11 @@ class Header extends Component {
                 <Text style={[styles.lastSyncText, styles.actionText]}>
                   last {distanceInWordsToNow(this.props.lastSuccessfulSync, { addSuffix: true })}
                 </Text>}
-              <Animatable.View animation={this.props.isSyncing ? 'rotate' : null} iterationCount="infinite">
+              <Animatable.View
+                animation={this.props.isSyncing ? 'rotate' : null}
+                iterationCount="infinite"
+                useNativeDriver
+              >
                 <Icon name="refresh" size={14} />
               </Animatable.View>
             </View>

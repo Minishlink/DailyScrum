@@ -29,6 +29,7 @@ export default class LottieAnimation extends Component<void, PropsType, StateTyp
     Animated.timing(this.state.progress, {
       toValue: 1,
       duration: this.props.duration || 3000,
+      useNativeDriver: true,
     });
 
   render() {

@@ -46,7 +46,7 @@ class CardsList extends Component {
 
     return (
       <View style={[styles.container, this.props.style]}>
-        <Animatable.View animation="fadeIn" style={{ flex: 1 }}>
+        <Animatable.View animation="fadeIn" style={{ flex: 1 }} useNativeDriver>
           <SectionList
             contentContainerStyle={styles.listsContainer}
             showsVerticalScrollIndicator={false}

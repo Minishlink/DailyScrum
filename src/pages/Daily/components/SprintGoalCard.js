@@ -8,7 +8,7 @@ import appStyle from 'DailyScrum/src/appStyle';
 export default (props: PropsType) =>
   <Card>
     <View style={styles.container}>
-      <Animatable.View animation="pulse" iterationCount="infinite" style={styles.iconContainer}>
+      <Animatable.View animation="pulse" iterationCount="infinite" style={styles.iconContainer} useNativeDriver>
         <Icon name="star" size={30} color={appStyle.colors.secondary} />
       </Animatable.View>
       <Text style={styles.label}>Sprint Goal</Text>

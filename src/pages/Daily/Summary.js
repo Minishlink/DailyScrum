@@ -59,15 +59,15 @@ class Summary extends Component {
           </Modal>}
         <View style={styles.container}>
           <View style={styles.infos}>
-            <Animatable.View animation="fadeIn" delay={200} style={styles.sprintGoal}>
+            <Animatable.View animation="fadeIn" delay={200} style={styles.sprintGoal} useNativeDriver>
               <SprintGoalCard title={currentSprint.goal} />
             </Animatable.View>
             {currentSprint.lead != null &&
-              <Animatable.View animation="fadeInLeft">
+              <Animatable.View animation="fadeInLeft" useNativeDriver>
                 <LeadCard lead={currentSprint.lead} />
               </Animatable.View>}
             {currentSprint.pointsLeft != null &&
-              <Animatable.View animation="fadeInRight">
+              <Animatable.View animation="fadeInRight" useNativeDriver>
                 <PointsLeftCard pointsLeft={currentSprint.pointsLeft} />
               </Animatable.View>}
           </View>
