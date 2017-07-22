@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import { StyleSheet, View, Animated } from 'react-native';
 import { connect } from 'react-redux';
@@ -13,6 +14,14 @@ import appStyle, { STATUSBAR_HEIGHT } from '../appStyle';
 
 class Header extends Component {
   props: PropsType;
+
+  shouldComponentUpdate(nextProps: PropsType) {
+    return (
+      this.props.isSyncing !== nextProps.isSyncing ||
+      this.props.lastSuccessfulSync !== nextProps.lastSuccessfulSync ||
+      (!!this.props.project && !!nextProps.project && this.props.project.name !== nextProps.project.name)
+    );
+  }
 
   render() {
     const { project } = this.props;

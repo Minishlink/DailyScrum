@@ -8,6 +8,15 @@ import appStyle from '../../appStyle';
 export default class FilterableMember extends Component {
   props: PropsType;
 
+  shouldComponentUpdate(nextProps: PropsType) {
+    return (
+      nextProps.isFiltered !== this.props.isFiltered ||
+      nextProps.points !== this.props.points ||
+      nextProps.member.id !== this.props.member.id ||
+      nextProps.points !== this.props.points
+    );
+  }
+
   render() {
     const { member, points } = this.props;
     return (

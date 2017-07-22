@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, SectionList, Text } from 'react-native';
 import * as Animatable from 'react-native-animatable';
@@ -11,7 +11,7 @@ import { getTipIfNotReadSelector } from '../../modules/tips/reducer';
 import type { TipType } from '../../modules/tips/reducer';
 import TipCard from '../TipCard';
 
-class CardsList extends Component {
+class CardsList extends PureComponent {
   props: PropsType;
 
   renderCard = ({ item }: { item: CardType }) => <TrelloCard card={item} />;
@@ -30,6 +30,8 @@ class CardsList extends Component {
     <View style={styles.tipContainer}>
       <TipCard tip={this.props.tip} />
     </View>;
+
+  renderSeperator = () => <View style={styles.listSeparator} />;
 
   render() {
     const { cardLists } = this.props;
@@ -52,10 +54,10 @@ class CardsList extends Component {
             showsVerticalScrollIndicator={false}
             refreshing={this.props.isRefreshing}
             onRefresh={this.props.onRefresh}
-            SectionSeparatorComponent={() => <View style={styles.listSeparator} />}
+            SectionSeparatorComponent={this.renderSeperator}
             renderSectionHeader={this.renderSectionHeader}
             renderItem={this.renderCard}
-            ListHeaderComponent={() => sections.length > 0 && this.renderTip()}
+            ListHeaderComponent={sections.length > 0 ? this.renderTip : null}
             ListEmptyComponent={this.renderEmpty}
             keyExtractor={(card: CardType) => card.idShort}
             sections={sections}

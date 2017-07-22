@@ -44,6 +44,7 @@ export default class Picker extends Component {
 type PropsType = {
   visible: boolean,
   onFinishPicking: Function,
+  prompt?: string,
 };
 
 type StateType = {

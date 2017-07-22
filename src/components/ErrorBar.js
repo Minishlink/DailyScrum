@@ -21,6 +21,10 @@ class ErrorBar extends Component {
     }
   };
 
+  shouldComponentUpdate(nextProps: PropsType, nextState: StateType) {
+    return nextState.show !== this.state.show || !_.isEqual(nextProps.errors, this.props.errors);
+  }
+
   componentWillReceiveProps(nextProps: PropsType) {
     if (!_.isEqual(nextProps.errors, this.props.errors)) {
       this.timeout && clearTimeout(this.timeout);

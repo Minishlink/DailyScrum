@@ -6,6 +6,10 @@ import appStyle from '../appStyle';
 export default class BigButton extends Component {
   props: PropsType;
 
+  shouldComponentUpdate(nextProps: PropsType) {
+    return nextProps.isLoading !== this.props.isLoading || nextProps.title !== this.props.title;
+  }
+
   render() {
     const { icon, title, style, isLoading, ...buttonProps } = this.props;
     return (

@@ -8,6 +8,14 @@ const borderRadius = 3;
 export default class BoardCard extends Component {
   props: PropsType;
 
+  shouldComponentUpdate(nextProps: PropsType) {
+    return (
+      nextProps.isActive !== this.props.isActive ||
+      nextProps.isLoading !== this.props.isLoading ||
+      nextProps.board.name !== this.props.board.name
+    );
+  }
+
   renderName = () => {
     const { board, isActive, isLoading } = this.props;
     const color = board.background.brightness === 'light' ? 'black' : 'white';
@@ -68,6 +76,7 @@ type PropsType = {
   board: BoardType,
   onPress: Function,
   isActive: boolean,
+  isLoading: boolean,
 };
 
 const styles = StyleSheet.create({

@@ -9,6 +9,13 @@ const YesterdayFilterMembers = makeFilterMembers('yesterday');
 class DailyHeader extends Component {
   state: StateType = { yesterdayHeight: 0, todayHeight: 0 };
 
+  shouldComponentUpdate(nextProps: PropsType, nextState: StateType) {
+    return nextState.yesterdayHeight !== this.state.yesterdayHeight || nextState.todayHeight !== this.state.todayHeight;
+  }
+
+  setTodayHeight = ({ nativeEvent }) => this.setState({ todayHeight: nativeEvent.layout.height });
+  setYesterdayHeight = ({ nativeEvent }) => this.setState({ yesterdayHeight: nativeEvent.layout.height });
+
   render() {
     const { yesterdayHeight, todayHeight } = this.state;
     return (
@@ -22,7 +29,7 @@ class DailyHeader extends Component {
             overflow: 'hidden',
           }}
         >
-          <View onLayout={({ nativeEvent }) => this.setState({ yesterdayHeight: nativeEvent.layout.height })}>
+          <View onLayout={this.setYesterdayHeight}>
             <YesterdayFilterMembers
               contentContainerStyle={styles.filterContentContainer}
               style={styles.filterContainer}
@@ -38,7 +45,7 @@ class DailyHeader extends Component {
             overflow: 'hidden',
           }}
         >
-          <View onLayout={({ nativeEvent }) => this.setState({ todayHeight: nativeEvent.layout.height })}>
+          <View onLayout={this.setTodayHeight}>
             <TodayFilterMembers contentContainerStyle={styles.filterContentContainer} style={styles.filterContainer} />
           </View>
         </Animated.View>

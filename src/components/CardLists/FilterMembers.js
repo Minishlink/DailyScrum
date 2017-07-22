@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
+import { isEqual } from 'lodash';
 import type { UserType } from '../../types';
 import { FilterableMember } from './';
 import { makeFilterByMember, filteredMemberSelector, filterableMembersSelector } from '../../modules/cardLists';
@@ -10,6 +11,14 @@ import { userPointsSelector } from '../../modules/cardLists/selectors';
 
 export class FilterMembers extends Component {
   props: PropsType;
+
+  shouldComponentUpdate(nextProps: PropsType) {
+    return (
+      nextProps.filtered !== this.props.filtered ||
+      !isEqual(nextProps.filterable, this.props.filterable) ||
+      !isEqual(nextProps.userPoints, this.props.userPoints)
+    );
+  }
 
   renderFilterableMember = ({ item: user }: { item: UserType }) =>
     <FilterableMember

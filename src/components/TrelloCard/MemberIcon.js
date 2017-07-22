@@ -10,6 +10,10 @@ export default class MemberIcon extends Component {
   props: PropsType;
   state: StateType = { isImageLoaded: false };
 
+  shouldComponentUpdate(nextProps: PropsType, nextState: StateType) {
+    return this.state.isImageLoaded !== nextState.isImageLoaded || this.props.member.id !== nextProps.member.id;
+  }
+
   render() {
     const { member } = this.props;
     const color = colors[member.initials.charCodeAt(0) % 9];
