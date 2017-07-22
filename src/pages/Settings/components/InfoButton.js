@@ -29,7 +29,7 @@ export default class extends Component {
 
 const styles = StyleSheet.create({
   infoButton: {
-    marginRight: 15,
+    padding: 20,
   },
 });
 
