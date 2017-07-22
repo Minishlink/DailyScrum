@@ -36,7 +36,7 @@ class Settings extends Component {
       board={board}
       isActive={board.id === this.props.currentBoardId}
       isLoading={this.props.isChangingProject && board.id === this.state.lastSelectedBoard}
-      onPress={() => this.changeProject(board)}
+      onPress={this.changeProject}
     />;
 
   renderEmpty = () => <Text style={styles.noBoardsText}>No boards found</Text>;

@@ -14,6 +14,8 @@ export default class MemberIcon extends Component {
     return this.state.isImageLoaded !== nextState.isImageLoaded || this.props.member.id !== nextProps.member.id;
   }
 
+  onLoadImage = () => this.setState({ isImageLoaded: true });
+
   render() {
     const { member } = this.props;
     const color = colors[member.initials.charCodeAt(0) % 9];
@@ -24,8 +26,7 @@ export default class MemberIcon extends Component {
           <Text style={styles.text}>
             {member.initials}
           </Text>}
-        {avatar &&
-          <Image style={styles.image} source={{ uri: avatar }} onLoad={() => this.setState({ isImageLoaded: true })} />}
+        {avatar && <Image style={styles.image} source={{ uri: avatar }} onLoad={this.onLoadImage} />}
       </View>
     );
   }

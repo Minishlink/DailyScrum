@@ -7,14 +7,15 @@ export default class Picker extends Component {
   props: PropsType;
   state: StateType = { isPicking: false };
 
-  onRequestClose = () => this.setState({ isPicking: false });
+  closePicker = () => this.setState({ isPicking: false });
+  showPicker = () => this.setState({ isPicking: true });
 
   render() {
     const { children, selectedValueText, style, ...rest } = this.props;
     return (
       <View>
         {selectedValueText &&
-          <TouchableOpacity style={styles.selectedValueContainer} onPress={() => this.setState({ isPicking: true })}>
+          <TouchableOpacity style={styles.selectedValueContainer} onPress={this.showPicker}>
             <Text style={styles.selectedValueStyle} numberOfLines={1}>
               {selectedValueText}
             </Text>
@@ -22,8 +23,8 @@ export default class Picker extends Component {
               <Icon type="material" name="arrow-drop-down" color="grey" size={25} />
             </View>
           </TouchableOpacity>}
-        <Modal animationType="slide" transparent visible={this.state.isPicking} onRequestClose={this.onRequestClose}>
-          <TouchableWithoutFeedback onPress={this.onRequestClose}>
+        <Modal animationType="slide" transparent visible={this.state.isPicking} onRequestClose={this.closePicker}>
+          <TouchableWithoutFeedback onPress={this.closePicker}>
             <View style={styles.pickerModalBackground} />
           </TouchableWithoutFeedback>
           <View style={[styles.pickerContainer, style]}>

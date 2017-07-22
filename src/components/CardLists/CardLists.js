@@ -33,6 +33,8 @@ class CardsList extends PureComponent {
 
   renderSeperator = () => <View style={styles.listSeparator} />;
 
+  keyExtractor = (card: CardType) => card.idShort;
+
   render() {
     const { cardLists } = this.props;
     // $FlowFixMe https://github.com/facebook/flow/issues/2221
@@ -59,7 +61,7 @@ class CardsList extends PureComponent {
             renderItem={this.renderCard}
             ListHeaderComponent={sections.length > 0 ? this.renderTip : null}
             ListEmptyComponent={this.renderEmpty}
-            keyExtractor={(card: CardType) => card.idShort}
+            keyExtractor={this.keyExtractor}
             sections={sections}
           />
         </Animatable.View>

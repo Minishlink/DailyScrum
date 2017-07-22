@@ -17,14 +17,13 @@ export default class FilterableMember extends Component {
     );
   }
 
+  onFilter = () => this.props.onFilter(this.props.member.id);
+
   render() {
     const { member, points } = this.props;
     return (
       <View key={member.id} style={this.props.style}>
-        <TouchableOpacity
-          hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
-          onPress={() => this.props.onFilter(member.id)}
-        >
+        <TouchableOpacity hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }} onPress={this.onFilter}>
           <View style={!this.props.isFiltered && { opacity: 0.6 }}>
             <MemberIcon member={member} />
           </View>

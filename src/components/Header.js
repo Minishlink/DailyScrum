@@ -23,16 +23,15 @@ class Header extends Component {
     );
   }
 
+  goToProjectSettings = () => this.props.navigation.navigate('projectSettings');
+
   render() {
     const { project } = this.props;
 
     return (
       <Animated.View style={[styles.container, this.props.containerStyle]}>
         <View style={styles.actions}>
-          <Button
-            onPress={() => this.props.navigation.navigate('projectSettings')}
-            hitSlop={{ top: 5, bottom: 5, left: 10, right: 10 }}
-          >
+          <Button onPress={this.goToProjectSettings} hitSlop={{ top: 5, bottom: 5, left: 10, right: 10 }}>
             <View style={styles.action}>
               <Icon type="material" name="view-module" size={16} />
               <Text style={styles.actionText}>Change project</Text>

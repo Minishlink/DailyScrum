@@ -61,9 +61,11 @@ export default class BoardCard extends Component {
     );
   };
 
+  onPress = () => this.props.onPress(this.props.board);
+
   render() {
     return (
-      <TouchableHighlight style={styles.container} onPress={this.props.onPress}>
+      <TouchableHighlight style={styles.container} onPress={this.onPress}>
         <View>
           {this.renderContent()}
         </View>

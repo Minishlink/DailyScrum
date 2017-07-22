@@ -29,7 +29,7 @@ class Summary extends Component {
     SplashScreen.hide();
   }
 
-  goToCardPage = pageName => {
+  goToCardPage = pageName => () => {
     if (this.props.tip) {
       this.setState({
         showTip: true,
@@ -38,6 +38,10 @@ class Summary extends Component {
 
     this.props.navigation.navigate(pageName);
   };
+  goToYesterdayCardPage = this.goToCardPage('yesterday');
+  goToTodayCardPage = this.goToCardPage('today');
+
+  onCloseTipModal = () => this.setState({ showTip: false });
 
   render() {
     const lastWorkableDayTime = getLastWorkableDayTime();
@@ -52,7 +56,7 @@ class Summary extends Component {
             <LottieAnimation source={require('../../../assets/lottie/colorline.json')} loop />
           </View>}
         {!!this.props.tip &&
-          <Modal visible={this.state.showTip} onRequestClose={() => this.setState({ showTip: false })}>
+          <Modal visible={this.state.showTip} onRequestClose={this.onCloseTipModal}>
             <View style={styles.tipContainer}>
               <TipCard tip={this.props.tip} />
             </View>
@@ -78,13 +82,13 @@ class Summary extends Component {
               title={`${format(lastWorkableDayTime, 'ddd')}. (${Math.round(
                 this.props.yesterdayTotal
               ).toLocaleString()})`}
-              onPress={() => this.goToCardPage('yesterday')}
+              onPress={this.goToYesterdayCardPage}
             />
             <BigButton
               style={[styles.button, { marginLeft: 4 }]}
               icon={{ name: 'chevron-right', right: true }}
               title={`Today (${Math.round(this.props.todayTotal).toLocaleString()})`}
-              onPress={() => this.goToCardPage('today')}
+              onPress={this.goToTodayCardPage}
             />
           </View>
         </View>
