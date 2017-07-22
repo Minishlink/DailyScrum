@@ -67,6 +67,7 @@ class Settings extends Component {
           refreshing={this.props.isSyncingBoards}
           onRefresh={this.handleRefresh}
           ListEmptyComponent={this.renderEmpty}
+          keyboardShouldPersistTaps="handled"
         />
       </Page>
     );
