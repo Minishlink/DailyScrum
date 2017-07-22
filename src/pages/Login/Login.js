@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Text, Button, Linking } from 'react-native';
+import { StyleSheet, View, Text, Button, Linking, Image } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { Page } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
@@ -27,6 +27,8 @@ class Login extends Component {
     this.props.login(trelloToken);
   }
 
+  triggerLogin = () => Linking.openURL(Trello.getLoginURL());
+
   render() {
     if (this.props.isLoggedIn || this.props.navigation.state.params) {
       return <Page isLoading />;
@@ -35,8 +37,10 @@ class Login extends Component {
     return (
       <Page>
         <View style={styles.container}>
-          <Text style={styles.welcome}>Please login on Trello first. :)</Text>
-          <Button onPress={() => Linking.openURL(Trello.getLoginURL())} title="Authorize" />
+          <Image source={{ uri: 'sun' }} style={styles.logo} />
+          <Text style={styles.title}>DailyScrum</Text>
+          <Text style={styles.description}>Your mobile daily dose of Scrum</Text>
+          <Button onPress={this.triggerLogin} title="Login with Trello" />
         </View>
       </Page>
     );
@@ -54,10 +58,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
   },
-  welcome: {
-    fontSize: appStyle.font.size.huge,
-    textAlign: 'center',
+  logo: {
+    height: '30%',
+    aspectRatio: 1,
+  },
+  title: {
+    marginTop: 10,
+    fontSize: appStyle.font.size.big,
+  },
+  description: {
+    marginBottom: 40,
   },
 });
 
