@@ -1,4 +1,4 @@
-import { isArray } from 'lodash';
+import { isArray, isEqual } from 'lodash';
 import { AppNavigator } from 'DailyScrum/src/Scenes';
 
 export default (state, action) => {
@@ -25,8 +25,11 @@ const isRouteSameAsLastRouteFromNavigationStateSelector = (state, action) => {
   }
 
   // FUTURE add exceptions here (params in lastRoute.params, action.params)
+  if (lastRoute.routeName !== action.routeName) {
+    return false;
+  }
 
-  return lastRoute.routeName === action.routeName;
+  return isEqual(lastRoute.params, action.params);
 };
 
 export const routeFromNavigationStateSelector = state => {
