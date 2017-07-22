@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     shadowOpacity: 0.5,
     shadowOffset: { height: 1 },
-    overflow: 'hidden',
   },
   contentContainer: {
     flexGrow: 1,
