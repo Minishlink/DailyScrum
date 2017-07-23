@@ -1,6 +1,14 @@
 # DailyScrum
 An app for your daily dose of Scrum
 
+## Download
+
+### Staging (HockeyApp)
+[Android](https://rink.hockeyapp.net/apps/d465ef7f42144497b04829bb5e19b7c2) | [iOS](https://rink.hockeyapp.net/apps/af7d5039933a43e48637b722804106cf)
+
+### Production
+Not available yet.
+
 ## Documentation
 * [Setup](doc/setup.md)
 * [Deployment](doc/deployment.md)
