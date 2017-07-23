@@ -30,7 +30,7 @@
 		"react-native-pathjs-charts": "^0.0.30",
 		"react-native-splash-screen": "^2.1.0",
 		"react-native-vector-icons": "^4.2.0",
-		"react-navigation": "1.0.0-beta.12",
+		"react-navigation": "git+ssh://git@github.com/Minishlink/react-navigation.git#c326c9ba43e101d85b8e590ba9fba9ee0652d5c9",
 		"react-redux": "^5.0.5",
 		"redux": "^3.7.0",
 		"redux-persist": "^4.8.0",
