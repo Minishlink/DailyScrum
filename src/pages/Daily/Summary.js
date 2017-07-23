@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { StyleSheet, View, Dimensions, Platform } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import * as Animatable from 'react-native-animatable';
-import { Page, BigButton, createErrorBar, Modal, LottieAnimation } from 'DailyScrum/src/components';
+import { format } from 'date-fns';
+import { Page, BigButton, createErrorBar, Modal, LottieAnimation, NoProjectFound } from 'DailyScrum/src/components';
 import { SprintGoalCard } from './components';
 import { fetchBaseData } from 'DailyScrum/src/modules/common';
 import { currentSprintSelector } from '../../modules/sprints/reducer';
@@ -15,9 +16,8 @@ import LeadCard from './components/LeadCard';
 import PointsLeftCard from './components/PointsLeftCard';
 import TipCard from '../../components/TipCard';
 import { getTipIfNotReadSelector } from '../../modules/tips/reducer';
-import { format } from 'date-fns';
 import { getLastWorkableDayTime } from '../../services/Time';
-
+import { isSyncingSelector } from '../../modules/sync';
 const ErrorBar = createErrorBar({ common: 'base' });
 
 class Summary extends Component {
@@ -45,8 +45,17 @@ class Summary extends Component {
 
   render() {
     const lastWorkableDayTime = getLastWorkableDayTime();
-    const { currentSprint, currentProject } = this.props;
-    if (!currentSprint || !currentProject) return <Page isLoading />;
+    const { currentSprint, currentProject, isSyncing } = this.props;
+    if (!currentProject || !currentSprint) {
+      if (isSyncing) return <Page isLoading />;
+      // TODO show less generic placeholder
+      return (
+        <Page>
+          <NoProjectFound />
+        </Page>
+      );
+    }
+
     return (
       <Page>
         <ErrorBar />
@@ -105,6 +114,11 @@ type PropsType = {
   currentProject: ?ProjectType,
   yesterdayTotal: number,
   todayTotal: number,
+  isSyncing: boolean,
+};
+
+type StateType = {
+  showTip: boolean,
 };
 
 const styles = StyleSheet.create({
@@ -153,16 +167,13 @@ const styles = StyleSheet.create({
   },
 });
 
-type StateType = {
-  showTip: boolean,
-};
-
 const mapStateToProps = state => ({
   currentSprint: currentSprintSelector(state),
   currentProject: currentProjectSelector(state),
   yesterdayTotal: yesterdayTotalSelector(state),
   todayTotal: todayTotalSelector(state),
   tip: getTipIfNotReadSelector(state, 'DAILY_SUMMARY'),
+  isSyncing: isSyncingSelector(state, 'projects', 'current'),
 });
 
 const mapDispatchToProps = {

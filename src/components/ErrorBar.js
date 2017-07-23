@@ -16,6 +16,8 @@ class ErrorBar extends Component {
         return 'Connection failed. Please try again later :)';
       case 'NOT_SCRUMBLE_PROJECT':
         return 'DailyScrum does not let you create a new project at the moment. Please do it on Scrumble.';
+      case 'cancelled':
+        return null;
       default:
         return `Error: ${error}`;
     }
@@ -42,7 +44,8 @@ class ErrorBar extends Component {
 
   render() {
     if (!this.state.show) return null;
-    const errors = _.uniq(this.props.errors.map(this.getErrorMessage));
+    const errors = _.uniq(this.props.errors.map(this.getErrorMessage)).filter(Boolean);
+    if (!errors.length) return null;
     return (
       <View style={styles.container}>
         {errors.map(error =>

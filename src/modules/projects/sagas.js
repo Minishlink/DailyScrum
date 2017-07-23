@@ -25,7 +25,7 @@ export function* fetchCurrentProject(): Generator<*, *, *> {
   } catch (error) {
     yield put(endSync('projects', 'current', error.message));
     if (error.statusCode === 404) {
-      yield call(delay, 1000); // for some reason react-navigation enters an infinite loop at this point if there's no delay
+      yield call(delay, 1000);
       yield put(NavigationActions.navigate({ routeName: 'projectSettings' }));
     } else {
       console.info('[saga] fetchCurrentProject', error);

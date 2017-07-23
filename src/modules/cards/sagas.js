@@ -1,5 +1,5 @@
 // @flow
-import { select, put, call, takeEvery, cancelled } from 'redux-saga/effects';
+import { select, put, call, takeEvery, cancelled, cancel } from 'redux-saga/effects';
 import { Trello } from 'DailyScrum/src/services';
 import { putCards } from './';
 import { tokenSelector } from '../auth/reducer';
@@ -17,6 +17,7 @@ export function* fetchDoneCards(): Generator<*, *, *> {
     yield put(startSync('cards', 'done'));
     const token = yield select(tokenSelector);
     const currentSprint: SprintType = yield select(currentSprintSelector);
+    if (!currentSprint) yield cancel();
     const sprints = yield select(sprintsSelector);
 
     let cards = yield call(Trello.getCardsFromList, token.trello, currentSprint.doneColumn);
@@ -76,6 +77,7 @@ export function* fetchNotDoneCards(): Generator<*, *, *> {
     const isCurrentSprintActive = yield select(isCurrentSprintActiveSelector);
     const token = yield select(tokenSelector);
     const currentProject = yield select(currentProjectSelector);
+    if (!currentProject || !currentProject.columnMapping) yield cancel();
 
     // fetch in parallel
     const cardsCalls = yield Object.values(currentProject.columnMapping).map(id => {

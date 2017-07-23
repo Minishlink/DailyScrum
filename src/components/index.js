@@ -11,4 +11,5 @@ export { default as Picker } from './Picker';
 export { default as Modal } from './Modal';
 export { default as LottieAnimation } from './LottieAnimation';
 export { default as createErrorBar } from './ErrorBar';
+export { default as NoProjectFound } from './NoProjectFound';
 export { CardLists } from './CardLists';
