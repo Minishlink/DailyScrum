@@ -337,6 +337,13 @@
 			remoteGlobalIDString = 62CA59B71E3C173B002D7188;
 			remoteInfo = Lottie_iOS;
 		};
+		FFA5877F1F24E543004B6D98 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46AAD3ABC512469784C5E009 /* CodePush.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6463C8241EBA0CB60095B8CD;
+			remoteInfo = "CodePush-tvOS";
+		};
 		FFE70B141E8709FD00090A28 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 763CEFA4BE8344819D1B405F /* RNVectorIcons.xcodeproj */;
@@ -693,6 +700,7 @@
 			isa = PBXGroup;
 			children = (
 				FF6FFC4F1F0FA97500580C43 /* libCodePush.a */,
+				FFA587801F24E543004B6D98 /* libCodePush.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1174,6 +1182,13 @@
 			fileType = archive.ar;
 			path = "libRNSVG-tvOS.a";
 			remoteRef = FFA3BE4A1F08234300A8FF1D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FFA587801F24E543004B6D98 /* libCodePush.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCodePush.a;
+			remoteRef = FFA5877F1F24E543004B6D98 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		FFE70B151E8709FD00090A28 /* libRNVectorIcons.a */ = {
