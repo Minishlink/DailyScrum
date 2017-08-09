@@ -18,6 +18,7 @@ export default {
     primaryMidDark: chroma(primaryColor).darken(0.5).hex(),
     primaryDark: chroma(primaryColor).darken().hex(),
     secondary: secondaryColor,
+    overPrimaryColor: 'white',
     text: '#4d4d4d',
     lightText: '#FAFAFA',
     background: '#F5FCFF',

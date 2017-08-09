@@ -6,7 +6,7 @@ import { isSyncingSelector } from '../../modules/sync';
 import { createCardPage } from './components';
 import { filteredMemberSelector } from '../../modules/cardLists';
 
-const Page = createCardPage('Today', { cards: 'notDone' });
+const Page = createCardPage('Today', 'today');
 
 const mapStateToProps = state => ({
   cardLists: todayCardsSelector(state),

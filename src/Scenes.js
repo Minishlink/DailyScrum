@@ -1,68 +1,31 @@
 // @flow
 
 import React, { Component } from 'react';
-import { Linking, View, Platform, BackHandler } from 'react-native';
+import { Linking, Platform, BackHandler } from 'react-native';
 import { connect } from 'react-redux';
 import { StackNavigator, TabNavigator, TabBarTop, addNavigationHelpers, NavigationActions } from 'react-navigation';
 import * as Pages from 'DailyScrum/src/pages';
 import appStyle from 'DailyScrum/src/appStyle';
 import { Header, Icon } from './components';
-import DailyHeader from 'DailyScrum/src/pages/Daily/components/Header';
-
-const sectionsNavigatorConfig = {
-  initialRouteName: 'summary',
-  swipeEnabled: true,
-  animationEnabled: true,
-  lazy: true,
-  tabBarComponent: props =>
-    <View style={{ height: 1, ...appStyle.header.containerStyle, ...appStyle.header.containerShadowStyle }} />,
-  tabBarPosition: 'top',
-};
-
-const DailyNavigator = TabNavigator(
-  {
-    yesterday: { screen: Pages.Daily.Yesterday },
-    summary: { screen: Pages.Daily.Summary },
-    today: { screen: Pages.Daily.Today },
-  },
-  {
-    ...sectionsNavigatorConfig,
-    tabBarComponent: props => <DailyHeader {...props} />,
-  }
-);
-
-const SprintNavigator = TabNavigator(
-  {
-    summary: { screen: Pages.Sprint.Summary },
-  },
-  sectionsNavigatorConfig
-);
-
-const ProjectNavigator = TabNavigator(
-  {
-    summary: { screen: Pages.Project.Summary },
-  },
-  sectionsNavigatorConfig
-);
 
 const MainNavigator = TabNavigator(
   {
     project: {
-      screen: ProjectNavigator,
+      screen: Pages.Project.Summary,
       navigationOptions: {
         tabBarLabel: 'Project',
         tabBarIcon: ({ tintColor }) => <Icon name="folder" size={24} type="material" color={tintColor} />,
       },
     },
     sprint: {
-      screen: SprintNavigator,
+      screen: Pages.Sprint.Summary,
       navigationOptions: {
         tabBarLabel: 'Sprint',
         tabBarIcon: ({ tintColor }) => <Icon name="trending-up" size={24} type="material" color={tintColor} />,
       },
     },
     daily: {
-      screen: DailyNavigator,
+      screen: Pages.Daily,
       navigationOptions: {
         tabBarLabel: 'Daily',
         tabBarIcon: ({ tintColor }) => <Icon name="today" size={24} type="material" color={tintColor} />,
@@ -85,7 +48,7 @@ const MainNavigator = TabNavigator(
         backgroundColor: appStyle.colors.primary,
       },
       indicatorStyle: {
-        backgroundColor: appStyle.colors.secondary,
+        height: 0,
       },
       labelStyle: {
         marginVertical: 0,
@@ -115,7 +78,7 @@ const appNavigatorConfig = {
   initialRouteName: 'login',
   URIPrefix: 'dailyscrum://',
   cardStyle: {
-    backgroundColor: appStyle.colors.background,
+    backgroundColor: appStyle.colors.primary,
   },
 };
 

@@ -1,11 +1,12 @@
 // @flow
 import React, { Component } from 'react';
-import { Page, CardLists, createErrorBar } from 'DailyScrum/src/components';
+import { StyleSheet } from 'react-native';
+import { Page, CardLists } from 'DailyScrum/src/components';
 import type { CardListsType } from 'DailyScrum/src/modules/cards/reducer';
-import type { ErrorBarOptionsType } from '../../../components/ErrorBar';
+import { makeFilterMembers } from '../../../components/CardLists';
 
-export default (title: string, errorBarOptions: ErrorBarOptionsType) => {
-  const ErrorBar = createErrorBar(errorBarOptions);
+export default (title: string, pageKey: 'today' | 'yesterday') => {
+  const FilterMembers = makeFilterMembers(pageKey);
   return class extends Component {
     props: PropsType;
 
@@ -16,7 +17,7 @@ export default (title: string, errorBarOptions: ErrorBarOptionsType) => {
     render() {
       return (
         <Page noNavBar>
-          <ErrorBar />
+          <FilterMembers contentContainerStyle={styles.filterContentContainer} />
           <CardLists
             onRefresh={this.props.fetchCards}
             isRefreshing={this.props.isSyncing}
@@ -36,3 +37,11 @@ type PropsType = {
   fetchCards: Function,
   filteredMember: ?string,
 };
+
+const styles = StyleSheet.create({
+  filterContentContainer: {
+    flex: 1,
+    justifyContent: 'space-around',
+    marginTop: 10,
+  },
+});

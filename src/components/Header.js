@@ -33,7 +33,7 @@ class Header extends Component {
         <View style={styles.actions}>
           <Button onPress={this.goToProjectSettings} hitSlop={{ top: 5, bottom: 5, left: 10, right: 10 }}>
             <View style={styles.action}>
-              <Icon type="material" name="view-module" size={16} />
+              <Icon type="material" name="view-module" size={16} color={appStyle.colors.overPrimaryColor} />
               <Text style={styles.actionText}>Change project</Text>
             </View>
           </Button>
@@ -52,7 +52,7 @@ class Header extends Component {
                 iterationCount="infinite"
                 useNativeDriver
               >
-                <Icon name="refresh" size={14} />
+                <Icon name="refresh" size={14} color={appStyle.colors.overPrimaryColor} />
               </Animatable.View>
             </View>
           </Button>
@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: STATUSBAR_HEIGHT + 5,
     paddingBottom: 5,
+    backgroundColor: appStyle.colors.primary,
   },
   actions: {
     flexDirection: 'row',
@@ -91,6 +92,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   actionText: {
+    color: appStyle.colors.overPrimaryColor,
     fontSize: appStyle.font.size.small,
   },
   lastSyncText: {
@@ -99,6 +101,7 @@ const styles = StyleSheet.create({
   projectTitle: {
     textAlign: 'center',
     fontSize: appStyle.font.size.big,
+    color: appStyle.colors.overPrimaryColor,
     fontWeight: '300',
     marginTop: 2,
   },
