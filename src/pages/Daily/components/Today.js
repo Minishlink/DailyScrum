@@ -1,10 +1,10 @@
 // @flow
 import { connect } from 'react-redux';
-import { todayCardsSelector } from '../../modules/cards/reducer';
+import { todayCardsSelector } from '../../../modules/cards/reducer';
 import { fetchNotDoneCards } from 'DailyScrum/src/modules/cards';
-import { isSyncingSelector } from '../../modules/sync';
-import { createCardPage } from './components';
-import { filteredMemberSelector } from '../../modules/cardLists';
+import { isSyncingSelector } from '../../../modules/sync';
+import createCardPage from './CardPage';
+import { filteredMemberSelector } from '../../../modules/cardLists';
 
 const Page = createCardPage('Today', 'today');
 

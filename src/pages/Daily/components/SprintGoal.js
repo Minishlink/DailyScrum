@@ -14,7 +14,7 @@ export default (props: PropsType) =>
       <Text style={styles.label}>Sprint Goal</Text>
     </View>
     <View style={styles.titleContainer}>
-      <Text>
+      <Text style={styles.title}>
         {props.title}
       </Text>
     </View>
@@ -38,6 +38,9 @@ const styles = StyleSheet.create({
     flex: 3,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  title: {
+    textAlign: 'center',
   },
   iconContainer: {
     alignItems: 'center',

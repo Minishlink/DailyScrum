@@ -60,8 +60,10 @@ const styles = StyleSheet.create({
   },
   lead: {
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   pointsLeft: {
     marginTop: 7,
+    textAlign: 'center',
   },
 });
