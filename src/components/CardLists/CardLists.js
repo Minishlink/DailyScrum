@@ -25,6 +25,16 @@ class CardsList extends PureComponent {
       <LottieAnimation source={require('../../../assets/lottie/empty_status.json')} loop duration={6000} />
     </View>;
 
+  renderHeader = () => {
+    const { FilterMembersComponent } = this.props;
+    return (
+      <View>
+        {!!FilterMembersComponent && <FilterMembersComponent />}
+        {this.renderTip()}
+      </View>
+    );
+  };
+
   renderTip = () =>
     this.props.tip &&
     <View style={styles.tipContainer}>
@@ -59,10 +69,11 @@ class CardsList extends PureComponent {
             SectionSeparatorComponent={this.renderSeperator}
             renderSectionHeader={this.renderSectionHeader}
             renderItem={this.renderCard}
-            ListHeaderComponent={sections.length > 0 ? this.renderTip : null}
+            ListHeaderComponent={sections.length > 0 ? this.renderHeader : null}
             ListEmptyComponent={this.renderEmpty}
             keyExtractor={this.keyExtractor}
             sections={sections}
+            onScroll={this.props.onScroll}
           />
         </Animatable.View>
       </View>
@@ -75,11 +86,12 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   emptyContainer: {
-    marginTop: 100,
+    marginTop: 20,
     alignItems: 'center',
   },
   listsContainer: {
-    paddingVertical: 10,
+    paddingTop: 10,
+    paddingBottom: 100,
   },
   listName: {
     marginBottom: 5,
@@ -98,7 +110,9 @@ type PropsType = {
   filteredMember: ?string,
   onRefresh: Function,
   isRefreshing: boolean,
+  onScroll: Function,
   tip: ?TipType,
+  FilterMembersComponent?: any,
 };
 
 const mapStateToProps = state => ({

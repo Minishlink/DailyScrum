@@ -47,7 +47,7 @@ class ErrorBar extends Component {
     const errors = _.uniq(this.props.errors.map(this.getErrorMessage)).filter(Boolean);
     if (!errors.length) return null;
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, this.props.style]}>
         {errors.map(error =>
           <Text key={error} style={styles.text}>
             {error}

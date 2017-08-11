@@ -17,16 +17,16 @@ export default class MemberIcon extends Component {
   onLoadImage = () => this.setState({ isImageLoaded: true });
 
   render() {
-    const { member } = this.props;
+    const { member, size } = this.props;
     const color = colors[member.initials.charCodeAt(0) % 9];
     const avatar = getUriFromMember(member);
     return (
-      <View style={[styles.textContainer, { backgroundColor: color }]}>
+      <View style={[styles.textContainer, { backgroundColor: color }, size]}>
         {!this.state.isImageLoaded &&
           <Text style={styles.text}>
             {member.initials}
           </Text>}
-        {avatar && <Image style={styles.image} source={{ uri: avatar }} onLoad={this.onLoadImage} />}
+        {avatar && <Image style={[styles.image, size]} source={{ uri: avatar }} onLoad={this.onLoadImage} />}
       </View>
     );
   }
@@ -65,4 +65,8 @@ type StateType = {
 
 type PropsType = {
   member: ScrumbleTeamMemberType,
+  size?: {
+    width: number,
+    height: number,
+  },
 };

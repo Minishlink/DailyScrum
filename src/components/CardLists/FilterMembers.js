@@ -34,7 +34,7 @@ export class FilterMembers extends Component {
     return (
       <View style={[styles.container, this.props.style]}>
         <FlatList
-          contentContainerStyle={this.props.contentContainerStyle}
+          contentContainerStyle={styles.contentContainer}
           data={this.props.filterable}
           renderItem={this.renderFilterableMember}
           keyExtractor={user => user.id}
@@ -59,6 +59,10 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: 4,
     paddingHorizontal: 10,
+  },
+  contentContainer: {
+    flex: 1,
+    justifyContent: 'space-around',
   },
   filterableMemberContainer: {
     marginHorizontal: 4,

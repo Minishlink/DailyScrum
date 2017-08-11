@@ -11,6 +11,8 @@ import { isSyncingSelector } from '../modules/sync';
 import { lastSuccessfulSyncDateSelector } from '../modules/common/reducer';
 import type { ProjectType } from '../types';
 import appStyle, { STATUSBAR_HEIGHT } from '../appStyle';
+import createErrorBar from './ErrorBar';
+const ErrorBar = createErrorBar();
 
 class Header extends Component {
   props: PropsType;
@@ -30,10 +32,11 @@ class Header extends Component {
 
     return (
       <Animated.View style={[styles.container, this.props.containerStyle]}>
+        <ErrorBar style={styles.errorBar} />
         <View style={styles.actions}>
           <Button onPress={this.goToProjectSettings} hitSlop={{ top: 5, bottom: 5, left: 10, right: 10 }}>
             <View style={styles.action}>
-              <Icon type="material" name="view-module" size={16} />
+              <Icon type="material" name="view-module" size={16} color={appStyle.colors.overPrimaryColor} />
               <Text style={styles.actionText}>Change project</Text>
             </View>
           </Button>
@@ -52,7 +55,7 @@ class Header extends Component {
                 iterationCount="infinite"
                 useNativeDriver
               >
-                <Icon name="refresh" size={14} />
+                <Icon name="refresh" size={14} color={appStyle.colors.overPrimaryColor} />
               </Animatable.View>
             </View>
           </Button>
@@ -81,6 +84,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: STATUSBAR_HEIGHT + 5,
     paddingBottom: 5,
+    backgroundColor: appStyle.colors.primary,
+  },
+  errorBar: {
+    bottom: 0,
   },
   actions: {
     flexDirection: 'row',
@@ -91,6 +98,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   actionText: {
+    color: appStyle.colors.overPrimaryColor,
     fontSize: appStyle.font.size.small,
   },
   lastSyncText: {
@@ -99,6 +107,7 @@ const styles = StyleSheet.create({
   projectTitle: {
     textAlign: 'center',
     fontSize: appStyle.font.size.big,
+    color: appStyle.colors.overPrimaryColor,
     fontWeight: '300',
     marginTop: 2,
   },
