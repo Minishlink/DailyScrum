@@ -9,5 +9,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: appStyle.font.size.default,
     color: appStyle.colors.text,
+    backgroundColor: 'transparent',
   },
 });

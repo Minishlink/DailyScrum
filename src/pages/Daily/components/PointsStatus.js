@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
-import { Text, Card } from 'DailyScrum/src/components';
+import { Platform, View, StyleSheet, Image } from 'react-native';
+import { Text, LottieAnimation } from 'DailyScrum/src/components';
 
 export default (props: PropsType) => {
   const isLeading = !(props.lead && props.lead.points < 0);
@@ -11,6 +11,11 @@ export default (props: PropsType) => {
         <Image source={{ uri: isLeading ? 'sun' : 'sun_sad' }} style={styles.image} />
       </View>
       <View style={styles.statusContainer}>
+        {props.pointsLeft != null &&
+          props.pointsLeft <= 0 &&
+          <View style={styles.pointsLeftAnimationContainer}>
+            <LottieAnimation source={require('../../../../assets/lottie/colorline.json')} loop />
+          </View>}
         <Text style={[styles.lead, { color: isLeading ? 'green' : 'red' }]}>
           {props.lead
             ? `${props.lead.points >= 0 ? 'Lead' : 'Lateness'}: ${props.lead.points > 0
@@ -65,5 +70,14 @@ const styles = StyleSheet.create({
   pointsLeft: {
     marginTop: 7,
     textAlign: 'center',
+  },
+  pointsLeftAnimationContainer: {
+    ...StyleSheet.absoluteFillObject,
+    alignItems: 'center',
+    ...Platform.select({
+      android: {
+        justifyContent: 'center', // normal behaviour
+      },
+    }),
   },
 });
