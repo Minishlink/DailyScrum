@@ -1,7 +1,7 @@
 // @flow
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, SectionList, Text } from 'react-native';
+import { StyleSheet, View, Animated, SectionList, Text } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { TrelloCard, LottieAnimation } from 'DailyScrum/src/components';
 import type { CardListsType, CardListType } from 'DailyScrum/src/modules/cards/reducer';
@@ -10,6 +10,7 @@ import { ListHeader } from './';
 import { getTipIfNotReadSelector } from '../../modules/tips/reducer';
 import type { TipType } from '../../modules/tips/reducer';
 import TipCard from '../TipCard';
+const AnimatedSectionList = Animated.createAnimatedComponent(SectionList);
 
 class CardsList extends PureComponent {
   props: PropsType;
@@ -51,7 +52,7 @@ class CardsList extends PureComponent {
     return (
       <View style={[styles.container, this.props.style]}>
         <Animatable.View animation="fadeIn" style={{ flex: 1 }} useNativeDriver>
-          <SectionList
+          <AnimatedSectionList
             contentContainerStyle={styles.listsContainer}
             showsVerticalScrollIndicator={false}
             refreshing={this.props.isRefreshing}
@@ -63,6 +64,7 @@ class CardsList extends PureComponent {
             ListEmptyComponent={this.renderEmpty}
             keyExtractor={this.keyExtractor}
             sections={sections}
+            onScroll={this.props.onScroll}
           />
         </Animatable.View>
       </View>
@@ -75,7 +77,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   emptyContainer: {
-    marginTop: 100,
+    marginTop: 20,
     alignItems: 'center',
   },
   listsContainer: {
@@ -98,6 +100,7 @@ type PropsType = {
   filteredMember: ?string,
   onRefresh: Function,
   isRefreshing: boolean,
+  onScroll: Function,
   tip: ?TipType,
 };
 

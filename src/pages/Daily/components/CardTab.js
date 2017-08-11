@@ -34,13 +34,12 @@ class CardTab extends Component {
       indicatorStyle={styles.headerTabIndicatorStyle}
       pressOpacity={0.7}
       renderLabel={this.renderTabLabel}
-      onTabPress={this.props.onTabPress}
       {...props}
     />;
 
   renderScene = SceneMap({
-    today: Today,
-    yesterday: Yesterday,
+    today: () => <Today onScrollCards={this.props.onScrollCards} />,
+    yesterday: () => <Yesterday onScrollCards={this.props.onScrollCards} />,
   });
 
   handleIndexChange = (index: number) => this.setState({ index });
@@ -107,7 +106,7 @@ type PropsType = {
   yesterdayTotal: ?number,
   todayTotal: ?number,
   style?: any,
-  onTabPress: Function,
+  onScrollCards: Function,
 };
 
 type StateType = {

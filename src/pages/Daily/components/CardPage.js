@@ -23,6 +23,7 @@ export default (title: string, pageKey: 'today' | 'yesterday') => {
             isRefreshing={this.props.isSyncing}
             cardLists={this.props.cardLists}
             filteredMember={this.props.filteredMember}
+            onScroll={this.props.onScrollCards}
           />
         </Page>
       );
@@ -36,6 +37,7 @@ type PropsType = {
   isSyncing: boolean,
   fetchCards: Function,
   filteredMember: ?string,
+  onScrollCards: Function,
 };
 
 const styles = StyleSheet.create({
