@@ -34,7 +34,7 @@ const MainNavigator = TabNavigator(
   },
   {
     initialRouteName: 'daily',
-    swipeEnabled: false,
+    swipeEnabled: true,
     animationEnabled: true,
     tabBarComponent: TabBarTop,
     tabBarPosition: 'bottom',
