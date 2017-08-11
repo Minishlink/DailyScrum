@@ -26,6 +26,18 @@ class Daily extends Component {
     SplashScreen.hide();
   }
 
+  shouldComponentUpdate(nextProps: PropsType) {
+    return (
+      this.props.isSyncing !== nextProps.isSyncing ||
+      (!!this.props.currentProject &&
+        !!nextProps.currentProject &&
+        this.props.currentProject.name !== nextProps.currentProject.name) ||
+      (!!this.props.currentSprint &&
+        !!nextProps.currentSprint &&
+        this.props.currentSprint.id !== nextProps.currentSprint.id)
+    );
+  }
+
   measureHeader = ({ nativeEvent }: any) => this.setState({ summaryHeight: nativeEvent.layout.height });
 
   onTabPress = ({ focused }) => focused && this.changeHeaderVisibility(this.state.hideHeader);
