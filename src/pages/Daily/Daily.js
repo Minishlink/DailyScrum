@@ -17,19 +17,35 @@ const ErrorBar = createErrorBar({ common: 'base' });
 class Daily extends Component {
   props: PropsType;
   state: StateType = {
-    scrollCardsY: new Animated.Value(0),
     summaryHeight: 0,
+    hideHeader: false,
   };
+  scrollCardsY = new Animated.Value(0);
 
   componentDidMount() {
     //this.props.fetchBaseData();
     SplashScreen.hide();
   }
 
-  onScrollCards = Animated.event([{ nativeEvent: { contentOffset: { y: this.state.scrollCardsY } } }], {
-    useNativeDriver: true,
-  });
   measureHeader = ({ nativeEvent }: any) => this.setState({ summaryHeight: nativeEvent.layout.height });
+
+  onTabPress = ({ focused }) => focused && this.changeHeaderVisibility(this.state.hideHeader);
+
+  onScrollCards = e => {
+    if (!this.state.hideHeader && e.nativeEvent.contentOffset.y > 120) {
+      this.changeHeaderVisibility(false);
+    } else if (this.state.hideHeader && e.nativeEvent.contentOffset.y < 0) {
+      this.changeHeaderVisibility(true);
+    }
+  };
+
+  changeHeaderVisibility = (visible: boolean) => {
+    this.setState({ hideHeader: !visible });
+    Animated.spring(this.scrollCardsY, {
+      toValue: visible ? 0 : 1,
+      useNativeDriver: true,
+    }).start();
+  };
 
   render() {
     const { currentSprint, currentProject, isSyncing } = this.props;
@@ -43,32 +59,27 @@ class Daily extends Component {
       );
     }
 
-    const { summaryHeight, scrollCardsY } = this.state;
-
     return (
       <View style={styles.container}>
         <ErrorBar />
+        <View onLayout={this.measureHeader}>
+          <Summary currentSprint={currentSprint} />
+        </View>
         <Animated.View
-          style={[
-            styles.content,
-            {
-              transform: [
-                {
-                  translateY: scrollCardsY.interpolate({
-                    inputRange: [0, summaryHeight],
-                    outputRange: [0, -summaryHeight],
-                    extrapolate: 'clamp',
-                  }),
-                },
-              ],
-              marginBottom: -summaryHeight,
-            },
-          ]}
+          style={{
+            flex: 1,
+            marginBottom: -this.state.summaryHeight,
+            transform: [
+              {
+                translateY: this.scrollCardsY.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0, -this.state.summaryHeight],
+                }),
+              },
+            ],
+          }}
         >
-          <View style={styles.header} onLayout={this.measureHeader}>
-            <Summary currentSprint={currentSprint} />
-          </View>
-          <CardTab style={styles.cardsContainer} onScrollCards={this.onScrollCards} />
+          <CardTab style={styles.cardsContainer} onTabPress={this.onTabPress} onScrollCards={this.onScrollCards} />
         </Animated.View>
       </View>
     );
@@ -84,13 +95,14 @@ type PropsType = {
 };
 
 type StateType = {
-  scrollCardsY: any,
   summaryHeight: number,
+  hideHeader: boolean,
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   content: {
     flex: 1,
@@ -101,7 +113,6 @@ const styles = StyleSheet.create({
   },
   cardsContainer: {
     flex: 1,
-    paddingBottom: 56, // bottom navigation height
   },
 });
 

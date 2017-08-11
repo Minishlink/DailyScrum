@@ -1,25 +1,14 @@
 // @flow
 import React, { Component } from 'react';
-import { Platform, Dimensions } from 'react-native';
+import { Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import RNTabView, { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
+import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
 import { StyleSheet } from 'react-native';
 import { Text } from 'DailyScrum/src/components';
 import Today from './Today';
 import Yesterday from './Yesterday';
 import appStyle from '../../../appStyle';
 import { yesterdayTotalSelector, todayTotalSelector } from '../../../modules/cards/reducer';
-
-// Android pager is buggy whith nested tab views
-let TabViewPager;
-switch (Platform.OS) {
-  case 'ios':
-    TabViewPager = RNTabView.TabViewPagerScroll;
-    break;
-  default:
-    TabViewPager = RNTabView.TabViewPagerPan;
-    break;
-}
 
 class CardTab extends Component {
   props: PropsType;
@@ -34,6 +23,7 @@ class CardTab extends Component {
       indicatorStyle={styles.headerTabIndicatorStyle}
       pressOpacity={0.7}
       renderLabel={this.renderTabLabel}
+      onTabPress={this.props.onTabPress}
       {...props}
     />;
 
@@ -76,7 +66,6 @@ class CardTab extends Component {
         navigationState={this.state}
         renderScene={this.renderScene}
         renderHeader={this.renderHeader}
-        renderPager={props => <TabViewPager {...props} />}
         onIndexChange={this.handleIndexChange}
         initialLayout={{
           height: 0,
@@ -107,6 +96,7 @@ type PropsType = {
   todayTotal: ?number,
   style?: any,
   onScrollCards: Function,
+  onTabPress: Function,
 };
 
 type StateType = {
