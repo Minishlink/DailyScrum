@@ -35,7 +35,7 @@ const MainNavigator = TabNavigator(
   {
     initialRouteName: 'daily',
     swipeEnabled: false,
-    animationEnabled: Platform.OS === 'ios', // TODO FUTURE enable on Android when react-navigation bug is fixed
+    animationEnabled: true,
     tabBarComponent: TabBarTop,
     tabBarPosition: 'bottom',
     tabBarOptions: {
