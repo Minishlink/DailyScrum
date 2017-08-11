@@ -69,7 +69,11 @@ class CardTab extends Component {
     return (
       <TabViewAnimated
         style={this.props.style}
-        navigationState={this.state}
+        navigationState={{
+          ...this.state,
+          yesterdayTotal: this.props.yesterdayTotal,
+          todayTotal: this.props.todayTotal,
+        }}
         renderScene={this.renderScene}
         renderHeader={this.renderHeader}
         onIndexChange={this.handleIndexChange}
