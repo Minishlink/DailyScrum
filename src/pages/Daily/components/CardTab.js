@@ -4,7 +4,7 @@ import { Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
 import { StyleSheet } from 'react-native';
-import { Text } from 'DailyScrum/src/components';
+import { Text, Page } from 'DailyScrum/src/components';
 import Today from './Today';
 import Yesterday from './Yesterday';
 import appStyle from '../../../appStyle';
@@ -28,8 +28,14 @@ class CardTab extends Component {
     />;
 
   renderScene = SceneMap({
-    today: () => <Today onScrollCards={this.props.onScrollCards} />,
-    yesterday: () => <Yesterday onScrollCards={this.props.onScrollCards} />,
+    today: () =>
+      <Page noNavBar>
+        <Today onScrollCards={this.props.onScrollCards} />
+      </Page>,
+    yesterday: () =>
+      <Page noNavBar>
+        <Yesterday onScrollCards={this.props.onScrollCards} />
+      </Page>,
   });
 
   handleIndexChange = (index: number) => this.setState({ index });

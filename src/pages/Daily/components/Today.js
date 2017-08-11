@@ -3,19 +3,22 @@ import { connect } from 'react-redux';
 import { todayCardsSelector } from '../../../modules/cards/reducer';
 import { fetchNotDoneCards } from 'DailyScrum/src/modules/cards';
 import { isSyncingSelector } from '../../../modules/sync';
-import createCardPage from './CardPage';
 import { filteredMemberSelector } from '../../../modules/cardLists';
+import { makeFilterMembers } from '../../../components/CardLists';
+import { CardLists } from '../../../components/CardLists';
 
-const Page = createCardPage('Today', 'today');
+const FilterMembersComponent = makeFilterMembers('today');
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   cardLists: todayCardsSelector(state),
-  isSyncing: isSyncingSelector(state, 'cards', 'notDone'),
+  isRefreshing: isSyncingSelector(state, 'cards', 'notDone'),
   filteredMember: filteredMemberSelector(state, 'today'),
+  FilterMembersComponent,
+  onScroll: ownProps.onScrollCards,
 });
 
 const mapDispatchToProps = {
-  fetchCards: fetchNotDoneCards,
+  onRefresh: fetchNotDoneCards,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Page);
+export default connect(mapStateToProps, mapDispatchToProps)(CardLists);
