@@ -23,7 +23,7 @@ class Daily extends Component {
   scrollCardsY = new Animated.Value(0);
 
   componentDidMount() {
-    //this.props.fetchBaseData();
+    this.props.fetchBaseData();
     SplashScreen.hide();
   }
 
