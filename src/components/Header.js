@@ -11,6 +11,8 @@ import { isSyncingSelector } from '../modules/sync';
 import { lastSuccessfulSyncDateSelector } from '../modules/common/reducer';
 import type { ProjectType } from '../types';
 import appStyle, { STATUSBAR_HEIGHT } from '../appStyle';
+import createErrorBar from './ErrorBar';
+const ErrorBar = createErrorBar();
 
 class Header extends Component {
   props: PropsType;
@@ -30,6 +32,7 @@ class Header extends Component {
 
     return (
       <Animated.View style={[styles.container, this.props.containerStyle]}>
+        <ErrorBar style={styles.errorBar} />
         <View style={styles.actions}>
           <Button onPress={this.goToProjectSettings} hitSlop={{ top: 5, bottom: 5, left: 10, right: 10 }}>
             <View style={styles.action}>
@@ -82,6 +85,9 @@ const styles = StyleSheet.create({
     paddingTop: STATUSBAR_HEIGHT + 5,
     paddingBottom: 5,
     backgroundColor: appStyle.colors.primary,
+  },
+  errorBar: {
+    bottom: 0,
   },
   actions: {
     flexDirection: 'row',

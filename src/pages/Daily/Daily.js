@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, Animated } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
-import { Page, createErrorBar, NoProjectFound } from 'DailyScrum/src/components';
+import { Page, NoProjectFound } from 'DailyScrum/src/components';
 import { fetchBaseData } from 'DailyScrum/src/modules/common';
 import { currentSprintSelector } from '../../modules/sprints/reducer';
 import { currentProjectSelector } from '../../modules/projects/reducer';
@@ -12,7 +12,6 @@ import { isSyncingSelector } from '../../modules/sync';
 import Summary from './components/Summary';
 import CardTab from './components/CardTab';
 import appStyle from '../../appStyle';
-const ErrorBar = createErrorBar({ common: 'base' });
 
 class Daily extends Component {
   props: PropsType;
@@ -61,7 +60,6 @@ class Daily extends Component {
 
     return (
       <View style={styles.container}>
-        <ErrorBar />
         <View onLayout={this.measureHeader}>
           <Summary currentSprint={currentSprint} />
         </View>
