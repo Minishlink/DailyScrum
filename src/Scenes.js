@@ -1,7 +1,6 @@
 // @flow
-
 import React, { Component } from 'react';
-import { Linking, Platform, BackHandler } from 'react-native';
+import { Linking, BackHandler } from 'react-native';
 import { connect } from 'react-redux';
 import { StackNavigator, TabNavigator, TabBarTop, addNavigationHelpers, NavigationActions } from 'react-navigation';
 import * as Pages from 'DailyScrum/src/pages';
