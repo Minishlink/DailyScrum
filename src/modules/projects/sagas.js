@@ -1,6 +1,6 @@
 // @flow
 import { NavigationActions } from 'react-navigation';
-import { call, put, select, takeEvery, cancelled } from 'redux-saga/effects';
+import { all, call, put, select, takeEvery, cancelled } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { Scrumble } from 'DailyScrum/src/services';
 import { putProjects, setCurrentProject } from './';
@@ -48,9 +48,9 @@ function* changeCurrentRemoteProject(action: ActionType): Generator<*, *, *> {
     const project = yield call(Scrumble.getProjectByBoard, token.scrumble, boardId);
     if (project) {
       yield call(Scrumble.setCurrentProject, token.scrumble, project.id);
-      yield [put(clearCards()), put(clearOtherUsers()), put(clearSprints())];
+      yield all([put(clearCards()), put(clearOtherUsers()), put(clearSprints())]);
       yield* fetchProjectData();
-      yield [put(NavigationActions.back())];
+      yield put(NavigationActions.back());
       yield put(endSync('projects', 'change'));
     } else {
       yield put(endSync('projects', 'change', 'NOT_SCRUMBLE_PROJECT'));

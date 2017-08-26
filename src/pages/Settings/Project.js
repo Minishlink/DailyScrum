@@ -74,10 +74,6 @@ class Settings extends Component {
   }
 }
 
-Settings.contextTypes = {
-  store: React.PropTypes.any,
-};
-
 type PropsType = {
   navigation: any,
   boards: BoardType[],

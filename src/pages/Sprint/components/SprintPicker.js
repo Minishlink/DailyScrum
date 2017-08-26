@@ -20,7 +20,7 @@ class SprintPicker extends Component {
     return (
       <Picker
         selectedValue={currentSprint && currentSprint.id}
-        onValueChange={sprintId => this.props.changeCurrentSprint(sprintId)}
+        onValueChange={this.props.changeCurrentSprint}
         mode="dialog"
         prompt="Change current sprint"
         selectedValueText={currentSprint && `${currentSprint.number} - ${currentSprint.goal}`}

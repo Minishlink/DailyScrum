@@ -1,5 +1,5 @@
 // @flow
-import { fork } from 'redux-saga/effects';
+import { all, fork } from 'redux-saga/effects';
 import { commonSaga } from './common';
 import { authSaga } from './auth';
 import { usersSaga } from './users';
@@ -9,7 +9,7 @@ import { boardsSaga } from './boards';
 import { cardsSaga } from './cards';
 
 export default function* rootSaga(): Generator<*, *, *> {
-  yield [
+  yield all([
     fork(commonSaga),
     fork(authSaga),
     fork(usersSaga),
@@ -17,5 +17,5 @@ export default function* rootSaga(): Generator<*, *, *> {
     fork(projectsSaga),
     fork(boardsSaga),
     fork(cardsSaga),
-  ];
+  ]);
 }

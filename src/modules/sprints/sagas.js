@@ -1,5 +1,5 @@
 // @flow
-import { call, put, select, takeEvery, cancelled, cancel } from 'redux-saga/effects';
+import { call, all, put, select, takeEvery, cancelled, cancel } from 'redux-saga/effects';
 import Scrumble from 'DailyScrum/src/services/Scrumble';
 import { putSprints, setCurrentSprint } from './actions';
 import { tokenSelector } from '../auth/reducer';
@@ -53,7 +53,7 @@ function* fetchCurrentSprint() {
 
 function* changeCurrentSprint(action: { payload: { sprintId: number } }): Generator<*, *, *> {
   yield put(setCurrentSprint(action.payload.sprintId));
-  yield [call(fetchNotDoneCards), call(fetchDoneCards)];
+  yield all([call(fetchNotDoneCards), call(fetchDoneCards)]);
 }
 
 export default function*(): Generator<*, *, *> {
