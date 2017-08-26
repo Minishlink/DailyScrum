@@ -3,9 +3,7 @@ import { getPoints, getPostPoints } from '../../services/Trello';
 import type { StoreCardType } from '../../types';
 import type { TrelloCardType } from '../../types/Trello';
 
-export default (cards: TrelloCardType[]): StoreCardType[] => {
-  return cards.map(adaptCard);
-};
+export default (cards: TrelloCardType[]): StoreCardType[] => cards.map(adaptCard);
 
 function adaptCard(card: TrelloCardType): StoreCardType {
   const pointsAndNewName = formatPoints(card.name);

@@ -81,10 +81,11 @@ export function* fetchNotDoneCards(): Generator<*, *, *> {
 
     // fetch in parallel
     const cardsCalls = yield all(
-      Object.values(currentProject.columnMapping).map(id => {
-        // if it's not the active sprint, there's no cards that are not done
-        return !isCurrentSprintActive ? all([]) : call(Trello.getCardsFromList, token.trello, id);
-      })
+      Object.values(currentProject.columnMapping).map(
+        id =>
+          // if it's not the active sprint, there's no cards that are not done
+          !isCurrentSprintActive ? all([]) : call(Trello.getCardsFromList, token.trello, id)
+      )
     );
 
     let cards = {};

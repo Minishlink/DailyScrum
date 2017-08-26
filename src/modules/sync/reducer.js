@@ -9,10 +9,9 @@ const assignState = (
   name: $Keys<SyncStateType>,
   key: string,
   sync: SyncType
-): SyncStateType => {
+): SyncStateType =>
   // yep that's pure laziness
-  return _.merge({ ...currentState }, { [name]: { [key]: sync } });
-};
+  _.merge({ ...currentState }, { [name]: { [key]: sync } });
 
 export default (state: SyncStateType = initialState, action: ActionType) => {
   if (!action.payload) return state; // payload is mandatory for these actions

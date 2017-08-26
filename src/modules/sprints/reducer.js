@@ -48,9 +48,7 @@ export default (state: SprintsStateType = initialState, action: ActionType) => {
 
 const addAdditionalData = (sprint: SprintType): SprintType => {
   // find the dates that have a positive standard and a positive done
-  const performances = sprint.performance.filter(data => {
-    return !!data.done && !!data.standard;
-  });
+  const performances = sprint.performance.filter(data => !!data.done && !!data.standard);
 
   sprint.pointsLeft = sprint.resources.totalPoints;
   if (performances.length) {
