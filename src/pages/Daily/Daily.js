@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, Animated } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
+import { isEqual } from 'lodash';
 import { Page, NoProjectFound } from 'DailyScrum/src/components';
 import { fetchBaseData } from 'DailyScrum/src/modules/common';
 import { currentSprintSelector } from '../../modules/sprints/reducer';
@@ -26,15 +27,12 @@ class Daily extends Component {
     SplashScreen.hide();
   }
 
-  shouldComponentUpdate(nextProps: PropsType) {
+  shouldComponentUpdate(nextProps: PropsType, nextState: StateType) {
     return (
       this.props.isSyncing !== nextProps.isSyncing ||
-      (!!this.props.currentProject &&
-        !!nextProps.currentProject &&
-        this.props.currentProject.name !== nextProps.currentProject.name) ||
-      (!!this.props.currentSprint &&
-        !!nextProps.currentSprint &&
-        this.props.currentSprint.id !== nextProps.currentSprint.id)
+      !isEqual(this.props.currentProject, nextProps.currentProject) ||
+      !isEqual(this.props.currentSprint, nextProps.currentSprint) ||
+      this.state.summaryHeight !== nextState.summaryHeight
     );
   }
 
@@ -43,9 +41,9 @@ class Daily extends Component {
   onTabPress = ({ focused }) => focused && this.changeHeaderVisibility(this.state.hideHeader);
 
   onScrollCards = e => {
-    if (!this.state.hideHeader && e.nativeEvent.contentOffset.y > 120) {
+    if (!this.state.hideHeader && e.nativeEvent.contentOffset.y > this.state.summaryHeight) {
       this.changeHeaderVisibility(false);
-    } else if (this.state.hideHeader && e.nativeEvent.contentOffset.y < 0) {
+    } else if (this.state.hideHeader && e.nativeEvent.contentOffset.y <= 0) {
       this.changeHeaderVisibility(true);
     }
   };

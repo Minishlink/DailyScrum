@@ -1,7 +1,7 @@
 // @flow
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, SectionList, Text } from 'react-native';
+import { StyleSheet, View, SectionList, Text, Dimensions } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { TrelloCard, LottieAnimation } from 'DailyScrum/src/components';
 import type { CardListsType, CardListType } from 'DailyScrum/src/modules/cards/reducer';
@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
   listsContainer: {
     paddingTop: 10,
     paddingBottom: 100,
+    minHeight: Dimensions.get('window').height + 110,
   },
   listName: {
     marginBottom: 5,
