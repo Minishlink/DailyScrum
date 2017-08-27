@@ -1,9 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Text, Button, Linking, Image } from 'react-native';
+import { StyleSheet, View, Text, Button, Linking } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
-import { Page } from 'DailyScrum/src/components';
+import { Page, LottieAnimation } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
 import { Trello } from 'DailyScrum/src/services';
 import { login, redirectAfterLogin } from 'DailyScrum/src/modules/auth';
@@ -37,7 +37,7 @@ class Login extends Component {
     return (
       <Page>
         <View style={styles.container}>
-          <Image source={{ uri: 'sun' }} style={styles.logo} />
+          <LottieAnimation source={require('../../../assets/lottie/sun_happy.json')} style={styles.logo} loop />
           <Text style={styles.title}>DailyScrum</Text>
           <Text style={styles.description}>Your mobile daily dose of Scrum</Text>
           <Button onPress={this.triggerLogin} title="Login with Trello" />
@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
   },
   logo: {
     height: '30%',
-    aspectRatio: 1,
   },
   title: {
     marginTop: 10,

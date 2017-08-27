@@ -48,5 +48,6 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: appStyle.font.size.small,
+    textAlign: 'center',
   },
 });

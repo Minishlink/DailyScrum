@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   sprintGoalAndPointsStatus: {
-    width: 0.75 * Dimensions.get('window').width,
+    width: 0.9 * Dimensions.get('window').width,
   },
 });
 

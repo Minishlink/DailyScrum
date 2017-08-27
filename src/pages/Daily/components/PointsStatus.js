@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { Platform, View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Text, LottieAnimation } from 'DailyScrum/src/components';
 
 export default (props: PropsType) => {
@@ -8,13 +8,21 @@ export default (props: PropsType) => {
   return (
     <View style={styles.container}>
       <View style={styles.starContainer}>
-        <Image source={{ uri: isLeading ? 'sun' : 'sun_sad' }} style={styles.image} />
+        <LottieAnimation
+          source={
+            isLeading
+              ? require('../../../../assets/lottie/sun_happy.json')
+              : require('../../../../assets/lottie/sun_sad.json')
+          }
+          style={styles.image}
+          loop={isLeading}
+        />
       </View>
       <View style={styles.statusContainer}>
         {props.pointsLeft != null &&
           props.pointsLeft <= 0 &&
           <View style={styles.pointsLeftAnimationContainer}>
-            <LottieAnimation source={require('../../../../assets/lottie/colorline.json')} loop />
+            <LottieAnimation source={require('../../../../assets/lottie/colorline.json')} loop duration={2000} />
           </View>}
         <Text style={[styles.lead, { color: isLeading ? 'green' : 'red' }]}>
           {props.lead
@@ -60,8 +68,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    width: 70,
-    aspectRatio: 1,
+    width: 80,
   },
   lead: {
     fontWeight: 'bold',
@@ -74,10 +81,6 @@ const styles = StyleSheet.create({
   pointsLeftAnimationContainer: {
     ...StyleSheet.absoluteFillObject,
     alignItems: 'center',
-    ...Platform.select({
-      android: {
-        justifyContent: 'center', // normal behaviour
-      },
-    }),
+    justifyContent: 'center', // normal behaviour
   },
 });
