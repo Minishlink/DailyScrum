@@ -1724,6 +1724,10 @@ duplexer2@0.0.2:
   dependencies:
     readable-stream "~1.1.9"
 
+easy-lottie-react-native@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/easy-lottie-react-native/-/easy-lottie-react-native-1.0.0.tgz#912b0b0c734ee285fd8a4d0196a598f31aa51461"
+
 ecc-jsbn@~0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/ecc-jsbn/-/ecc-jsbn-0.1.1.tgz#0fc73a9ed5f0d53c38193398523ef7e543777505"

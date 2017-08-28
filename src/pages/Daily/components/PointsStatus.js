@@ -1,7 +1,8 @@
 // @flow
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, LottieAnimation } from 'DailyScrum/src/components';
+import LottieAnimation from 'easy-lottie-react-native';
+import { Text } from 'DailyScrum/src/components';
 
 export default (props: PropsType) => {
   const isLeading = !(props.lead && props.lead.points < 0);

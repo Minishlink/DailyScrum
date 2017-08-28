@@ -2,7 +2,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, Linking, Platform } from 'react-native';
 import codePush from 'react-native-code-push';
-import { Page, Text, LottieAnimation } from 'DailyScrum/src/components';
+import LottieAnimation from 'easy-lottie-react-native';
+import { Page, Text } from 'DailyScrum/src/components';
 import appStyle from '../../appStyle';
 import { ENV } from '../../../environment';
 

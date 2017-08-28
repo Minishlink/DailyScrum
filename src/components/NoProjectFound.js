@@ -1,9 +1,9 @@
 // @flow
 import React, { PureComponent } from 'react';
 import { StyleSheet, View, TouchableOpacity, Linking } from 'react-native';
+import LottieAnimation from 'easy-lottie-react-native';
 import Text from './Text';
 import appStyle from '../appStyle';
-import LottieAnimation from './LottieAnimation';
 
 export default class NoProjectFound extends PureComponent {
   openURL = (url: string) => Linking.canOpenURL(url).then(() => Linking.openURL(url)).catch(() => {});
