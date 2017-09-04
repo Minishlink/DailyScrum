@@ -4,6 +4,7 @@ import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { MemberIcon } from 'DailyScrum/src/components';
 import type { UserType } from '../../types';
 import appStyle from '../../appStyle';
+import { roundToDecimalPlace } from '../../services/MathService';
 
 export default class FilterableMember extends Component {
   props: PropsType;
@@ -29,7 +30,7 @@ export default class FilterableMember extends Component {
           </View>
         </TouchableOpacity>
         <Text style={styles.filterableMemberPoints}>
-          {points.toLocaleString()}
+          {roundToDecimalPlace(points).toLocaleString()}
         </Text>
       </View>
     );

@@ -4,7 +4,6 @@ import { setUserPoints } from './';
 import { todayCardsSelector, yesterdayCardsSelector } from '../cards/reducer';
 import type { CardListsType } from '../cards/reducer';
 import type { CardListsKeyType } from '../cardLists/reducer';
-import { roundToDecimalPlace } from '../../services/MathService';
 
 export function* configureCardList(cardLists: CardListsType, cardListsKey: CardListsKeyType): Generator<*, *, *> {
   const userPoints = {};
@@ -13,7 +12,7 @@ export function* configureCardList(cardLists: CardListsType, cardListsKey: CardL
     column.list.forEach(card =>
       card.idMembers.forEach(memberId => {
         const currentPoints = userPoints[memberId];
-        const newPoints = !!card.points ? roundToDecimalPlace(card.points / card.idMembers.length) : 0;
+        const newPoints = !!card.points ? card.points / card.idMembers.length : 0;
         if (currentPoints) {
           userPoints[memberId] += newPoints;
         } else {
