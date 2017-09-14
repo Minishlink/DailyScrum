@@ -1,8 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, FlatList, Text, TextInput } from 'react-native';
-import { Page, createErrorBar } from 'DailyScrum/src/components';
+import { StyleSheet, FlatList, TextInput } from 'react-native';
+import { Page, Text, createErrorBar } from 'DailyScrum/src/components';
 import { fetchBoards } from 'DailyScrum/src/modules/boards';
 import { boardsListSelector } from '../../modules/boards/reducer';
 import type { BoardType } from '../../types';
@@ -18,7 +18,7 @@ class Settings extends Component {
   state: StateType = { filterBoard: '', lastSelectedBoard: '' };
 
   static navigationOptions = ({ navigation }) => ({
-    headerTitle: 'Change project',
+    headerTitle: navigation.state.params && navigation.state.params.firstTime ? 'Select a project' : 'Change project',
     headerRight: <InfoButton navigation={navigation} />,
   });
 

@@ -35,8 +35,15 @@ export function login(trelloToken: string): ActionType {
   };
 }
 
-export const redirectAfterLogin = () =>
-  NavigationActions.reset({
-    index: 0,
-    actions: [NavigationActions.navigate({ routeName: 'main' })],
+export const redirectAfterLogin = (isFirstTime: boolean) => {
+  const actions = [NavigationActions.navigate({ routeName: 'main' })];
+
+  if (isFirstTime) {
+    actions.push(NavigationActions.navigate({ routeName: 'projectSettings', params: { firstTime: true } }));
+  }
+
+  return NavigationActions.reset({
+    index: isFirstTime ? 1 : 0,
+    actions,
   });
+};

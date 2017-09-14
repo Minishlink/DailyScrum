@@ -8,7 +8,7 @@ function* login(action: ActionType): Generator<*, *, *> {
   try {
     const scrumbleToken = yield call(Scrumble.login, action.payload.trelloToken);
     yield put(putTokens(action.payload.trelloToken, scrumbleToken));
-    yield put(redirectAfterLogin());
+    yield put(redirectAfterLogin(true));
   } catch (error) {
     console.warn('[saga] login', error);
     // TODO show error modal
