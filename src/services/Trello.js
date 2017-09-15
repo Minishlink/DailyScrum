@@ -6,7 +6,7 @@ export default class {
     '/authorize?' +
     `key=${TRELLO_APP_KEY}&` +
     'expiration=never&' +
-    'name=Daily%20Scrum&' +
+    'name=DailyScrum&' +
     'return_url=dailyscrum://login&' +
     'scope=read,account';
 
