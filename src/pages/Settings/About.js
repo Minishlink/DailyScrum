@@ -72,7 +72,7 @@ export default class About extends Component {
   };
 
   openURL = (url: string) => Linking.canOpenURL(url).then(() => Linking.openURL(url)).catch(() => {});
-  sendAnEmail = () => this.openURL('mailto:louisl@bam.tech');
+  sendAnEmail = () => this.openURL('mailto:contact@bam.tech');
   goToGitHub = () => this.openURL('https://github.com/Minishlink/DailyScrum');
 
   render() {
@@ -89,7 +89,7 @@ export default class About extends Component {
           <View style={styles.feedbackContainer}>
             <Text>Feedback is welcome !</Text>
             <TouchableOpacity onPress={this.sendAnEmail}>
-              <Text style={styles.link}>louisl@bam.tech</Text>
+              <Text style={styles.link}>contact@bam.tech</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={this.goToGitHub}>
               <Text style={styles.link}>github.com/Minishlink/DailyScrum</Text>
