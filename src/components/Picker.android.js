@@ -17,7 +17,7 @@ export default class Picker extends Component {
 }
 
 type PropsType = {
-  style: any,
+  style?: any,
 };
 
 const styles = StyleSheet.create({

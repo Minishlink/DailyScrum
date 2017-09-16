@@ -1,12 +1,15 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, Dimensions, View } from 'react-native';
-import { Page } from 'DailyScrum/src/components';
+import { StyleSheet, Dimensions, View } from 'react-native';
 import { StockLine } from 'react-native-pathjs-charts';
+import { format } from 'date-fns';
+import { Page, Text, NoProjectFound } from 'DailyScrum/src/components';
 import { bdcDataPointsSelector } from '../../modules/sprints/reducer';
 import type { BdcDataPointsType } from '../../modules/sprints/reducer';
-import { format } from 'date-fns';
+import { currentProjectSelector } from '../../modules/projects/reducer';
+import type { ProjectType } from '../../types/Project';
+import { isSyncingSelector } from '../../modules/sync';
 import SprintPicker from './components/SprintPicker';
 import appStyle from '../../appStyle';
 
@@ -59,6 +62,17 @@ class Summary extends Component {
   props: PropsType;
 
   render() {
+    const { project, isSyncing } = this.props;
+    if (!project) {
+      if (isSyncing) return <Page isLoading />;
+      // TODO show less generic placeholder
+      return (
+        <Page>
+          <NoProjectFound />
+        </Page>
+      );
+    }
+
     return (
       <Page noMargin style={styles.container}>
         <View style={styles.pickerContainer}>
@@ -77,6 +91,8 @@ class Summary extends Component {
 type PropsType = {
   navigation: any,
   bdcDataPoints: BdcDataPointsType,
+  project: ProjectType,
+  isSyncing: boolean,
 };
 
 const styles = StyleSheet.create({
@@ -93,6 +109,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   bdcDataPoints: bdcDataPointsSelector(state),
+  project: currentProjectSelector(state),
+  isSyncing: isSyncingSelector(state, 'projects', 'current'),
 });
 
 export default connect(mapStateToProps)(Summary);

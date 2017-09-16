@@ -1,8 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, FlatList, Text, TextInput } from 'react-native';
-import { Page, createErrorBar } from 'DailyScrum/src/components';
+import { StyleSheet, FlatList, TextInput } from 'react-native';
+import { Page, Text, createErrorBar } from 'DailyScrum/src/components';
 import { fetchBoards } from 'DailyScrum/src/modules/boards';
 import { boardsListSelector } from '../../modules/boards/reducer';
 import type { BoardType } from '../../types';
@@ -10,15 +10,17 @@ import BoardCard from './components/BoardCard';
 import { changeCurrentRemoteProject } from '../../modules/projects';
 import { currentProjectSelector } from '../../modules/projects/reducer';
 import { isSyncingSelector } from '../../modules/sync';
+import InfoButton from './components/InfoButton';
 const ErrorBar = createErrorBar({ boards: 'all', projects: 'change' });
 
 class Settings extends Component {
   props: PropsType;
   state: StateType = { filterBoard: '', lastSelectedBoard: '' };
 
-  static navigationOptions = {
-    headerTitle: 'Change project',
-  };
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: navigation.state.params && navigation.state.params.firstTime ? 'Select a project' : 'Change project',
+    headerRight: <InfoButton navigation={navigation} />,
+  });
 
   handleRefresh = () => {
     this.props.fetchBoards();
@@ -34,7 +36,7 @@ class Settings extends Component {
       board={board}
       isActive={board.id === this.props.currentBoardId}
       isLoading={this.props.isChangingProject && board.id === this.state.lastSelectedBoard}
-      onPress={() => this.changeProject(board)}
+      onPress={this.changeProject}
     />;
 
   renderEmpty = () => <Text style={styles.noBoardsText}>No boards found</Text>;
@@ -65,15 +67,12 @@ class Settings extends Component {
           refreshing={this.props.isSyncingBoards}
           onRefresh={this.handleRefresh}
           ListEmptyComponent={this.renderEmpty}
+          keyboardShouldPersistTaps="handled"
         />
       </Page>
     );
   }
 }
-
-Settings.contextTypes = {
-  store: React.PropTypes.any,
-};
 
 type PropsType = {
   navigation: any,

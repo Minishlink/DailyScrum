@@ -1,5 +1,5 @@
 // @flow
-import { takeEvery, put, call, select, race } from 'redux-saga/effects';
+import { all, takeEvery, put, call, select, race } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { fetchCurrentUser } from '../users/sagas';
 import { fetchBoards } from '../boards/sagas';
@@ -31,14 +31,14 @@ function* fetchBaseData(): Generator<*, *, *> {
 }
 
 function* fetchBaseDataCalls(): Generator<*, *, *> {
-  yield [call(fetchCurrentUser), call(fetchBoards)];
+  yield all([call(fetchCurrentUser), call(fetchBoards)]);
   yield call(fetchProjectData);
 }
 
 export function* fetchProjectData(): Generator<*, *, *> {
   yield call(fetchCurrentProject);
   yield call(fetchSprints);
-  yield [call(fetchNotDoneCards), call(fetchDoneCards)];
+  yield all([call(fetchNotDoneCards), call(fetchDoneCards)]);
 }
 
 export default function*(): Generator<*, *, *> {

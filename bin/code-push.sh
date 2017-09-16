@@ -4,12 +4,17 @@ set -e
 FORCE=0
 ANDROID=0
 IOS=0
+MANDATORY=0
 
 for i in "$@"
 do
 case $i in
   -f|--force)
   FORCE=1
+  shift
+  ;;
+  -m|--mandatory)
+  MANDATORY=1
   shift
   ;;
   -a|--android)
@@ -47,12 +52,20 @@ MESSAGE="${INPUT_CHANGELOG:-$LAST_GIT_COMMIT}"
 
 yarn
 
+mkdir -p dist
+
+
+if [ $MANDATORY = 1 ]; then
+  echo "This is a mandatory release: users will have this update installed immediately."
+  MANDATORY_PARAM="-m"
+fi
+
 if [ $ANDROID = 1 ]; then
   echo "Targeting $ENV Android app version $ANDROID_VERSION_NAME"
-  code-push release-react -d Staging DailyScrum-Android android -m  -o dist/android-maps --targetBinaryVersion $ANDROID_VERSION_NAME --des "$MESSAGE"
+  code-push release-react -d Staging DailyScrum-Android android -o dist/android-maps --targetBinaryVersion $ANDROID_VERSION_NAME --des "$MESSAGE" $MANDATORY_PARAM
 fi
 
 if [ $IOS = 1 ]; then
   echo "Targeting $ENV iOS app version $IOS_VERSION"
-  code-push release-react -d Staging DailyScrum-iOS ios -m -o dist/ios-maps --targetBinaryVersion $IOS_VERSION --des "$MESSAGE"
+  code-push release-react -d Staging DailyScrum-iOS ios -o dist/ios-maps --targetBinaryVersion $IOS_VERSION --des "$MESSAGE" $MANDATORY_PARAM
 fi

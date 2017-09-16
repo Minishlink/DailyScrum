@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableHighlight, Text, Image, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, TouchableHighlight, ImageBackground, ActivityIndicator } from 'react-native';
 import type { BoardType } from '../../../types';
-import { Icon } from '../../../components';
+import { Text, Icon } from '../../../components';
 import appStyle from '../../../appStyle';
 
 const borderRadius = 3;
 export default class BoardCard extends Component {
   props: PropsType;
+
+  shouldComponentUpdate(nextProps: PropsType) {
+    return (
+      nextProps.isActive !== this.props.isActive ||
+      nextProps.isLoading !== this.props.isLoading ||
+      nextProps.board.name !== this.props.board.name
+    );
+  }
 
   renderName = () => {
     const { board, isActive, isLoading } = this.props;
@@ -35,14 +43,14 @@ export default class BoardCard extends Component {
 
     if (board.background.image) {
       return (
-        <Image
+        <ImageBackground
           style={styles.content}
           resizeMode="cover"
           borderRadius={borderRadius}
           source={{ uri: board.background.image }}
         >
           {this.renderName()}
-        </Image>
+        </ImageBackground>
       );
     }
 
@@ -53,10 +61,14 @@ export default class BoardCard extends Component {
     );
   };
 
+  onPress = () => this.props.onPress(this.props.board);
+
   render() {
     return (
-      <TouchableHighlight style={styles.container} onPress={this.props.onPress}>
-        {this.renderContent()}
+      <TouchableHighlight style={styles.container} onPress={this.onPress}>
+        <View>
+          {this.renderContent()}
+        </View>
       </TouchableHighlight>
     );
   }
@@ -66,6 +78,7 @@ type PropsType = {
   board: BoardType,
   onPress: Function,
   isActive: boolean,
+  isLoading: boolean,
 };
 
 const styles = StyleSheet.create({

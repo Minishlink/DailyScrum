@@ -46,14 +46,11 @@ const mapReducer = (
   return condition(syncNameKey);
 };
 
-export const isSyncSuccessfulSelector = (state: StateType, name: ?string, key: ?string) => {
-  return mapReducer(state, AndLogicReducer, true, syncState => !syncState.error, name, key);
-};
+export const isSyncSuccessfulSelector = (state: StateType, name: ?string, key: ?string) =>
+  mapReducer(state, AndLogicReducer, true, syncState => !syncState.error, name, key);
 
-export const isSyncingSelector = (state: StateType, name: ?string, key: ?string) => {
-  return mapReducer(state, OrLogicReducer, false, syncState => syncState.isLoading, name, key);
-};
+export const isSyncingSelector = (state: StateType, name: ?string, key: ?string) =>
+  mapReducer(state, OrLogicReducer, false, syncState => syncState.isLoading, name, key);
 
-export const errorsSelector = (state: StateType, name: ?string, key: ?string) => {
-  return mapReducer(state, FlattenArrayReducer, [], syncState => [syncState.error], name, key).filter(Boolean);
-};
+export const errorsSelector = (state: StateType, name: ?string, key: ?string) =>
+  mapReducer(state, FlattenArrayReducer, [], syncState => [syncState.error], name, key).filter(Boolean);

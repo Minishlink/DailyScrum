@@ -6,6 +6,10 @@ import appStyle from '../appStyle';
 export default class BigButton extends Component {
   props: PropsType;
 
+  shouldComponentUpdate(nextProps: PropsType) {
+    return nextProps.isLoading !== this.props.isLoading || nextProps.title !== this.props.title;
+  }
+
   render() {
     const { icon, title, style, isLoading, ...buttonProps } = this.props;
     return (
@@ -56,7 +60,6 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     shadowOpacity: 0.5,
     shadowOffset: { height: 1 },
-    overflow: 'hidden',
   },
   contentContainer: {
     flexGrow: 1,

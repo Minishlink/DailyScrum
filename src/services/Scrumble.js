@@ -1,4 +1,5 @@
 import { SCRUMBLE_API_URL } from 'DailyScrum/environment';
+import { handleFetchResponse } from './Fetch';
 
 export default class {
   static login = trelloToken =>
@@ -9,7 +10,7 @@ export default class {
       }),
       body: JSON.stringify({ trelloToken }),
     })
-      .then(result => result.json())
+      .then(handleFetchResponse)
       .then(result => {
         if (!result || !result.token) return Promise.reject(result.error);
         return result.token;
@@ -22,7 +23,7 @@ export default class {
         Authorization: token,
       }),
     })
-      .then(result => result.json())
+      .then(handleFetchResponse)
       .then(result => {
         if (result.error) return Promise.reject(result.error);
         return result;
@@ -35,7 +36,7 @@ export default class {
         Authorization: token,
       }),
     })
-      .then(result => result.json())
+      .then(handleFetchResponse)
       .then(result => {
         if (result.error) return Promise.reject(result.error);
         return result[0];
@@ -50,7 +51,7 @@ export default class {
       }),
       body: JSON.stringify({ projectId }),
     })
-      .then(result => result.json())
+      .then(handleFetchResponse)
       .then(result => {
         if (result.error) return Promise.reject(result.error);
         return result;
@@ -63,7 +64,7 @@ export default class {
         Authorization: token,
       }),
     })
-      .then(result => result.json())
+      .then(handleFetchResponse)
       .then(result => {
         if (result.error) return Promise.reject(result.error);
         return result;
@@ -76,7 +77,7 @@ export default class {
         Authorization: token,
       }),
     })
-      .then(result => result.json())
+      .then(handleFetchResponse)
       .then(result => {
         if (result.error) return Promise.reject(result.error);
         return result;

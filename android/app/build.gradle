@@ -155,6 +155,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-splash-screen')
     compile project(':react-native-code-push')
     compile project(':lottie-react-native')
     compile project(':react-native-svg')

@@ -1,6 +1,6 @@
 // @flow
 import { NavigationActions } from 'react-navigation';
-import { call, put, select, takeEvery, cancelled } from 'redux-saga/effects';
+import { all, call, put, select, takeEvery, cancelled } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { Scrumble } from 'DailyScrum/src/services';
 import { putProjects, setCurrentProject } from './';
@@ -25,7 +25,7 @@ export function* fetchCurrentProject(): Generator<*, *, *> {
   } catch (error) {
     yield put(endSync('projects', 'current', error.message));
     if (error.statusCode === 404) {
-      yield call(delay, 1000); // for some reason react-navigation enters an infinite loop at this point if there's no delay
+      yield call(delay, 1000);
       yield put(NavigationActions.navigate({ routeName: 'projectSettings' }));
     } else {
       console.info('[saga] fetchCurrentProject', error);
@@ -48,9 +48,9 @@ function* changeCurrentRemoteProject(action: ActionType): Generator<*, *, *> {
     const project = yield call(Scrumble.getProjectByBoard, token.scrumble, boardId);
     if (project) {
       yield call(Scrumble.setCurrentProject, token.scrumble, project.id);
-      yield [put(clearCards()), put(clearOtherUsers()), put(clearSprints())];
+      yield all([put(clearCards()), put(clearOtherUsers()), put(clearSprints())]);
       yield* fetchProjectData();
-      yield [put(NavigationActions.back())];
+      yield put(NavigationActions.back());
       yield put(endSync('projects', 'change'));
     } else {
       yield put(endSync('projects', 'change', 'NOT_SCRUMBLE_PROJECT'));

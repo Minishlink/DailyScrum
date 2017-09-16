@@ -10,9 +10,13 @@
     "react",
     "prettier"
   ],
+  "globals": {
+    "__DEV__": true
+  },
   "rules": {
     "no-use-before-define": "off",
     "no-unused-vars": "error",
+    "arrow-body-style": ["error", "as-needed"],
     "prettier/prettier": [
       "error",
       {

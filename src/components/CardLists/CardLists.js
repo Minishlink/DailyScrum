@@ -1,9 +1,10 @@
 // @flow
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, SectionList, Text } from 'react-native';
+import { StyleSheet, View, SectionList, Text, Dimensions } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { TrelloCard, LottieAnimation } from 'DailyScrum/src/components';
+import LottieAnimation from 'easy-lottie-react-native';
+import { TrelloCard } from 'DailyScrum/src/components';
 import type { CardListsType, CardListType } from 'DailyScrum/src/modules/cards/reducer';
 import type { CardType } from '../../types';
 import { ListHeader } from './';
@@ -11,7 +12,7 @@ import { getTipIfNotReadSelector } from '../../modules/tips/reducer';
 import type { TipType } from '../../modules/tips/reducer';
 import TipCard from '../TipCard';
 
-class CardsList extends Component {
+class CardsList extends PureComponent {
   props: PropsType;
 
   renderCard = ({ item }: { item: CardType }) => <TrelloCard card={item} />;
@@ -22,14 +23,28 @@ class CardsList extends Component {
     <View style={styles.emptyContainer}>
       <Text>No cards yet</Text>
       <Text>Pull to refresh :)</Text>
-      <LottieAnimation source={require('../../../assets/lottie/empty_status.json')} duration={6000} />
+      <LottieAnimation source={require('../../../assets/lottie/empty_status.json')} loop duration={6000} />
     </View>;
+
+  renderHeader = () => {
+    const { FilterMembersComponent } = this.props;
+    return (
+      <View>
+        {!!FilterMembersComponent && <FilterMembersComponent />}
+        {this.renderTip()}
+      </View>
+    );
+  };
 
   renderTip = () =>
     this.props.tip &&
     <View style={styles.tipContainer}>
       <TipCard tip={this.props.tip} />
     </View>;
+
+  renderSeperator = () => <View style={styles.listSeparator} />;
+
+  keyExtractor = (card: CardType) => card.idShort;
 
   render() {
     const { cardLists } = this.props;
@@ -46,19 +61,20 @@ class CardsList extends Component {
 
     return (
       <View style={[styles.container, this.props.style]}>
-        <Animatable.View animation="fadeIn" style={{ flex: 1 }}>
+        <Animatable.View animation="fadeIn" style={{ flex: 1 }} useNativeDriver>
           <SectionList
             contentContainerStyle={styles.listsContainer}
             showsVerticalScrollIndicator={false}
             refreshing={this.props.isRefreshing}
             onRefresh={this.props.onRefresh}
-            SectionSeparatorComponent={() => <View style={styles.listSeparator} />}
+            SectionSeparatorComponent={this.renderSeperator}
             renderSectionHeader={this.renderSectionHeader}
             renderItem={this.renderCard}
-            ListHeaderComponent={() => sections.length > 0 && this.renderTip()}
+            ListHeaderComponent={sections.length > 0 ? this.renderHeader : null}
             ListEmptyComponent={this.renderEmpty}
-            keyExtractor={(card: CardType) => card.idShort}
+            keyExtractor={this.keyExtractor}
             sections={sections}
+            onScroll={this.props.onScroll}
           />
         </Animatable.View>
       </View>
@@ -71,11 +87,13 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   emptyContainer: {
-    marginTop: 100,
+    marginTop: 20,
     alignItems: 'center',
   },
   listsContainer: {
-    paddingVertical: 10,
+    paddingTop: 10,
+    paddingBottom: 100,
+    minHeight: Dimensions.get('window').height + 110,
   },
   listName: {
     marginBottom: 5,
@@ -94,7 +112,9 @@ type PropsType = {
   filteredMember: ?string,
   onRefresh: Function,
   isRefreshing: boolean,
+  onScroll: Function,
   tip: ?TipType,
+  FilterMembersComponent?: any,
 };
 
 const mapStateToProps = state => ({

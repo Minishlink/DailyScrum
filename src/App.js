@@ -6,8 +6,7 @@ import codePush from 'react-native-code-push';
 import Scenes from './Scenes';
 import createStore from './modules/store';
 
-@codePush
-export default class extends Component {
+class App extends Component {
   state = {
     store: null,
   };
@@ -24,3 +23,5 @@ export default class extends Component {
       : null;
   }
 }
+
+export default (!__DEV__ ? codePush()(App) : App);

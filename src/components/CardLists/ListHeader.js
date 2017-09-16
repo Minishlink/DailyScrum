@@ -6,6 +6,10 @@ import appStyle from '../../appStyle';
 export default class ListHeader extends Component {
   props: PropsType;
 
+  shouldComponentUpdate(nextProps: PropsType) {
+    return nextProps.listKey !== this.props.listKey || nextProps.total !== this.props.total;
+  }
+
   getListNameFromKey = (key: string) => {
     switch (key) {
       case 'sprint':
@@ -45,7 +49,6 @@ type PropsType = {
 
 const styles = StyleSheet.create({
   listName: {
-    fontSize: appStyle.font.size.default,
     textAlign: 'center',
   },
   total: {

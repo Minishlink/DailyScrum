@@ -1,8 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, FlatList, Text } from 'react-native';
-import { Icon } from '../../../components';
+import { StyleSheet, View, FlatList } from 'react-native';
+import { Icon, Text } from '../../../components';
 import { sprintsSuccessMatrixSelector } from '../../../modules/sprints/reducer';
 import type { SprintsSuccessMatrixType } from '../../../modules/sprints/reducer';
 

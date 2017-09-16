@@ -33,7 +33,7 @@ export type TipsStateType = {|
   read: TipIDType[],
 |};
 
-export type TipIDType = 'DAILY_SUMMARY' | 'CARDLISTS_OPEN_TRELLO';
+export type TipIDType = 'CARDLISTS_OPEN_TRELLO';
 
 export type TipType = {
   id: TipIDType,
@@ -41,10 +41,6 @@ export type TipType = {
 };
 
 export const tips = {
-  DAILY_SUMMARY: {
-    id: 'DAILY_SUMMARY',
-    text: "From the summary, you can also swipe left to access yesterday's cards, or right for today's cards",
-  },
   CARDLISTS_OPEN_TRELLO: {
     id: 'CARDLISTS_OPEN_TRELLO',
     text:

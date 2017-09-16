@@ -44,6 +44,12 @@ yarn deploy:staging:ios     # only iOS
 ```
 
 ### Production
-There's no production app at the moment.
+Please bump the prod app version (`ANDROID_VERSION_CODE`, `ANDROID_VERSION_NAME`, `IOS_VERSION`, `IOS_VERSION_BUILD_NUMBER`) in the `fastlane/.env.prod`.
+Make a PR of `staging` to `master` and merge (no squash and merge).
 
-(TODO) code-push promote and hard deploy
+The following commands will deploy to TestFlight and Android Beta.
+```bash
+yarn deploy:prod         # both Android and iOS
+yarn deploy:prod:android # only Android
+yarn deploy:prod:ios     # only iOS
+```

@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
+import { isEqual } from 'lodash';
 import type { UserType } from '../../types';
 import { FilterableMember } from './';
 import { makeFilterByMember, filteredMemberSelector, filterableMembersSelector } from '../../modules/cardLists';
@@ -10,6 +11,14 @@ import { userPointsSelector } from '../../modules/cardLists/selectors';
 
 export class FilterMembers extends Component {
   props: PropsType;
+
+  shouldComponentUpdate(nextProps: PropsType) {
+    return (
+      nextProps.filtered !== this.props.filtered ||
+      !isEqual(nextProps.filterable, this.props.filterable) ||
+      !isEqual(nextProps.userPoints, this.props.userPoints)
+    );
+  }
 
   renderFilterableMember = ({ item: user }: { item: UserType }) =>
     <FilterableMember
@@ -25,7 +34,7 @@ export class FilterMembers extends Component {
     return (
       <View style={[styles.container, this.props.style]}>
         <FlatList
-          contentContainerStyle={this.props.contentContainerStyle}
+          contentContainerStyle={styles.contentContainer}
           data={this.props.filterable}
           renderItem={this.renderFilterableMember}
           keyExtractor={user => user.id}
@@ -50,6 +59,10 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: 4,
     paddingHorizontal: 10,
+  },
+  contentContainer: {
+    flex: 1,
+    justifyContent: 'space-around',
   },
   filterableMemberContainer: {
     marginHorizontal: 4,

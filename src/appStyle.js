@@ -1,7 +1,8 @@
 import { Platform } from 'react-native';
 import chroma from 'chroma-js';
 
-const primaryColor = '#2196F3';
+const primaryColor = '#45DAFF';
+const secondaryColor = '#FFD91C';
 export default {
   font: {
     size: {
@@ -16,6 +17,8 @@ export default {
     primary: primaryColor,
     primaryMidDark: chroma(primaryColor).darken(0.5).hex(),
     primaryDark: chroma(primaryColor).darken().hex(),
+    secondary: secondaryColor,
+    overPrimaryColor: 'white',
     text: '#4d4d4d',
     lightText: '#FAFAFA',
     background: '#F5FCFF',

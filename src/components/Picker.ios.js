@@ -1,28 +1,21 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Picker as RCTPicker,
-  Modal,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import { StyleSheet, View, Picker as RCTPicker, Modal, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { Text, Icon } from './';
 import appStyle from '../appStyle';
-import Icon from './Icon';
 
 export default class Picker extends Component {
   props: PropsType;
   state: StateType = { isPicking: false };
 
-  onRequestClose = () => this.setState({ isPicking: false });
+  closePicker = () => this.setState({ isPicking: false });
+  showPicker = () => this.setState({ isPicking: true });
 
   render() {
     const { children, selectedValueText, style, ...rest } = this.props;
     return (
       <View>
         {selectedValueText &&
-          <TouchableOpacity style={styles.selectedValueContainer} onPress={() => this.setState({ isPicking: true })}>
+          <TouchableOpacity style={styles.selectedValueContainer} onPress={this.showPicker}>
             <Text style={styles.selectedValueStyle} numberOfLines={1}>
               {selectedValueText}
             </Text>
@@ -30,8 +23,8 @@ export default class Picker extends Component {
               <Icon type="material" name="arrow-drop-down" color="grey" size={25} />
             </View>
           </TouchableOpacity>}
-        <Modal animationType="slide" transparent visible={this.state.isPicking} onRequestClose={this.onRequestClose}>
-          <TouchableWithoutFeedback onPress={this.onRequestClose}>
+        <Modal animationType="slide" transparent visible={this.state.isPicking} onRequestClose={this.closePicker}>
+          <TouchableWithoutFeedback onPress={this.closePicker}>
             <View style={styles.pickerModalBackground} />
           </TouchableWithoutFeedback>
           <View style={[styles.pickerContainer, style]}>
@@ -50,8 +43,7 @@ export default class Picker extends Component {
 }
 
 type PropsType = {
-  visible: boolean,
-  onFinishPicking: Function,
+  prompt?: string,
 };
 
 type StateType = {
@@ -83,7 +75,6 @@ const styles = StyleSheet.create({
   prompt: {
     marginTop: 10,
     textAlign: 'center',
-    fontSize: appStyle.font.size.default,
     fontWeight: 'bold',
   },
   pickerModalBackground: {

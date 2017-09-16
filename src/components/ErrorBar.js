@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Text, Dimensions, Platform } from 'react-native';
+import { StyleSheet, View, Dimensions, Platform } from 'react-native';
+import { Text } from './';
 import _ from 'lodash';
 import { errorsSelector } from '../modules/sync';
 
@@ -15,10 +16,16 @@ class ErrorBar extends Component {
         return 'Connection failed. Please try again later :)';
       case 'NOT_SCRUMBLE_PROJECT':
         return 'DailyScrum does not let you create a new project at the moment. Please do it on Scrumble.';
+      case 'cancelled':
+        return null;
       default:
         return `Error: ${error}`;
     }
   };
+
+  shouldComponentUpdate(nextProps: PropsType, nextState: StateType) {
+    return nextState.show !== this.state.show || !_.isEqual(nextProps.errors, this.props.errors);
+  }
 
   componentWillReceiveProps(nextProps: PropsType) {
     if (!_.isEqual(nextProps.errors, this.props.errors)) {
@@ -37,9 +44,10 @@ class ErrorBar extends Component {
 
   render() {
     if (!this.state.show) return null;
-    const errors = _.uniq(this.props.errors.map(this.getErrorMessage));
+    const errors = _.uniq(this.props.errors.map(this.getErrorMessage)).filter(Boolean);
+    if (!errors.length) return null;
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, this.props.style]}>
         {errors.map(error =>
           <Text key={error} style={styles.text}>
             {error}

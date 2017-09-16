@@ -2,17 +2,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet } from 'react-native';
-import { Page } from 'DailyScrum/src/components';
+import { Page, NoProjectFound } from 'DailyScrum/src/components';
 import { currentProjectSelector } from '../../modules/projects/reducer';
 import type { ProjectType } from '../../types/Project';
+import { isSyncingSelector } from '../../modules/sync';
 import SuccessMatrix from './components/SuccessMatrix';
 
 class Summary extends Component {
   props: PropsType;
 
   render() {
-    const { project } = this.props;
-    if (!project) return <Page isLoading />;
+    const { project, isSyncing } = this.props;
+    if (!project) {
+      if (isSyncing) return <Page isLoading />;
+      // TODO show less generic placeholder
+      return (
+        <Page>
+          <NoProjectFound />
+        </Page>
+      );
+    }
 
     return (
       <Page noNavBar style={styles.container}>
@@ -25,6 +34,7 @@ class Summary extends Component {
 type PropsType = {
   navigation: any,
   project: ProjectType,
+  isSyncing: boolean,
 };
 
 const styles = StyleSheet.create({
@@ -38,6 +48,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   project: currentProjectSelector(state),
+  isSyncing: isSyncingSelector(state, 'projects', 'current'),
 });
 
 export default connect(mapStateToProps)(Summary);

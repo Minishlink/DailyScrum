@@ -1,5 +1,5 @@
 // @flow
-import { select, put, call, takeEvery, cancelled } from 'redux-saga/effects';
+import { all, select, put, call, takeEvery, cancelled, cancel } from 'redux-saga/effects';
 import { Trello } from 'DailyScrum/src/services';
 import { putCards } from './';
 import { tokenSelector } from '../auth/reducer';
@@ -7,7 +7,7 @@ import { sprintsSelector, currentSprintSelector, isCurrentSprintActiveSelector }
 import type { SprintType } from '../../types';
 import { currentProjectSelector } from '../projects/reducer';
 import { getPoints } from '../../services/Trello';
-import { getLastWorkableDayTime } from '../../services/Time';
+import { getLastWorkableDayTime, BOUNDARY_HOUR, BOUNDARY_MINUTES } from '../../services/Time';
 import { putSprints } from '../sprints/actions';
 import { startSync, endSync } from '../sync';
 import { configureTodayCardList, configureYesterdayCardList } from '../cardLists/sagas';
@@ -17,6 +17,7 @@ export function* fetchDoneCards(): Generator<*, *, *> {
     yield put(startSync('cards', 'done'));
     const token = yield select(tokenSelector);
     const currentSprint: SprintType = yield select(currentSprintSelector);
+    if (!currentSprint) yield cancel();
     const sprints = yield select(sprintsSelector);
 
     let cards = yield call(Trello.getCardsFromList, token.trello, currentSprint.doneColumn);
@@ -38,7 +39,7 @@ export function* fetchDoneCards(): Generator<*, *, *> {
         performance = currentSprint.performance[++i]
       ) {
         const currentDay = new Date(performance.date);
-        currentDay.setHours(9, 0, 0, 0);
+        currentDay.setHours(BOUNDARY_HOUR, BOUNDARY_MINUTES, 0, 0);
 
         // the standard is set to the next day
         if (lastWorkableDayTime === currentDay.getTime() && currentSprint.performance[i + 1]) {
@@ -76,12 +77,16 @@ export function* fetchNotDoneCards(): Generator<*, *, *> {
     const isCurrentSprintActive = yield select(isCurrentSprintActiveSelector);
     const token = yield select(tokenSelector);
     const currentProject = yield select(currentProjectSelector);
+    if (!currentProject || !currentProject.columnMapping) yield cancel();
 
     // fetch in parallel
-    const cardsCalls = yield Object.values(currentProject.columnMapping).map(id => {
-      // if it's not the active sprint, there's no cards that are not done
-      return !isCurrentSprintActive ? [] : call(Trello.getCardsFromList, token.trello, id);
-    });
+    const cardsCalls = yield all(
+      Object.values(currentProject.columnMapping).map(
+        id =>
+          // if it's not the active sprint, there's no cards that are not done
+          !isCurrentSprintActive ? all([]) : call(Trello.getCardsFromList, token.trello, id)
+      )
+    );
 
     let cards = {};
     let i = 0;
