@@ -1,4 +1,17 @@
-require 'dotenv'
+fastlane_require 'dotenv'
+
+lane :ensure_clean_status do
+  if ENV['FORCE'] || ENV['CI']
+    next
+  end
+
+  ensure_git_branch(
+    branch: ENV['ENV'] === 'prod' ? 'master' : 'staging'
+  )
+  git stash
+  git_pull
+  sh "cd .. && yarn && cd -"
+end
 
 # JS Environments
 
@@ -9,6 +22,7 @@ end
 
 before_all do |lane, options|
   Dotenv.load(".env.#{ENV['ENV']}.secret")
+  ensure_clean_status
 end
 
 after_all do |lane, options|

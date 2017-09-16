@@ -29,6 +29,11 @@ xcode-select --install
 </table>
 
 # Available Actions
+### ensure_clean_status
+```
+fastlane ensure_clean_status
+```
+
 ### set_js_env
 ```
 fastlane set_js_env

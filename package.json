@@ -15,7 +15,10 @@
 		"deploy:info": "code-push deployment history DailyScrum-Android Staging && code-push deployment history DailyScrum-iOS Staging",
 		"deploy:staging": "yarn deploy:staging:android && yarn deploy:staging:ios",
 		"deploy:staging:android": "bundle exec fastlane android deploy --env=staging",
-		"deploy:staging:ios": "bundle exec fastlane ios deploy --env=staging"
+		"deploy:staging:ios": "bundle exec fastlane ios deploy --env=staging",
+		"deploy:prod": "yarn deploy:prod:android && yarn deploy:prod:ios",
+		"deploy:prod:android": "bundle exec fastlane android deploy --env=prod",
+		"deploy:prod:ios": "bundle exec fastlane ios deploy --env=prod"
 	},
 	"dependencies": {
 		"@yfuks/react-native-action-sheet": "^0.0.4",
