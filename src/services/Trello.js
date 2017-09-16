@@ -1,4 +1,5 @@
 import { TRELLO_APP_KEY, TRELLO_API_URL } from 'DailyScrum/environment';
+import { handleFetchResponse } from './Fetch';
 
 export default class {
   static getLoginURL = () =>
@@ -13,13 +14,13 @@ export default class {
   static getCurrentUser = token =>
     fetch(
       `${TRELLO_API_URL}/members/me?fields=avatarHash,email,fullName,id,initials,username&key=${TRELLO_APP_KEY}&token=${token}`
-    ).then(res => res.json());
+    ).then(handleFetchResponse);
 
   static getBoards = token =>
     fetch(
       `${TRELLO_API_URL}/members/me/boards?filter=open&fields=name,prefs,dateLastActivity&key=${TRELLO_APP_KEY}&token=${token}`
     )
-      .then(res => res.json())
+      .then(handleFetchResponse)
       .then(boards =>
         boards.sort((a, b) => new Date(b.dateLastActivity).getTime() - new Date(a.dateLastActivity).getTime())
       );
@@ -27,7 +28,7 @@ export default class {
   static getCardsFromList = (token, listId) =>
     fetch(
       `${TRELLO_API_URL}/lists/${listId}/cards?fields=id,idShort,idMembers,name,dateLastActivity,shortUrl&actions=updateCard:idList&key=${TRELLO_APP_KEY}&token=${token}`
-    ).then(res => res.json());
+    ).then(handleFetchResponse);
 }
 
 export const getPoints = text => {
