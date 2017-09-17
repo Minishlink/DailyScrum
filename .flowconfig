@@ -14,8 +14,9 @@
 .*/Libraries/react-native/React.js
 .*/Libraries/react-native/ReactNative.js
 
-; TODO Ignore temporarily react-navigation
+; Ignore deps errors
 .*/node_modules/react-navigation
+.*/node_modules/react-native-firebase
 
 ; tests
 .*/*.tests.js

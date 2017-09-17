@@ -1,9 +1,11 @@
 import { isArray, isEqual } from 'lodash';
+import { NavigationActions } from 'react-navigation';
 import { AppNavigator } from 'DailyScrum/src/Scenes';
+import * as Analytics from '../../services/Analytics';
 
 export default (state, action) => {
   const { type } = action;
-  if (type === 'Navigation/NAVIGATE' && isRouteSameAsLastRouteFromNavigationStateSelector(state, action)) {
+  if (type === NavigationActions.NAVIGATE && isRouteSameAsLastRouteFromNavigationStateSelector(state, action)) {
     console.warn(
       'You pressed the navigation button two times, pushing two times to the same route.\n\n' +
         'The last dispatch was canceled. \n\n' +
@@ -14,6 +16,14 @@ export default (state, action) => {
   }
 
   const newState = AppNavigator.router.getStateForAction(action, state);
+
+  if (
+    [NavigationActions.INIT, NavigationActions.NAVIGATE, NavigationActions.BACK, NavigationActions.RESET].includes(type)
+  ) {
+    const route = routeFromNavigationStateSelector(newState);
+    Analytics.setCurrentScreen(route.routeName);
+  }
+
   return newState || state;
 };
 

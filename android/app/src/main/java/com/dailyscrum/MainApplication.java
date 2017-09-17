@@ -2,6 +2,10 @@ package com.dailyscrum;
 
 import android.app.Application;
 
+import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
+import io.invertase.firebase.crash.RNFirebaseCrashPackage;
+
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactApplication;
 import com.cboy.rn.splashscreen.SplashScreenReactPackage;
@@ -35,6 +39,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFirebasePackage(),
+            new RNFirebaseAnalyticsPackage(),
+            new RNFirebaseCrashPackage(),
             new SplashScreenReactPackage(),
             new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG),
             new LottiePackage(),

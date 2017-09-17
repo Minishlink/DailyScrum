@@ -9,6 +9,7 @@ import appStyle from 'DailyScrum/src/appStyle';
 import { Trello } from 'DailyScrum/src/services';
 import { login, redirectAfterLogin } from 'DailyScrum/src/modules/auth';
 import { isLoggedInSelector } from 'DailyScrum/src/modules/auth/reducer';
+import * as Analytics from '../../services/Analytics';
 
 class Login extends Component {
   props: PropsType;
@@ -24,11 +25,17 @@ class Login extends Component {
 
     // if not we login Scrumble if we have the trello Token
     if (!this.props.navigation.state.params) return;
+
+    // the user logged in through Trello
+    Analytics.logEvent('login_trello_ok'); // are users unwilling to authorize Trello access?
     const trelloToken = this.props.navigation.state.params.token;
-    this.props.login(trelloToken);
+    this.props.login(trelloToken); // let's log the user in Scrumble
   }
 
-  triggerLogin = () => Linking.openURL(Trello.getLoginURL());
+  triggerLogin = () => {
+    Analytics.logEvent('login_trello_trigger'); // are users unwilling to login with Trello?
+    Linking.openURL(Trello.getLoginURL());
+  };
 
   render() {
     if (this.props.isLoggedIn || this.props.navigation.state.params) {

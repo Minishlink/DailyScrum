@@ -9,6 +9,7 @@ import { fetchDoneCards, fetchNotDoneCards } from '../cards/sagas';
 import { syncIsSuccessful } from './';
 import { startSync, endSync } from '../sync';
 import { isSyncSuccessfulSelector } from '../sync';
+import { setAnalyticsUser } from '../analytics/sagas';
 
 function* fetchBaseData(): Generator<*, *, *> {
   yield put(startSync('common', 'base'));
@@ -21,6 +22,7 @@ function* fetchBaseData(): Generator<*, *, *> {
   if (yield select(isSyncSuccessfulSelector)) {
     yield put(endSync('common', 'base'));
     yield put(syncIsSuccessful());
+    yield call(setAnalyticsUser);
   } else {
     if (timeout) {
       yield put(endSync('common', 'base', 'Timeout'));

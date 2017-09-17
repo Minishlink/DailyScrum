@@ -47,10 +47,12 @@
 		C24EAD5023F24B66B2224D98 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B64F8D21AE6A4CC3BE2B2950 /* MaterialCommunityIcons.ttf */; };
 		C26D37A8B9654AE2B6654112 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3BB29DF910F495D96F1AD71 /* Ionicons.ttf */; };
 		D86FA4D02692484EB931B2B5 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 363C02BBBDFE4C9999E3B587 /* libRNVectorIcons.a */; };
+		DB8ED6C47794A5A7492C8CF1 /* libPods-DailyScrum.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29616C0E94A666C43ADA42B4 /* libPods-DailyScrum.a */; };
 		E51FE9BEA30142F2AD1FE9DB /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE053D924F6444B9B939E549 /* libSplashScreen.a */; };
 		E877395F3281439188789913 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F38D56A695B44FA5B2B52374 /* libRNSVG.a */; };
 		EBE40CDD9C664CA1B1A4D322 /* libLottieReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F264BF53C7A14597AFF198D9 /* libLottieReactNative.a */; };
 		FD011C3EFEB9435DBA92D4CD /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F65B39E7DDC45CFA99E63FF /* SimpleLineIcons.ttf */; };
+		FF36EA651F6DCC7C00F5E189 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF36EA631F6DCC7C00F5E189 /* GoogleService-Info.plist */; };
 		FFE70B161E870A3100090A28 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 /* End PBXBuildFile section */
 
@@ -379,8 +381,10 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = DailyScrum/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = DailyScrum/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		29616C0E94A666C43ADA42B4 /* libPods-DailyScrum.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DailyScrum.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* DailyScrum-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DailyScrum-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* DailyScrum-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DailyScrum-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F50E8A317C1FD90A9DEC72E /* Pods-DailyScrum.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DailyScrum.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DailyScrum/Pods-DailyScrum.debug.xcconfig"; sourceTree = "<group>"; };
 		302227C2A4824E038D6E7E7E /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		363C02BBBDFE4C9999E3B587 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		3B095EB613A841DEB9E82819 /* libLottie.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libLottie.a; sourceTree = "<group>"; };
@@ -389,6 +393,7 @@
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		682131F67D28484FAA086051 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		6DCF781A62E0492C99E31012 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		6E73A43EFE7138F6EFF064FF /* Pods-DailyScrum.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DailyScrum.release.xcconfig"; path = "Pods/Target Support Files/Pods-DailyScrum/Pods-DailyScrum.release.xcconfig"; sourceTree = "<group>"; };
 		763CEFA4BE8344819D1B405F /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -405,6 +410,7 @@
 		F38D56A695B44FA5B2B52374 /* libRNSVG.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSVG.a; sourceTree = "<group>"; };
 		F4BE5AE48CA74A4ABBE0806A /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		FDD46036EF8B473299D14694 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		FF36EA631F6DCC7C00F5E189 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -438,6 +444,7 @@
 				E51FE9BEA30142F2AD1FE9DB /* libSplashScreen.a in Frameworks */,
 				0AECA6D046754E399E939387 /* libLottie.a in Frameworks */,
 				EBE40CDD9C664CA1B1A4D322 /* libLottieReactNative.a in Frameworks */,
+				DB8ED6C47794A5A7492C8CF1 /* libPods-DailyScrum.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -553,6 +560,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				FF36EA631F6DCC7C00F5E189 /* GoogleService-Info.plist */,
 			);
 			name = DailyScrum;
 			sourceTree = "<group>";
@@ -576,6 +584,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2AC06A6B08E5B0EF57B58C98 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2F50E8A317C1FD90A9DEC72E /* Pods-DailyScrum.debug.xcconfig */,
+				6E73A43EFE7138F6EFF064FF /* Pods-DailyScrum.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		5E91572E1DD0AC6500FF2AA8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -589,6 +606,7 @@
 			isa = PBXGroup;
 			children = (
 				9A4DB1A25471458496C7489A /* libz.tbd */,
+				29616C0E94A666C43ADA42B4 /* libPods-DailyScrum.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -644,6 +662,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				95AF9214C0D64657AD1C1CF2 /* Resources */,
 				66CC5881CC014930B5005818 /* Frameworks */,
+				2AC06A6B08E5B0EF57B58C98 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -754,11 +773,16 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "DailyScrum" */;
 			buildPhases = (
+				34E827B9E4250F27E873E2AF /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
+				FFDEACCB1F6DCF86003FA478 /* Select GoogleService-Info.plist */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
+				FFDEACCC1F6DCFA2003FA478 /* Clean GoogleService-Info.plist */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				FFA3BE551F0823A000A8FF1D /* Embed Frameworks */,
+				F3864AFCE9E3790C01AE3968 /* [CP] Embed Pods Frameworks */,
+				9FC14045FDC42E2CB9B14B34 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1211,6 +1235,7 @@
 				51525F1E2AF242E58298ECB4 /* MaterialIcons.ttf in Resources */,
 				83CB48E123774A3887C7376E /* Octicons.ttf in Resources */,
 				FD011C3EFEB9435DBA92D4CD /* SimpleLineIcons.ttf in Resources */,
+				FF36EA651F6DCC7C00F5E189 /* GoogleService-Info.plist in Resources */,
 				36161098A8DD433AB06B4761 /* Zocial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1245,6 +1270,83 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		34E827B9E4250F27E873E2AF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DailyScrum-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9FC14045FDC42E2CB9B14B34 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DailyScrum/Pods-DailyScrum-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F3864AFCE9E3790C01AE3968 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DailyScrum/Pods-DailyScrum-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FFDEACCB1F6DCF86003FA478 /* Select GoogleService-Info.plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Select GoogleService-Info.plist";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp \"GoogleService-Info.\"$PRODUCT_BUNDLE_IDENTIFIER\".plist\" \"GoogleService-Info.plist\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FFDEACCC1F6DCFA2003FA478 /* Clean GoogleService-Info.plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Clean GoogleService-Info.plist";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rm \"GoogleService-Info.plist\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1378,6 +1480,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2F50E8A317C1FD90A9DEC72E /* Pods-DailyScrum.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1401,7 +1504,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "";
+				PRODUCT_BUNDLE_IDENTIFIER = tech.bam.DailyScrum.debug;
 				PRODUCT_NAME = DailyScrum;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1410,6 +1513,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6E73A43EFE7138F6EFF064FF /* Pods-DailyScrum.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -1432,7 +1536,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "";
+				PRODUCT_BUNDLE_IDENTIFIER = tech.bam.DailyScrum.debug;
 				PRODUCT_NAME = DailyScrum;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
