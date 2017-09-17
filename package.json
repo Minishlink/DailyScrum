@@ -31,6 +31,7 @@
 		"react-native": "0.47.2",
 		"react-native-animatable": "^1.2.3",
 		"react-native-code-push": "^5.0.0-beta",
+		"react-native-firebase": "^2.2.0",
 		"react-native-pathjs-charts": "^0.0.31",
 		"react-native-splash-screen": "^3.0.0",
 		"react-native-tab-view": "^0.0.69",

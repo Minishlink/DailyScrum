@@ -6,6 +6,7 @@ import { Text, Card } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
 import MemberIcon from './MemberIcon';
 import PointsBadge from './PointsBadge';
+import * as Analytics from '../../services/Analytics';
 import ActionSheet from '@yfuks/react-native-action-sheet';
 import type { CardType } from '../../types';
 
@@ -16,7 +17,8 @@ export default class extends Component {
     return !isEqual(nextProps.card, this.props.card);
   }
 
-  showActionSheet = () =>
+  showActionSheet = () => {
+    Analytics.logEvent('card_actionSheet_trigger'); // how curious are users?
     ActionSheet.showActionSheetWithOptions(
       {
         options: ['Open in Trello', 'Cancel'],
@@ -32,6 +34,7 @@ export default class extends Component {
         }
       }
     );
+  };
 
   render() {
     const { card } = this.props;

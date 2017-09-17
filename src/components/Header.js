@@ -11,6 +11,7 @@ import { isSyncingSelector } from '../modules/sync';
 import { lastSuccessfulSyncDateSelector } from '../modules/common/reducer';
 import type { ProjectType } from '../types';
 import appStyle, { STATUSBAR_HEIGHT } from '../appStyle';
+import * as Analytics from '../services/Analytics';
 import createErrorBar from './ErrorBar';
 const ErrorBar = createErrorBar();
 
@@ -27,6 +28,11 @@ class Header extends Component {
 
   goToProjectSettings = () => this.props.navigation.navigate('projectSettings');
 
+  sync = () => {
+    Analytics.logEvent('sync_trigger'); // are users using this sync button?
+    this.props.fetchBaseData();
+  };
+
   render() {
     const { project } = this.props;
 
@@ -42,7 +48,7 @@ class Header extends Component {
           </Button>
           <Button
             disabled={this.props.isSyncing}
-            onPress={this.props.fetchBaseData}
+            onPress={this.sync}
             hitSlop={{ top: 5, bottom: 5, left: 10, right: 10 }}
           >
             <View style={styles.action}>

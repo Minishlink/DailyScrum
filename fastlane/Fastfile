@@ -8,7 +8,7 @@ lane :ensure_clean_status do
   ensure_git_branch(
     branch: ENV['ENV'] === 'prod' ? 'master' : 'staging'
   )
-  git stash
+  sh "git stash"
   git_pull
   sh "cd .. && yarn && cd -"
 end
@@ -69,13 +69,17 @@ platform :ios do
       xcodeproj: xcodeproj,
       plist_path: ENV['IOS_PLIST_PATH'],
       block: lambda { |plist|
-        plist['CFBundleIdentifier'] = ENV['IOS_APP_ID']
         plist['CFBundleName'] = ENV['IOS_APP_NAME']
         plist['CFBundleDisplayName'] = ENV['IOS_APP_NAME']
         plist['CFBundleShortVersionString'] = ENV['IOS_VERSION']
         plist['CFBundleVersion'] = ENV['IOS_VERSION_BUILD_NUMBER']
         plist['CodePushDeploymentKey'] = ENV['IOS_CODEPUSH_KEY']
       },
+    )
+    update_app_identifier(
+      xcodeproj: xcodeproj,
+      plist_path: ENV['IOS_PLIST_PATH'],
+      app_identifier: ENV['IOS_APP_ID']
     )
     profile_env_name = "sigh_#{ENV['IOS_APP_ID']}_#{ENV['MATCH_TYPE']}_profile-name"
     gymOptions = ({
