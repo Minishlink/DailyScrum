@@ -29,7 +29,7 @@ class Header extends Component {
   goToProjectSettings = () => this.props.navigation.navigate('projectSettings');
 
   sync = () => {
-    Analytics.logEvent('sync_trigger'); // are user using this sync button?
+    Analytics.logEvent('sync_trigger'); // are users using this sync button?
     this.props.fetchBaseData();
   };
 
