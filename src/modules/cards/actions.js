@@ -12,10 +12,13 @@ export type ActionType =
       type: 'FETCH_DONE_CARDS',
     |}
   | {|
+      type: 'FETCH_NOT_DONE_CARDS',
+    |}
+  | {|
       type: 'CLEAR_CARDS',
     |}
   | {|
-      type: 'FETCH_NOT_DONE_CARDS',
+      type: 'FETCH_CARDS',
     |};
 
 export function putCards(cards: { [name: string]: CardType[] }): ActionType {
@@ -29,6 +32,10 @@ export function putCards(cards: { [name: string]: CardType[] }): ActionType {
 
 export function clearCards(): ActionType {
   return { type: 'CLEAR_CARDS' };
+}
+
+export function fetchCards(): ActionType {
+  return { type: 'FETCH_CARDS' };
 }
 
 export function fetchDoneCards(): ActionType {
