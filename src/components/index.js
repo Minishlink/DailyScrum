@@ -1,5 +1,6 @@
 export { default as Page } from './Page';
 export { default as Text } from './Text';
+export { default as Gradient } from './Gradient';
 export { default as Icon } from './Icon';
 export { default as Header } from './Header';
 export { default as TrelloCard } from './TrelloCard/TrelloCard';

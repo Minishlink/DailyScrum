@@ -32,6 +32,7 @@
 		"react-native-animatable": "^1.2.3",
 		"react-native-code-push": "^5.0.0-beta",
 		"react-native-firebase": "^2.2.0",
+		"react-native-linear-gradient": "^2.3.0",
 		"react-native-pathjs-charts": "^0.0.31",
 		"react-native-safari-view": "^2.0.0",
 		"react-native-splash-screen": "^3.0.0",

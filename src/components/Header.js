@@ -4,7 +4,7 @@ import { StyleSheet, View, Animated } from 'react-native';
 import { connect } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
 import { distanceInWordsToNow } from 'date-fns';
-import { Text, Icon, Button } from 'DailyScrum/src/components';
+import { Text, Icon, Button, Gradient } from 'DailyScrum/src/components';
 import { fetchBaseData } from 'DailyScrum/src/modules/common';
 import { currentProjectSelector } from '../modules/projects/reducer';
 import { isSyncingSelector } from '../modules/sync';
@@ -37,7 +37,7 @@ class Header extends Component {
     const { project } = this.props;
 
     return (
-      <Animated.View style={[styles.container, this.props.containerStyle]}>
+      <Gradient style={[styles.container, this.props.containerStyle]}>
         <ErrorBar style={styles.errorBar} />
         <View style={styles.actions}>
           <Button onPress={this.goToProjectSettings} hitSlop={{ top: 5, bottom: 5, left: 10, right: 10 }}>
@@ -70,7 +70,7 @@ class Header extends Component {
           <Text style={styles.projectTitle}>
             {project.name}
           </Text>}
-      </Animated.View>
+      </Gradient>
     );
   }
 }
@@ -90,7 +90,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: STATUSBAR_HEIGHT + 5,
     paddingBottom: 5,
-    backgroundColor: appStyle.colors.primary,
   },
   errorBar: {
     bottom: 0,
@@ -98,6 +97,7 @@ const styles = StyleSheet.create({
   actions: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    backgroundColor: 'transparent', // fixes icon background over Gradient
   },
   action: {
     flexDirection: 'row',

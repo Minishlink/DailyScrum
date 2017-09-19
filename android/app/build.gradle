@@ -155,6 +155,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-linear-gradient')
     compile(project(':react-native-firebase')) {
         transitive = false
     }

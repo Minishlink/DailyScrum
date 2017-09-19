@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { StackNavigator, TabNavigator, TabBarTop, addNavigationHelpers, NavigationActions } from 'react-navigation';
 import * as Pages from 'DailyScrum/src/pages';
 import appStyle from 'DailyScrum/src/appStyle';
-import { Header, Icon } from './components';
+import { Header, Icon, Gradient } from './components';
 
 const MainNavigator = TabNavigator(
   {
@@ -35,7 +35,10 @@ const MainNavigator = TabNavigator(
     initialRouteName: 'daily',
     swipeEnabled: true,
     animationEnabled: true,
-    tabBarComponent: TabBarTop,
+    tabBarComponent: props =>
+      <Gradient>
+        <TabBarTop {...props} />
+      </Gradient>,
     tabBarPosition: 'bottom',
     tabBarOptions: {
       showIcon: true,
@@ -44,7 +47,7 @@ const MainNavigator = TabNavigator(
         height: 56,
       },
       style: {
-        backgroundColor: appStyle.colors.primary,
+        backgroundColor: 'transparent',
       },
       indicatorStyle: {
         height: 0,

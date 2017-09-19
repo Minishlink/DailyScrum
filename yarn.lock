@@ -4216,6 +4216,12 @@ react-native-firebase@^2.2.0:
     bows "^1.6.0"
     prop-types "^15.5.10"
 
+react-native-linear-gradient@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.3.0.tgz#757997197e35edf52e290891a11566e462845da1"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-pathjs-charts@^0.0.31:
   version "0.0.31"
   resolved "https://registry.yarnpkg.com/react-native-pathjs-charts/-/react-native-pathjs-charts-0.0.31.tgz#d9fb7b12e071fb2e8e62c2905eac63624659bbc3"
