@@ -71,8 +71,8 @@ platform :ios do
       block: lambda { |plist|
         plist['CFBundleName'] = ENV['IOS_APP_NAME']
         plist['CFBundleDisplayName'] = ENV['IOS_APP_NAME']
-        plist['CFBundleShortVersionString'] = ENV['IOS_VERSION']
-        plist['CFBundleVersion'] = ENV['IOS_VERSION_BUILD_NUMBER']
+        plist['CFBundleShortVersionString'] = ENV['APP_VERSION_NAME']
+        plist['CFBundleVersion'] = ENV['APP_VERSION_CODE']
         plist['CodePushDeploymentKey'] = ENV['IOS_CODEPUSH_KEY']
       },
     )
