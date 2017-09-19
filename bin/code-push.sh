@@ -44,6 +44,7 @@ else
   git status --short --branch
 fi
 
+source fastlane/.env
 source fastlane/.env.staging
 
 LAST_GIT_COMMIT=$(git log HEAD --pretty=format:"%s" -1)
@@ -54,18 +55,17 @@ yarn
 
 mkdir -p dist
 
-
 if [ $MANDATORY = 1 ]; then
   echo "This is a mandatory release: users will have this update installed immediately."
   MANDATORY_PARAM="-m"
 fi
 
 if [ $ANDROID = 1 ]; then
-  echo "Targeting $ENV Android app version $ANDROID_VERSION_NAME"
-  code-push release-react -d Staging DailyScrum-Android android -o dist/android-maps --targetBinaryVersion $ANDROID_VERSION_NAME --des "$MESSAGE" $MANDATORY_PARAM
+  echo "Targeting $CODEPUSH_DEPLOYMENT Android app version $APP_VERSION_NAME"
+  code-push release-react -d $CODEPUSH_DEPLOYMENT DailyScrum-Android android -o dist/android-maps --targetBinaryVersion $APP_VERSION_NAME --des "$MESSAGE" $MANDATORY_PARAM
 fi
 
 if [ $IOS = 1 ]; then
-  echo "Targeting $ENV iOS app version $IOS_VERSION"
-  code-push release-react -d Staging DailyScrum-iOS ios -o dist/ios-maps --targetBinaryVersion $IOS_VERSION --des "$MESSAGE" $MANDATORY_PARAM
+  echo "Targeting $ENV iOS app version $APP_VERSION_NAME"
+  code-push release-react -d $CODEPUSH_DEPLOYMENT DailyScrum-iOS ios -o dist/ios-maps --targetBinaryVersion $APP_VERSION_NAME --des "$MESSAGE" $MANDATORY_PARAM
 fi

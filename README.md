@@ -3,11 +3,11 @@ An app for your daily dose of Scrum
 
 ## Download
 
+### Production
+[Android](https://play.google.com/store/apps/details?id=tech.bam.DailyScrum) | [iOS](https://itunes.apple.com/us/app/dailyscrum/id1286338464)
+
 ### Staging (HockeyApp)
 [Android](https://rink.hockeyapp.net/apps/d465ef7f42144497b04829bb5e19b7c2) | [iOS](https://rink.hockeyapp.net/apps/af7d5039933a43e48637b722804106cf)
-
-### Production
-Not available yet.
 
 ## Documentation
 * [Setup](doc/setup.md)

@@ -1,8 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Text, Button, Linking } from 'react-native';
+import { StyleSheet, View, Text, Button, Linking, Platform } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
+import SafariView from 'react-native-safari-view';
 import LottieAnimation from 'easy-lottie-react-native';
 import { Page } from 'DailyScrum/src/components';
 import appStyle from 'DailyScrum/src/appStyle';
@@ -25,6 +26,7 @@ class Login extends Component {
 
     // if not we login Scrumble if we have the trello Token
     if (!this.props.navigation.state.params) return;
+    Platform.OS === 'ios' && SafariView.dismiss();
 
     // the user logged in through Trello
     Analytics.logEvent('login_trello_ok'); // are users unwilling to authorize Trello access?
@@ -34,7 +36,18 @@ class Login extends Component {
 
   triggerLogin = () => {
     Analytics.logEvent('login_trello_trigger'); // are users unwilling to login with Trello?
-    Linking.openURL(Trello.getLoginURL());
+    const loginUrl = Trello.getLoginURL();
+    if (Platform.OS === 'ios') {
+      SafariView.isAvailable()
+        .then(() =>
+          SafariView.show({
+            url: loginUrl,
+          })
+        )
+        .catch(() => Linking.openURL(loginUrl));
+    } else {
+      Linking.openURL(loginUrl);
+    }
   };
 
   render() {

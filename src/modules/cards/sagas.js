@@ -108,6 +108,14 @@ export function* fetchNotDoneCards(): Generator<*, *, *> {
   }
 }
 
+export function* fetchCards(): Generator<*, *, *> {
+  yield all([call(fetchNotDoneCards), call(fetchDoneCards)]);
+}
+
 export default function*(): Generator<*, *, *> {
-  yield* [takeEvery('FETCH_DONE_CARDS', fetchDoneCards), takeEvery('FETCH_NOT_DONE_CARDS', fetchNotDoneCards)];
+  yield* [
+    takeEvery('FETCH_DONE_CARDS', fetchDoneCards),
+    takeEvery('FETCH_NOT_DONE_CARDS', fetchNotDoneCards),
+    takeEvery('FETCH_CARDS', fetchCards),
+  ];
 }
