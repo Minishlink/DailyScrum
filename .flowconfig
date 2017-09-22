@@ -17,6 +17,7 @@
 ; Ignore deps errors
 .*/node_modules/react-navigation
 .*/node_modules/react-native-firebase
+.*/node_modules/react-native-linear-gradient
 
 ; tests
 .*/*.tests.js
