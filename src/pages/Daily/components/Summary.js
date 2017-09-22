@@ -23,7 +23,8 @@ export default class Summary extends Component {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    marginVertical: 20,
+    marginTop: 19,
+    marginBottom: 5,
   },
   sprintGoalAndPointsStatus: {
     width: 0.9 * Dimensions.get('window').width,
