@@ -9,7 +9,7 @@ const Page = (props: PropsType) =>
       styles.page,
       {
         paddingTop: props.noNavBar ? 0 : 16,
-        paddingHorizontal: props.noMargin ? 0 : 20,
+        paddingHorizontal: props.noMargin ? 0 : appStyle.margin,
         backgroundColor: props.backgroundColor || appStyle.colors.background,
       },
       props.style,

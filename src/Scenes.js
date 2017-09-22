@@ -50,7 +50,9 @@ const MainNavigator = TabNavigator(
         backgroundColor: 'transparent',
       },
       indicatorStyle: {
-        height: 0,
+        height: 4,
+        top: 0,
+        backgroundColor: 'white',
       },
       labelStyle: {
         marginVertical: 0,

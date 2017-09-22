@@ -19,8 +19,7 @@ const styles = StyleSheet.create({
   },
   card: {
     minHeight: 20,
-    paddingVertical: 4,
-    paddingHorizontal: 8,
+    padding: appStyle.margin,
     backgroundColor: '#fff',
     borderRadius: 3,
     elevation: 2,

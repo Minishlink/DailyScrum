@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { StyleSheet, View, Animated } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
 import { distanceInWordsToNow } from 'date-fns';
@@ -86,7 +86,6 @@ type PropsType = {
 
 const styles = StyleSheet.create({
   container: {
-    ...appStyle.header.containerStyle,
     paddingHorizontal: 10,
     paddingTop: STATUSBAR_HEIGHT + 5,
     paddingBottom: 5,
@@ -114,7 +113,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: appStyle.font.size.big,
     color: appStyle.colors.overPrimaryColor,
-    fontWeight: '300',
+    fontWeight: 'bold',
     marginTop: 2,
   },
 });

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
+import { Header } from 'react-navigation';
 import { StyleSheet } from 'react-native';
 import { Text, Page } from 'DailyScrum/src/components';
 import Today from './Today';
@@ -20,6 +21,8 @@ class CardTab extends Component {
   renderHeader = (props: any) =>
     <TabBar
       style={styles.headerStyle}
+      tabStyle={styles.headerTabStyle}
+      labelStyle={styles.headerTabLabelStyle}
       indicatorStyle={styles.headerTabIndicatorStyle}
       pressOpacity={0.7}
       renderLabel={this.renderTabLabel}
@@ -42,7 +45,7 @@ class CardTab extends Component {
 
   renderTabLabel = ({ route, focused }: { route: { key: string, title: string }, focused: boolean }) => {
     const { yesterdayTotal, todayTotal } = this.props;
-    let title = route.title.toUpperCase();
+    let title = route.title;
     switch (route.key) {
       case 'yesterday':
         if (yesterdayTotal != null) {
@@ -90,14 +93,20 @@ const styles = StyleSheet.create({
   headerStyle: {
     backgroundColor: 'white',
   },
+  headerTabStyle: {
+    alignSelf: 'center',
+    height: Header.HEIGHT,
+  },
   headerTabLabelStyle: {
-    color: appStyle.colors.text,
+    color: appStyle.colors.lightGray,
+    fontWeight: 'bold',
   },
   focusedHeaderTabLabelStyle: {
     color: appStyle.colors.primary,
   },
   headerTabIndicatorStyle: {
     backgroundColor: appStyle.colors.primary,
+    height: 4,
   },
 });
 

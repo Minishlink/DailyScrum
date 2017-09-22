@@ -44,7 +44,7 @@ export default class extends Component {
           <Card>
             <View style={styles.labelsRow}>
               <View style={styles.idShortContainer}>
-                <Text style={styles.idShort}>
+                <Text>
                   #{card.idShort}
                 </Text>
               </View>
@@ -84,9 +84,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   title: {
-    textAlign: 'center',
-    marginTop: 18,
-    marginBottom: 10,
+    marginVertical: appStyle.margin,
   },
   membersContainer: {
     flex: 5,
@@ -97,32 +95,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'flex-end',
     justifyContent: 'flex-end',
-    right: -4,
   },
   member: {
     marginLeft: 5,
   },
   idShortContainer: {
-    position: 'absolute',
-    top: -4,
-    left: -8,
-    zIndex: 1,
-    backgroundColor: 'gold',
+    backgroundColor: appStyle.colors.secondary,
     justifyContent: 'center',
     alignItems: 'center',
     height: 16,
-    paddingHorizontal: 3,
+    paddingHorizontal: 7,
+    paddingVertical: 3,
     borderRadius: 3,
-  },
-  idShort: {
-    fontSize: appStyle.font.size.small,
-    fontWeight: 'bold',
   },
   pointsContainer: {
     flex: 1,
     flexDirection: 'row',
     flexShrink: 1,
-    left: -4,
     alignItems: 'flex-end',
   },
 });
