@@ -25,23 +25,27 @@ export default class MemberIcon extends Component {
     const { member, size } = this.props;
     const color = colors[member.initials.charCodeAt(0) % 9];
     const avatar = getUriFromMember(member, size);
+    const sizeStyle = { width: size, height: size, borderRadius: size / 2 };
+
+    let fontSize = appStyle.font.size.small;
+    if (size > 30 && size < 50) {
+      fontSize = appStyle.font.size.normal;
+    } else if (size >= 50) {
+      fontSize = appStyle.font.size.big;
+    }
+
     return (
-      <View
-        style={[
-          styles.container,
-          !this.state.isImageLoaded && { backgroundColor: color },
-          { width: size, height: size },
-        ]}
-      >
+      <View style={[styles.container, !this.state.isImageLoaded && { backgroundColor: color }, sizeStyle]}>
         {!this.state.isImageLoaded &&
-          <Text style={styles.text}>
+          <Text style={[styles.text, { fontSize }]}>
             {member.initials}
           </Text>}
         {avatar &&
           <Image
-            style={[styles.image, { width: size, height: size }]}
+            style={[styles.image, sizeStyle]}
             source={{ uri: avatar }}
             onLoad={this.onLoadImage}
+            resizeMode="cover"
           />}
       </View>
     );
@@ -61,14 +65,12 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: appStyle.borderRadius,
   },
   text: {
     fontWeight: '700',
   },
   image: {
     position: 'absolute',
-    borderRadius: appStyle.borderRadius,
   },
 });
 
