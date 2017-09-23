@@ -26,7 +26,7 @@ export default class FilterableMember extends Component {
       <View key={member.id} style={this.props.style}>
         <TouchableOpacity hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }} onPress={this.onFilter}>
           <View style={!this.props.isFiltered && { opacity: 0.6 }}>
-            <MemberIcon member={member} size={{ width: 40, height: 40 }} />
+            <MemberIcon member={member} size={40} />
           </View>
         </TouchableOpacity>
         <Text style={styles.filterableMemberPoints}>

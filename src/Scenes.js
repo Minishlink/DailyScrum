@@ -2,12 +2,20 @@
 import React, { Component } from 'react';
 import { Linking, BackHandler } from 'react-native';
 import { connect } from 'react-redux';
-import { StackNavigator, TabNavigator, TabBarTop, addNavigationHelpers, NavigationActions } from 'react-navigation';
+import {
+  StackNavigator,
+  TabNavigator,
+  TabBarTop,
+  addNavigationHelpers,
+  DrawerNavigator,
+  NavigationActions,
+} from 'react-navigation';
 import * as Pages from 'DailyScrum/src/pages';
 import appStyle from 'DailyScrum/src/appStyle';
-import { Header, Icon, Gradient } from './components';
+import { Header, Drawer, Icon, Gradient } from './components';
+import { ProjectHeaderTitle, DrawerHeaderLeft } from './components/Header';
 
-const MainNavigator = TabNavigator(
+const TabsNavigator = TabNavigator(
   {
     project: {
       screen: Pages.Project.Summary,
@@ -62,6 +70,29 @@ const MainNavigator = TabNavigator(
   }
 );
 
+const TabsStackNavigator = StackNavigator({
+  tabs: {
+    screen: TabsNavigator,
+    navigationOptions: navigationProps => ({
+      header: props => <Header {...props} />,
+      headerStyle: { backgroundColor: 'transparent', borderBottomWidth: 0, elevation: 0 },
+      headerTitle: <ProjectHeaderTitle />,
+      headerLeft: <DrawerHeaderLeft {...navigationProps} />,
+    }),
+  },
+});
+
+const MainNavigator = DrawerNavigator(
+  {
+    tabsStack: {
+      screen: TabsStackNavigator,
+    },
+  },
+  {
+    contentComponent: Drawer,
+  }
+);
+
 const appNavigatorPages = {
   login: {
     screen: Pages.Login,
@@ -70,9 +101,7 @@ const appNavigatorPages = {
   },
   main: {
     screen: MainNavigator,
-    navigationOptions: {
-      header: props => <Header {...props} />,
-    },
+    navigationOptions: { header: null },
   },
   projectSettings: { screen: Pages.Settings.Project },
   about: { screen: Pages.Settings.About },

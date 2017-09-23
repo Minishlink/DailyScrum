@@ -23,6 +23,7 @@ export default {
     tertiary: tertiaryColor,
     overPrimaryColor: 'white',
     text: '#4d4d4d',
+    warmGray: '#9b9b9b',
     lightGray: '#bbb',
     veryLightGray: '#FAFAFA',
     background: '#F5FCFF',
@@ -34,6 +35,7 @@ export default {
     visibleButtonHeight: 36,
   },
   margin: 10,
+  borderRadius: 3,
 };
 
 export const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;

@@ -39,10 +39,15 @@ const isRouteSameAsLastRouteFromNavigationStateSelector = (state, action) => {
     return false;
   }
 
+  if (action.routeName.startsWith('Drawer')) {
+    return false;
+  }
+
   return isEqual(lastRoute.params, action.params);
 };
 
-export const routeFromNavigationStateSelector = state => {
+export const routeFromNavigationStateSelector = (state, maxNesting) => {
+  // TODO handle nested
   const currentRootRoute = state.routes[state.index];
   let route;
   if (isArray(currentRootRoute.routes)) {
@@ -51,4 +56,9 @@ export const routeFromNavigationStateSelector = state => {
     route = currentRootRoute;
   }
   return route;
+};
+
+export const isDrawerOpenSelector = state => {
+  const route = routeFromNavigationStateSelector(state.navigation, 2);
+  return route && route.routeName === 'DrawerOpen';
 };

@@ -48,6 +48,11 @@ export function currentProjectSelector(state: StateType): ?ProjectType {
   return null;
 }
 
+export const currentProjectNameSelector = (state: StateType): ?string => {
+  const project = currentProjectSelector(state);
+  return project ? project.name : null;
+};
+
 export type ProjectsStateType = {|
   currentProject: ?number,
   list: ProjectsType,
