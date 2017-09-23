@@ -1,18 +1,25 @@
 //@flow
 import { NavigationActions } from 'react-navigation';
 
-export const redirectAfterLogin = (isFirstTime: boolean) => {
-  const actions = [NavigationActions.navigate({ routeName: 'main' })];
+export type ActionType = {|
+  type: 'REDIRECT_AFTER_LOGIN',
+  payload: {|
+    isFirstTime: boolean,
+  |},
+|};
 
-  if (isFirstTime) {
-    actions.push(NavigationActions.navigate({ routeName: 'projectSettings', params: { firstTime: true } }));
-  }
+export const redirectAfterLogin = (isFirstTime: boolean): ActionType => ({
+  type: 'REDIRECT_AFTER_LOGIN',
+  payload: {
+    isFirstTime,
+  },
+});
 
-  return NavigationActions.reset({
-    index: isFirstTime ? 1 : 0,
-    actions,
+export const resetToMain = (isFirstTime: boolean = true) =>
+  NavigationActions.reset({
+    index: 0,
+    actions: [NavigationActions.navigate({ routeName: 'main' })],
   });
-};
 
 export const resetToLogin = () =>
   NavigationActions.reset({

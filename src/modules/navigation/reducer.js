@@ -58,7 +58,10 @@ export const routeFromNavigationStateSelector = (state, maxNesting) => {
   return route;
 };
 
+export const currentRouteSelector = (state, maxNesting) =>
+  routeFromNavigationStateSelector(state.navigation, maxNesting);
+
 export const isDrawerOpenSelector = state => {
-  const route = routeFromNavigationStateSelector(state.navigation, 2);
+  const route = currentRouteSelector(state, 2);
   return route && route.routeName === 'DrawerOpen';
 };

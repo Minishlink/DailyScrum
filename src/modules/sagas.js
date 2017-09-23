@@ -7,6 +7,7 @@ import { sprintsSaga } from './sprints';
 import { projectsSaga } from './projects';
 import { boardsSaga } from './boards';
 import { cardsSaga } from './cards';
+import { navigationSaga } from './navigation';
 
 export default function* rootSaga(): Generator<*, *, *> {
   yield all([
@@ -17,5 +18,6 @@ export default function* rootSaga(): Generator<*, *, *> {
     fork(projectsSaga),
     fork(boardsSaga),
     fork(cardsSaga),
+    fork(navigationSaga),
   ]);
 }

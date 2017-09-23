@@ -80,6 +80,8 @@ const TabsStackNavigator = StackNavigator({
       headerLeft: <DrawerHeaderLeft {...navigationProps} />,
     }),
   },
+  projectSettings: { screen: Pages.Settings.Project },
+  about: { screen: Pages.Settings.About },
 });
 
 const MainNavigator = DrawerNavigator(
@@ -103,8 +105,6 @@ const appNavigatorPages = {
     screen: MainNavigator,
     navigationOptions: { header: null },
   },
-  projectSettings: { screen: Pages.Settings.Project },
-  about: { screen: Pages.Settings.About },
 };
 
 const appNavigatorConfig = {
