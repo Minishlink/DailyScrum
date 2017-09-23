@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import LottieAnimation from 'easy-lottie-react-native';
-import { Text } from 'DailyScrum/src/components';
+import { Text } from '../../../components';
 
 export default (props: PropsType) => {
   const isLeading = !(props.lead && props.lead.points < 0);

@@ -1,11 +1,11 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Text, Button, Linking, Platform } from 'react-native';
+import { StyleSheet, View, Button, Linking, Platform } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import SafariView from 'react-native-safari-view';
 import LottieAnimation from 'easy-lottie-react-native';
-import { Page } from '../../components';
+import { Page, Text } from '../../components';
 import appStyle from '../../appStyle';
 import { Trello, Analytics } from '../../services';
 import { redirectAfterLogin } from '../../modules/navigation';

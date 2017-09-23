@@ -14,6 +14,7 @@ import * as Pages from 'DailyScrum/src/pages';
 import appStyle from 'DailyScrum/src/appStyle';
 import { Header, Drawer, Icon, Gradient } from './components';
 import { ProjectHeaderTitle, DrawerHeaderLeft } from './components/Header';
+import { getFontStyle } from './components/Text';
 
 const TabsNavigator = TabNavigator(
   {
@@ -64,7 +65,9 @@ const TabsNavigator = TabNavigator(
       },
       labelStyle: {
         marginVertical: 0,
-        fontSize: appStyle.font.size.small,
+        ...getFontStyle({
+          fontFamily: appStyle.font.family,
+        }),
       },
     },
   }

@@ -12,6 +12,7 @@ export default {
       default: 15,
       big: 20,
     },
+    family: 'Open Sans',
   },
   colors: {
     primaryLight: chroma(primaryColor).brighten().hex(),

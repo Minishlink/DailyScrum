@@ -2,8 +2,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { Text, Icon } from 'DailyScrum/src/components';
-import appStyle from 'DailyScrum/src/appStyle';
+import { Text, Icon } from '../../../components';
+import appStyle from '../../../appStyle';
 
 export default (props: PropsType) =>
   <View style={styles.container}>

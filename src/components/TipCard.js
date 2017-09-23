@@ -1,9 +1,9 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { Card, Button } from 'DailyScrum/src/components';
+import { Card, Button, Text } from '../components';
 import Icon from './Icon';
 import { markTipAsRead } from '../modules/tips';
 import type { TipType } from '../modules/tips/reducer';

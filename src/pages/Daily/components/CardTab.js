@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
   headerTabLabelStyle: {
     color: appStyle.colors.lightGray,
     fontWeight: 'bold',
+    fontFamily: appStyle.font.family,
   },
   focusedHeaderTabLabelStyle: {
     color: appStyle.colors.primary,

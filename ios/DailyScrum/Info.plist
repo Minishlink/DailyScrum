@@ -64,6 +64,16 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>Open Sans-Bold.ttf</string>
+		<string>Open Sans-BoldItalic.ttf</string>
+		<string>Open Sans-ExtraBold.ttf</string>
+		<string>Open Sans-ExtraBoldItalic.ttf</string>
+		<string>Open Sans-Italic.ttf</string>
+		<string>Open Sans-Light.ttf</string>
+		<string>Open Sans-LightItalic.ttf</string>
+		<string>Open Sans-Regular.ttf</string>
+		<string>Open Sans-SemiBold.ttf</string>
+		<string>Open Sans-SemiBoldItalic.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
