@@ -10,7 +10,7 @@ import { isSyncingSelector } from '../modules/sync';
 import { lastSuccessfulSyncDateSelector } from '../modules/common/reducer';
 import type { UserType } from '../types';
 import appStyle, { STATUSBAR_HEIGHT } from '../appStyle';
-import * as Analytics from '../services/Analytics';
+import { Analytics } from '../services';
 import createErrorBar from './ErrorBar';
 import { currentUserSelector } from '../modules/users/reducer';
 import MemberIcon from './TrelloCard/MemberIcon';

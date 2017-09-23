@@ -7,11 +7,10 @@ import SafariView from 'react-native-safari-view';
 import LottieAnimation from 'easy-lottie-react-native';
 import { Page } from '../../components';
 import appStyle from '../../appStyle';
-import { Trello } from '../../services';
+import { Trello, Analytics } from '../../services';
 import { redirectAfterLogin } from '../../modules/navigation';
 import { login } from '../../modules/auth';
 import { isLoggedInSelector } from '../../modules/auth/reducer';
-import * as Analytics from '../../services/Analytics';
 
 class Login extends Component {
   props: PropsType;

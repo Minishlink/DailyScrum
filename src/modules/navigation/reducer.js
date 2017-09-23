@@ -1,7 +1,7 @@
 import { isArray, isEqual } from 'lodash';
 import { NavigationActions } from 'react-navigation';
-import { AppNavigator } from 'DailyScrum/src/Scenes';
-import * as Analytics from '../../services/Analytics';
+import { AppNavigator } from '../../Scenes';
+import { Analytics } from '../../services';
 
 export default (state, action) => {
   const { type } = action;

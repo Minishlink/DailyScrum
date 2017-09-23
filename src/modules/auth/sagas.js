@@ -1,10 +1,9 @@
 // @flow
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { Scrumble } from 'DailyScrum/src/services';
 import { Alert } from 'react-native';
 import { resetStore, putTokens } from './actions';
 import type { ActionType } from './actions';
-import * as Analytics from '../../services/Analytics';
+import { Scrumble, Analytics } from '../../services';
 import { redirectAfterLogin, resetToLogin } from '../navigation';
 
 function* login(action: ActionType): Generator<*, *, *> {

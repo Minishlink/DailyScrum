@@ -2,12 +2,12 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 import { isEqual } from 'lodash';
-import { Text, Card } from 'DailyScrum/src/components';
-import appStyle from 'DailyScrum/src/appStyle';
+import ActionSheet from '@yfuks/react-native-action-sheet';
+import { Text, Card } from '../../components';
+import appStyle from '../../appStyle';
 import MemberIcon from './MemberIcon';
 import PointsBadge from './PointsBadge';
-import * as Analytics from '../../services/Analytics';
-import ActionSheet from '@yfuks/react-native-action-sheet';
+import { Analytics } from '../../services';
 import type { CardType } from '../../types';
 
 export default class extends Component {

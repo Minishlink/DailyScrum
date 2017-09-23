@@ -1,6 +1,6 @@
 // @flow
 import { select, call } from 'redux-saga/effects';
-import * as Analytics from '../../services/Analytics';
+import { Analytics } from '../../services';
 import { currentUserSelector } from '../users/reducer';
 
 export function* setAnalyticsUser(): Generator<*, *, *> {
