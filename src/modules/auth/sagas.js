@@ -1,10 +1,13 @@
 // @flow
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { Scrumble } from 'DailyScrum/src/services';
-import { putTokens, redirectAfterLogin } from './actions';
+import { NavigationActions } from 'react-navigation';
+import { resetStore, putTokens, redirectAfterLogin } from './actions';
 import type { ActionType } from './actions';
+import * as Analytics from '../../services/Analytics';
 
 function* login(action: ActionType): Generator<*, *, *> {
+  if (action.type !== 'LOGIN') return;
   try {
     const scrumbleToken = yield call(Scrumble.login, action.payload.trelloToken);
     yield put(putTokens(action.payload.trelloToken, scrumbleToken));
@@ -15,6 +18,23 @@ function* login(action: ActionType): Generator<*, *, *> {
   }
 }
 
+function* logout(action: ActionType): Generator<*, *, *> {
+  if (action.type !== 'LOGOUT') return;
+  try {
+    yield put(
+      NavigationActions.reset({
+        index: 0,
+        actions: [NavigationActions.reset({ routeName: 'login' })],
+        key: null,
+      })
+    );
+    yield put(resetStore());
+    Analytics.logEvent('logout');
+  } catch (error) {
+    console.warn('[saga] logout', error);
+  }
+}
+
 export default function*(): Generator<*, *, *> {
-  yield* [takeEvery('LOGIN', login)];
+  yield* [takeEvery('LOGIN', login), takeEvery('LOGOUT', logout)];
 }

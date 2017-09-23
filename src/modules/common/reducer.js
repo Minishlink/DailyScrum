@@ -14,6 +14,9 @@ export default (state: CommonStateType = initialState, action: ActionType) => {
         lastSuccessfulSyncDate: Date.now(),
       };
 
+    case 'RESET_STORE':
+      return initialState;
+
     default:
       return state;
   }

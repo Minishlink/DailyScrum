@@ -32,6 +32,9 @@ export default (state: SyncStateType = initialState, action: ActionType) => {
         error: action.payload.error,
       });
 
+    case 'RESET_STORE':
+      return initialState;
+
     default:
       return state;
   }

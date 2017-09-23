@@ -31,6 +31,9 @@ export default (state: ProjectsStateType = initialState, action: ActionType) => 
         list,
       };
 
+    case 'RESET_STORE':
+      return initialState;
+
     default:
       return state;
   }

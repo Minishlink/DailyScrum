@@ -14,6 +14,12 @@ export type ActionType =
       payload: {|
         trelloToken: string,
       |},
+    |}
+  | {|
+      type: 'LOGOUT',
+    |}
+  | {|
+      type: 'RESET_STORE',
     |};
 
 export function putTokens(trelloToken: string, scrumbleToken: string): ActionType {
@@ -34,6 +40,14 @@ export function login(trelloToken: string): ActionType {
     },
   };
 }
+
+export const resetStore = () => ({
+  type: 'RESET_STORE',
+});
+
+export const logout = () => ({
+  type: 'LOGOUT',
+});
 
 export const redirectAfterLogin = (isFirstTime: boolean) => {
   const actions = [NavigationActions.navigate({ routeName: 'main' })];

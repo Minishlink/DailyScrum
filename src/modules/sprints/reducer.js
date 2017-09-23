@@ -41,6 +41,9 @@ export default (state: SprintsStateType = initialState, action: ActionType) => {
         list: {},
       };
 
+    case 'RESET_STORE':
+      return initialState;
+
     default:
       return state;
   }

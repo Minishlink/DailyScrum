@@ -38,6 +38,9 @@ export default (state: CardListsStateType = initialState, action: ActionType) =>
         },
       };
 
+    case 'RESET_STORE':
+      return initialState;
+
     default:
       return state;
   }

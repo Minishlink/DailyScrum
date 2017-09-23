@@ -15,6 +15,7 @@ import createErrorBar from './ErrorBar';
 import { currentUserSelector } from '../modules/users/reducer';
 import MemberIcon from './TrelloCard/MemberIcon';
 import { isDrawerOpenSelector } from '../modules/navigation/reducer';
+import { logout } from '../modules/auth';
 const ErrorBar = createErrorBar();
 
 class Drawer extends Component {
@@ -46,7 +47,7 @@ class Drawer extends Component {
               {user.fullName}
             </Text>
           </Gradient>}
-        <View style={styles.actions}>
+        <View style={[styles.actions, styles.mainActions]}>
           <Button
             disabled={this.props.isSyncing}
             onPress={this.sync}
@@ -60,10 +61,11 @@ class Drawer extends Component {
               >
                 <Icon name="refresh" size={17} color={appStyle.colors.warmGray} />
               </Animatable.View>
-              {this.props.lastSuccessfulSync &&
-                <Text style={[styles.lastSyncText, styles.actionText]}>
-                  last {distanceInWordsToNow(this.props.lastSuccessfulSync, { addSuffix: true })}
-                </Text>}
+              <Text style={[styles.lastSyncText, styles.actionText]}>
+                {this.props.lastSuccessfulSync
+                  ? `Last full sync ${distanceInWordsToNow(this.props.lastSuccessfulSync, { addSuffix: true })}`
+                  : 'Synchronize now'}
+              </Text>
             </View>
           </Button>
           <Button
@@ -73,6 +75,14 @@ class Drawer extends Component {
           >
             <View style={styles.addProjectButton}>
               <Text style={styles.addProjectButtonText}>CHANGE PROJECT</Text>
+            </View>
+          </Button>
+        </View>
+        <View style={styles.actions}>
+          <Button onPress={this.props.logout} hitSlop={{ top: 5, bottom: 5, left: 10, right: 10 }}>
+            <View style={styles.action}>
+              <Icon name="logout-variant" type="material-community" size={20} color={appStyle.colors.text} />
+              <Text style={styles.actionText}>Log out</Text>
             </View>
           </Button>
         </View>
@@ -87,8 +97,8 @@ type PropsType = {
   lastSuccessfulSync: ?Date,
   isSyncing: boolean,
   isDrawerOpen: boolean,
+  logout: Function,
   navigation: any,
-  containerStyle: any,
 };
 
 const styles = StyleSheet.create({
@@ -107,8 +117,10 @@ const styles = StyleSheet.create({
     marginTop: 14,
     color: appStyle.colors.overPrimaryColor,
   },
-  actions: {
+  mainActions: {
     flex: 1,
+  },
+  actions: {
     padding: 20,
   },
   action: {
@@ -146,6 +158,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchBaseData,
+  logout,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Drawer);
