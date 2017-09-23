@@ -1,6 +1,4 @@
 // @flow
-import { NavigationActions } from 'react-navigation';
-
 export type ActionType =
   | {|
       type: 'PUT_TOKENS',
@@ -48,16 +46,3 @@ export const resetStore = () => ({
 export const logout = () => ({
   type: 'LOGOUT',
 });
-
-export const redirectAfterLogin = (isFirstTime: boolean) => {
-  const actions = [NavigationActions.navigate({ routeName: 'main' })];
-
-  if (isFirstTime) {
-    actions.push(NavigationActions.navigate({ routeName: 'projectSettings', params: { firstTime: true } }));
-  }
-
-  return NavigationActions.reset({
-    index: isFirstTime ? 1 : 0,
-    actions,
-  });
-};

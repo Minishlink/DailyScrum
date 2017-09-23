@@ -5,11 +5,12 @@ import { StyleSheet, View, Text, Button, Linking, Platform } from 'react-native'
 import SplashScreen from 'react-native-splash-screen';
 import SafariView from 'react-native-safari-view';
 import LottieAnimation from 'easy-lottie-react-native';
-import { Page } from 'DailyScrum/src/components';
-import appStyle from 'DailyScrum/src/appStyle';
-import { Trello } from 'DailyScrum/src/services';
-import { login, redirectAfterLogin } from 'DailyScrum/src/modules/auth';
-import { isLoggedInSelector } from 'DailyScrum/src/modules/auth/reducer';
+import { Page } from '../../components';
+import appStyle from '../../appStyle';
+import { Trello } from '../../services';
+import { redirectAfterLogin } from '../../modules/navigation';
+import { login } from '../../modules/auth';
+import { isLoggedInSelector } from '../../modules/auth/reducer';
 import * as Analytics from '../../services/Analytics';
 
 class Login extends Component {
