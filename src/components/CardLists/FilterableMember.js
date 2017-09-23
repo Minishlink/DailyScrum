@@ -1,9 +1,8 @@
 // @flow
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
-import { MemberIcon } from 'DailyScrum/src/components';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { MemberIcon, Text } from '../../components';
 import type { UserType } from '../../types';
-import appStyle from '../../appStyle';
 import { roundToDecimalPlace } from '../../services/MathService';
 
 export default class FilterableMember extends Component {
@@ -50,6 +49,5 @@ const styles = StyleSheet.create({
     marginTop: 4,
     textAlign: 'center',
     fontWeight: 'bold',
-    color: appStyle.colors.points,
   },
 });
