@@ -129,6 +129,8 @@ const styles = StyleSheet.create({
   },
   actionText: {
     marginLeft: appStyle.margin,
+    flex: 1,
+    flexWrap: 'wrap',
   },
   lastSyncText: {
     color: appStyle.colors.warmGray,
