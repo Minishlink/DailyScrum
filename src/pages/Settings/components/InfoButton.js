@@ -21,7 +21,7 @@ export default class extends Component {
         style={styles.infoButton}
         hitSlop={{ top: 20, bottom: 20, left: 30, right: 30 }}
       >
-        <Icon name="info" size={20} color={appStyle.colors.primary} />
+        <Icon name="info" size={20} color={appStyle.colors.overPrimaryColor} />
       </TouchableOpacity>
     );
   }

@@ -73,19 +73,26 @@ const TabsNavigator = TabNavigator(
   }
 );
 
-const TabsStackNavigator = StackNavigator({
-  tabs: {
-    screen: TabsNavigator,
-    navigationOptions: navigationProps => ({
+const TabsStackNavigator = StackNavigator(
+  {
+    tabs: {
+      screen: TabsNavigator,
+      navigationOptions: navigationProps => ({
+        headerTitle: <ProjectHeaderTitle />,
+        headerLeft: <DrawerHeaderLeft {...navigationProps} />,
+      }),
+    },
+    projectSettings: { screen: Pages.Settings.Project },
+    about: { screen: Pages.Settings.About },
+  },
+  {
+    navigationOptions: {
       header: props => <Header {...props} />,
       headerStyle: { backgroundColor: 'transparent', borderBottomWidth: 0, elevation: 0 },
-      headerTitle: <ProjectHeaderTitle />,
-      headerLeft: <DrawerHeaderLeft {...navigationProps} />,
-    }),
-  },
-  projectSettings: { screen: Pages.Settings.Project },
-  about: { screen: Pages.Settings.About },
-});
+      headerTintColor: appStyle.colors.overPrimaryColor,
+    },
+  }
+);
 
 const MainNavigator = DrawerNavigator(
   {
