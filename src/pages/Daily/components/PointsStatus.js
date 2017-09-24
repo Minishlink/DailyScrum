@@ -3,6 +3,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import LottieAnimation from 'easy-lottie-react-native';
 import { Text } from '../../../components';
+import appStyle from '../../../appStyle';
 
 export default (props: PropsType) => {
   const isLeading = !(props.lead && props.lead.points < 0);
@@ -25,7 +26,7 @@ export default (props: PropsType) => {
           <View style={styles.pointsLeftAnimationContainer}>
             <LottieAnimation source={require('../../../../assets/lottie/colorline.json')} loop duration={2000} />
           </View>}
-        <Text style={[styles.lead, { color: isLeading ? 'green' : 'red' }]}>
+        <Text style={[styles.lead, { color: isLeading ? appStyle.colors.green : appStyle.colors.red }]}>
           {props.lead
             ? `${props.lead.points >= 0 ? 'Lead' : 'Lateness'}: ${props.lead.points > 0
                 ? props.lead.points

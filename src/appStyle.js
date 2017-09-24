@@ -22,6 +22,7 @@ export default {
     primaryDark: chroma(primaryColor).darken().hex(),
     secondary: secondaryColor,
     tertiary: tertiaryColor,
+    green: '#7ed321',
     red: '#c30016',
     overPrimaryColor: 'white',
     text: '#4d4d4d',
