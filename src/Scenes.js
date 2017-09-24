@@ -90,6 +90,13 @@ const TabsStackNavigator = StackNavigator(
       header: props => <Header {...props} />,
       headerStyle: { backgroundColor: 'transparent', borderBottomWidth: 0, elevation: 0 },
       headerTintColor: appStyle.colors.overPrimaryColor,
+      headerTitleStyle: {
+        fontSize: appStyle.font.size.big,
+        ...getFontStyle({
+          fontFamily: appStyle.font.family,
+          fontWeight: 'bold',
+        }),
+      },
     },
   }
 );
