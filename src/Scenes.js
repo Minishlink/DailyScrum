@@ -57,6 +57,7 @@ const TabsNavigator = TabNavigator(
       },
       style: {
         backgroundColor: 'transparent',
+        shadowOpacity: 0,
       },
       indicatorStyle: {
         height: 4,
