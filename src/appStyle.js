@@ -22,11 +22,12 @@ export default {
     primaryDark: chroma(primaryColor).darken().hex(),
     secondary: secondaryColor,
     tertiary: tertiaryColor,
+    red: '#c30016',
     overPrimaryColor: 'white',
     text: '#4d4d4d',
     warmGray: '#9b9b9b',
     lightGray: '#bbb',
-    veryLightGray: '#FAFAFA',
+    veryLightGray: '#F5F5F5',
     background: '#F5FCFF',
     darkGray: '#333333',
     points: tertiaryColor,
@@ -37,6 +38,9 @@ export default {
   },
   margin: 10,
   borderRadius: 3,
+  shadow: {
+    radius: 4,
+  },
 };
 
 export const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;

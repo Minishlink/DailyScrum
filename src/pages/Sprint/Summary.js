@@ -1,62 +1,14 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Dimensions, View } from 'react-native';
-import { StockLine } from 'react-native-pathjs-charts';
-import { format } from 'date-fns';
-import { Page, Text, NoProjectFound } from 'DailyScrum/src/components';
-import { bdcDataPointsSelector } from '../../modules/sprints/reducer';
-import type { BdcDataPointsType } from '../../modules/sprints/reducer';
+import { StyleSheet, View } from 'react-native';
+import { Page, NoProjectFound } from '../../components';
 import { currentProjectSelector } from '../../modules/projects/reducer';
 import type { ProjectType } from '../../types/Project';
 import { isSyncingSelector } from '../../modules/sync';
 import SprintPicker from './components/SprintPicker';
+import BDC from './components/BDC';
 import appStyle from '../../appStyle';
-
-const graphOptions = {
-  width: Dimensions.get('window').width * 0.8,
-  height: 300,
-  color: '#2980B9',
-  showAreas: false,
-  strokeWidth: 2,
-  margin: {
-    top: 20,
-    left: 45,
-    bottom: 25,
-    right: 20,
-  },
-  animate: {
-    type: 'delayed',
-    duration: 200,
-  },
-  axisX: {
-    showLabels: true,
-    showTicks: true,
-    zeroAxis: false,
-    orient: 'bottom',
-    label: {
-      fontFamily: 'Arial',
-      fontSize: appStyle.font.size.small,
-      fontWeight: true,
-      fill: '#34495E',
-    },
-    labelFunction: dateTime => format(dateTime, 'D/M'),
-  },
-  axisY: {
-    showLines: true,
-    showLabels: true,
-    zeroAxis: true,
-    orient: 'left',
-    label: {
-      fontFamily: 'Arial',
-      fontSize: appStyle.font.size.small,
-      fontWeight: true,
-      fill: '#34495E',
-    },
-  },
-};
-
-const pallete = [{ r: 25, g: 99, b: 201 }, { r: 190, g: 31, b: 69 }];
 
 class Summary extends Component {
   props: PropsType;
@@ -74,14 +26,12 @@ class Summary extends Component {
     }
 
     return (
-      <Page noMargin style={styles.container}>
+      <Page noMargin>
         <View style={styles.pickerContainer}>
           <SprintPicker />
         </View>
         <View style={styles.bdcContainer}>
-          {this.props.bdcDataPoints
-            ? <StockLine data={this.props.bdcDataPoints} options={graphOptions} pallete={pallete} xKey="x" yKey="y" />
-            : <Text>You don't have any sprint yet!</Text>}
+          <BDC />
         </View>
       </Page>
     );
@@ -90,25 +40,22 @@ class Summary extends Component {
 
 type PropsType = {
   navigation: any,
-  bdcDataPoints: BdcDataPointsType,
   project: ProjectType,
   isSyncing: boolean,
 };
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'space-around',
-  },
   pickerContainer: {
-    marginHorizontal: 20,
+    marginHorizontal: appStyle.margin,
   },
   bdcContainer: {
-    alignItems: 'center',
+    flex: 1,
+    marginHorizontal: appStyle.margin - appStyle.shadow.radius,
+    marginVertical: 2 * appStyle.margin - appStyle.shadow.radius,
   },
 });
 
 const mapStateToProps = state => ({
-  bdcDataPoints: bdcDataPointsSelector(state),
   project: currentProjectSelector(state),
   isSyncing: isSyncingSelector(state, 'projects', 'current'),
 });
