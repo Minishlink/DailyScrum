@@ -28,6 +28,7 @@ class Drawer extends Component {
   }
 
   goToProjectSettings = () => this.props.navigation.navigate('projectSettings');
+  goToAbout = () => this.props.navigation.navigate('about');
 
   sync = () => {
     Analytics.logEvent('sync_trigger'); // are users using this sync button?
@@ -79,8 +80,14 @@ class Drawer extends Component {
           </Button>
         </View>
         <View style={styles.actions}>
-          <Button onPress={this.props.logout} hitSlop={{ top: 5, bottom: 5, left: 10, right: 10 }}>
+          <Button onPress={this.goToAbout} hitSlop={{ top: 5, bottom: 5, left: 10, right: 10 }}>
             <View style={styles.action}>
+              <Icon name="information-outline" type="material-community" size={20} color={appStyle.colors.text} />
+              <Text style={styles.actionText}>About</Text>
+            </View>
+          </Button>
+          <Button onPress={this.props.logout} hitSlop={{ top: 5, bottom: 5, left: 10, right: 10 }}>
+            <View style={[styles.action, { marginBottom: undefined }]}>
               <Icon name="logout-variant" type="material-community" size={20} color={appStyle.colors.text} />
               <Text style={styles.actionText}>Log out</Text>
             </View>
@@ -126,6 +133,7 @@ const styles = StyleSheet.create({
   action: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: appStyle.margin,
   },
   actionText: {
     marginLeft: appStyle.margin,
@@ -136,8 +144,7 @@ const styles = StyleSheet.create({
     color: appStyle.colors.warmGray,
   },
   addProjectButtonContainer: {
-    marginTop: 30,
-    marginHorizontal: 20,
+    margin: 2 * appStyle.margin,
   },
   addProjectButton: {
     height: 40,
