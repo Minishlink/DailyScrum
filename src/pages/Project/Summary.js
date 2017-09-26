@@ -7,6 +7,7 @@ import { currentProjectSelector } from '../../modules/projects/reducer';
 import type { ProjectType } from '../../types/Project';
 import { isSyncingSelector } from '../../modules/sync';
 import SuccessMatrix from './components/SuccessMatrix';
+import appStyle from '../../appStyle';
 
 class Summary extends Component {
   props: PropsType;
@@ -24,7 +25,7 @@ class Summary extends Component {
     }
 
     return (
-      <Page noNavBar style={styles.container}>
+      <Page style={styles.container}>
         <SuccessMatrix style={styles.matrix} />
       </Page>
     );
@@ -39,10 +40,11 @@ type PropsType = {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    paddingTop: appStyle.margin,
+    paddingHorizontal: appStyle.margin - appStyle.shadow.radius,
   },
   matrix: {
-    paddingVertical: 30,
+    marginVertical: appStyle.margin,
   },
 });
 
