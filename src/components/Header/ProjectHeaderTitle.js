@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import Text from '../Text';
 import { currentProjectNameSelector } from '../../modules/projects/reducer';
@@ -27,6 +27,8 @@ const styles = StyleSheet.create({
     fontSize: appStyle.font.size.big,
     color: appStyle.colors.overPrimaryColor,
     fontWeight: 'bold',
+    textAlign: Platform.OS === 'ios' ? 'center' : 'left',
+    marginHorizontal: 16,
   },
 });
 

@@ -1,17 +1,42 @@
 // @flow
-import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import React, { Children } from 'react';
+import { View, TouchableOpacity, TouchableNativeFeedback, Platform } from 'react-native';
 
-export default ({ children, disabled, ...props }: PropsType) =>
-  disabled
-    ? <View {...props}>
+const ANDROID_VERSION_LOLLIPOP = 21;
+export default ({ children, disabled, withRipple, ...props }: PropsType) => {
+  if (disabled) {
+    return (
+      <View {...props}>
         {children}
       </View>
-    : <TouchableOpacity activeOpacity={0.6} {...props}>
-        {children}
-      </TouchableOpacity>;
+    );
+  }
+
+  if (withRipple && Platform.OS === 'android' && Platform.Version >= ANDROID_VERSION_LOLLIPOP) {
+    const { style, borderless, ...rest } = props;
+    return (
+      <TouchableNativeFeedback
+        {...rest}
+        style={null}
+        background={TouchableNativeFeedback.Ripple('rgba(0, 0, 0, .32)', borderless)}
+      >
+        <View style={style}>
+          {Children.only(children)}
+        </View>
+      </TouchableNativeFeedback>
+    );
+  }
+
+  return (
+    <TouchableOpacity activeOpacity={0.6} {...props}>
+      {children}
+    </TouchableOpacity>
+  );
+};
 
 type PropsType = {
   disabled?: boolean,
   children?: any,
+  borderless?: boolean,
+  withRipple?: boolean,
 };
