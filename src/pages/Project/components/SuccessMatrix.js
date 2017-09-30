@@ -2,9 +2,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, FlatList } from 'react-native';
-import { Icon, Text } from '../../../components';
+import { Icon, Text, Card } from '../../../components';
 import { sprintsSuccessMatrixSelector } from '../../../modules/sprints/reducer';
 import type { SprintsSuccessMatrixType } from '../../../modules/sprints/reducer';
+import appStyle from '../../../appStyle';
 
 class SuccessMatrix extends Component {
   props: PropsType;
@@ -12,7 +13,7 @@ class SuccessMatrix extends Component {
   renderRow = ({ item: sprint }) =>
     <View style={styles.row}>
       <Text style={[styles.column, styles.idColumn]}>
-        {sprint.number}
+        #{sprint.number}
       </Text>
       <Text style={styles.column}>
         {sprint.manDays.toLocaleString()}
@@ -26,43 +27,44 @@ class SuccessMatrix extends Component {
       <Text style={[styles.column, styles.okColumn]}>
         {sprint.result !== null
           ? sprint.result
-            ? <Icon type="entypo" name="emoji-happy" size={20} color="green" />
-            : <Icon type="entypo" name="emoji-sad" size={20} color="red" />
-          : <Icon type="entypo" name="emoji-neutral" size={20} color="orange" />}
+            ? <Icon type="entypo" name="emoji-happy" size={18} color="green" />
+            : <Icon type="entypo" name="emoji-sad" size={18} color="red" />
+          : <Icon type="entypo" name="emoji-neutral" size={18} color="orange" />}
       </Text>
     </View>;
 
   renderHeader = () =>
-    <View style={[styles.row, styles.labelRow]}>
-      <Text style={[styles.column, styles.idColumn, styles.label]}>#</Text>
+    <View style={styles.row}>
+      <Text style={[styles.column, styles.idColumn, styles.label]} />
       <Text style={[styles.column, styles.label]}>Man-days</Text>
       <Text style={[styles.column, styles.label]}>Foreseen</Text>
       <Text style={[styles.column, styles.label]}>Done</Text>
-      <Text style={[styles.column, styles.okColumn, styles.label]}>OK?</Text>
+      <Text style={[styles.column, styles.okColumn, styles.label]} />
     </View>;
 
   render() {
     return (
-      <View>
+      <Card style={this.props.style}>
+        <Text style={styles.title}>Sprints history</Text>
         <FlatList
           data={this.props.successMatrix}
-          contentContainerStyle={this.props.style}
           renderItem={this.renderRow}
           keyExtractor={sprint => sprint.number}
           showsVerticalScrollIndicator={false}
           ListHeaderComponent={this.renderHeader}
         />
-      </View>
+      </Card>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  label: {
+  title: {
     fontWeight: 'bold',
+    marginBottom: appStyle.margin,
   },
-  labelRow: {
-    borderBottomWidth: 2,
+  label: {
+    color: appStyle.colors.warmGray,
   },
   row: {
     flexDirection: 'row',
@@ -70,18 +72,17 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderWidth: 1,
-    borderColor: 'grey',
     paddingHorizontal: 10,
     paddingVertical: 8,
-    backgroundColor: 'white',
   },
   column: {
     width: '25%',
     textAlign: 'center',
+    fontSize: appStyle.font.size.small,
   },
   idColumn: {
-    width: 20,
+    width: 25,
+    color: appStyle.colors.warmGray,
   },
   okColumn: {
     width: 25,

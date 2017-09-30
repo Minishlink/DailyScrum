@@ -1,13 +1,13 @@
 // @flow
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import { View, StyleSheet, Linking } from 'react-native';
 import { isEqual } from 'lodash';
-import { Text, Card } from 'DailyScrum/src/components';
-import appStyle from 'DailyScrum/src/appStyle';
+import ActionSheet from '@yfuks/react-native-action-sheet';
+import { Text, Card, Button } from '../../components';
+import appStyle from '../../appStyle';
 import MemberIcon from './MemberIcon';
 import PointsBadge from './PointsBadge';
-import * as Analytics from '../../services/Analytics';
-import ActionSheet from '@yfuks/react-native-action-sheet';
+import { Analytics } from '../../services';
 import type { CardType } from '../../types';
 
 export default class extends Component {
@@ -39,12 +39,12 @@ export default class extends Component {
   render() {
     const { card } = this.props;
     return (
-      <TouchableOpacity activeOpacity={0.7} onLongPress={this.showActionSheet}>
+      <Button style={this.props.style} onLongPress={this.showActionSheet}>
         <View>
           <Card>
             <View style={styles.labelsRow}>
               <View style={styles.idShortContainer}>
-                <Text style={styles.idShort}>
+                <Text>
                   #{card.idShort}
                 </Text>
               </View>
@@ -70,7 +70,7 @@ export default class extends Component {
             </View>
           </Card>
         </View>
-      </TouchableOpacity>
+      </Button>
     );
   }
 }
@@ -84,9 +84,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   title: {
-    textAlign: 'center',
-    marginTop: 18,
-    marginBottom: 10,
+    marginVertical: appStyle.margin,
   },
   membersContainer: {
     flex: 5,
@@ -97,36 +95,26 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'flex-end',
     justifyContent: 'flex-end',
-    right: -4,
   },
   member: {
     marginLeft: 5,
   },
   idShortContainer: {
-    position: 'absolute',
-    top: -4,
-    left: -8,
-    zIndex: 1,
-    backgroundColor: 'gold',
+    backgroundColor: appStyle.colors.secondary,
     justifyContent: 'center',
     alignItems: 'center',
-    height: 16,
-    paddingHorizontal: 3,
-    borderRadius: 3,
-  },
-  idShort: {
-    fontSize: appStyle.font.size.small,
-    fontWeight: 'bold',
+    paddingHorizontal: 7,
+    borderRadius: appStyle.borderRadius,
   },
   pointsContainer: {
     flex: 1,
     flexDirection: 'row',
     flexShrink: 1,
-    left: -4,
     alignItems: 'flex-end',
   },
 });
 
 type PropsType = {
   card: CardType,
+  style?: any,
 };

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, Dimensions, Platform } from 'react-native';
+import { uniq, isEqual, flatten } from 'lodash';
 import { Text } from './';
-import _ from 'lodash';
-import { errorsSelector } from '../modules/sync';
+import { errorsSelector, clearErrors } from '../modules/sync';
 
 class ErrorBar extends Component {
   props: PropsType;
-  state: StateType = { show: false };
 
   getErrorMessage = (error: string) => {
     switch (error) {
@@ -23,17 +22,15 @@ class ErrorBar extends Component {
     }
   };
 
-  shouldComponentUpdate(nextProps: PropsType, nextState: StateType) {
-    return nextState.show !== this.state.show || !_.isEqual(nextProps.errors, this.props.errors);
+  shouldComponentUpdate(nextProps: PropsType) {
+    return !isEqual(nextProps.errors, this.props.errors);
   }
 
   componentWillReceiveProps(nextProps: PropsType) {
-    if (!_.isEqual(nextProps.errors, this.props.errors)) {
+    if (!isEqual(nextProps.errors, this.props.errors)) {
       this.timeout && clearTimeout(this.timeout);
-      const show = nextProps.errors.length;
-      this.setState({ show });
-      if (show) {
-        this.timeout = setTimeout(() => this.setState({ show: false }), 5000);
+      if (nextProps.errors.length) {
+        this.timeout = setTimeout(this.props.clearErrors, 5000);
       }
     }
   }
@@ -43,8 +40,8 @@ class ErrorBar extends Component {
   }
 
   render() {
-    if (!this.state.show) return null;
-    const errors = _.uniq(this.props.errors.map(this.getErrorMessage)).filter(Boolean);
+    if (!this.props.errors.length) return null;
+    const errors = uniq(this.props.errors.map(this.getErrorMessage)).filter(Boolean);
     if (!errors.length) return null;
     return (
       <View style={[styles.container, this.props.style]}>
@@ -60,10 +57,7 @@ class ErrorBar extends Component {
 
 type PropsType = {
   errors: string[],
-};
-
-type StateType = {
-  show: boolean,
+  clearErrors: Function,
 };
 
 const styles = StyleSheet.create({
@@ -110,11 +104,15 @@ export default (wantedErrors?: ErrorBarOptionsType) => {
     }
 
     return {
-      errors: _.flatten(selectErrors.map(([name, key]) => errorsSelector(state, name, key))),
+      errors: flatten(selectErrors.map(([name, key]) => errorsSelector(state, name, key))),
     };
   };
 
-  return connect(mapStateToProps)(ErrorBar);
+  const mapDispatchToProps = {
+    clearErrors, // TODO target only the wantedErrors
+  };
+
+  return connect(mapStateToProps, mapDispatchToProps)(ErrorBar);
 };
 
 /*

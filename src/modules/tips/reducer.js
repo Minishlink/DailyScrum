@@ -14,6 +14,9 @@ export default (state: TipsStateType = initialState, action: ActionType) => {
         read: [...state.read, action.payload.id],
       };
 
+    case 'RESET_STORE':
+      return initialState;
+
     default:
       return state;
   }

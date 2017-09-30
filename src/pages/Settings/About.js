@@ -1,19 +1,11 @@
 // @flow
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, Linking, Platform } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Linking } from 'react-native';
 import codePush from 'react-native-code-push';
 import LottieAnimation from 'easy-lottie-react-native';
-import { Page, Text } from 'DailyScrum/src/components';
+import { Page, Text } from '../../components';
 import appStyle from '../../appStyle';
-import { ENV } from '../../../environment';
-
-const storeName =
-  ENV === 'staging'
-    ? 'HockeyApp'
-    : Platform.select({
-        ios: 'AppStore',
-        android: 'Play Store',
-      });
+import { isManualCodePushEnabled } from '../../../environment';
 
 export default class About extends Component {
   state: StateType = {
@@ -71,6 +63,20 @@ export default class About extends Component {
     );
   };
 
+  renderManualCodePush = () => {
+    if (this.state.codePushMismatch) {
+      return <Text style={styles.text}>There is a new version available on HockeyApp.</Text>;
+    }
+
+    return (
+      <TouchableOpacity onPress={this.updateWithCodePush}>
+        <Text style={styles.text}>
+          {this.state.codePushUpdateStatus || 'Check if there is an update'}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
   openURL = (url: string) => Linking.canOpenURL(url).then(() => Linking.openURL(url)).catch(() => {});
   sendAnEmail = () => this.openURL('mailto:contact@bam.tech');
   goToGitHub = () => this.openURL('https://github.com/Minishlink/DailyScrum');
@@ -100,15 +106,7 @@ export default class About extends Component {
               <Text style={[styles.text, styles.codePushInfo]}>
                 {this.state.codePushInfo}
               </Text>}
-            {this.state.codePushMismatch
-              ? <Text style={styles.text}>
-                  There is a new version available on the {storeName}.
-                </Text>
-              : <TouchableOpacity onPress={this.updateWithCodePush}>
-                  <Text style={styles.text}>
-                    {this.state.codePushUpdateStatus || 'Check if there is an update'}
-                  </Text>
-                </TouchableOpacity>}
+            {isManualCodePushEnabled && this.renderManualCodePush()}
           </View>
         </View>
       </Page>

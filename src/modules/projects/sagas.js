@@ -2,7 +2,7 @@
 import { NavigationActions } from 'react-navigation';
 import { all, call, put, select, takeEvery, cancelled } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
-import { Scrumble } from 'DailyScrum/src/services';
+import { Scrumble, Analytics } from '../../services';
 import { putProjects, setCurrentProject } from './';
 import { tokenSelector } from '../auth/reducer';
 import type { ScrumbleProjectType } from '../../types/Scrumble';
@@ -39,6 +39,7 @@ export function* fetchCurrentProject(): Generator<*, *, *> {
 
 function* changeCurrentRemoteProject(action: ActionType): Generator<*, *, *> {
   try {
+    Analytics.logEvent('change_project');
     yield put(startSync('projects', 'change'));
     const token = yield select(tokenSelector);
     // TODO $FlowFixMe

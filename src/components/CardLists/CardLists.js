@@ -1,21 +1,22 @@
 // @flow
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, SectionList, Text, Dimensions } from 'react-native';
+import { StyleSheet, View, SectionList, Dimensions } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LottieAnimation from 'easy-lottie-react-native';
-import { TrelloCard } from 'DailyScrum/src/components';
-import type { CardListsType, CardListType } from 'DailyScrum/src/modules/cards/reducer';
+import { TrelloCard, Text } from '../../components';
+import type { CardListsType, CardListType } from '../../modules/cards/reducer';
 import type { CardType } from '../../types';
 import { ListHeader } from './';
 import { getTipIfNotReadSelector } from '../../modules/tips/reducer';
 import type { TipType } from '../../modules/tips/reducer';
 import TipCard from '../TipCard';
+import appStyle from '../../appStyle';
 
 class CardsList extends PureComponent {
   props: PropsType;
 
-  renderCard = ({ item }: { item: CardType }) => <TrelloCard card={item} />;
+  renderCard = ({ item }: { item: CardType }) => <TrelloCard style={styles.card} card={item} />;
   renderSectionHeader = ({ section }: { section: any }) =>
     section.data.length ? <ListHeader listKey={section.key} total={section.points} /> : null;
 
@@ -103,6 +104,9 @@ const styles = StyleSheet.create({
   },
   tipContainer: {
     marginVertical: 10,
+  },
+  card: {
+    marginVertical: appStyle.margin / 2 - appStyle.shadow.radius,
   },
 });
 

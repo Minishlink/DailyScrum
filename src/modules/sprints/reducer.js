@@ -41,6 +41,9 @@ export default (state: SprintsStateType = initialState, action: ActionType) => {
         list: {},
       };
 
+    case 'RESET_STORE':
+      return initialState;
+
     default:
       return state;
   }
@@ -138,16 +141,16 @@ export function bdcDataPointsSelector(state: StateType): ?BdcDataPointsType {
 
   const totalPoints = currentSprint.resources.totalPoints;
 
-  Object.values(currentSprint.performance).forEach((performance: PerformanceType) => {
+  Object.values(currentSprint.performance).forEach((performance: PerformanceType, index: number) => {
     const date = new Date(performance.date).getTime();
-    standardDataPoints.push({ x: date, y: totalPoints - performance.standard });
+    standardDataPoints.push({ x: index, y: roundToDecimalPlace(totalPoints - performance.standard), date });
 
     if (performance.done || (!performance.done && !performance.standard)) {
-      doneDataPoints.push({ x: date, y: totalPoints - performance.done });
+      doneDataPoints.push({ x: index, y: roundToDecimalPlace(totalPoints - performance.done), date });
     }
   });
 
-  return [doneDataPoints, standardDataPoints].filter(array => array.length > 0);
+  return [standardDataPoints, doneDataPoints].filter(array => array.length > 0);
 }
 
 export function isCurrentSprintActiveSelector(state: StateType): boolean {

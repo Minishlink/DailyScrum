@@ -2,12 +2,21 @@
 import React, { Component } from 'react';
 import { Linking, BackHandler } from 'react-native';
 import { connect } from 'react-redux';
-import { StackNavigator, TabNavigator, TabBarTop, addNavigationHelpers, NavigationActions } from 'react-navigation';
+import {
+  StackNavigator,
+  TabNavigator,
+  TabBarTop,
+  addNavigationHelpers,
+  DrawerNavigator,
+  NavigationActions,
+} from 'react-navigation';
 import * as Pages from 'DailyScrum/src/pages';
 import appStyle from 'DailyScrum/src/appStyle';
-import { Header, Icon } from './components';
+import { Header, Drawer, Icon, Gradient } from './components';
+import { ProjectHeaderTitle, DrawerHeaderLeft } from './components/Header';
+import { getFontStyle } from './components/Text';
 
-const MainNavigator = TabNavigator(
+const TabsNavigator = TabNavigator(
   {
     project: {
       screen: Pages.Project.Summary,
@@ -35,7 +44,10 @@ const MainNavigator = TabNavigator(
     initialRouteName: 'daily',
     swipeEnabled: true,
     animationEnabled: true,
-    tabBarComponent: TabBarTop,
+    tabBarComponent: props =>
+      <Gradient>
+        <TabBarTop {...props} />
+      </Gradient>,
     tabBarPosition: 'bottom',
     tabBarOptions: {
       showIcon: true,
@@ -44,16 +56,62 @@ const MainNavigator = TabNavigator(
         height: 56,
       },
       style: {
-        backgroundColor: appStyle.colors.primary,
+        backgroundColor: 'transparent',
+        shadowOpacity: 0,
+        borderRadius: 0, // fixes TouchableNativeFeedback Ripple effect
+        elevation: 0, // fixes weird shadows
       },
       indicatorStyle: {
-        height: 0,
+        height: 4,
+        top: 0,
+        backgroundColor: 'white',
       },
       labelStyle: {
         marginVertical: 0,
-        fontSize: appStyle.font.size.small,
+        ...getFontStyle({
+          fontFamily: appStyle.font.family,
+        }),
       },
     },
+  }
+);
+
+const TabsStackNavigator = StackNavigator(
+  {
+    tabs: {
+      screen: TabsNavigator,
+      navigationOptions: navigationProps => ({
+        headerTitle: <ProjectHeaderTitle />,
+        headerLeft: <DrawerHeaderLeft {...navigationProps} />,
+      }),
+    },
+    projectSettings: { screen: Pages.Settings.Project },
+    about: { screen: Pages.Settings.About },
+  },
+  {
+    navigationOptions: {
+      header: props => <Header {...props} />,
+      headerStyle: { backgroundColor: 'transparent', borderBottomWidth: 0, elevation: 0 },
+      headerTintColor: appStyle.colors.overPrimaryColor,
+      headerTitleStyle: {
+        fontSize: appStyle.font.size.big,
+        ...getFontStyle({
+          fontFamily: appStyle.font.family,
+          fontWeight: 'bold',
+        }),
+      },
+    },
+  }
+);
+
+const MainNavigator = DrawerNavigator(
+  {
+    tabsStack: {
+      screen: TabsStackNavigator,
+    },
+  },
+  {
+    contentComponent: Drawer,
   }
 );
 
@@ -65,12 +123,8 @@ const appNavigatorPages = {
   },
   main: {
     screen: MainNavigator,
-    navigationOptions: {
-      header: props => <Header {...props} />,
-    },
+    navigationOptions: { header: null },
   },
-  projectSettings: { screen: Pages.Settings.Project },
-  about: { screen: Pages.Settings.About },
 };
 
 const appNavigatorConfig = {

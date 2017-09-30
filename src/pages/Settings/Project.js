@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, FlatList, TextInput } from 'react-native';
-import { Page, Text, createErrorBar } from 'DailyScrum/src/components';
+import { Page, Text } from 'DailyScrum/src/components';
 import { fetchBoards } from 'DailyScrum/src/modules/boards';
 import { boardsListSelector } from '../../modules/boards/reducer';
 import type { BoardType } from '../../types';
@@ -10,8 +10,7 @@ import BoardCard from './components/BoardCard';
 import { changeCurrentRemoteProject } from '../../modules/projects';
 import { currentProjectSelector } from '../../modules/projects/reducer';
 import { isSyncingSelector } from '../../modules/sync';
-import InfoButton from './components/InfoButton';
-const ErrorBar = createErrorBar({ boards: 'all', projects: 'change' });
+import appStyle from '../../appStyle';
 
 class Settings extends Component {
   props: PropsType;
@@ -19,7 +18,6 @@ class Settings extends Component {
 
   static navigationOptions = ({ navigation }) => ({
     headerTitle: navigation.state.params && navigation.state.params.firstTime ? 'Select a project' : 'Change project',
-    headerRight: <InfoButton navigation={navigation} />,
   });
 
   handleRefresh = () => {
@@ -47,7 +45,6 @@ class Settings extends Component {
     );
     return (
       <Page>
-        <ErrorBar />
         <TextInput
           style={styles.searchInput}
           onChangeText={filterBoard => this.setState({ filterBoard })}
@@ -92,17 +89,17 @@ type StateType = {
 const styles = StyleSheet.create({
   searchInput: {
     height: 40,
-    marginTop: 10,
-    paddingHorizontal: 10,
+    paddingHorizontal: appStyle.margin,
     borderColor: 'gray',
     borderWidth: 1,
+    borderRadius: appStyle.borderRadius,
     backgroundColor: 'white',
   },
   noBoardsText: {
     textAlign: 'center',
   },
   scrollView: {
-    paddingVertical: 15,
+    paddingVertical: appStyle.margin,
   },
 });
 

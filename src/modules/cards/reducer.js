@@ -111,6 +111,9 @@ export default (state: CardsStateType = initialState, action: ActionType) => {
       }
       return { ...initialState };
 
+    case 'RESET_STORE':
+      return initialState;
+
     default:
       return state;
   }

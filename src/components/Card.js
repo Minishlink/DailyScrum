@@ -1,31 +1,29 @@
 // @flow
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import appStyle from 'DailyScrum/src/appStyle';
+import appStyle from '../appStyle';
 
 export default (props: PropsType) =>
-  <View style={[styles.container, styles.card]}>
+  <View style={[styles.container, props.style]}>
     {props.children}
   </View>;
 
 type PropsType = {
   children: any,
+  style?: any,
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 4, // shadow
-    marginVertical: 4, // shadow
-  },
-  card: {
+    marginHorizontal: appStyle.shadow.radius,
+    marginVertical: appStyle.shadow.radius,
     minHeight: 20,
-    paddingVertical: 4,
-    paddingHorizontal: 8,
+    padding: appStyle.margin,
     backgroundColor: '#fff',
-    borderRadius: 3,
-    elevation: 2,
+    borderRadius: appStyle.borderRadius,
+    elevation: appStyle.shadow.radius / 2,
     shadowColor: appStyle.colors.darkGray,
-    shadowRadius: 4,
+    shadowRadius: appStyle.shadow.radius,
     shadowOpacity: 0.15,
     shadowOffset: { height: 1 },
   },

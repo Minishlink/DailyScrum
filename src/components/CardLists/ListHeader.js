@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Text } from '../../components';
 import appStyle from '../../appStyle';
 
 export default class ListHeader extends Component {

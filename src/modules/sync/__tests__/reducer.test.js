@@ -13,23 +13,49 @@ describe('sync reducer', () => {
   });
 
   it('should handle START_SYNC', () => {
-    expect(reducer(initialState, Actions.startSync('foo', 'bar'))).toEqual({
+    expect(reducer({ ...initialState }, Actions.startSync('foo', 'bar'))).toEqual({
       foo: { bar: { isLoading: true, error: null } },
     });
-    expect(reducer(initialState, Actions.startSync('kung', 'foo'))).toEqual({
+    expect(reducer({ ...initialState }, Actions.startSync('kung', 'foo'))).toEqual({
       kung: { foo: { isLoading: true, error: null } },
     });
   });
 
   it('should handle END_SYNC', () => {
-    expect(reducer(initialState, Actions.endSync('foo', 'bar'))).toEqual({
+    expect(reducer({ ...initialState }, Actions.endSync('foo', 'bar'))).toEqual({
       foo: { bar: { isLoading: false, error: null } },
     });
-    expect(reducer(initialState, Actions.endSync('foo', 'bar', 'error'))).toEqual({
+    expect(reducer({ ...initialState }, Actions.endSync('foo', 'bar', 'error'))).toEqual({
       foo: { bar: { isLoading: false, error: 'error' } },
     });
-    expect(reducer(initialState, Actions.endSync('kung', 'foo'))).toEqual({
+    expect(reducer({ ...initialState }, Actions.endSync('kung', 'foo'))).toEqual({
       kung: { foo: { isLoading: false, error: null } },
+    });
+  });
+
+  it('should handle CLEAR_ERRORS', () => {
+    expect(reducer({ foo: { bar: { error: 'toto ' } } }, Actions.clearErrors('foo', 'bar'))).toEqual({
+      foo: { bar: { error: null } },
+    });
+
+    expect(
+      reducer({ foo: { bar: { error: 'toto ' }, kung: { error: 'foo ' } } }, Actions.clearErrors('foo', 'bar'))
+    ).toEqual({
+      foo: { bar: { error: null }, kung: { error: 'foo ' } },
+    });
+
+    expect(reducer({ foo: { bar: { error: 'toto ' }, kung: { error: 'foo ' } } }, Actions.clearErrors('foo'))).toEqual({
+      foo: { bar: { error: null }, kung: { error: null } },
+    });
+
+    expect(
+      reducer(
+        { foo: { bar: { error: 'toto ' }, kung: { error: 'foo ' } }, kung: { foo: { error: 'toto ' } } },
+        Actions.clearErrors()
+      )
+    ).toEqual({
+      foo: { bar: { error: null }, kung: { error: null } },
+      kung: { foo: { error: null } },
     });
   });
 });

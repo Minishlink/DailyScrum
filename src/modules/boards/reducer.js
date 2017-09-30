@@ -33,6 +33,9 @@ export default (state: BoardsStateType = initialState, action: ActionType) => {
         list: newList,
       };
 
+    case 'RESET_STORE':
+      return initialState;
+
     default:
       return state;
   }

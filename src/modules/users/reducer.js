@@ -47,6 +47,9 @@ export default (state: UsersStateType = initialState, action: ActionType) => {
         list: currentUser ? { [currentUser.id]: currentUser } : {},
       };
 
+    case 'RESET_STORE':
+      return initialState;
+
     default:
       return state;
   }
