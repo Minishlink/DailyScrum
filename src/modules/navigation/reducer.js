@@ -35,6 +35,14 @@ const isRouteSameAsLastRouteFromNavigationStateSelector = (state, action) => {
   }
 
   // FUTURE add exceptions here (params in lastRoute.params, action.params)
+  if (
+    lastRoute.routeName === 'DrawerClose' &&
+    ['about', 'projectSettings'].includes(action.routeName) &&
+    !(action.params && action.params.firstTime)
+  ) {
+    return true;
+  }
+
   if (lastRoute.routeName !== action.routeName) {
     return false;
   }
