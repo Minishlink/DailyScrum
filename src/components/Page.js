@@ -8,7 +8,7 @@ const Page = (props: PropsType) =>
     style={[
       styles.page,
       {
-        paddingTop: props.noNavBar ? 0 : 16,
+        paddingTop: props.noMargin ? 0 : appStyle.margin,
         paddingHorizontal: props.noMargin ? 0 : appStyle.margin,
         backgroundColor: props.backgroundColor || appStyle.colors.background,
       },
@@ -36,7 +36,6 @@ type PropsType = {
   style?: any,
   children?: any,
   noMargin?: boolean,
-  noNavBar?: boolean,
   backgroundColor?: string,
   isLoading?: boolean,
 };
@@ -45,7 +44,6 @@ Page.defaultProps = {
   style: {},
   isLoading: false,
   noMargin: false,
-  noNavBar: false,
   backgroundColor: appStyle.colors.background,
 };
 

@@ -26,7 +26,7 @@ class Summary extends Component {
     }
 
     return (
-      <Page noMargin noNavBar>
+      <Page noMargin>
         <SprintPicker />
         <View style={styles.bdcContainer}>
           <BDC />

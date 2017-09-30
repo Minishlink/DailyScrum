@@ -33,11 +33,11 @@ class CardTab extends Component {
 
   renderScene = SceneMap({
     today: () =>
-      <Page style={styles.page} noNavBar>
+      <Page style={styles.page} noMargin>
         <Today onScrollCards={this.props.onScrollCards} />
       </Page>,
     yesterday: () =>
-      <Page style={styles.page} noNavBar>
+      <Page style={styles.page} noMargin>
         <Yesterday onScrollCards={this.props.onScrollCards} />
       </Page>,
   });

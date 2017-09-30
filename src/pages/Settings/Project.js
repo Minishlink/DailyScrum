@@ -10,6 +10,7 @@ import BoardCard from './components/BoardCard';
 import { changeCurrentRemoteProject } from '../../modules/projects';
 import { currentProjectSelector } from '../../modules/projects/reducer';
 import { isSyncingSelector } from '../../modules/sync';
+import appStyle from '../../appStyle';
 
 class Settings extends Component {
   props: PropsType;
@@ -88,17 +89,17 @@ type StateType = {
 const styles = StyleSheet.create({
   searchInput: {
     height: 40,
-    marginTop: 10,
-    paddingHorizontal: 10,
+    paddingHorizontal: appStyle.margin,
     borderColor: 'gray',
     borderWidth: 1,
+    borderRadius: appStyle.borderRadius,
     backgroundColor: 'white',
   },
   noBoardsText: {
     textAlign: 'center',
   },
   scrollView: {
-    paddingVertical: 15,
+    paddingVertical: appStyle.margin,
   },
 });
 

@@ -4,7 +4,7 @@ import type { BoardType } from '../../../types';
 import { Text, Icon } from '../../../components';
 import appStyle from '../../../appStyle';
 
-const borderRadius = 3;
+const borderRadius = appStyle.borderRadius;
 export default class BoardCard extends Component {
   props: PropsType;
 
@@ -83,13 +83,12 @@ type PropsType = {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 8,
+    marginBottom: appStyle.margin,
     borderRadius,
   },
   content: {
     minHeight: 100,
-    paddingVertical: 8,
-    paddingHorizontal: 9,
+    padding: appStyle.margin,
     borderRadius,
     backgroundColor: 'grey',
   },
