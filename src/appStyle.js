@@ -38,7 +38,7 @@ export default {
     visibleButtonHeight: 36,
   },
   margin: 10,
-  borderRadius: 3,
+  borderRadius: 4,
   shadow: {
     radius: 4,
   },

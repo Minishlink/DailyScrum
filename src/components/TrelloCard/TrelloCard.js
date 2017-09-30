@@ -39,7 +39,7 @@ export default class extends Component {
   render() {
     const { card } = this.props;
     return (
-      <Button onLongPress={this.showActionSheet}>
+      <Button style={this.props.style} onLongPress={this.showActionSheet}>
         <View>
           <Card>
             <View style={styles.labelsRow}>
@@ -103,10 +103,8 @@ const styles = StyleSheet.create({
     backgroundColor: appStyle.colors.secondary,
     justifyContent: 'center',
     alignItems: 'center',
-    height: 16,
     paddingHorizontal: 7,
-    paddingVertical: 3,
-    borderRadius: 3,
+    borderRadius: appStyle.borderRadius,
   },
   pointsContainer: {
     flex: 1,
@@ -118,4 +116,5 @@ const styles = StyleSheet.create({
 
 type PropsType = {
   card: CardType,
+  style?: any,
 };

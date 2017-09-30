@@ -33,11 +33,11 @@ class CardTab extends Component {
 
   renderScene = SceneMap({
     today: () =>
-      <Page noNavBar>
+      <Page style={styles.page} noNavBar>
         <Today onScrollCards={this.props.onScrollCards} />
       </Page>,
     yesterday: () =>
-      <Page noNavBar>
+      <Page style={styles.page} noNavBar>
         <Yesterday onScrollCards={this.props.onScrollCards} />
       </Page>,
   });
@@ -109,6 +109,9 @@ const styles = StyleSheet.create({
   headerTabIndicatorStyle: {
     backgroundColor: appStyle.colors.primary,
     height: 4,
+  },
+  page: {
+    paddingHorizontal: appStyle.margin - appStyle.shadow.radius,
   },
 });
 

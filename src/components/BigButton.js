@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 10,
     paddingVertical: 4,
-    borderRadius: 3,
+    borderRadius: appStyle.borderRadius,
     backgroundColor: appStyle.colors.primary,
     height: 36,
     elevation: 2,

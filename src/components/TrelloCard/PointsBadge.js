@@ -24,16 +24,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: backgroundColor.hex(),
     borderColor: backgroundColor.darken().hex(),
-    borderRadius: 3,
-    paddingHorizontal: 6,
-    paddingVertical: 3,
+    borderRadius: appStyle.borderRadius,
+    paddingHorizontal: appStyle.margin,
   },
   postEstimationContainer: {
     backgroundColor: backgroundColor.brighten().hex(),
   },
   text: {
-    color: '#E1FAFB',
-    fontSize: appStyle.font.size.small,
-    fontWeight: 'bold',
+    color: appStyle.colors.overPrimaryColor,
   },
 });

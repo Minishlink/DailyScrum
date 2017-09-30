@@ -11,11 +11,12 @@ import { ListHeader } from './';
 import { getTipIfNotReadSelector } from '../../modules/tips/reducer';
 import type { TipType } from '../../modules/tips/reducer';
 import TipCard from '../TipCard';
+import appStyle from '../../appStyle';
 
 class CardsList extends PureComponent {
   props: PropsType;
 
-  renderCard = ({ item }: { item: CardType }) => <TrelloCard card={item} />;
+  renderCard = ({ item }: { item: CardType }) => <TrelloCard style={styles.card} card={item} />;
   renderSectionHeader = ({ section }: { section: any }) =>
     section.data.length ? <ListHeader listKey={section.key} total={section.points} /> : null;
 
@@ -103,6 +104,9 @@ const styles = StyleSheet.create({
   },
   tipContainer: {
     marginVertical: 10,
+  },
+  card: {
+    marginVertical: appStyle.margin / 2 - appStyle.shadow.radius,
   },
 });
 
