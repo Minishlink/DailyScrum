@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { Page, NoProjectFound } from 'DailyScrum/src/components';
 import { currentProjectSelector } from '../../modules/projects/reducer';
 import type { ProjectType } from '../../types/Project';
@@ -25,8 +25,10 @@ class Summary extends Component {
     }
 
     return (
-      <Page style={styles.container}>
-        <SuccessMatrix style={styles.matrix} />
+      <Page noMargin style={styles.container}>
+        <ScrollView contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={false}>
+          <SuccessMatrix style={styles.matrix} />
+        </ScrollView>
       </Page>
     );
   }
@@ -40,8 +42,10 @@ type PropsType = {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: appStyle.margin,
     paddingHorizontal: appStyle.margin - appStyle.shadow.radius,
+  },
+  scrollViewContent: {
+    paddingVertical: appStyle.margin,
   },
   matrix: {
     marginVertical: appStyle.margin,
