@@ -15,7 +15,7 @@ export default class Picker extends Component {
     return (
       <View>
         {selectedValueText &&
-          <TouchableOpacity style={styles.selectedValueContainer} onPress={this.showPicker}>
+          <TouchableOpacity activeOpacity={0.7} style={styles.selectedValueContainer} onPress={this.showPicker}>
             <Text style={styles.selectedValueStyle} numberOfLines={1}>
               {selectedValueText}
             </Text>
@@ -56,10 +56,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: 'white',
-    borderWidth: 1,
-    borderRadius: 4,
-    borderColor: 'grey',
-    elevation: 1,
+    ...appStyle.shadowStyle,
     paddingLeft: 10,
     paddingRight: 20,
     paddingVertical: 15,

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Picker as RCTPicker } from 'react-native';
+import appStyle from '../appStyle';
 
 export default class Picker extends Component {
   props: PropsType;
@@ -23,9 +24,6 @@ type PropsType = {
 const styles = StyleSheet.create({
   pickerContainer: {
     backgroundColor: 'white',
-    borderWidth: 1,
-    borderRadius: 4,
-    borderColor: 'grey',
-    elevation: 1,
+    ...appStyle.shadowStyle,
   },
 });

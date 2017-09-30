@@ -26,10 +26,8 @@ class Summary extends Component {
     }
 
     return (
-      <Page noMargin>
-        <View style={styles.pickerContainer}>
-          <SprintPicker />
-        </View>
+      <Page noMargin noNavBar>
+        <SprintPicker />
         <View style={styles.bdcContainer}>
           <BDC />
         </View>
@@ -45,9 +43,6 @@ type PropsType = {
 };
 
 const styles = StyleSheet.create({
-  pickerContainer: {
-    marginHorizontal: appStyle.margin,
-  },
   bdcContainer: {
     flex: 1,
     marginHorizontal: appStyle.margin - appStyle.shadow.radius,

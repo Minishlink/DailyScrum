@@ -5,7 +5,7 @@ const primaryColor = '#43d2fc';
 const secondaryColor = '#FFD91C';
 const tertiaryColor = '#6487fa';
 
-export default {
+const appStyle = {
   font: {
     size: {
       small: 12,
@@ -43,5 +43,15 @@ export default {
     radius: 4,
   },
 };
+
+appStyle.shadowStyle = {
+  shadowColor: appStyle.colors.darkGray,
+  shadowRadius: appStyle.shadow.radius,
+  shadowOpacity: 0.15,
+  shadowOffset: { height: 1 },
+  elevation: appStyle.shadow.radius / 2,
+};
+
+export default appStyle;
 
 export const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
