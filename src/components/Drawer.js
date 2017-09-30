@@ -73,6 +73,7 @@ class Drawer extends Component {
             onPress={this.goToProjectSettings}
             style={styles.addProjectButtonContainer}
             hitSlop={{ top: 5, bottom: 5, left: 10, right: 10 }}
+            withRipple
           >
             <View style={styles.addProjectButton}>
               <Text style={styles.addProjectButtonText}>CHANGE PROJECT</Text>

@@ -58,6 +58,8 @@ const TabsNavigator = TabNavigator(
       style: {
         backgroundColor: 'transparent',
         shadowOpacity: 0,
+        borderRadius: 0, // fixes TouchableNativeFeedback Ripple effect
+        elevation: 0, // fixes weird shadows
       },
       indicatorStyle: {
         height: 4,

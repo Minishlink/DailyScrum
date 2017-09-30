@@ -1,9 +1,9 @@
 // @flow
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import { View, StyleSheet, Linking } from 'react-native';
 import { isEqual } from 'lodash';
 import ActionSheet from '@yfuks/react-native-action-sheet';
-import { Text, Card } from '../../components';
+import { Text, Card, Button } from '../../components';
 import appStyle from '../../appStyle';
 import MemberIcon from './MemberIcon';
 import PointsBadge from './PointsBadge';
@@ -39,7 +39,7 @@ export default class extends Component {
   render() {
     const { card } = this.props;
     return (
-      <TouchableOpacity activeOpacity={0.7} onLongPress={this.showActionSheet}>
+      <Button onLongPress={this.showActionSheet}>
         <View>
           <Card>
             <View style={styles.labelsRow}>
@@ -70,7 +70,7 @@ export default class extends Component {
             </View>
           </Card>
         </View>
-      </TouchableOpacity>
+      </Button>
     );
   }
 }

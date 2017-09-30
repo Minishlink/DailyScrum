@@ -3,6 +3,9 @@ import React, { Children } from 'react';
 import { View, TouchableOpacity, TouchableNativeFeedback, Platform } from 'react-native';
 
 const ANDROID_VERSION_LOLLIPOP = 21;
+const canUseNativeFeedback = Platform.OS === 'android' && Platform.Version >= ANDROID_VERSION_LOLLIPOP;
+const canUseForegroundNativeFeedback = canUseNativeFeedback && TouchableNativeFeedback.canUseNativeForeground();
+
 export default ({ children, disabled, withRipple, ...props }: PropsType) => {
   if (disabled) {
     return (
@@ -19,6 +22,8 @@ export default ({ children, disabled, withRipple, ...props }: PropsType) => {
         {...rest}
         style={null}
         background={TouchableNativeFeedback.Ripple('rgba(0, 0, 0, .32)', borderless)}
+        useForeground={canUseForegroundNativeFeedback && !borderless}
+        onPress={() => requestAnimationFrame(props.onPress)}
       >
         <View style={style}>
           {Children.only(children)}
@@ -28,7 +33,7 @@ export default ({ children, disabled, withRipple, ...props }: PropsType) => {
   }
 
   return (
-    <TouchableOpacity activeOpacity={0.6} {...props}>
+    <TouchableOpacity activeOpacity={0.7} {...props}>
       {children}
     </TouchableOpacity>
   );

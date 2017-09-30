@@ -25,6 +25,7 @@ class CardTab extends Component {
       labelStyle={styles.headerTabLabelStyle}
       indicatorStyle={styles.headerTabIndicatorStyle}
       pressOpacity={0.7}
+      pressColor={appStyle.colors.primary}
       renderLabel={this.renderTabLabel}
       onTabPress={this.props.onTabPress}
       {...props}
