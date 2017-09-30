@@ -65,7 +65,6 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   selectedValueStyle: {
-    color: appStyle.colors.primary,
     paddingRight: 10,
   },
   selectedValueChevron: {
