@@ -150,7 +150,7 @@ export function bdcDataPointsSelector(state: StateType): ?BdcDataPointsType {
     }
   });
 
-  return [doneDataPoints, standardDataPoints].filter(array => array.length > 0);
+  return [standardDataPoints, doneDataPoints].filter(array => array.length > 0);
 }
 
 export function isCurrentSprintActiveSelector(state: StateType): boolean {

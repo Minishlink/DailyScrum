@@ -34,8 +34,10 @@ class BDC extends Component {
       width: this.state.graphSize.width,
       height: this.state.graphSize.height,
       color: appStyle.colors.text,
+      strokeWidth: 2,
       showAreas: false,
-      strokeWidth: strokeSize,
+      showPoints: true,
+      pointRadius: 3.5,
       margin: {
         // experimental
         top: 2 * appStyle.margin,
@@ -56,7 +58,7 @@ class BDC extends Component {
           fill: appStyle.colors.warmGray,
         },
         labelFunction: index => {
-          const standardGraph = this.props.bdcDataPoints[1];
+          const standardGraph = this.props.bdcDataPoints[0];
           if (!standardGraph) return null;
           const dataPoint = standardGraph[index];
           if (!dataPoint) return null;
@@ -124,7 +126,7 @@ const hexToRgb = hex => {
     : null;
 };
 
-const pallete = [hexToRgb(appStyle.colors.primary), hexToRgb(appStyle.colors.red)];
+const pallete = [hexToRgb(appStyle.colors.red), hexToRgb(appStyle.colors.primary)];
 const strokeSize = 2;
 const styles = StyleSheet.create({
   container: {
