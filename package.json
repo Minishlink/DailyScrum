@@ -46,6 +46,7 @@
 	},
 	"devDependencies": {
 		"babel-eslint": "^7.2.2",
+		"babel-plugin-lodash": "^3.2.11",
 		"babel-preset-react-native": "1.9.1",
 		"babel-preset-react-native-stage-0": "^1.0.1",
 		"eslint": "^4.5.0",
@@ -64,6 +65,8 @@
 		"preset": "react-native"
 	},
 	"rnpm": {
-		"assets": ["assets/native"]
+		"assets": [
+			"assets/native"
+		]
 	}
 }
