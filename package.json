@@ -64,6 +64,9 @@
 	"jest": {
 		"preset": "react-native"
 	},
+	"greenkeeper": {
+		"ignore": ["react", "react-native", "flow-bin"]
+	},
 	"rnpm": {
 		"assets": [
 			"assets/native"
