@@ -10,6 +10,7 @@ import Today from './Today';
 import Yesterday from './Yesterday';
 import appStyle from '../../../appStyle';
 import { yesterdayTotalSelector, todayTotalSelector } from '../../../modules/cards/reducer';
+import { roundToDecimalPlace } from '../../../services/MathService';
 
 class CardTab extends Component {
   props: PropsType;
@@ -50,12 +51,12 @@ class CardTab extends Component {
     switch (route.key) {
       case 'yesterday':
         if (yesterdayTotal != null) {
-          title += ` (${Math.round(yesterdayTotal).toLocaleString()})`;
+          title += ` (${roundToDecimalPlace(yesterdayTotal).toLocaleString()})`;
         }
         break;
       case 'today':
         if (todayTotal != null) {
-          title += ` (${Math.round(todayTotal).toLocaleString()})`;
+          title += ` (${roundToDecimalPlace(todayTotal).toLocaleString()})`;
         }
         break;
       default:
