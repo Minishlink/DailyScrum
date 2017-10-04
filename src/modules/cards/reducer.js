@@ -2,7 +2,7 @@
 import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
 import { devTeamSelector } from '../sprints/reducer';
-import { getLastWorkableDayTime } from '../../services/Time';
+import { getLastWorkableDayTime, getTodayWorkableDayTime } from '../../services/Time';
 import { adaptCardsFromTrello } from '../../services/adapter';
 import { CardType, StoreCardType } from '../../types';
 import type { CardListsKeyType } from '../cardLists/reducer';
@@ -49,6 +49,7 @@ export default (state: CardsStateType = initialState, action: ActionType) => {
   switch (action.type) {
     case 'PUT_CARDS':
       const lastWorkableDayTime = getLastWorkableDayTime();
+      const todayWorkableDayTime = getTodayWorkableDayTime();
       const columns = action.payload.cards;
       const newPoints = { today: {}, yesterday: {} };
       for (let columnKey in columns) {
@@ -66,19 +67,31 @@ export default (state: CardsStateType = initialState, action: ActionType) => {
           );
           today[columnKey] = todayCards.map(card => card.id);
           newPoints.today[columnKey] = todayCards.reduce(cardsArrayToPointsReducer, 0);
-        }
-
-        // cards of yesterday are those in done
-        // whose last activity was after the start of the last workable day
-        // and that have poins.
-        // Last activity being last time somebody put the card in the column
-        // or, if not available, the last "general" activity returned by Trello
-        if (columnKey === 'done') {
-          const yesterdayCards = cards.filter(
-            card => new Date(card.dateLastActivity).getTime() > lastWorkableDayTime && card.points !== null
-          );
+        } else if (columnKey === 'done') {
+          // cards of yesterday are those in done
+          // whose last activity was after the start of the last workable day
+          // and before the start of this day
+          // and that have points.
+          // Last activity being last time somebody put the card in the column
+          // or, if not available, the last "general" activity returned by Trello
+          const yesterdayCards = cards.filter(card => {
+            const lastActivityTime = new Date(card.dateLastActivity).getTime();
+            return (
+              lastActivityTime > lastWorkableDayTime && lastActivityTime <= todayWorkableDayTime && card.points !== null
+            );
+          });
           yesterday[columnKey] = yesterdayCards.map(card => card.id);
           newPoints.yesterday[columnKey] = yesterdayCards.reduce(cardsArrayToPointsReducer, 0);
+
+          // cards that were done today
+          const todayCards = cards.filter(card => {
+            const lastActivityTime = new Date(card.dateLastActivity).getTime();
+            return lastActivityTime > todayWorkableDayTime && card.points !== null;
+          });
+          today[columnKey] = todayCards.map(card => card.id);
+          newPoints.today[columnKey] = todayCards.reduce(cardsArrayToPointsReducer, 0);
+        } else {
+          console.warn('[cardsReducer] column type not handled:', columnKey);
         }
       }
 
