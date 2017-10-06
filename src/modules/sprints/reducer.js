@@ -1,9 +1,11 @@
 // @flow
+import { isFuture } from 'date-fns';
 import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
-import type { SprintType, TeamType } from 'DailyScrum/src/types';
-import { adaptSprintFromScrumble } from 'DailyScrum/src/services/adapter';
-import { roundToDecimalPlace } from 'DailyScrum/src/services/MathService';
+import type { SprintType, TeamType } from '../../types';
+import { adaptSprintFromScrumble } from '../../services/adapter';
+import { roundToDecimalPlace } from '../../services/MathService';
+import { isDateEqual } from '../../services/Time';
 import { userSelectorById } from '../users/reducer';
 import { currentProjectSelector } from '../projects/reducer';
 import { PerformanceType } from '../../types';
@@ -50,12 +52,23 @@ export default (state: SprintsStateType = initialState, action: ActionType) => {
 };
 
 const addAdditionalData = (sprint: SprintType): SprintType => {
+  // reset done performances that are in the future
+  sprint.performance = sprint.performance.map(performance => {
+    if (isFuture(performance.date)) {
+      performance.done = null;
+    }
+    return performance;
+  });
+
   // find the dates that have a positive standard and a positive done
   const performances = sprint.performance.filter(data => !!data.done && !!data.standard);
 
   sprint.pointsLeft = sprint.resources.totalPoints;
   if (performances.length) {
-    const todayPerformance = performances[performances.length - 1];
+    // store lead and points left
+    const todayPerformance =
+      performances.find(performance => isDateEqual(new Date(), new Date(performance.date))) ||
+      performances[performances.length - 1];
     sprint.pointsLeft -= todayPerformance.done;
 
     const points = todayPerformance.done - todayPerformance.standard;
