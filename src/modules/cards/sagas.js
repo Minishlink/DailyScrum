@@ -1,6 +1,6 @@
 // @flow
 import { all, select, put, call, takeEvery, cancelled, cancel } from 'redux-saga/effects';
-import { Trello } from 'DailyScrum/src/services';
+import { Trello } from '../../services';
 import { putCards } from './';
 import { tokenSelector } from '../auth/reducer';
 import { sprintsSelector, currentSprintSelector, isCurrentSprintActiveSelector } from '../sprints/reducer';
@@ -31,17 +31,26 @@ export function* fetchDoneCards(): Generator<*, *, *> {
       }
     } else {
       // set the current done total to the current done performance
-      const total = cards.reduce((total, card) => total + getPoints(card.name), 0);
       const lastWorkableDayTime = getLastWorkableDayTime();
-      const currentPerformanceIndex = currentSprint.performance.findIndex(performance => {
-        const currentDay = new Date(performance.date);
-        currentDay.setHours(BOUNDARY_HOUR, BOUNDARY_MINUTES, 0, 0);
-        return lastWorkableDayTime === currentDay.getTime();
-      });
+      let nextPerformanceIndex;
+      if (lastWorkableDayTime < new Date(currentSprint.performance[0].date).getTime()) {
+        nextPerformanceIndex = 0;
+      } else {
+        const currentPerformanceIndex = currentSprint.performance.findIndex(performance => {
+          const currentDay = new Date(performance.date);
+          currentDay.setHours(BOUNDARY_HOUR, BOUNDARY_MINUTES, 0, 0);
+          return lastWorkableDayTime === currentDay.getTime();
+        });
 
-      if (currentPerformanceIndex !== -1) {
+        if (currentPerformanceIndex !== -1) {
+          nextPerformanceIndex = currentPerformanceIndex + 1;
+        }
+      }
+
+      if (nextPerformanceIndex != null && currentSprint.performance[nextPerformanceIndex]) {
         const newSprint = { ...currentSprint };
-        newSprint.performance[currentPerformanceIndex].done = total;
+        const total = cards.reduce((total, card) => total + getPoints(card.name), 0);
+        newSprint.performance[nextPerformanceIndex].done = total;
         yield put(putSprints([newSprint]));
         // TODO REMOTE PUT to Scrumble
       }

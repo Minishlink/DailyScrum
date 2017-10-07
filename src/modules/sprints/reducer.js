@@ -69,7 +69,7 @@ const addAdditionalData = (sprint: SprintType): SprintType => {
     return performance;
   });
 
-  if (lastPerformance) {
+  if (lastPerformance && (lastPerformance.done || lastPerformance.standard)) {
     const pointsLead = lastPerformance.done - lastPerformance.standard;
     sprint.lead = {
       points: roundToDecimalPlace(pointsLead),
@@ -106,6 +106,18 @@ export function currentSprintSelector(state: StateType): ?SprintType {
   }
 
   return null;
+}
+
+export function leadSelector(state: StateType): ?PerformanceType {
+  const currentSprint = currentSprintSelector(state);
+  if (!currentSprint) return null;
+  return currentSprint.lead;
+}
+
+export function overallPointsLeftSelector(state: StateType): ?number {
+  const currentSprint = currentSprintSelector(state);
+  if (!currentSprint) return null;
+  return currentSprint.pointsLeft;
 }
 
 export function teamSelector(state: StateType): ?TeamType {
