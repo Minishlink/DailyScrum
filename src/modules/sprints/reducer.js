@@ -52,32 +52,34 @@ export default (state: SprintsStateType = initialState, action: ActionType) => {
 };
 
 const addAdditionalData = (sprint: SprintType): SprintType => {
-  // reset done performances that are in the future
+  let lastPerformance = null;
   sprint.performance = sprint.performance.map(performance => {
     if (isFuture(performance.date)) {
+      // reset done performances that are in the future
       performance.done = null;
+    } else if (performance.done == null) {
+      // set done performance to last known done performance for earlier dates
+      performance.done = lastPerformance ? lastPerformance.done : 0;
     }
+
+    if (performance.done != null) {
+      lastPerformance = performance;
+    }
+
     return performance;
   });
 
-  // find the dates that have a positive standard and a positive done
-  const performances = sprint.performance.filter(data => !!data.done && !!data.standard);
-
-  sprint.pointsLeft = sprint.resources.totalPoints;
-  if (performances.length) {
-    // store lead and points left
-    const todayPerformance =
-      performances.find(performance => isDateEqual(new Date(), new Date(performance.date))) ||
-      performances[performances.length - 1];
-    sprint.pointsLeft -= todayPerformance.done;
-
-    const points = todayPerformance.done - todayPerformance.standard;
+  if (lastPerformance) {
+    const pointsLead = lastPerformance.done - lastPerformance.standard;
     sprint.lead = {
-      points: roundToDecimalPlace(points),
-      manDays: roundToDecimalPlace(sprint.resources.totalManDays / sprint.resources.totalPoints * points),
+      points: roundToDecimalPlace(pointsLead),
+      manDays: roundToDecimalPlace(sprint.resources.totalManDays / sprint.resources.totalPoints * pointsLead),
     };
+
+    sprint.pointsLeft = roundToDecimalPlace(sprint.resources.totalPoints - lastPerformance.done);
+  } else {
+    sprint.pointsLeft = roundToDecimalPlace(sprint.resources.totalPoints);
   }
-  sprint.pointsLeft = roundToDecimalPlace(sprint.pointsLeft);
 
   return sprint;
 };
@@ -158,7 +160,7 @@ export function bdcDataPointsSelector(state: StateType): ?BdcDataPointsType {
     const date = new Date(performance.date).getTime();
     standardDataPoints.push({ x: index, y: roundToDecimalPlace(totalPoints - performance.standard), date });
 
-    if (performance.done || (!performance.done && !performance.standard)) {
+    if (performance.done != null) {
       doneDataPoints.push({ x: index, y: roundToDecimalPlace(totalPoints - performance.done), date });
     }
   });
