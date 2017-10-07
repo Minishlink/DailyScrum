@@ -42,9 +42,9 @@ export function* fetchDoneCards(): Generator<*, *, *> {
         currentDay.setHours(BOUNDARY_HOUR, BOUNDARY_MINUTES, 0, 0);
 
         // the standard is set to the next day
-        if (lastWorkableDayTime === currentDay.getTime() && currentSprint.performance[i + 1]) {
+        if (lastWorkableDayTime === currentDay.getTime() && currentSprint.performance[i]) {
           const newSprint = { ...currentSprint };
-          newSprint.performance[i + 1].done = total;
+          newSprint.performance[i].done = total;
           yield put(putSprints([newSprint]));
           // TODO REMOTE PUT to Scrumble
           break;

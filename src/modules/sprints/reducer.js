@@ -1,11 +1,10 @@
 // @flow
-import { isFuture } from 'date-fns';
 import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
 import type { SprintType, TeamType } from '../../types';
 import { adaptSprintFromScrumble } from '../../services/adapter';
 import { roundToDecimalPlace } from '../../services/MathService';
-import { isDateEqual } from '../../services/Time';
+import { getTodayWorkableDayTime } from '../../services/Time';
 import { userSelectorById } from '../users/reducer';
 import { currentProjectSelector } from '../projects/reducer';
 import { PerformanceType } from '../../types';
@@ -53,8 +52,9 @@ export default (state: SprintsStateType = initialState, action: ActionType) => {
 
 const addAdditionalData = (sprint: SprintType): SprintType => {
   let lastPerformance = null;
+  const todayWorkableDayTime = getTodayWorkableDayTime();
   sprint.performance = sprint.performance.map(performance => {
-    if (isFuture(performance.date)) {
+    if (new Date(performance.date).getTime() > todayWorkableDayTime) {
       // reset done performances that are in the future
       performance.done = null;
     } else if (performance.done == null) {
