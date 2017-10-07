@@ -1,11 +1,14 @@
 // @flow
 import React from 'react';
+import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import LottieAnimation from 'easy-lottie-react-native';
 import { Text } from '../../../components';
 import appStyle from '../../../appStyle';
+import { todayTargetSelector } from '../../../modules/sprints/reducer';
+import { roundToDecimalPlace } from '../../../services/MathService';
 
-export default (props: PropsType) => {
+const PointsStatus = (props: PropsType) => {
   const isLeading = !(props.lead && props.lead.points < 0);
   return (
     <View style={styles.container}>
@@ -40,6 +43,10 @@ export default (props: PropsType) => {
             ? `Left overall: ${props.pointsLeft} pts`
             : `Congratulations, this sprint is a success!`}
         </Text>
+        {props.todayTarget != null &&
+          <Text style={styles.pointsLeft}>
+            Left for today: {props.todayTarget > 0 ? roundToDecimalPlace(props.todayTarget).toLocaleString() : 0} pts
+          </Text>}
       </View>
     </View>
   );
@@ -51,6 +58,7 @@ type PropsType = {
     manDays: number,
   },
   pointsLeft?: number,
+  todayTarget: ?number,
 };
 
 const styles = StyleSheet.create({
@@ -77,7 +85,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   pointsLeft: {
-    marginTop: 7,
+    marginTop: 5,
     textAlign: 'center',
   },
   pointsLeftAnimationContainer: {
@@ -86,3 +94,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center', // normal behaviour
   },
 });
+
+const mapStateToProps = state => ({
+  todayTarget: todayTargetSelector(state),
+});
+
+export default connect(mapStateToProps)(PointsStatus);

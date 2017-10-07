@@ -4,7 +4,7 @@ import type { StateType } from '../reducers';
 import type { SprintType, TeamType } from '../../types';
 import { adaptSprintFromScrumble } from '../../services/adapter';
 import { roundToDecimalPlace } from '../../services/MathService';
-import { getTodayWorkableDayTime } from '../../services/Time';
+import { getTodayWorkableDayTime, isDateEqual } from '../../services/Time';
 import { userSelectorById } from '../users/reducer';
 import { currentProjectSelector } from '../projects/reducer';
 import { PerformanceType } from '../../types';
@@ -167,6 +167,28 @@ export function bdcDataPointsSelector(state: StateType): ?BdcDataPointsType {
 
   return [standardDataPoints, doneDataPoints].filter(array => array.length > 0);
 }
+
+// next standard minus current done points
+export const todayTargetSelector = (state: StateType): ?number => {
+  const sprint = currentSprintSelector(state);
+  if (!sprint) return null;
+
+  let todayPerformanceIndex = sprint.performance.findIndex(performance =>
+    isDateEqual(new Date(), new Date(performance.date))
+  );
+
+  if (todayPerformanceIndex === -1) {
+    todayPerformanceIndex = [...sprint.performance].reverse().findIndex(performance => performance.done !== null);
+    if (todayPerformanceIndex === -1) return null;
+    todayPerformanceIndex = sprint.performance.length - 1 - todayPerformanceIndex;
+  }
+
+  const todayPerformance = sprint.performance[todayPerformanceIndex];
+  const nextDayPerformance = sprint.performance[todayPerformanceIndex + 1] || todayPerformance;
+  const todo = nextDayPerformance.standard - todayPerformance.done;
+
+  return todo > 0 ? todo : null;
+};
 
 export function isCurrentSprintActiveSelector(state: StateType): boolean {
   const currentSprint = currentSprintSelector(state);
