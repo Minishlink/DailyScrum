@@ -30,25 +30,20 @@ export function* fetchDoneCards(): Generator<*, *, *> {
         cards = yield call(Trello.getCardsFromList, token.trello, lastSprint.doneColumn);
       }
     } else {
-      // only compute total if the sprint has started since at least one day
+      // set the current done total to the current done performance
       const total = cards.reduce((total, card) => total + getPoints(card.name), 0);
       const lastWorkableDayTime = getLastWorkableDayTime();
-      for (
-        let i = 0, performance = currentSprint.performance[0];
-        i < currentSprint.performance.length;
-        performance = currentSprint.performance[++i]
-      ) {
+      const currentPerformanceIndex = currentSprint.performance.findIndex(performance => {
         const currentDay = new Date(performance.date);
         currentDay.setHours(BOUNDARY_HOUR, BOUNDARY_MINUTES, 0, 0);
+        return lastWorkableDayTime === currentDay.getTime();
+      });
 
-        // the standard is set to the next day
-        if (lastWorkableDayTime === currentDay.getTime() && currentSprint.performance[i]) {
-          const newSprint = { ...currentSprint };
-          newSprint.performance[i].done = total;
-          yield put(putSprints([newSprint]));
-          // TODO REMOTE PUT to Scrumble
-          break;
-        }
+      if (currentPerformanceIndex !== -1) {
+        const newSprint = { ...currentSprint };
+        newSprint.performance[currentPerformanceIndex].done = total;
+        yield put(putSprints([newSprint]));
+        // TODO REMOTE PUT to Scrumble
       }
     }
 
