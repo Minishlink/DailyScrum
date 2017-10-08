@@ -4,6 +4,8 @@ jobs:
     docker:
       - image: reactcommunity/node-ci:8.4.0-0
     working_directory: ~/DailyScrum
+    environment:
+      TZ: "/usr/share/zoneinfo/Europe/Paris"
     steps:
       - checkout
       - restore_cache:
