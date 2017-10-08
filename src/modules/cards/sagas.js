@@ -1,6 +1,6 @@
 // @flow
 import { all, select, put, call, takeEvery, cancelled, cancel } from 'redux-saga/effects';
-import { Trello } from 'DailyScrum/src/services';
+import { Trello } from '../../services';
 import { putCards } from './';
 import { tokenSelector } from '../auth/reducer';
 import { sprintsSelector, currentSprintSelector, isCurrentSprintActiveSelector } from '../sprints/reducer';
@@ -30,25 +30,29 @@ export function* fetchDoneCards(): Generator<*, *, *> {
         cards = yield call(Trello.getCardsFromList, token.trello, lastSprint.doneColumn);
       }
     } else {
-      // only compute total if the sprint has started since at least one day
-      const total = cards.reduce((total, card) => total + getPoints(card.name), 0);
+      // set the current done total to the current done performance
       const lastWorkableDayTime = getLastWorkableDayTime();
-      for (
-        let i = 0, performance = currentSprint.performance[0];
-        i < currentSprint.performance.length;
-        performance = currentSprint.performance[++i]
-      ) {
-        const currentDay = new Date(performance.date);
-        currentDay.setHours(BOUNDARY_HOUR, BOUNDARY_MINUTES, 0, 0);
+      let nextPerformanceIndex;
+      if (lastWorkableDayTime < new Date(currentSprint.performance[0].date).getTime()) {
+        nextPerformanceIndex = 0;
+      } else {
+        const currentPerformanceIndex = currentSprint.performance.findIndex(performance => {
+          const currentDay = new Date(performance.date);
+          currentDay.setHours(BOUNDARY_HOUR, BOUNDARY_MINUTES, 0, 0);
+          return lastWorkableDayTime === currentDay.getTime();
+        });
 
-        // the standard is set to the next day
-        if (lastWorkableDayTime === currentDay.getTime() && currentSprint.performance[i + 1]) {
-          const newSprint = { ...currentSprint };
-          newSprint.performance[i + 1].done = total;
-          yield put(putSprints([newSprint]));
-          // TODO REMOTE PUT to Scrumble
-          break;
+        if (currentPerformanceIndex !== -1) {
+          nextPerformanceIndex = currentPerformanceIndex + 1;
         }
+      }
+
+      if (nextPerformanceIndex != null && currentSprint.performance[nextPerformanceIndex]) {
+        const newSprint = { ...currentSprint };
+        const total = cards.reduce((total, card) => total + getPoints(card.name), 0);
+        newSprint.performance[nextPerformanceIndex].done = total;
+        yield put(putSprints([newSprint]));
+        // TODO REMOTE PUT to Scrumble
       }
     }
 

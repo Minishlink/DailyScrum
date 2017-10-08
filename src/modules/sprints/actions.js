@@ -1,5 +1,5 @@
 // @flow
-import type { ScrumbleSprintType } from 'DailyScrum/src/types/Scrumble';
+import type { ScrumbleSprintType } from '../../types/Scrumble';
 
 export type ActionType =
   | {|
