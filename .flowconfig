@@ -18,6 +18,7 @@
 .*/node_modules/react-navigation
 .*/node_modules/react-native-firebase
 .*/node_modules/react-native-linear-gradient
+.*/node_modules/redux-saga-test-plan
 
 ; tests
 .*/*.tests.js

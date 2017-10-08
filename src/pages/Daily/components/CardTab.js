@@ -1,18 +1,18 @@
 // @flow
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
 import { Header } from 'react-navigation';
 import { StyleSheet } from 'react-native';
-import { Text, Page } from 'DailyScrum/src/components';
+import { Text, Page } from '../../../components';
 import Today from './Today';
 import Yesterday from './Yesterday';
 import appStyle from '../../../appStyle';
 import { yesterdayTotalSelector, todayTotalSelector } from '../../../modules/cards/reducer';
 import { roundToDecimalPlace } from '../../../services/MathService';
 
-class CardTab extends Component {
+class CardTab extends PureComponent {
   props: PropsType;
   state: StateType = {
     index: 0,
