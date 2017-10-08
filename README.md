@@ -19,6 +19,8 @@
 </p>
 
 ## Documentation
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/Minishlink/DailyScrum.svg)](https://greenkeeper.io/)
 [![Build status](https://img.shields.io/circleci/project/github/Minishlink/DailyScrum.svg)](https://circleci.com/gh/Minishlink/DailyScrum)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
