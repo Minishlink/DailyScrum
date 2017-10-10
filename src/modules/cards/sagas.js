@@ -5,12 +5,13 @@ import { putCards } from './';
 import { tokenSelector } from '../auth/reducer';
 import { sprintsSelector, currentSprintSelector, isCurrentSprintActiveSelector } from '../sprints/reducer';
 import type { SprintType } from '../../types';
-import { currentProjectSelector } from '../projects/reducer';
+import { currentProjectSelector, validateColumnIdSelector } from '../projects/reducer';
 import { getPoints } from '../../services/Trello';
 import { getLastWorkableDayTime, BOUNDARY_HOUR, BOUNDARY_MINUTES } from '../../services/Time';
 import { putSprints } from '../sprints/actions';
 import { startSync, endSync } from '../sync';
 import { configureTodayCardList, configureYesterdayCardList } from '../cardLists/sagas';
+import { adaptCardsFromTrello } from '../../services/adapter';
 
 export function* fetchDoneCards(): Generator<*, *, *> {
   try {
@@ -56,9 +57,11 @@ export function* fetchDoneCards(): Generator<*, *, *> {
       }
     }
 
+    const validateColumnId = yield select(validateColumnIdSelector);
+
     yield put(
       putCards({
-        done: cards,
+        done: adaptCardsFromTrello(cards, validateColumnId),
       })
     );
     yield call(configureYesterdayCardList);
@@ -95,7 +98,7 @@ export function* fetchNotDoneCards(): Generator<*, *, *> {
     let cards = {};
     let i = 0;
     for (let key of Object.keys(currentProject.columnMapping)) {
-      cards[key] = cardsCalls[i++];
+      cards[key] = adaptCardsFromTrello(cardsCalls[i++]);
     }
 
     yield put(putCards(cards));

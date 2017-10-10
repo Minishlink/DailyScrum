@@ -28,7 +28,7 @@ export default (props: PropsType) => {
 };
 
 type PropsType = {
-  type?: 'font-awesome',
+  type?: 'font-awesome' | 'entypo' | 'material' | 'material-community',
   name: string,
   size?: number,
   color?: string,

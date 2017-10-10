@@ -9,6 +9,8 @@ import MemberIcon from './MemberIcon';
 import PointsBadge from './PointsBadge';
 import { Analytics } from '../../services';
 import type { CardType } from '../../types';
+import { differenceInBusinessDays } from '../../services/Time';
+import Icon from '../Icon';
 
 export default class extends Component {
   props: PropsType;
@@ -38,6 +40,11 @@ export default class extends Component {
 
   render() {
     const { card } = this.props;
+    const diffBetweenValidationAndDone =
+      card.dateLastActivity &&
+      card.dateEndDevelopment &&
+      differenceInBusinessDays(card.dateLastActivity, card.dateEndDevelopment);
+
     return (
       <Button style={this.props.style} onLongPress={this.showActionSheet}>
         <View>
@@ -48,6 +55,18 @@ export default class extends Component {
                   #{card.idShort}
                 </Text>
               </View>
+              {diffBetweenValidationAndDone > 1 &&
+                <View style={styles.lateValidationContainer}>
+                  <Text style={styles.lateValidationText}>
+                    {diffBetweenValidationAndDone}
+                  </Text>
+                  <Icon
+                    type="material-community"
+                    name="clock-alert"
+                    size={appStyle.font.size.default}
+                    color={appStyle.colors.overRed}
+                  />
+                </View>}
             </View>
             <Text style={styles.title}>
               {card.name}
@@ -105,6 +124,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 7,
     borderRadius: appStyle.borderRadius,
+  },
+  lateValidationContainer: {
+    flexDirection: 'row',
+    backgroundColor: appStyle.colors.red,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 7,
+    borderRadius: appStyle.borderRadius,
+  },
+  lateValidationText: {
+    marginRight: 2,
+    color: appStyle.colors.overRed,
   },
   pointsContainer: {
     flex: 1,

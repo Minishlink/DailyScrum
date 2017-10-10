@@ -24,6 +24,7 @@ const appStyle = {
     tertiary: tertiaryColor,
     green: '#7ed321',
     red: '#c30016',
+    overRed: 'white',
     overPrimaryColor: 'white',
     text: '#4d4d4d',
     warmGray: '#9b9b9b',

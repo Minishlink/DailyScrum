@@ -6,6 +6,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 import cardsReducer from '../reducer';
 import sprintsReducer, { leadSelector, overallPointsLeftSelector, todayTargetSelector } from '../../sprints/reducer';
 import usersReducer from '../../users/reducer';
+import projectsReducer from '../../projects/reducer';
 import { fetchDoneCards } from '../sagas';
 import { tokenSelector } from '../../auth/reducer';
 import { Trello } from '../../../services';
@@ -66,23 +67,24 @@ const getInitialState = () => {
   return {
     cards: cardsReducer(undefined, {}),
     users: usersReducer(undefined, {}),
+    projects: projectsReducer(undefined, {}),
     sprints: sprintsAfterSelectingSprint,
   };
 };
+
+const rootReducer = combineReducers({
+  cards: cardsReducer,
+  sprints: sprintsReducer,
+  users: usersReducer,
+  projects: projectsReducer,
+});
 
 describe('cards sagas', () => {
   describe('fetchDoneCards', () => {
     it("doesn't add points status when there are no cards", async () => {
       const initialState = getInitialState();
       const { storeState } = await expectSaga(fetchDoneCards)
-        .withReducer(
-          combineReducers({
-            cards: cardsReducer,
-            sprints: sprintsReducer,
-            users: usersReducer,
-          }),
-          initialState
-        )
+        .withReducer(rootReducer, initialState)
         .provide([
           [select(tokenSelector), 'toto'],
           [matchers.call.fn(Trello.getCardsFromList, 'toto', '59bc197d91e43e1f3892ccf2'), []],
@@ -99,14 +101,7 @@ describe('cards sagas', () => {
             MockDate.set(new Date('2017-09-12T06:00:00.000Z'));
             const initialState = getInitialState();
             const result = await expectSaga(fetchDoneCards)
-              .withReducer(
-                combineReducers({
-                  cards: cardsReducer,
-                  sprints: sprintsReducer,
-                  users: usersReducer,
-                }),
-                initialState
-              )
+              .withReducer(rootReducer, initialState)
               .provide([
                 [select(tokenSelector), 'toto'],
                 [matchers.call.fn(Trello.getCardsFromList, 'toto', '59bc197d91e43e1f3892ccf2'), []],
@@ -135,14 +130,7 @@ describe('cards sagas', () => {
             MockDate.set(new Date('2017-09-12T06:00:00.000Z'));
             const initialState = getInitialState();
             const result = await expectSaga(fetchDoneCards)
-              .withReducer(
-                combineReducers({
-                  cards: cardsReducer,
-                  sprints: sprintsReducer,
-                  users: usersReducer,
-                }),
-                initialState
-              )
+              .withReducer(rootReducer, initialState)
               .provide([
                 [select(tokenSelector), 'toto'],
                 [
@@ -180,14 +168,7 @@ describe('cards sagas', () => {
             MockDate.set(new Date('2017-09-12T16:00:00.000Z'));
             const initialState = getInitialState();
             const result = await expectSaga(fetchDoneCards)
-              .withReducer(
-                combineReducers({
-                  cards: cardsReducer,
-                  sprints: sprintsReducer,
-                  users: usersReducer,
-                }),
-                initialState
-              )
+              .withReducer(rootReducer, initialState)
               .provide([
                 [select(tokenSelector), 'toto'],
                 [matchers.call.fn(Trello.getCardsFromList, 'toto', '59bc197d91e43e1f3892ccf2'), []],
@@ -216,14 +197,7 @@ describe('cards sagas', () => {
             MockDate.set(new Date('2017-09-12T16:00:00.000Z'));
             const initialState = getInitialState();
             const result = await expectSaga(fetchDoneCards)
-              .withReducer(
-                combineReducers({
-                  cards: cardsReducer,
-                  sprints: sprintsReducer,
-                  users: usersReducer,
-                }),
-                initialState
-              )
+              .withReducer(rootReducer, initialState)
               .provide([
                 [select(tokenSelector), 'toto'],
                 [
@@ -263,14 +237,7 @@ describe('cards sagas', () => {
             MockDate.set(new Date('2017-09-13T06:00:00.000Z'));
             const initialState = getInitialState();
             const result = await expectSaga(fetchDoneCards)
-              .withReducer(
-                combineReducers({
-                  cards: cardsReducer,
-                  sprints: sprintsReducer,
-                  users: usersReducer,
-                }),
-                initialState
-              )
+              .withReducer(rootReducer, initialState)
               .provide([
                 [select(tokenSelector), 'toto'],
                 [matchers.call.fn(Trello.getCardsFromList, 'toto', '59bc197d91e43e1f3892ccf2'), []],
@@ -299,14 +266,7 @@ describe('cards sagas', () => {
             MockDate.set(new Date('2017-09-13T06:00:00.000Z'));
             const initialState = getInitialState();
             const result = await expectSaga(fetchDoneCards)
-              .withReducer(
-                combineReducers({
-                  cards: cardsReducer,
-                  sprints: sprintsReducer,
-                  users: usersReducer,
-                }),
-                initialState
-              )
+              .withReducer(rootReducer, initialState)
               .provide([
                 [select(tokenSelector), 'toto'],
                 [
@@ -344,14 +304,7 @@ describe('cards sagas', () => {
             MockDate.set(new Date('2017-09-13T16:00:00.000Z'));
             const initialState = getInitialState();
             const result = await expectSaga(fetchDoneCards)
-              .withReducer(
-                combineReducers({
-                  cards: cardsReducer,
-                  sprints: sprintsReducer,
-                  users: usersReducer,
-                }),
-                initialState
-              )
+              .withReducer(rootReducer, initialState)
               .provide([
                 [select(tokenSelector), 'toto'],
                 [matchers.call.fn(Trello.getCardsFromList, 'toto', '59bc197d91e43e1f3892ccf2'), []],
@@ -380,14 +333,7 @@ describe('cards sagas', () => {
             MockDate.set(new Date('2017-09-13T16:00:00.000Z'));
             const initialState = getInitialState();
             const result = await expectSaga(fetchDoneCards)
-              .withReducer(
-                combineReducers({
-                  cards: cardsReducer,
-                  sprints: sprintsReducer,
-                  users: usersReducer,
-                }),
-                initialState
-              )
+              .withReducer(rootReducer, initialState)
               .provide([
                 [select(tokenSelector), 'toto'],
                 [
@@ -427,14 +373,7 @@ describe('cards sagas', () => {
             MockDate.set(new Date('2017-09-15T06:00:00.000Z'));
             const initialState = getInitialState();
             const result = await expectSaga(fetchDoneCards)
-              .withReducer(
-                combineReducers({
-                  cards: cardsReducer,
-                  sprints: sprintsReducer,
-                  users: usersReducer,
-                }),
-                initialState
-              )
+              .withReducer(rootReducer, initialState)
               .provide([
                 [select(tokenSelector), 'toto'],
                 [matchers.call.fn(Trello.getCardsFromList, 'toto', '59bc197d91e43e1f3892ccf2'), []],
@@ -463,14 +402,7 @@ describe('cards sagas', () => {
             MockDate.set(new Date('2017-09-15T06:00:00.000Z'));
             const initialState = getInitialState();
             const result = await expectSaga(fetchDoneCards)
-              .withReducer(
-                combineReducers({
-                  cards: cardsReducer,
-                  sprints: sprintsReducer,
-                  users: usersReducer,
-                }),
-                initialState
-              )
+              .withReducer(rootReducer, initialState)
               .provide([
                 [select(tokenSelector), 'toto'],
                 [
@@ -511,14 +443,7 @@ describe('cards sagas', () => {
             MockDate.set(new Date('2017-09-15T16:00:00.000Z'));
             const initialState = getInitialState();
             const result = await expectSaga(fetchDoneCards)
-              .withReducer(
-                combineReducers({
-                  cards: cardsReducer,
-                  sprints: sprintsReducer,
-                  users: usersReducer,
-                }),
-                initialState
-              )
+              .withReducer(rootReducer, initialState)
               .provide([
                 [select(tokenSelector), 'toto'],
                 [matchers.call.fn(Trello.getCardsFromList, 'toto', '59bc197d91e43e1f3892ccf2'), []],
@@ -547,14 +472,7 @@ describe('cards sagas', () => {
             MockDate.set(new Date('2017-09-15T16:00:00.000Z'));
             const initialState = getInitialState();
             const result = await expectSaga(fetchDoneCards)
-              .withReducer(
-                combineReducers({
-                  cards: cardsReducer,
-                  sprints: sprintsReducer,
-                  users: usersReducer,
-                }),
-                initialState
-              )
+              .withReducer(rootReducer, initialState)
               .provide([
                 [select(tokenSelector), 'toto'],
                 [
@@ -597,14 +515,7 @@ describe('cards sagas', () => {
             MockDate.set(new Date('2017-09-18T06:00:00.000Z'));
             const initialState = getInitialState();
             const result = await expectSaga(fetchDoneCards)
-              .withReducer(
-                combineReducers({
-                  cards: cardsReducer,
-                  sprints: sprintsReducer,
-                  users: usersReducer,
-                }),
-                initialState
-              )
+              .withReducer(rootReducer, initialState)
               .provide([
                 [select(tokenSelector), 'toto'],
                 [matchers.call.fn(Trello.getCardsFromList, 'toto', '59bc197d91e43e1f3892ccf2'), []],
@@ -633,14 +544,7 @@ describe('cards sagas', () => {
             MockDate.set(new Date('2017-09-18T06:00:00.000Z'));
             const initialState = getInitialState();
             const result = await expectSaga(fetchDoneCards)
-              .withReducer(
-                combineReducers({
-                  cards: cardsReducer,
-                  sprints: sprintsReducer,
-                  users: usersReducer,
-                }),
-                initialState
-              )
+              .withReducer(rootReducer, initialState)
               .provide([
                 [select(tokenSelector), 'toto'],
                 [
@@ -681,14 +585,7 @@ describe('cards sagas', () => {
             MockDate.set(new Date('2017-09-18T16:00:00.000Z'));
             const initialState = getInitialState();
             const result = await expectSaga(fetchDoneCards)
-              .withReducer(
-                combineReducers({
-                  cards: cardsReducer,
-                  sprints: sprintsReducer,
-                  users: usersReducer,
-                }),
-                initialState
-              )
+              .withReducer(rootReducer, initialState)
               .provide([
                 [select(tokenSelector), 'toto'],
                 [matchers.call.fn(Trello.getCardsFromList, 'toto', '59bc197d91e43e1f3892ccf2'), []],
@@ -717,14 +614,7 @@ describe('cards sagas', () => {
             MockDate.set(new Date('2017-09-18T16:00:00.000Z'));
             const initialState = getInitialState();
             const result = await expectSaga(fetchDoneCards)
-              .withReducer(
-                combineReducers({
-                  cards: cardsReducer,
-                  sprints: sprintsReducer,
-                  users: usersReducer,
-                }),
-                initialState
-              )
+              .withReducer(rootReducer, initialState)
               .provide([
                 [select(tokenSelector), 'toto'],
                 [
@@ -767,14 +657,7 @@ describe('cards sagas', () => {
             MockDate.set(new Date('2017-09-19T06:00:00.000Z'));
             const initialState = getInitialState();
             const result = await expectSaga(fetchDoneCards)
-              .withReducer(
-                combineReducers({
-                  cards: cardsReducer,
-                  sprints: sprintsReducer,
-                  users: usersReducer,
-                }),
-                initialState
-              )
+              .withReducer(rootReducer, initialState)
               .provide([
                 [select(tokenSelector), 'toto'],
                 [matchers.call.fn(Trello.getCardsFromList, 'toto', '59bc197d91e43e1f3892ccf2'), []],
@@ -803,14 +686,7 @@ describe('cards sagas', () => {
             MockDate.set(new Date('2017-09-19T06:00:00.000Z'));
             const initialState = getInitialState();
             const result = await expectSaga(fetchDoneCards)
-              .withReducer(
-                combineReducers({
-                  cards: cardsReducer,
-                  sprints: sprintsReducer,
-                  users: usersReducer,
-                }),
-                initialState
-              )
+              .withReducer(rootReducer, initialState)
               .provide([
                 [select(tokenSelector), 'toto'],
                 [
@@ -851,14 +727,7 @@ describe('cards sagas', () => {
             MockDate.set(new Date('2017-09-19T16:00:00.000Z'));
             const initialState = getInitialState();
             const result = await expectSaga(fetchDoneCards)
-              .withReducer(
-                combineReducers({
-                  cards: cardsReducer,
-                  sprints: sprintsReducer,
-                  users: usersReducer,
-                }),
-                initialState
-              )
+              .withReducer(rootReducer, initialState)
               .provide([
                 [select(tokenSelector), 'toto'],
                 [matchers.call.fn(Trello.getCardsFromList, 'toto', '59bc197d91e43e1f3892ccf2'), []],
@@ -887,14 +756,7 @@ describe('cards sagas', () => {
             MockDate.set(new Date('2017-09-19T16:00:00.000Z'));
             const initialState = getInitialState();
             const result = await expectSaga(fetchDoneCards)
-              .withReducer(
-                combineReducers({
-                  cards: cardsReducer,
-                  sprints: sprintsReducer,
-                  users: usersReducer,
-                }),
-                initialState
-              )
+              .withReducer(rootReducer, initialState)
               .provide([
                 [select(tokenSelector), 'toto'],
                 [

@@ -3,7 +3,6 @@ import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
 import { devTeamSelector } from '../sprints/reducer';
 import { getLastWorkableDayTime, getTodayWorkableDayTime } from '../../services/Time';
-import { adaptCardsFromTrello } from '../../services/adapter';
 import { CardType, StoreCardType } from '../../types';
 import type { CardListsKeyType } from '../cardLists/reducer';
 
@@ -55,7 +54,7 @@ export default (state: CardsStateType = initialState, action: ActionType) => {
       const columns = action.payload.cards;
       const newPoints = { today: {}, yesterday: {} };
       for (let columnKey in columns) {
-        const cards = adaptCardsFromTrello(columns[columnKey]);
+        const cards = columns[columnKey];
         cards.forEach(card => (list[card.id] = card));
         columns[columnKey] = cards.map(card => card.id);
         newPoints[columnKey] = cards.reduce(cardsArrayToPointsReducer, 0);
