@@ -138,6 +138,7 @@ describe('cards sagas', () => {
                   [
                     {
                       name: '(4) Done',
+                      actions: [],
                     },
                   ],
                 ],
@@ -205,6 +206,7 @@ describe('cards sagas', () => {
                   [
                     {
                       name: '(4) Done',
+                      actions: [],
                     },
                   ],
                 ],
@@ -274,6 +276,7 @@ describe('cards sagas', () => {
                   [
                     {
                       name: '(4) Done',
+                      actions: [],
                     },
                   ],
                 ],
@@ -341,6 +344,7 @@ describe('cards sagas', () => {
                   [
                     {
                       name: '(4) Done',
+                      actions: [],
                     },
                   ],
                 ],
@@ -410,9 +414,11 @@ describe('cards sagas', () => {
                   [
                     {
                       name: '(4) Done',
+                      actions: [],
                     },
                     {
                       name: '(26) Done',
+                      actions: [],
                     },
                   ],
                 ],
@@ -480,9 +486,11 @@ describe('cards sagas', () => {
                   [
                     {
                       name: '(4) Done',
+                      actions: [],
                     },
                     {
                       name: '(26) Done',
+                      actions: [],
                     },
                   ],
                 ],
@@ -552,9 +560,11 @@ describe('cards sagas', () => {
                   [
                     {
                       name: '(4) Done',
+                      actions: [],
                     },
                     {
                       name: '(26) Done',
+                      actions: [],
                     },
                   ],
                 ],
@@ -622,9 +632,11 @@ describe('cards sagas', () => {
                   [
                     {
                       name: '(4) Done',
+                      actions: [],
                     },
                     {
                       name: '(26) Done',
+                      actions: [],
                     },
                   ],
                 ],
@@ -694,9 +706,11 @@ describe('cards sagas', () => {
                   [
                     {
                       name: '(4) Done',
+                      actions: [],
                     },
                     {
                       name: '(26) Done',
+                      actions: [],
                     },
                   ],
                 ],
@@ -764,9 +778,11 @@ describe('cards sagas', () => {
                   [
                     {
                       name: '(4) Done',
+                      actions: [],
                     },
                     {
                       name: '(26) Done',
+                      actions: [],
                     },
                   ],
                 ],

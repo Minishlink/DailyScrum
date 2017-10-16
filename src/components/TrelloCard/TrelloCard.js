@@ -40,10 +40,8 @@ export default class extends Component {
 
   render() {
     const { card } = this.props;
-    const diffBetweenValidationAndDone =
-      card.dateLastActivity &&
-      card.dateEndDevelopment &&
-      differenceInBusinessDays(card.dateLastActivity, card.dateEndDevelopment);
+    const validationLatenessInDays =
+      card.dateEndDevelopment && differenceInBusinessDays(card.dateDone || Date.now(), card.dateEndDevelopment);
 
     return (
       <Button style={this.props.style} onLongPress={this.showActionSheet}>
@@ -55,10 +53,10 @@ export default class extends Component {
                   #{card.idShort}
                 </Text>
               </View>
-              {diffBetweenValidationAndDone > 1 &&
+              {validationLatenessInDays > 1 &&
                 <View style={styles.lateValidationContainer}>
                   <Text style={styles.lateValidationText}>
-                    {diffBetweenValidationAndDone}
+                    {validationLatenessInDays}
                   </Text>
                   <Icon
                     type="material-community"

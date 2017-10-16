@@ -21,14 +21,16 @@ export function* fetchDoneCards(): Generator<*, *, *> {
     if (!currentSprint) yield cancel();
     const sprints = yield select(sprintsSelector);
 
-    let cards = yield call(Trello.getCardsFromList, token.trello, currentSprint.doneColumn);
+    let doneColumnId = currentSprint.doneColumn;
+    let cards = yield call(Trello.getCardsFromList, token.trello, doneColumnId);
     if (!cards.length) {
       // if it's the day after the ceremony, you still want to have the tickets of yesterday
       const lastSprint: any = Object.values(sprints).find(
         (sprint: SprintType) => sprint.number === currentSprint.number - 1
       );
       if (lastSprint) {
-        cards = yield call(Trello.getCardsFromList, token.trello, lastSprint.doneColumn);
+        doneColumnId = lastSprint.doneColumn;
+        cards = yield call(Trello.getCardsFromList, token.trello, doneColumnId);
       }
     } else {
       // set the current done total to the current done performance
@@ -61,7 +63,7 @@ export function* fetchDoneCards(): Generator<*, *, *> {
 
     yield put(
       putCards({
-        done: adaptCardsFromTrello(cards, validateColumnId),
+        done: adaptCardsFromTrello(cards, validateColumnId, doneColumnId),
       })
     );
     yield call(configureYesterdayCardList);

@@ -26,7 +26,16 @@ describe('CardsTrelloToAppAdapter', () => {
       name: '(1) Unassigned story',
       idMembers: [],
       dateLastActivity: 1495133134992,
-      actions: [],
+      actions: [
+        {
+          data: {
+            listAfter: {
+              id: 'toValidate',
+            },
+          },
+          date: 1494930334992,
+        },
+      ],
       shortUrl: 'link',
     },
     {
@@ -67,6 +76,7 @@ describe('CardsTrelloToAppAdapter', () => {
       postPoints: 20,
       dateLastActivity: 1495133134992,
       dateEndDevelopment: null,
+      dateDone: null,
       url: 'link',
     },
     {
@@ -78,6 +88,7 @@ describe('CardsTrelloToAppAdapter', () => {
       postPoints: null,
       dateLastActivity: 1495133134992,
       dateEndDevelopment: null,
+      dateDone: null,
       url: 'link',
     },
     {
@@ -87,8 +98,9 @@ describe('CardsTrelloToAppAdapter', () => {
       points: 1,
       postPoints: null,
       idMembers: [],
-      dateLastActivity: 1495133134992,
-      dateEndDevelopment: null,
+      dateLastActivity: 1494930334992,
+      dateEndDevelopment: 1494930334992,
+      dateDone: null,
       url: 'link',
     },
     {
@@ -100,11 +112,12 @@ describe('CardsTrelloToAppAdapter', () => {
       postPoints: null,
       dateLastActivity: 1494960334992,
       dateEndDevelopment: 1494930334992,
+      dateDone: 1494960334992,
       url: 'link',
     },
   ];
 
   it('should adapt the cards', () => {
-    expect(adapt(testCards, 'toValidate')).toEqual(expectedTestCards);
+    expect(adapt(testCards, 'toValidate', 'done')).toEqual(expectedTestCards);
   });
 });
