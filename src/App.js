@@ -16,11 +16,11 @@ class App extends Component {
   }
 
   render() {
-    return this.state.store
-      ? <Provider store={this.state.store}>
-          <Scenes />
-        </Provider>
-      : null;
+    return this.state.store ? (
+      <Provider store={this.state.store}>
+        <Scenes />
+      </Provider>
+    ) : null;
   }
 }
 

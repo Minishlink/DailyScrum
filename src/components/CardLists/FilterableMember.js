@@ -28,9 +28,7 @@ export default class FilterableMember extends Component {
             <MemberIcon member={member} size={40} />
           </View>
         </Button>
-        <Text style={styles.filterableMemberPoints}>
-          {roundToDecimalPlace(points).toLocaleString()}
-        </Text>
+        <Text style={styles.filterableMemberPoints}>{roundToDecimalPlace(points).toLocaleString()}</Text>
       </View>
     );
   }

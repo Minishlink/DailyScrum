@@ -10,11 +10,7 @@ class ProjectHeaderTitle extends PureComponent {
   props: PropsType;
 
   render() {
-    return (
-      <Text style={styles.title}>
-        {this.props.projectName}
-      </Text>
-    );
+    return <Text style={styles.title}>{this.props.projectName}</Text>;
   }
 }
 

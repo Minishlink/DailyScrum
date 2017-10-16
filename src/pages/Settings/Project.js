@@ -29,13 +29,14 @@ class Settings extends Component {
     this.props.changeCurrentRemoteProject(board);
   };
 
-  renderBoard = ({ item: board }) =>
+  renderBoard = ({ item: board }) => (
     <BoardCard
       board={board}
       isActive={board.id === this.props.currentBoardId}
       isLoading={this.props.isChangingProject && board.id === this.state.lastSelectedBoard}
       onPress={this.changeProject}
-    />;
+    />
+  );
 
   renderEmpty = () => <Text style={styles.noBoardsText}>No boards found</Text>;
 

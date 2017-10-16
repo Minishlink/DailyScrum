@@ -41,13 +41,12 @@ class Drawer extends Component {
     return (
       <View style={styles.container}>
         {this.props.isDrawerOpen && <ErrorBar style={styles.errorBar} />}
-        {user &&
+        {user && (
           <Gradient style={styles.profile}>
             <MemberIcon member={user} size={84} />
-            <Text style={styles.fullName}>
-              {user.fullName}
-            </Text>
-          </Gradient>}
+            <Text style={styles.fullName}>{user.fullName}</Text>
+          </Gradient>
+        )}
         <View style={[styles.actions, styles.mainActions]}>
           <Button
             disabled={this.props.isSyncing}

@@ -20,12 +20,13 @@ class CardsList extends PureComponent {
   renderSectionHeader = ({ section }: { section: any }) =>
     section.data.length ? <ListHeader listKey={section.key} total={section.points} /> : null;
 
-  renderEmpty = () =>
+  renderEmpty = () => (
     <View style={styles.emptyContainer}>
       <Text>No cards yet</Text>
       <Text>Pull to refresh :)</Text>
       <LottieAnimation source={require('../../../assets/lottie/empty_status.json')} loop duration={6000} />
-    </View>;
+    </View>
+  );
 
   renderHeader = () => {
     const { FilterMembersComponent } = this.props;
@@ -38,10 +39,11 @@ class CardsList extends PureComponent {
   };
 
   renderTip = () =>
-    this.props.tip &&
-    <View style={styles.tipContainer}>
-      <TipCard tip={this.props.tip} />
-    </View>;
+    this.props.tip && (
+      <View style={styles.tipContainer}>
+        <TipCard tip={this.props.tip} />
+      </View>
+    );
 
   renderSeperator = () => <View style={styles.listSeparator} />;
 

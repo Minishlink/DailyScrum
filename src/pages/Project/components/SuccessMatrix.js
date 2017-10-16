@@ -10,37 +10,35 @@ import appStyle from '../../../appStyle';
 class SuccessMatrix extends Component {
   props: PropsType;
 
-  renderRow = ({ item: sprint }) =>
+  renderRow = ({ item: sprint }) => (
     <View style={styles.row}>
-      <Text style={[styles.column, styles.idColumn]}>
-        #{sprint.number}
-      </Text>
-      <Text style={styles.column}>
-        {sprint.manDays.toLocaleString()}
-      </Text>
-      <Text style={styles.column}>
-        {sprint.foreseenPoints.toLocaleString()}
-      </Text>
-      <Text style={styles.column}>
-        {sprint.donePoints && sprint.donePoints.toLocaleString()}
-      </Text>
+      <Text style={[styles.column, styles.idColumn]}>#{sprint.number}</Text>
+      <Text style={styles.column}>{sprint.manDays.toLocaleString()}</Text>
+      <Text style={styles.column}>{sprint.foreseenPoints.toLocaleString()}</Text>
+      <Text style={styles.column}>{sprint.donePoints && sprint.donePoints.toLocaleString()}</Text>
       <Text style={[styles.column, styles.okColumn]}>
-        {sprint.result !== null
-          ? sprint.result
-            ? <Icon type="entypo" name="emoji-happy" size={18} color="green" />
-            : <Icon type="entypo" name="emoji-sad" size={18} color="red" />
-          : <Icon type="entypo" name="emoji-neutral" size={18} color="orange" />}
+        {sprint.result !== null ? (
+          sprint.result ? (
+            <Icon type="entypo" name="emoji-happy" size={18} color="green" />
+          ) : (
+            <Icon type="entypo" name="emoji-sad" size={18} color="red" />
+          )
+        ) : (
+          <Icon type="entypo" name="emoji-neutral" size={18} color="orange" />
+        )}
       </Text>
-    </View>;
+    </View>
+  );
 
-  renderHeader = () =>
+  renderHeader = () => (
     <View style={styles.row}>
       <Text style={[styles.column, styles.idColumn, styles.label]} />
       <Text style={[styles.column, styles.label]}>Man-days</Text>
       <Text style={[styles.column, styles.label]}>Foreseen</Text>
       <Text style={[styles.column, styles.label]}>Done</Text>
       <Text style={[styles.column, styles.okColumn, styles.label]} />
-    </View>;
+    </View>
+  );
 
   render() {
     return (

@@ -5,12 +5,11 @@ import { Text } from '../';
 import chroma from 'chroma-js';
 import appStyle from '../../appStyle';
 
-export default (props: PropsType) =>
+export default (props: PropsType) => (
   <View style={[styles.container, props.isPostEstimation && styles.postEstimationContainer]}>
-    <Text style={styles.text}>
-      {props.points}
-    </Text>
-  </View>;
+    <Text style={styles.text}>{props.points}</Text>
+  </View>
+);
 
 type PropsType = {
   points: number,

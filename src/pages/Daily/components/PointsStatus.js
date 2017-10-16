@@ -27,10 +27,11 @@ class PointsStatus extends PureComponent<void, Props, void> {
         </View>
         <View style={styles.statusContainer}>
           {pointsLeft != null &&
-            pointsLeft <= 0 &&
-            <View style={styles.pointsLeftAnimationContainer}>
-              <LottieAnimation source={require('../../../../assets/lottie/colorline.json')} loop duration={2000} />
-            </View>}
+            pointsLeft <= 0 && (
+              <View style={styles.pointsLeftAnimationContainer}>
+                <LottieAnimation source={require('../../../../assets/lottie/colorline.json')} loop duration={2000} />
+              </View>
+            )}
           <Text style={[styles.lead, { color: isLeading ? appStyle.colors.green : appStyle.colors.red }]}>
             {lead
               ? `${lead.points >= 0 ? 'Lead' : 'Lateness'}: ${lead.points > 0
@@ -43,10 +44,11 @@ class PointsStatus extends PureComponent<void, Props, void> {
               ? `Left overall: ${pointsLeft} pts`
               : `Congratulations, this sprint is a success!`}
           </Text>
-          {todayTarget != null &&
+          {todayTarget != null && (
             <Text style={styles.pointsLeft}>
               Left for today: {todayTarget > 0 ? roundToDecimalPlace(todayTarget).toLocaleString() : 0} pts
-            </Text>}
+            </Text>
+          )}
         </View>
       </View>
     );

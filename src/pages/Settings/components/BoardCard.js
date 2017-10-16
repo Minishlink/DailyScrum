@@ -22,18 +22,18 @@ export default class BoardCard extends Component {
 
     return (
       <View style={styles.nameContainer}>
-        <Text style={[styles.name, { color }]}>
-          {board.name}
-        </Text>
+        <Text style={[styles.name, { color }]}>{board.name}</Text>
         {isActive &&
-          !isLoading &&
-          <View style={[styles.icon, styles.activeIcon]}>
-            <Icon name="check-circle" size={20} color={color} />
-          </View>}
-        {isLoading &&
+          !isLoading && (
+            <View style={[styles.icon, styles.activeIcon]}>
+              <Icon name="check-circle" size={20} color={color} />
+            </View>
+          )}
+        {isLoading && (
           <View style={styles.icon}>
             <ActivityIndicator color={color} />
-          </View>}
+          </View>
+        )}
       </View>
     );
   };
@@ -66,9 +66,7 @@ export default class BoardCard extends Component {
   render() {
     return (
       <TouchableHighlight style={styles.container} onPress={this.onPress}>
-        <View>
-          {this.renderContent()}
-        </View>
+        <View>{this.renderContent()}</View>
       </TouchableHighlight>
     );
   }

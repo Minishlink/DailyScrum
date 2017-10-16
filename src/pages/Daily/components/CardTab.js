@@ -19,7 +19,7 @@ class CardTab extends PureComponent {
     routes: [{ key: 'yesterday', title: 'Yesterday' }, { key: 'today', title: 'Today' }],
   };
 
-  renderHeader = (props: any) =>
+  renderHeader = (props: any) => (
     <TabBar
       style={styles.headerStyle}
       tabStyle={styles.headerTabStyle}
@@ -30,17 +30,20 @@ class CardTab extends PureComponent {
       renderLabel={this.renderTabLabel}
       onTabPress={this.props.onTabPress}
       {...props}
-    />;
+    />
+  );
 
   renderScene = SceneMap({
-    today: () =>
+    today: () => (
       <Page style={styles.page} noMargin>
         <Today onScrollCards={this.props.onScrollCards} />
-      </Page>,
-    yesterday: () =>
+      </Page>
+    ),
+    yesterday: () => (
       <Page style={styles.page} noMargin>
         <Yesterday onScrollCards={this.props.onScrollCards} />
-      </Page>,
+      </Page>
+    ),
   });
 
   handleIndexChange = (index: number) => this.setState({ index });
@@ -63,11 +66,7 @@ class CardTab extends PureComponent {
         break;
     }
 
-    return (
-      <Text style={[styles.headerTabLabelStyle, focused && styles.focusedHeaderTabLabelStyle]}>
-        {title}
-      </Text>
-    );
+    return <Text style={[styles.headerTabLabelStyle, focused && styles.focusedHeaderTabLabelStyle]}>{title}</Text>;
   };
 
   render() {

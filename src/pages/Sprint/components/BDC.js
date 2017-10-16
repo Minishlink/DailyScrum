@@ -100,15 +100,17 @@ class BDC extends Component {
           </View>
         </View>
         <View style={styles.graphContainer} onLayout={this.measureGraphSize}>
-          {this.state.graphSize
-            ? <StockLine
-                data={this.props.bdcDataPoints}
-                options={this.getGraphOptions()}
-                pallete={pallete}
-                xKey="x"
-                yKey="y"
-              />
-            : <ActivityIndicator />}
+          {this.state.graphSize ? (
+            <StockLine
+              data={this.props.bdcDataPoints}
+              options={this.getGraphOptions()}
+              pallete={pallete}
+              xKey="x"
+              yKey="y"
+            />
+          ) : (
+            <ActivityIndicator />
+          )}
         </View>
       </Card>
     );

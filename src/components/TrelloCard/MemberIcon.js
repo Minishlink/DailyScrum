@@ -36,17 +36,15 @@ export default class MemberIcon extends Component {
 
     return (
       <View style={[styles.container, !this.state.isImageLoaded && { backgroundColor: color }, sizeStyle]}>
-        {!this.state.isImageLoaded &&
-          <Text style={[styles.text, { fontSize }]}>
-            {member.initials}
-          </Text>}
-        {avatar &&
+        {!this.state.isImageLoaded && <Text style={[styles.text, { fontSize }]}>{member.initials}</Text>}
+        {avatar && (
           <Image
             style={[styles.image, sizeStyle]}
             source={{ uri: avatar }}
             onLoad={this.onLoadImage}
             resizeMode="cover"
-          />}
+          />
+        )}
       </View>
     );
   }

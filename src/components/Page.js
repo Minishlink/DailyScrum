@@ -3,7 +3,7 @@ import React from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import appStyle from 'DailyScrum/src/appStyle';
 
-const Page = (props: PropsType) =>
+const Page = (props: PropsType) => (
   <View
     style={[
       styles.page,
@@ -15,12 +15,14 @@ const Page = (props: PropsType) =>
       props.style,
     ]}
   >
-    {props.isLoading &&
+    {props.isLoading && (
       <View style={styles.loader}>
         <ActivityIndicator />
-      </View>}
+      </View>
+    )}
     {!props.isLoading && props.children}
-  </View>;
+  </View>
+);
 
 const styles = StyleSheet.create({
   page: {

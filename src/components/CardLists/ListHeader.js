@@ -31,12 +31,8 @@ export default class ListHeader extends Component {
   render() {
     return (
       <View>
-        <Text style={styles.listName}>
-          {this.getListNameFromKey(this.props.listKey)}
-        </Text>
-        <Text style={styles.total}>
-          total {this.props.total.toLocaleString()} pts
-        </Text>
+        <Text style={styles.listName}>{this.getListNameFromKey(this.props.listKey)}</Text>
+        <Text style={styles.total}>total {this.props.total.toLocaleString()} pts</Text>
       </View>
     );
   }

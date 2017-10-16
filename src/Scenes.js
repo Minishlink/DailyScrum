@@ -44,10 +44,11 @@ const TabsNavigator = TabNavigator(
     initialRouteName: 'daily',
     swipeEnabled: true,
     animationEnabled: true,
-    tabBarComponent: props =>
+    tabBarComponent: props => (
       <Gradient>
         <TabBarTop {...props} />
-      </Gradient>,
+      </Gradient>
+    ),
     tabBarPosition: 'bottom',
     tabBarOptions: {
       showIcon: true,
