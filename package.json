@@ -34,7 +34,7 @@
 		"react-native-code-push": "^5.0.0-beta",
 		"react-native-firebase": "^2.2.0",
 		"react-native-linear-gradient": "^2.3.0",
-		"react-native-pathjs-charts": "git+ssh://git@github.com/Minishlink/react-native-pathjs-charts.git#dailyscrum",
+		"react-native-pathjs-charts": "git+ssh://git@github.com/capitalone/react-native-pathjs-charts.git#3267c55cb1134ca57ad4cb7c1df720a0c307c270",
 		"react-native-safari-view": "^2.0.0",
 		"react-native-splash-screen": "^3.0.0",
 		"react-native-tab-view": "^0.0.69",

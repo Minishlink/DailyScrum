@@ -4279,9 +4279,9 @@ react-native-linear-gradient@^2.3.0:
   dependencies:
     prop-types "^15.5.10"
 
-"react-native-pathjs-charts@git+ssh://git@github.com/Minishlink/react-native-pathjs-charts.git#dailyscrum":
+"react-native-pathjs-charts@git+ssh://git@github.com/capitalone/react-native-pathjs-charts.git#3267c55cb1134ca57ad4cb7c1df720a0c307c270":
   version "0.0.31"
-  resolved "git+ssh://git@github.com/Minishlink/react-native-pathjs-charts.git#60a88308b3ffd3ccd698a520b0bed6e9d7bb52bf"
+  resolved "git+ssh://git@github.com/capitalone/react-native-pathjs-charts.git#3267c55cb1134ca57ad4cb7c1df720a0c307c270"
   dependencies:
     babel-polyfill "^6.23.0"
     lodash "^4.12.0"
