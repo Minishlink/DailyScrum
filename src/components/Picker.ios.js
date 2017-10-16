@@ -80,5 +80,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     opacity: 1,
     paddingHorizontal: 20,
+    ...appStyle.shadowStyle,
   },
 });
