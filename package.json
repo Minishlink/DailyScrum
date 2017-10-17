@@ -8,7 +8,7 @@
 		"test:lint": "eslint . --quiet",
 		"test:unit": "jest",
 		"test:flow": "flow",
-		"format": "find ./src -name '*.js' | xargs ./node_modules/.bin/prettier --write --print-width 120 --single-quote --trailing-comma es5",
+		"format": "find ./src -name '*.js' | xargs ./node_modules/.bin/prettier --write",
 		"deploy": "./bin/code-push.sh --android --ios",
 		"deploy:android": "./bin/code-push.sh --android",
 		"deploy:ios": "./bin/code-push.sh --ios",
