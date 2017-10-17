@@ -34,27 +34,29 @@ PODS:
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - Protobuf (3.4.0)
-  - React (0.48.4):
-    - React/Core (= 0.48.4)
-  - React/BatchedBridge (0.48.4):
+  - React (0.49.3):
+    - React/Core (= 0.49.3)
+  - React/BatchedBridge (0.49.3):
     - React/Core
     - React/cxxreact_legacy
-  - React/Core (0.48.4):
-    - Yoga (= 0.48.4.React)
-  - React/cxxreact_legacy (0.48.4):
+  - React/Core (0.49.3):
+    - yoga (= 0.49.3.React)
+  - React/cxxreact_legacy (0.49.3):
     - React/jschelpers_legacy
-  - React/DevSupport (0.48.4):
+  - React/DevSupport (0.49.3):
     - React/Core
     - React/RCTWebSocket
-  - React/jschelpers_legacy (0.48.4)
-  - React/RCTBlob (0.48.4):
+  - React/fishhook (0.49.3)
+  - React/jschelpers_legacy (0.49.3)
+  - React/RCTBlob (0.49.3):
     - React/Core
-  - React/RCTWebSocket (0.48.4):
+  - React/RCTWebSocket (0.49.3):
     - React/Core
+    - React/fishhook
     - React/RCTBlob
   - RNFirebase (2.2.3):
     - React
-  - Yoga (0.48.4.React)
+  - yoga (0.49.3.React)
 
 DEPENDENCIES:
   - Firebase/Analytics
@@ -64,14 +66,14 @@ DEPENDENCIES:
   - React/Core (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
   - RNFirebase (from `../node_modules/react-native-firebase`)
-  - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
+  - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 EXTERNAL SOURCES:
   React:
     :path: ../node_modules/react-native
   RNFirebase:
     :path: ../node_modules/react-native-firebase
-  Yoga:
+  yoga:
     :path: ../node_modules/react-native/ReactCommon/yoga
 
 SPEC CHECKSUMS:
@@ -83,10 +85,10 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 03eef2ee0b674770735cf79d9c4d3659cf6908e8
-  React: 6d68659481a8a56e0f6b3dbecd984d5b9bb2d6c5
+  React: 5751f5630c58f7ef31a00cf03044878295bceff0
   RNFirebase: 845173139976357d40acd48fee90468f90c27610
-  Yoga: ccefa1454b2e9825dce3b2df98088b7f0e3c2675
+  yoga: 6e56575501ecea04196f9c9f08b90cf97cd5da24
 
-PODFILE CHECKSUM: eb46400b9ccd4a475fd2de6dc533b5ac7ef5bc58
+PODFILE CHECKSUM: 5371c6f05456a8656c084992bdf534c259f28185
 
 COCOAPODS: 1.3.1
