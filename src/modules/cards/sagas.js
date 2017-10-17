@@ -1,16 +1,17 @@
 // @flow
 import { all, select, put, call, takeEvery, cancelled, cancel } from 'redux-saga/effects';
-import { Trello } from 'DailyScrum/src/services';
+import { Trello } from '../../services';
 import { putCards } from './';
 import { tokenSelector } from '../auth/reducer';
 import { sprintsSelector, currentSprintSelector, isCurrentSprintActiveSelector } from '../sprints/reducer';
 import type { SprintType } from '../../types';
-import { currentProjectSelector } from '../projects/reducer';
+import { currentProjectSelector, validateColumnIdSelector } from '../projects/reducer';
 import { getPoints } from '../../services/Trello';
 import { getLastWorkableDayTime, BOUNDARY_HOUR, BOUNDARY_MINUTES } from '../../services/Time';
 import { putSprints } from '../sprints/actions';
 import { startSync, endSync } from '../sync';
 import { configureTodayCardList, configureYesterdayCardList } from '../cardLists/sagas';
+import { adaptCardsFromTrello } from '../../services/adapter';
 
 export function* fetchDoneCards(): Generator<*, *, *> {
   try {
@@ -20,41 +21,49 @@ export function* fetchDoneCards(): Generator<*, *, *> {
     if (!currentSprint) yield cancel();
     const sprints = yield select(sprintsSelector);
 
-    let cards = yield call(Trello.getCardsFromList, token.trello, currentSprint.doneColumn);
+    let doneColumnId = currentSprint.doneColumn;
+    let cards = yield call(Trello.getCardsFromList, token.trello, doneColumnId);
     if (!cards.length) {
       // if it's the day after the ceremony, you still want to have the tickets of yesterday
       const lastSprint: any = Object.values(sprints).find(
         (sprint: SprintType) => sprint.number === currentSprint.number - 1
       );
       if (lastSprint) {
-        cards = yield call(Trello.getCardsFromList, token.trello, lastSprint.doneColumn);
+        doneColumnId = lastSprint.doneColumn;
+        cards = yield call(Trello.getCardsFromList, token.trello, doneColumnId);
       }
     } else {
-      // only compute total if the sprint has started since at least one day
-      const total = cards.reduce((total, card) => total + getPoints(card.name), 0);
+      // set the current done total to the current done performance
       const lastWorkableDayTime = getLastWorkableDayTime();
-      for (
-        let i = 0, performance = currentSprint.performance[0];
-        i < currentSprint.performance.length;
-        performance = currentSprint.performance[++i]
-      ) {
-        const currentDay = new Date(performance.date);
-        currentDay.setHours(BOUNDARY_HOUR, BOUNDARY_MINUTES, 0, 0);
+      let nextPerformanceIndex;
+      if (lastWorkableDayTime < new Date(currentSprint.performance[0].date).getTime()) {
+        nextPerformanceIndex = 0;
+      } else {
+        const currentPerformanceIndex = currentSprint.performance.findIndex(performance => {
+          const currentDay = new Date(performance.date);
+          currentDay.setHours(BOUNDARY_HOUR, BOUNDARY_MINUTES, 0, 0);
+          return lastWorkableDayTime === currentDay.getTime();
+        });
 
-        // the standard is set to the next day
-        if (lastWorkableDayTime === currentDay.getTime() && currentSprint.performance[i + 1]) {
-          const newSprint = { ...currentSprint };
-          newSprint.performance[i + 1].done = total;
-          yield put(putSprints([newSprint]));
-          // TODO REMOTE PUT to Scrumble
-          break;
+        if (currentPerformanceIndex !== -1) {
+          nextPerformanceIndex = currentPerformanceIndex + 1;
         }
+      }
+
+      if (nextPerformanceIndex != null && currentSprint.performance[nextPerformanceIndex]) {
+        const newSprint = { ...currentSprint };
+        const total = cards.reduce((total, card) => total + getPoints(card.name), 0);
+        newSprint.performance[nextPerformanceIndex].done = total;
+        yield put(putSprints([newSprint]));
+        // TODO REMOTE PUT to Scrumble
       }
     }
 
+    const validateColumnId = yield select(validateColumnIdSelector);
+
     yield put(
       putCards({
-        done: cards,
+        done: adaptCardsFromTrello(cards, validateColumnId, doneColumnId),
       })
     );
     yield call(configureYesterdayCardList);
@@ -91,7 +100,7 @@ export function* fetchNotDoneCards(): Generator<*, *, *> {
     let cards = {};
     let i = 0;
     for (let key of Object.keys(currentProject.columnMapping)) {
-      cards[key] = cardsCalls[i++];
+      cards[key] = adaptCardsFromTrello(cardsCalls[i++]);
     }
 
     yield put(putCards(cards));

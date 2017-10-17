@@ -8,13 +8,11 @@ import Icon from './Icon';
 import { markTipAsRead } from '../modules/tips';
 import type { TipType } from '../modules/tips/reducer';
 
-const TipCard = (props: PropsType) =>
+const TipCard = (props: PropsType) => (
   <Animatable.View animation="bounceIn" delay={200} useNativeDriver>
     <Card>
       <View style={styles.container}>
-        <Text style={[styles.text, styles.content]}>
-          {props.tip.text}
-        </Text>
+        <Text style={[styles.text, styles.content]}>{props.tip.text}</Text>
         <View style={styles.separator} />
         <Button
           style={[styles.content, styles.markAsReadContainer]}
@@ -28,7 +26,8 @@ const TipCard = (props: PropsType) =>
         </Button>
       </View>
     </Card>
-  </Animatable.View>;
+  </Animatable.View>
+);
 
 type PropsType = {
   tip: TipType,

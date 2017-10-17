@@ -45,11 +45,11 @@ class ErrorBar extends Component {
     if (!errors.length) return null;
     return (
       <View style={[styles.container, this.props.style]}>
-        {errors.map(error =>
+        {errors.map(error => (
           <Text key={error} style={styles.text}>
             {error}
           </Text>
-        )}
+        ))}
       </View>
     );
   }

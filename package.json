@@ -12,7 +12,8 @@
 		"deploy": "./bin/code-push.sh --android --ios",
 		"deploy:android": "./bin/code-push.sh --android",
 		"deploy:ios": "./bin/code-push.sh --ios",
-		"deploy:info": "code-push deployment history DailyScrum-Android Staging && code-push deployment history DailyScrum-iOS Staging",
+		"deploy:info:staging": "code-push deployment history DailyScrum-Android Staging && code-push deployment history DailyScrum-iOS Staging",
+		"deploy:info:prod": "code-push deployment history DailyScrum-Android Production && code-push deployment history DailyScrum-iOS Production",
 		"deploy:staging": "yarn deploy:staging:android && yarn deploy:staging:ios",
 		"deploy:staging:android": "bundle exec fastlane android deploy --env=staging",
 		"deploy:staging:ios": "bundle exec fastlane ios deploy --env=staging",
@@ -24,16 +25,16 @@
 		"@yfuks/react-native-action-sheet": "^0.0.4",
 		"chroma-js": "^1.3.4",
 		"date-fns": "^1.28.4",
-		"easy-lottie-react-native": "^1.0.0",
+		"easy-lottie-react-native": "^2.0.0",
 		"lodash": "^4.17.4",
 		"lottie-react-native": "^2.2.0",
-		"react": "16.0.0-alpha.12",
-		"react-native": "0.47.2",
+		"react": "16.0.0-beta.5",
+		"react-native": "0.49.3",
 		"react-native-animatable": "^1.2.3",
-		"react-native-code-push": "^5.0.0-beta",
+		"react-native-code-push": "^5.1.3-beta",
 		"react-native-firebase": "^2.2.0",
 		"react-native-linear-gradient": "^2.3.0",
-		"react-native-pathjs-charts": "git+ssh://git@github.com/Minishlink/react-native-pathjs-charts.git#dailyscrum",
+		"react-native-pathjs-charts": "git+ssh://git@github.com/capitalone/react-native-pathjs-charts.git#3267c55cb1134ca57ad4cb7c1df720a0c307c270",
 		"react-native-safari-view": "^2.0.0",
 		"react-native-splash-screen": "^3.0.0",
 		"react-native-tab-view": "^0.0.69",
@@ -46,6 +47,7 @@
 	},
 	"devDependencies": {
 		"babel-eslint": "^7.2.2",
+		"babel-plugin-lodash": "^3.2.11",
 		"babel-preset-react-native": "1.9.1",
 		"babel-preset-react-native-stage-0": "^1.0.1",
 		"eslint": "^4.5.0",
@@ -56,14 +58,25 @@
 		"eslint-plugin-jsx-a11y": "^5.1.1",
 		"eslint-plugin-prettier": "^2.2.0",
 		"eslint-plugin-react": "^7.3.0",
-		"flow-bin": "^0.49.1",
+		"flow-bin": "^0.53.0",
 		"jest": "^20.0.4",
-		"prettier": "^1.5.3"
+		"mockdate": "^2.0.2",
+		"prettier": "^1.5.3",
+		"redux-saga-test-plan": "^3.2.0"
 	},
 	"jest": {
 		"preset": "react-native"
 	},
+	"greenkeeper": {
+		"ignore": [
+			"react",
+			"react-native",
+			"flow-bin"
+		]
+	},
 	"rnpm": {
-		"assets": ["assets/native"]
+		"assets": [
+			"assets/native"
+		]
 	}
 }

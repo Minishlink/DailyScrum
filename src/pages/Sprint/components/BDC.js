@@ -11,11 +11,10 @@ import { bdcDataPointsSelector } from '../../../modules/sprints/reducer';
 import type { BdcDataPointsType } from '../../../modules/sprints/reducer';
 import Card from '../../../components/Card';
 
-class BDC extends Component {
-  props: PropsType;
-  state: StateType = { graphSize: null };
+class BDC extends Component<Props, State> {
+  state = { graphSize: null };
 
-  shouldComponentUpdate(nextProps: PropsType, nextState: StateType) {
+  shouldComponentUpdate(nextProps: Props, nextState: State) {
     return (
       !isEqual(this.props.bdcDataPoints, nextProps.bdcDataPoints) || !isEqual(this.state.graphSize, nextState.graphSize)
     );
@@ -100,15 +99,17 @@ class BDC extends Component {
           </View>
         </View>
         <View style={styles.graphContainer} onLayout={this.measureGraphSize}>
-          {this.state.graphSize
-            ? <StockLine
-                data={this.props.bdcDataPoints}
-                options={this.getGraphOptions()}
-                pallete={pallete}
-                xKey="x"
-                yKey="y"
-              />
-            : <ActivityIndicator />}
+          {this.state.graphSize ? (
+            <StockLine
+              data={this.props.bdcDataPoints}
+              options={this.getGraphOptions()}
+              pallete={pallete}
+              xKey="x"
+              yKey="y"
+            />
+          ) : (
+            <ActivityIndicator />
+          )}
         </View>
       </Card>
     );
@@ -164,11 +165,11 @@ const styles = StyleSheet.create({
   },
 });
 
-type PropsType = {
+type Props = {
   bdcDataPoints: BdcDataPointsType,
 };
 
-type StateType = {
+type State = {
   graphSize: ?{
     width: number,
     height: number,

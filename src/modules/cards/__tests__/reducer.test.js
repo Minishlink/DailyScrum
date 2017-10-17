@@ -50,38 +50,42 @@ describe('cards reducer', () => {
     {
       id: 'macro',
       idShort: 1,
-      name: 'Macro [20]',
       idMembers: ['foo'],
+      name: 'Macro',
+      points: null,
+      postPoints: 20,
       dateLastActivity: 1495133134992,
-      actions: [],
-      shortUrl: 'link',
+      url: 'link',
     },
     {
       id: 'story',
       idShort: 2,
-      name: '(3) User story',
       idMembers: ['foo'],
+      name: 'User story',
+      points: 3,
+      postPoints: null,
       dateLastActivity: 1495133134992,
-      actions: [],
-      shortUrl: 'link',
+      url: 'link',
     },
     {
       id: 'unassignedStory',
       idShort: 3,
-      name: '(1) Unassigned story',
+      name: 'Unassigned story',
+      points: 1,
+      postPoints: null,
       idMembers: [],
       dateLastActivity: 1495133134992,
-      actions: [],
-      shortUrl: 'link',
+      url: 'link',
     },
     {
       id: 'oldStory',
       idShort: 4,
       idMembers: ['bar'],
-      name: 'Old story (5)',
+      name: 'Old story',
+      points: 5,
+      postPoints: null,
       dateLastActivity: 1494960334992,
-      actions: [],
-      shortUrl: 'link',
+      url: 'link',
     },
   ];
 
@@ -282,37 +286,29 @@ describe('cards reducer', () => {
       },
     };
 
+    const newStory = {
+      id: 'newStory',
+      idShort: 2,
+      name: 'New story',
+      points: 2,
+      idMembers: ['bar'],
+      dateLastActivity: 1495133134992,
+      url: 'link',
+      postPoints: null,
+    };
+
     expect(
       reducer(
         state,
         Actions.putCards({
-          done: [
-            {
-              id: 'newStory',
-              idShort: 2,
-              name: '(2) New story',
-              idMembers: ['bar'],
-              dateLastActivity: 1495133134992,
-              actions: [],
-              shortUrl: 'link',
-            },
-          ],
+          done: [newStory],
         })
       )
     ).toEqual({
       ...state,
       list: {
         ...state.list,
-        newStory: {
-          id: 'newStory',
-          idShort: 2,
-          name: 'New story',
-          points: 2,
-          idMembers: ['bar'],
-          dateLastActivity: 1495133134992,
-          url: 'link',
-          postPoints: null,
-        },
+        newStory: newStory,
       },
       yesterday: {
         ...state.yesterday,

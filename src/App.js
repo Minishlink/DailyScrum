@@ -6,7 +6,7 @@ import codePush from 'react-native-code-push';
 import Scenes from './Scenes';
 import createStore from './modules/store';
 
-class App extends Component {
+class App extends Component<void, State> {
   state = {
     store: null,
   };
@@ -16,12 +16,16 @@ class App extends Component {
   }
 
   render() {
-    return this.state.store
-      ? <Provider store={this.state.store}>
-          <Scenes />
-        </Provider>
-      : null;
+    return this.state.store ? (
+      <Provider store={this.state.store}>
+        <Scenes />
+      </Provider>
+    ) : null;
   }
 }
+
+type State = {
+  store: any,
+};
 
 export default (!__DEV__ ? codePush()(App) : App);

@@ -3,10 +3,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import appStyle from '../appStyle';
 
-export default (props: PropsType) =>
-  <View style={[styles.container, props.style]}>
-    {props.children}
-  </View>;
+export default (props: PropsType) => <View style={[styles.container, props.style]}>{props.children}</View>;
 
 type PropsType = {
   children: any,

@@ -4,10 +4,8 @@ import { StyleSheet, View } from 'react-native';
 import { Text } from '../../components';
 import appStyle from '../../appStyle';
 
-export default class ListHeader extends Component {
-  props: PropsType;
-
-  shouldComponentUpdate(nextProps: PropsType) {
+export default class ListHeader extends Component<Props> {
+  shouldComponentUpdate(nextProps: Props) {
     return nextProps.listKey !== this.props.listKey || nextProps.total !== this.props.total;
   }
 
@@ -31,18 +29,14 @@ export default class ListHeader extends Component {
   render() {
     return (
       <View>
-        <Text style={styles.listName}>
-          {this.getListNameFromKey(this.props.listKey)}
-        </Text>
-        <Text style={styles.total}>
-          total {this.props.total.toLocaleString()} pts
-        </Text>
+        <Text style={styles.listName}>{this.getListNameFromKey(this.props.listKey)}</Text>
+        <Text style={styles.total}>total {this.props.total.toLocaleString()} pts</Text>
       </View>
     );
   }
 }
 
-type PropsType = {
+type Props = {
   style?: any,
   listKey: string,
   total: number,

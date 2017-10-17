@@ -7,8 +7,8 @@ import { Page, Text } from '../../components';
 import appStyle from '../../appStyle';
 import { isManualCodePushEnabled } from '../../../environment';
 
-export default class About extends Component {
-  state: StateType = {
+export default class About extends Component<void, State> {
+  state = {
     codePushInfo: null,
     codePushUpdateStatus: null,
     codePushMismatch: false,
@@ -70,14 +70,15 @@ export default class About extends Component {
 
     return (
       <TouchableOpacity onPress={this.updateWithCodePush}>
-        <Text style={styles.text}>
-          {this.state.codePushUpdateStatus || 'Check if there is an update'}
-        </Text>
+        <Text style={styles.text}>{this.state.codePushUpdateStatus || 'Check if there is an update'}</Text>
       </TouchableOpacity>
     );
   };
 
-  openURL = (url: string) => Linking.canOpenURL(url).then(() => Linking.openURL(url)).catch(() => {});
+  openURL = (url: string) =>
+    Linking.canOpenURL(url)
+      .then(() => Linking.openURL(url))
+      .catch(() => {});
   sendAnEmail = () => this.openURL('mailto:contact@bam.tech');
   goToGitHub = () => this.openURL('https://github.com/Minishlink/DailyScrum');
 
@@ -102,10 +103,9 @@ export default class About extends Component {
             </TouchableOpacity>
           </View>
           <View>
-            {this.state.codePushInfo &&
-              <Text style={[styles.text, styles.codePushInfo]}>
-                {this.state.codePushInfo}
-              </Text>}
+            {this.state.codePushInfo && (
+              <Text style={[styles.text, styles.codePushInfo]}>{this.state.codePushInfo}</Text>
+            )}
             {isManualCodePushEnabled && this.renderManualCodePush()}
           </View>
         </View>
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type StateType = {
+type State = {
   codePushInfo: ?string,
   codePushUpdateStatus: ?string,
   codePushMismatch: boolean,

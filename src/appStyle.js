@@ -15,15 +15,24 @@ const appStyle = {
     family: 'Open Sans',
   },
   colors: {
-    primaryLight: chroma(primaryColor).brighten().hex(),
-    primaryMidLight: chroma(primaryColor).brighten(0.5).hex(),
+    primaryLight: chroma(primaryColor)
+      .brighten()
+      .hex(),
+    primaryMidLight: chroma(primaryColor)
+      .brighten(0.5)
+      .hex(),
     primary: primaryColor,
-    primaryMidDark: chroma(primaryColor).darken(0.5).hex(),
-    primaryDark: chroma(primaryColor).darken().hex(),
+    primaryMidDark: chroma(primaryColor)
+      .darken(0.5)
+      .hex(),
+    primaryDark: chroma(primaryColor)
+      .darken()
+      .hex(),
     secondary: secondaryColor,
     tertiary: tertiaryColor,
     green: '#7ed321',
     red: '#c30016',
+    overRed: 'white',
     overPrimaryColor: 'white',
     text: '#4d4d4d',
     warmGray: '#9b9b9b',

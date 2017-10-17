@@ -1,4 +1,4 @@
-import { TRELLO_APP_KEY, TRELLO_API_URL } from 'DailyScrum/environment';
+import { TRELLO_APP_KEY, TRELLO_API_URL } from '../../environment';
 import { handleFetchResponse } from './Fetch';
 
 export default class {
