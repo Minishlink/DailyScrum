@@ -2,11 +2,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Modal as RCTModal, TouchableWithoutFeedback } from 'react-native';
 
-export default class Modal extends Component {
-  props: PropsType;
-
+export default class Modal extends Component<Props> {
   // FUTURE remove shouldComponentUpdate if children can change
-  shouldComponentUpdate(nextProps: PropsType) {
+  shouldComponentUpdate(nextProps: Props) {
     return nextProps.visible !== this.props.visible;
   }
 
@@ -23,10 +21,10 @@ export default class Modal extends Component {
   }
 }
 
-type PropsType = {
+type Props = {
   onRequestClose: Function,
   visible: boolean,
-  children?: React$Element<any>,
+  children?: any,
   style: any,
   backgroundStyle: any,
 };

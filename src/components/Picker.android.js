@@ -9,9 +9,7 @@ export default class Picker extends Component {
     const { style, ...rest } = this.props;
     return (
       <View style={[styles.pickerContainer, style]}>
-        <RCTPicker {...rest}>
-          {this.props.children}
-        </RCTPicker>
+        <RCTPicker {...rest}>{this.props.children}</RCTPicker>
       </View>
     );
   }

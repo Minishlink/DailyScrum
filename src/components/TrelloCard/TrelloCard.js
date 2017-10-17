@@ -12,10 +12,8 @@ import type { CardType } from '../../types';
 import { differenceInBusinessDays } from '../../services/Time';
 import Icon from '../Icon';
 
-export default class extends Component {
-  props: PropsType;
-
-  shouldComponentUpdate(nextProps: PropsType) {
+export default class extends Component<Props> {
+  shouldComponentUpdate(nextProps: Props) {
     return !isEqual(nextProps.card, this.props.card);
   }
 
@@ -49,26 +47,21 @@ export default class extends Component {
           <Card>
             <View style={styles.labelsRow}>
               <View style={styles.idShortContainer}>
-                <Text>
-                  #{card.idShort}
-                </Text>
+                <Text>#{card.idShort}</Text>
               </View>
-              {validationLatenessInDays > 1 &&
+              {validationLatenessInDays > 1 && (
                 <View style={styles.lateValidationContainer}>
-                  <Text style={styles.lateValidationText}>
-                    {validationLatenessInDays}
-                  </Text>
+                  <Text style={styles.lateValidationText}>{validationLatenessInDays}</Text>
                   <Icon
                     type="material-community"
                     name="clock-alert"
                     size={appStyle.font.size.default}
                     color={appStyle.colors.overRed}
                   />
-                </View>}
+                </View>
+              )}
             </View>
-            <Text style={styles.title}>
-              {card.name}
-            </Text>
+            <Text style={styles.title}>{card.name}</Text>
             <View style={styles.membersRow}>
               <View style={styles.pointsContainer}>
                 {card.points != null && <PointsBadge points={card.points.toLocaleString()} />}
@@ -77,11 +70,11 @@ export default class extends Component {
               </View>
               <View style={styles.membersContainer}>
                 <View style={styles.members}>
-                  {card.members.map(member =>
+                  {card.members.map(member => (
                     <View key={member.id} style={styles.member}>
                       <MemberIcon member={member} />
                     </View>
-                  )}
+                  ))}
                 </View>
               </View>
             </View>
@@ -143,7 +136,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type PropsType = {
+type Props = {
   card: CardType,
   style?: any,
 };

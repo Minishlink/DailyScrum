@@ -44,10 +44,11 @@ const TabsNavigator = TabNavigator(
     initialRouteName: 'daily',
     swipeEnabled: true,
     animationEnabled: true,
-    tabBarComponent: props =>
+    tabBarComponent: props => (
       <Gradient>
         <TabBarTop {...props} />
-      </Gradient>,
+      </Gradient>
+    ),
     tabBarPosition: 'bottom',
     tabBarOptions: {
       showIcon: true,
@@ -151,7 +152,7 @@ function urlToPathAndParams(url: string) {
   };
 }
 
-class Scenes extends Component {
+class Scenes extends Component<any, any> {
   backPressListener: ?{
     remove: () => void,
   } = null;

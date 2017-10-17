@@ -12,14 +12,13 @@ import appStyle from '../../../appStyle';
 import { yesterdayTotalSelector, todayTotalSelector } from '../../../modules/cards/reducer';
 import { roundToDecimalPlace } from '../../../services/MathService';
 
-class CardTab extends PureComponent {
-  props: PropsType;
-  state: StateType = {
+class CardTab extends PureComponent<Props, State> {
+  state = {
     index: 0,
     routes: [{ key: 'yesterday', title: 'Yesterday' }, { key: 'today', title: 'Today' }],
   };
 
-  renderHeader = (props: any) =>
+  renderHeader = (props: any) => (
     <TabBar
       style={styles.headerStyle}
       tabStyle={styles.headerTabStyle}
@@ -30,17 +29,20 @@ class CardTab extends PureComponent {
       renderLabel={this.renderTabLabel}
       onTabPress={this.props.onTabPress}
       {...props}
-    />;
+    />
+  );
 
   renderScene = SceneMap({
-    today: () =>
+    today: () => (
       <Page style={styles.page} noMargin>
         <Today onScrollCards={this.props.onScrollCards} />
-      </Page>,
-    yesterday: () =>
+      </Page>
+    ),
+    yesterday: () => (
       <Page style={styles.page} noMargin>
         <Yesterday onScrollCards={this.props.onScrollCards} />
-      </Page>,
+      </Page>
+    ),
   });
 
   handleIndexChange = (index: number) => this.setState({ index });
@@ -63,11 +65,7 @@ class CardTab extends PureComponent {
         break;
     }
 
-    return (
-      <Text style={[styles.headerTabLabelStyle, focused && styles.focusedHeaderTabLabelStyle]}>
-        {title}
-      </Text>
-    );
+    return <Text style={[styles.headerTabLabelStyle, focused && styles.focusedHeaderTabLabelStyle]}>{title}</Text>;
   };
 
   render() {
@@ -116,7 +114,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type PropsType = {
+type Props = {
   yesterdayTotal: ?number,
   todayTotal: ?number,
   style?: any,
@@ -124,7 +122,7 @@ type PropsType = {
   onTabPress: Function,
 };
 
-type StateType = {
+type State = {
   index: number,
   routes: Array<{ key: string, title: string }>,
 };

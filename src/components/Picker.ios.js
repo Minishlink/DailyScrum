@@ -14,7 +14,7 @@ export default class Picker extends Component {
     const { children, selectedValueText, style, ...rest } = this.props;
     return (
       <View>
-        {selectedValueText &&
+        {selectedValueText && (
           <TouchableOpacity activeOpacity={0.7} style={styles.selectedValueContainer} onPress={this.showPicker}>
             <Text style={styles.selectedValueStyle} numberOfLines={1}>
               {selectedValueText}
@@ -22,16 +22,14 @@ export default class Picker extends Component {
             <View style={styles.selectedValueChevron}>
               <Icon type="material" name="arrow-drop-down" color="grey" size={25} />
             </View>
-          </TouchableOpacity>}
+          </TouchableOpacity>
+        )}
         <Modal animationType="slide" transparent visible={this.state.isPicking} onRequestClose={this.closePicker}>
           <TouchableWithoutFeedback onPress={this.closePicker}>
             <View style={styles.pickerModalBackground} />
           </TouchableWithoutFeedback>
           <View style={[styles.pickerContainer, style]}>
-            {this.props.prompt &&
-              <Text style={styles.prompt}>
-                {this.props.prompt}
-              </Text>}
+            {this.props.prompt && <Text style={styles.prompt}>{this.props.prompt}</Text>}
             <RCTPicker itemStyle={{ fontSize: appStyle.font.size.default }} {...rest}>
               {children}
             </RCTPicker>

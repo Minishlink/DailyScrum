@@ -25,7 +25,7 @@ class SprintPicker extends Component {
         prompt="Change current sprint"
         selectedValueText={currentSprint && `#${currentSprint.number} - ${currentSprint.goal}`}
       >
-        {sprints.map(sprint =>
+        {sprints.map(sprint => (
           <RCTPicker.Item
             key={sprint.id}
             label={`#${sprint.number} - ${sprint.goal}`}
@@ -37,7 +37,7 @@ class SprintPicker extends Component {
                 : 'black'
             }
           />
-        )}
+        ))}
       </Picker>
     );
   }

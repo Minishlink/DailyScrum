@@ -10,9 +10,7 @@ import SprintPicker from './components/SprintPicker';
 import BDC from './components/BDC';
 import appStyle from '../../appStyle';
 
-class Summary extends Component {
-  props: PropsType;
-
+class Summary extends Component<Props> {
   render() {
     const { project, isSyncing } = this.props;
     if (!project) {
@@ -36,7 +34,7 @@ class Summary extends Component {
   }
 }
 
-type PropsType = {
+type Props = {
   navigation: any,
   project: ProjectType,
   isSyncing: boolean,
