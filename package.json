@@ -58,7 +58,7 @@
 		"eslint-plugin-jsx-a11y": "^5.1.1",
 		"eslint-plugin-prettier": "^2.2.0",
 		"eslint-plugin-react": "^7.3.0",
-		"flow-bin": "^0.49.1",
+		"flow-bin": "^0.53.0",
 		"jest": "^20.0.4",
 		"mockdate": "^2.0.2",
 		"prettier": "^1.5.3",
