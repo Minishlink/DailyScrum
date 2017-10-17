@@ -5,7 +5,7 @@ import * as Animatable from 'react-native-animatable';
 import { Text, Icon } from '../../../components';
 import appStyle from '../../../appStyle';
 
-export default (props: PropsType) => (
+export default (props: Props) => (
   <View style={styles.container}>
     <View style={styles.starAndLabelContainer}>
       <Animatable.View animation="pulse" iterationCount="infinite" style={styles.iconContainer} useNativeDriver>
@@ -19,7 +19,7 @@ export default (props: PropsType) => (
   </View>
 );
 
-type PropsType = {
+type Props = {
   title: string,
 };
 

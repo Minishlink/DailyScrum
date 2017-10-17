@@ -8,7 +8,7 @@ import appStyle from '../../../appStyle';
 import { todayTargetSelector } from '../../../modules/sprints/reducer';
 import { roundToDecimalPlace } from '../../../services/MathService';
 
-class PointsStatus extends PureComponent<void, Props, void> {
+class PointsStatus extends PureComponent<Props> {
   render() {
     const { lead, pointsLeft, todayTarget } = this.props;
     const isLeading = !(lead && lead.points < 0);

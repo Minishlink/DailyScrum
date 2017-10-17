@@ -7,9 +7,7 @@ import { sprintsSuccessMatrixSelector } from '../../../modules/sprints/reducer';
 import type { SprintsSuccessMatrixType } from '../../../modules/sprints/reducer';
 import appStyle from '../../../appStyle';
 
-class SuccessMatrix extends Component {
-  props: PropsType;
-
+class SuccessMatrix extends Component<Props> {
   renderRow = ({ item: sprint }) => (
     <View style={styles.row}>
       <Text style={[styles.column, styles.idColumn]}>#{sprint.number}</Text>
@@ -40,6 +38,8 @@ class SuccessMatrix extends Component {
     </View>
   );
 
+  keyExtractor = sprint => sprint.number.toString();
+
   render() {
     return (
       <Card style={this.props.style}>
@@ -47,7 +47,7 @@ class SuccessMatrix extends Component {
         <FlatList
           data={this.props.successMatrix}
           renderItem={this.renderRow}
-          keyExtractor={sprint => sprint.number}
+          keyExtractor={this.keyExtractor}
           showsVerticalScrollIndicator={false}
           ListHeaderComponent={this.renderHeader}
         />
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type PropsType = {
+type Props = {
   style?: any,
   successMatrix: SprintsSuccessMatrixType,
 };

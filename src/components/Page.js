@@ -3,7 +3,7 @@ import React from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import appStyle from 'DailyScrum/src/appStyle';
 
-const Page = (props: PropsType) => (
+const Page = (props: Props) => (
   <View
     style={[
       styles.page,
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type PropsType = {
+type Props = {
   style?: any,
   children?: any,
   noMargin?: boolean,

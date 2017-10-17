@@ -18,10 +18,8 @@ import { isDrawerOpenSelector } from '../modules/navigation/reducer';
 import { logout } from '../modules/auth';
 const ErrorBar = createErrorBar();
 
-class Drawer extends Component {
-  props: PropsType;
-
-  shouldComponentUpdate(nextProps: PropsType) {
+class Drawer extends Component<Props> {
+  shouldComponentUpdate(nextProps: Props) {
     return (
       this.props.isSyncing !== nextProps.isSyncing || this.props.lastSuccessfulSync !== nextProps.lastSuccessfulSync
     );
@@ -98,7 +96,7 @@ class Drawer extends Component {
   }
 }
 
-type PropsType = {
+type Props = {
   fetchBaseData: Function,
   user: ?UserType,
   lastSuccessfulSync: ?Date,

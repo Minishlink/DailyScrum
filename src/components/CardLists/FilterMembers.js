@@ -9,10 +9,8 @@ import { makeFilterByMember, filteredMemberSelector, filterableMembersSelector }
 import type { CardListsKeyType } from '../../modules/cardLists/reducer';
 import { userPointsSelector } from '../../modules/cardLists/selectors';
 
-export class FilterMembers extends Component {
-  props: PropsType;
-
-  shouldComponentUpdate(nextProps: PropsType) {
+export class FilterMembers extends Component<Props> {
+  shouldComponentUpdate(nextProps: Props) {
     return (
       nextProps.filtered !== this.props.filtered ||
       !isEqual(nextProps.filterable, this.props.filterable) ||
@@ -47,7 +45,7 @@ export class FilterMembers extends Component {
   }
 }
 
-type PropsType = {
+type Props = {
   style?: any,
   contentContainerStyle?: any,
   filtered: ?string,

@@ -12,9 +12,7 @@ import { redirectAfterLogin } from '../../modules/navigation';
 import { login } from '../../modules/auth';
 import { isLoggedInSelector } from '../../modules/auth/reducer';
 
-class Login extends Component {
-  props: PropsType;
-
+class Login extends Component<Props> {
   componentDidMount() {
     // check if tokens exist in store
     if (this.props.isLoggedIn) {
@@ -68,7 +66,7 @@ class Login extends Component {
   }
 }
 
-type PropsType = {
+type Props = {
   navigation: any,
   login: Function,
   redirectAfterLogin: Function,

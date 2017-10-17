@@ -6,15 +6,13 @@ import Text from '../Text';
 import { currentProjectNameSelector } from '../../modules/projects/reducer';
 import appStyle from '../../appStyle';
 
-class ProjectHeaderTitle extends PureComponent {
-  props: PropsType;
-
+class ProjectHeaderTitle extends PureComponent<Props> {
   render() {
     return <Text style={styles.title}>{this.props.projectName}</Text>;
   }
 }
 
-type PropsType = {
+type Props = {
   projectName: ?string,
 };
 

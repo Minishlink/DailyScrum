@@ -5,10 +5,8 @@ import { MemberIcon, Text, Button } from '../../components';
 import type { UserType } from '../../types';
 import { roundToDecimalPlace } from '../../services/MathService';
 
-export default class FilterableMember extends Component {
-  props: PropsType;
-
-  shouldComponentUpdate(nextProps: PropsType) {
+export default class FilterableMember extends Component<Props> {
+  shouldComponentUpdate(nextProps: Props) {
     return (
       nextProps.isFiltered !== this.props.isFiltered ||
       nextProps.points !== this.props.points ||
@@ -34,7 +32,7 @@ export default class FilterableMember extends Component {
   }
 }
 
-type PropsType = {
+type Props = {
   style?: any,
   isFiltered: boolean,
   member: UserType,

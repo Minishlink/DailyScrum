@@ -12,10 +12,8 @@ import type { CardType } from '../../types';
 import { differenceInBusinessDays } from '../../services/Time';
 import Icon from '../Icon';
 
-export default class extends Component {
-  props: PropsType;
-
-  shouldComponentUpdate(nextProps: PropsType) {
+export default class extends Component<Props> {
+  shouldComponentUpdate(nextProps: Props) {
     return !isEqual(nextProps.card, this.props.card);
   }
 
@@ -138,7 +136,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type PropsType = {
+type Props = {
   card: CardType,
   style?: any,
 };

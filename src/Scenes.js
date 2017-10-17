@@ -152,7 +152,7 @@ function urlToPathAndParams(url: string) {
   };
 }
 
-class Scenes extends Component {
+class Scenes extends Component<any, any> {
   backPressListener: ?{
     remove: () => void,
   } = null;

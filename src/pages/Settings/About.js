@@ -7,8 +7,8 @@ import { Page, Text } from '../../components';
 import appStyle from '../../appStyle';
 import { isManualCodePushEnabled } from '../../../environment';
 
-export default class About extends Component {
-  state: StateType = {
+export default class About extends Component<void, State> {
+  state = {
     codePushInfo: null,
     codePushUpdateStatus: null,
     codePushMismatch: false,
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type StateType = {
+type State = {
   codePushInfo: ?string,
   codePushUpdateStatus: ?string,
   codePushMismatch: boolean,

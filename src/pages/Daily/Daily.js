@@ -14,9 +14,8 @@ import Summary from './components/Summary';
 import CardTab from './components/CardTab';
 import appStyle from '../../appStyle';
 
-class Daily extends Component {
-  props: PropsType;
-  state: StateType = {
+class Daily extends Component<Props, State> {
+  state = {
     summaryHeight: 0,
     hideHeader: false,
   };
@@ -27,7 +26,7 @@ class Daily extends Component {
     SplashScreen.hide();
   }
 
-  shouldComponentUpdate(nextProps: PropsType, nextState: StateType) {
+  shouldComponentUpdate(nextProps: Props, nextState: State) {
     return (
       this.props.isSyncing !== nextProps.isSyncing ||
       !isEqual(this.props.currentProject, nextProps.currentProject) ||
@@ -94,7 +93,7 @@ class Daily extends Component {
   }
 }
 
-type PropsType = {
+type Props = {
   navigation: any,
   fetchBaseData: Function,
   currentSprint: ?SprintType,
@@ -102,7 +101,7 @@ type PropsType = {
   isSyncing: boolean,
 };
 
-type StateType = {
+type State = {
   summaryHeight: number,
   hideHeader: boolean,
 };
