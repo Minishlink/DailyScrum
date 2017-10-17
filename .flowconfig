@@ -18,7 +18,6 @@
 
 ; Ignore deps errors
 .*/node_modules/@yfuks/react-native-action-sheet
-.*/node_modules/easy-lottie-react-native
 .*/node_modules/react-native-firebase
 .*/node_modules/react-native-linear-gradient
 .*/node_modules/react-native-tab-view
