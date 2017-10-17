@@ -176,7 +176,7 @@ function dailyCardsSelector(state: StateType, time: CardListsKeyType): CardLists
   const dailyCards = state.cards[time];
   const lists = Object.keys(dailyCards);
   const cardLists = {};
-  lists.forEach(list => {
+  lists.sort(compareColumns).forEach(list => {
     // $FlowFixMe
     const cards = dailyCards[list].map(cardId => everyCards[cardId]);
     cardLists[list] = {
@@ -186,6 +186,11 @@ function dailyCardsSelector(state: StateType, time: CardListsKeyType): CardLists
   });
   return cardLists;
 }
+
+const compareColumns = (columnA: string, columnB: string): number => {
+  const order = ['toValidate', 'doing', 'blocked', 'sprint', 'done'];
+  return order.indexOf(columnA) - order.indexOf(columnB);
+};
 
 export function yesterdayCardsSelector(state: StateType): CardListsType {
   return dailyCardsSelector(state, 'yesterday');
