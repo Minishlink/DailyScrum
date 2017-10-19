@@ -2089,6 +2089,18 @@ fbjs@0.8.14:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.9"
 
+fbjs@^0.8.16:
+  version "0.8.16"
+  resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.16.tgz#5e67432f550dc41b572bf55847b8aca64e5337db"
+  dependencies:
+    core-js "^1.0.0"
+    isomorphic-fetch "^2.1.1"
+    loose-envify "^1.0.0"
+    object-assign "^4.1.0"
+    promise "^7.1.1"
+    setimmediate "^1.0.5"
+    ua-parser-js "^0.7.9"
+
 fbjs@^0.8.9:
   version "0.8.12"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.12.tgz#10b5d92f76d45575fd63a217d4ea02bea2f8ed04"
@@ -4119,6 +4131,14 @@ prop-types@^15.5.10, prop-types@^15.5.6, prop-types@^15.5.8:
     fbjs "^0.8.9"
     loose-envify "^1.3.1"
 
+prop-types@^15.6.0:
+  version "15.6.0"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
+
 proxy-agent@2:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/proxy-agent/-/proxy-agent-2.0.0.tgz#57eb5347aa805d74ec681cb25649dba39c933499"
@@ -4239,12 +4259,12 @@ react-native-drawer-layout@1.3.2:
   dependencies:
     react-native-dismiss-keyboard "1.0.0"
 
-react-native-firebase@^2.2.0:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/react-native-firebase/-/react-native-firebase-2.2.3.tgz#40010672a0aaa210f3b3572262cc8f6e8715c186"
+react-native-firebase@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-firebase/-/react-native-firebase-3.0.4.tgz#e451428c75d249ff6c9abcb4bf5457180d099b65"
   dependencies:
     bows "^1.6.0"
-    prop-types "^15.5.10"
+    prop-types "^15.6.0"
 
 react-native-linear-gradient@^2.3.0:
   version "2.3.0"

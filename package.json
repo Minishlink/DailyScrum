@@ -32,7 +32,7 @@
 		"react-native": "0.49.3",
 		"react-native-animatable": "^1.2.3",
 		"react-native-code-push": "^5.1.3-beta",
-		"react-native-firebase": "^2.2.0",
+		"react-native-firebase": "^3.0.4",
 		"react-native-linear-gradient": "^2.3.0",
 		"react-native-pathjs-charts": "git+ssh://git@github.com/capitalone/react-native-pathjs-charts.git#3267c55cb1134ca57ad4cb7c1df720a0c307c270",
 		"react-native-safari-view": "^2.0.0",
