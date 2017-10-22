@@ -39,7 +39,7 @@
 		"react-native-splash-screen": "^3.0.0",
 		"react-native-tab-view": "^0.0.69",
 		"react-native-vector-icons": "^4.3.0",
-		"react-navigation": "git+ssh://git@github.com/Minishlink/react-navigation.git#c326c9ba43e101d85b8e590ba9fba9ee0652d5c9",
+		"react-navigation": "git+ssh://git@github.com/Minishlink/react-navigation.git#330f4e85799f6bcc9f78e5e04d3e86ada2160321",
 		"react-redux": "^5.0.6",
 		"redux": "^3.7.2",
 		"redux-persist": "^4.9.1",
