@@ -15,7 +15,25 @@ export default (state, action) => {
     return state || {};
   }
 
-  const newState = AppNavigator.router.getStateForAction(action, state);
+  let newState = null;
+  if (type === 'REDIRECT_AFTER_LOGIN') {
+    const initialState = AppNavigator.router.getStateForAction({ type: '@@INIT' });
+    const resetToMainAction = NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'main' })],
+    });
+    newState = AppNavigator.router.getStateForAction(resetToMainAction, initialState);
+
+    if (action.payload.isFirstTime) {
+      const navigateToProjectSettingsAction = NavigationActions.navigate({
+        routeName: 'projectSettings',
+        params: { firstTime: true },
+      });
+      newState = AppNavigator.router.getStateForAction(navigateToProjectSettingsAction, newState);
+    }
+  } else {
+    newState = AppNavigator.router.getStateForAction(action, state);
+  }
 
   if (
     [NavigationActions.INIT, NavigationActions.NAVIGATE, NavigationActions.BACK, NavigationActions.RESET].includes(type)

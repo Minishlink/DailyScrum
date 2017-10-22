@@ -15,12 +15,6 @@ export const redirectAfterLogin = (isFirstTime: boolean): ActionType => ({
   },
 });
 
-export const resetToMain = (isFirstTime: boolean = true) =>
-  NavigationActions.reset({
-    index: 0,
-    actions: [NavigationActions.navigate({ routeName: 'main' })],
-  });
-
 export const resetToLogin = () =>
   NavigationActions.reset({
     index: 0,
