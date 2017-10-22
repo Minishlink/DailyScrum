@@ -101,7 +101,7 @@ module.exports = {
       Modal: path.join(__dirname, 'src/mocks/unimplemented'),
       Picker: path.join(__dirname, 'src/mocks/Picker'),
       'react-native-linear-gradient': 'react-native-web-linear-gradient',
-      'react-native-code-push': path.join(__dirname, 'src/mocks/unimplemented'),
+      'react-native-code-push': path.join(__dirname, 'src/mocks/react-native-code-push'),
       'react-native-svg': path.join(__dirname, 'src/mocks/react-native-svg'),
       'lottie-react-native': path.join(__dirname, 'src/mocks/unimplemented'),
       'react-native-safari-view': path.join(__dirname, 'src/mocks/unimplemented'),
