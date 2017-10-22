@@ -58,7 +58,7 @@ const TabsNavigator = TabNavigator(
       },
       style: {
         backgroundColor: 'transparent',
-        ...appStyle.shadowStyle,
+        shadowOpacity: 0,
         borderRadius: 0, // fixes TouchableNativeFeedback Ripple effect
         elevation: 0, // fixes weird shadows
       },
@@ -66,6 +66,7 @@ const TabsNavigator = TabNavigator(
         height: 4,
         top: 0,
         backgroundColor: 'white',
+        ...appStyle.shadowStyle,
       },
       labelStyle: {
         marginVertical: 0,
