@@ -92,14 +92,13 @@ const styles = StyleSheet.create({
   },
   membersRow: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   title: {
     marginVertical: appStyle.margin,
   },
   membersContainer: {
-    flex: 5,
     alignSelf: 'flex-end',
-    justifyContent: 'flex-end',
   },
   members: {
     flexDirection: 'row',
@@ -129,9 +128,7 @@ const styles = StyleSheet.create({
     color: appStyle.colors.overRed,
   },
   pointsContainer: {
-    flex: 1,
     flexDirection: 'row',
-    flexShrink: 1,
     alignItems: 'flex-end',
   },
 });
