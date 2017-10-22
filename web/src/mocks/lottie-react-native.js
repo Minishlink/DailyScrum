@@ -25,7 +25,7 @@ export default class Animation extends PureComponent {
       container: this.animationDOMNode,
       animationData: props.source,
       renderer: 'svg',
-      loop: props.loop,
+      loop: props.loop || false,
       autoplay: true,
     });
   };
