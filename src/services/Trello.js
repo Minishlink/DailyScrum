@@ -1,5 +1,7 @@
+import { Platform } from 'react-native';
 import { TRELLO_APP_KEY, TRELLO_API_URL } from '../../environment';
 import { handleFetchResponse } from './Fetch';
+import { appNavigatorConfig } from '../Scenes';
 
 export default class {
   static getLoginURL = () =>
@@ -8,7 +10,7 @@ export default class {
     `key=${TRELLO_APP_KEY}&` +
     'expiration=never&' +
     'name=DailyScrum&' +
-    'return_url=dailyscrum://login&' +
+    `return_url=${encodeURIComponent(appNavigatorConfig.URIPrefix)}login&` +
     'scope=read,account';
 
   static getCurrentUser = token =>

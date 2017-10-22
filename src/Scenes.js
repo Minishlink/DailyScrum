@@ -121,7 +121,7 @@ const MainNavigator = DrawerNavigator(
 const appNavigatorPages = {
   login: {
     screen: Pages.Login,
-    path: 'login#token=:token',
+    path: Platform.OS !== 'web' ? 'login#token=:token' : 'login&token=:token',
     navigationOptions: { header: null },
   },
   main: {
@@ -130,9 +130,9 @@ const appNavigatorPages = {
   },
 };
 
-const appNavigatorConfig = {
+export const appNavigatorConfig = {
   initialRouteName: 'login',
-  URIPrefix: 'dailyscrum://',
+  URIPrefix: Platform.OS !== 'web' ? 'dailyscrum://' : window.location.protocol + '//' + window.location.host + '/#',
   cardStyle: {
     backgroundColor: appStyle.colors.primary,
   },

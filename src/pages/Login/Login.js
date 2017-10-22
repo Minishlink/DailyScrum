@@ -43,6 +43,8 @@ class Login extends Component<Props> {
           })
         )
         .catch(() => Linking.openURL(loginUrl));
+    } else if (Platform.OS === 'web') {
+      window.location.assign(loginUrl);
     } else {
       Linking.openURL(loginUrl);
     }
