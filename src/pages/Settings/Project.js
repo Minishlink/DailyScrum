@@ -1,7 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, FlatList, TextInput } from 'react-native';
+import { StyleSheet, TextInput } from 'react-native';
+import FlatList from 'FlatList';
 import { Page, Text } from 'DailyScrum/src/components';
 import { fetchBoards } from 'DailyScrum/src/modules/boards';
 import { boardsListSelector } from '../../modules/boards/reducer';
