@@ -103,7 +103,7 @@ module.exports = {
       'react-native-linear-gradient': 'react-native-web-linear-gradient',
       'react-native-code-push': path.join(__dirname, 'src/mocks/react-native-code-push'),
       'react-native-svg': path.join(__dirname, 'src/mocks/react-native-svg'),
-      'lottie-react-native': path.join(__dirname, 'src/mocks/unimplemented'),
+      'lottie-react-native': path.join(__dirname, 'src/mocks/lottie-react-native'),
       'react-native-safari-view': path.join(__dirname, 'src/mocks/unimplemented'),
       'react-native-splash-screen': path.join(__dirname, 'src/mocks/react-native-splash-screen'),
       'react-native-firebase': path.join(__dirname, 'src/mocks/react-native-firebase'),
