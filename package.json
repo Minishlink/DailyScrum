@@ -19,7 +19,11 @@
 		"deploy:staging:ios": "bundle exec fastlane ios deploy --env=staging",
 		"deploy:prod": "yarn deploy:prod:android && yarn deploy:prod:ios",
 		"deploy:prod:android": "bundle exec fastlane android deploy --env=prod",
-		"deploy:prod:ios": "bundle exec fastlane ios deploy --env=prod"
+		"deploy:prod:ios": "bundle exec fastlane ios deploy --env=prod",
+		"init:web": "yarn remove react && yarn add react react-dom react-native-web",
+		"stop:web": "git stash && yarn",
+		"start:web": "./node_modules/.bin/webpack-dev-server --port 3000 --config web/webpack.config.babel.js --inline --colors --quiet",
+		"build:web": "NODE_ENV=production ./node_modules/.bin/webpack -p --config web/webpack.config.babel.js"
 	},
 	"dependencies": {
 		"@yfuks/react-native-action-sheet": "^0.0.4",
