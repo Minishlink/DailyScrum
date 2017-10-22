@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { Linking, BackHandler } from 'react-native';
+import { Linking, BackHandler, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import {
   StackNavigator,
@@ -42,7 +42,7 @@ const TabsNavigator = TabNavigator(
   },
   {
     initialRouteName: 'daily',
-    swipeEnabled: true,
+    swipeEnabled: Platform.OS !== 'web',
     animationEnabled: true,
     tabBarComponent: props => (
       <Gradient>
