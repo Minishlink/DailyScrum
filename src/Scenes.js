@@ -67,6 +67,7 @@ const TabsNavigator = TabNavigator(
         top: 0,
         backgroundColor: 'white',
         ...appStyle.shadowStyle,
+        elevation: 0,
       },
       labelStyle: {
         marginVertical: 0,
