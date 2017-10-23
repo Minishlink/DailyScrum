@@ -109,6 +109,7 @@ module.exports = {
       'react-native-safari-view': path.join(__dirname, 'src/mocks/unimplemented'),
       'react-native-splash-screen': path.join(__dirname, 'src/mocks/react-native-splash-screen'),
       'react-native-firebase': path.join(__dirname, 'src/mocks/react-native-firebase'),
+      '@yfuks/react-native-action-sheet': path.join(__dirname, 'src/mocks/react-native-action-sheet'),
     },
     // If you're working on a multi-platform React Native app, web-specific
     // module implementations should be written in files using the extension
