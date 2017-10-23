@@ -1,7 +1,8 @@
 // @flow
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, SectionList, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
+import SectionList from 'SectionList';
 import * as Animatable from 'react-native-animatable';
 import LottieAnimation from 'easy-lottie-react-native';
 import { TrelloCard, Text } from '../../components';
@@ -85,6 +86,7 @@ class CardsList extends PureComponent<Props> {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexGrow: 1,
   },
   emptyContainer: {

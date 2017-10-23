@@ -1,20 +1,8 @@
-import React, { Component } from 'react';
-import { View, ScrollView } from 'react-native';
+import React, { PureComponent } from 'react';
+import MetroListView from './MetroListView';
 
-export default class FlatList extends Component {
-  renderItem = item => {
-    const renderedItem = this.props.renderItem({ item });
-    return <View key={item.key || this.props.keyExtractor(item)}>{renderedItem}</View>;
-  };
-
+export default class FlatList extends PureComponent {
   render() {
-    return (
-      <ScrollView
-        contentContainerStyle={this.props.contentContainerStyle}
-        showsVerticalScrollIndicator={this.props.showsVerticalScrollIndicator}
-      >
-        {this.props.data.map(this.renderItem)}
-      </ScrollView>
-    );
+    return <MetroListView {...this.props} items={this.props.data} />;
   }
 }

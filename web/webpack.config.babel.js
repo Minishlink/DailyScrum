@@ -98,6 +98,7 @@ module.exports = {
       'react-native': 'react-native-web',
       'react-navigation': 'react-navigation/src/react-navigation.js',
       FlatList: path.join(__dirname, 'src/mocks/FlatList'),
+      SectionList: path.join(__dirname, 'src/mocks/MetroListView'),
       ImageBackground: path.join(__dirname, 'src/mocks/ImageBackground'),
       Modal: path.join(__dirname, 'src/mocks/unimplemented'),
       Picker: path.join(__dirname, 'src/mocks/Picker'),
