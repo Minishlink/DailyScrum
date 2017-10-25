@@ -47,7 +47,8 @@
 		"react-redux": "^5.0.6",
 		"redux": "^3.7.2",
 		"redux-persist": "^4.9.1",
-		"redux-saga": "^0.15.6"
+		"redux-saga": "^0.15.6",
+		"svgs": "git+ssh://git@github.com/Minishlink/svgs.git#4dbb27d733cf0bfb03a2e6473c036abbf7b120ce"
 	},
 	"devDependencies": {
 		"babel-core": "^6.26.0",

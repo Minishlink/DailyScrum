@@ -35,7 +35,12 @@ const everythingExceptNodeModulesLoader = {
 
 const modulesLoader = {
   test: /\.js$/,
-  include: [/node_modules\/react-native-/, /node_modules\/react-navigation/, /node_modules\/easy-lottie-react-native/],
+  include: [
+    /node_modules\/react-native-/,
+    /node_modules\/react-navigation/,
+    /node_modules\/easy-lottie-react-native/,
+    /node_modules\/svgs/,
+  ],
   use: {
     loader: 'babel-loader',
     options: {
@@ -104,7 +109,7 @@ module.exports = {
       Picker: path.join(__dirname, 'src/mocks/Picker'),
       'react-native-linear-gradient': 'react-native-web-linear-gradient',
       'react-native-code-push': path.join(__dirname, 'src/mocks/react-native-code-push'),
-      'react-native-svg': path.join(__dirname, 'src/mocks/react-native-svg'),
+      'react-native-svg': 'svgs',
       'lottie-react-native': path.join(__dirname, 'src/mocks/lottie-react-native'),
       'react-native-safari-view': path.join(__dirname, 'src/mocks/unimplemented'),
       'react-native-splash-screen': path.join(__dirname, 'src/mocks/react-native-splash-screen'),
