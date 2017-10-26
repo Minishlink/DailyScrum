@@ -21,6 +21,7 @@ type Item = any;
 
 type NormalProps = {
   FooterComponent?: React.ComponentType<*>,
+  ListEmptyComponent?: React.ComponentType<*>,
   ListHeaderComponent?: React.ComponentType<*>,
   renderItem: (info: Object) => ?React.Element<any>,
   /* $FlowFixMe(>=0.53.0 site=react_native_fb,react_native_oss) This comment
@@ -144,7 +145,7 @@ class MetroListView extends React.Component<Props, $FlowFixMeState> {
     this.setState(state => this._computeState(newProps, state));
   }
   render() {
-    const { ListHeaderComponent, renderItem, keyExtractor, SectionSeparatorComponent, ...rest } = this.props;
+    const { ListHeaderComponent, ListEmptyComponent, renderItem, keyExtractor, SectionSeparatorComponent, ...rest } = this.props;
     return (
       /* $FlowFixMe(>=0.53.0 site=react_native_fb,react_native_oss) This
        * comment suppresses an error when upgrading Flow's support for React.
@@ -155,7 +156,7 @@ class MetroListView extends React.Component<Props, $FlowFixMeState> {
         ref={this._captureRef}
         renderRow={this._renderRow}
         renderFooter={this.props.FooterComponent && this._renderFooter}
-        renderHeader={ListHeaderComponent && this._renderHeader}
+        renderHeader={this.state.ds.getRowCount() ? ListHeaderComponent && this._renderHeader : ListEmptyComponent && this._renderEmpty}
         renderSectionHeader={this.props.sections && this._renderSectionHeader}
         renderSeparator={this.props.SeparatorComponent && this._renderSeparator}
       />
@@ -190,6 +191,10 @@ class MetroListView extends React.Component<Props, $FlowFixMeState> {
       };
     }
   }
+  /* $FlowFixMe(>=0.53.0 site=react_native_fb,react_native_oss) This comment
+   * suppresses an error when upgrading Flow's support for React. To see the
+   * error delete this comment and run Flow. */
+  _renderEmpty = () => <this.props.ListEmptyComponent key="$empty" />;
   /* $FlowFixMe(>=0.53.0 site=react_native_fb,react_native_oss) This comment
    * suppresses an error when upgrading Flow's support for React. To see the
    * error delete this comment and run Flow. */
