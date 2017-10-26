@@ -21,6 +21,7 @@ type Item = any;
 
 type NormalProps = {
   FooterComponent?: React.ComponentType<*>,
+  ListHeaderComponent?: React.ComponentType<*>,
   renderItem: (info: Object) => ?React.Element<any>,
   /* $FlowFixMe(>=0.53.0 site=react_native_fb,react_native_oss) This comment
    * suppresses an error when upgrading Flow's support for React. To see the
@@ -153,6 +154,7 @@ class MetroListView extends React.Component<Props, $FlowFixMeState> {
         ref={this._captureRef}
         renderRow={this._renderRow}
         renderFooter={this.props.FooterComponent && this._renderFooter}
+        renderHeader={this.props.ListHeaderComponent && this._renderHeader}
         renderSectionHeader={this.props.sections && this._renderSectionHeader}
         renderSeparator={this.props.SeparatorComponent && this._renderSeparator}
       />
@@ -191,6 +193,10 @@ class MetroListView extends React.Component<Props, $FlowFixMeState> {
    * suppresses an error when upgrading Flow's support for React. To see the
    * error delete this comment and run Flow. */
   _renderFooter = () => <this.props.FooterComponent key="$footer" />;
+  /* $FlowFixMe(>=0.53.0 site=react_native_fb,react_native_oss) This comment
+   * suppresses an error when upgrading Flow's support for React. To see the
+   * error delete this comment and run Flow. */
+  _renderHeader = () => <this.props.ListHeaderComponent key="$header" />;
   _renderRow = (item, sectionID, rowID, highlightRow) => {
     return this.props.renderItem({item, index: rowID});
   };
