@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import FlatList from 'FlatList';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 import type { UserType } from '../../types';
