@@ -96,7 +96,7 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       __DEV__: JSON.stringify(isDev),
     }),
-    new CopyWebpackPlugin([{ from: 'web/src/assets/', to: 'assets/' }]),
+    new CopyWebpackPlugin([{ from: 'web/src/assets/', to: 'assets/', force: true }]),
     new HtmlWebpackPlugin({
       title: 'DailyScrum',
       filename: 'index.html',
