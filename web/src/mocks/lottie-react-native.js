@@ -33,6 +33,6 @@ export default class Animation extends PureComponent {
   setAnimationDOMNode = ref => (this.animationDOMNode = ReactDOM.findDOMNode(ref));
 
   render() {
-    return <View ref={this.setAnimationDOMNode} />;
+    return <View style={this.props.style} ref={this.setAnimationDOMNode} />;
   }
 }
