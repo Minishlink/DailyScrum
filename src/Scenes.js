@@ -132,7 +132,10 @@ const appNavigatorPages = {
 
 export const appNavigatorConfig = {
   initialRouteName: 'login',
-  URIPrefix: Platform.OS !== 'web' ? 'dailyscrum://' : window.location.protocol + '//' + window.location.host + '/#',
+  URIPrefix:
+    Platform.OS !== 'web'
+      ? 'dailyscrum://'
+      : window.location.href.substr(0, window.location.href.lastIndexOf('/') + 1) + '#',
   cardStyle: {
     backgroundColor: appStyle.colors.primary,
   },
