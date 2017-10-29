@@ -2,6 +2,7 @@ import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+import environment from '../environment';
 
 const isDev = process.env.NODE_ENV !== 'production';
 
@@ -101,6 +102,7 @@ module.exports = {
       title: 'DailyScrum',
       filename: 'index.html',
       template: 'web/src/index.html',
+      GA_ID: environment.GA_ID,
     }),
   ],
 
