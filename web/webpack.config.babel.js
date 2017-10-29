@@ -1,6 +1,8 @@
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+
 const isDev = process.env.NODE_ENV !== 'production';
 
 const everythingExceptNodeModulesLoader = {
@@ -56,6 +58,7 @@ const imageLoaderConfiguration = {
   use: {
     loader: 'file-loader',
     options: {
+      outputPath: 'assets/',
       name: '[name].[ext]',
     },
   },
@@ -64,6 +67,9 @@ const imageLoaderConfiguration = {
 const fontLoaderConfiguration = {
   test: /\.ttf$/,
   loader: 'file-loader',
+  options: {
+    outputPath: 'assets/',
+  },
   include: [/node_modules\/react-native-vector-icons/, path.join(__dirname, '../assets/native/fonts')],
 };
 
@@ -90,6 +96,7 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       __DEV__: JSON.stringify(isDev),
     }),
+    new CopyWebpackPlugin([{ from: 'web/src/assets/', to: 'assets/' }]),
     new HtmlWebpackPlugin({
       title: 'DailyScrum',
       filename: 'index.html',
