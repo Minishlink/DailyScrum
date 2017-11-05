@@ -1,5 +1,3 @@
-// @flow
-
 // adapted from https://gist.github.com/MoOx/96169e8af11894d3e74a2aa29b2ccac5
 
 // partial dirty implementation of react-native Picker
