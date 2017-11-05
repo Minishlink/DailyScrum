@@ -7,8 +7,6 @@ type PropsType = {
   label: string,
 };
 
-const PickerItem = (props: PropsType) => {
-  return <option value={props.value}>{props.label}</option>;
-};
+const PickerItem = (props: PropsType) => <option value={props.value}>{props.label}</option>;
 
 export default PickerItem;

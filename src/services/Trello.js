@@ -1,4 +1,3 @@
-import { Platform } from 'react-native';
 import { TRELLO_APP_KEY, TRELLO_API_URL } from '../../environment';
 import { handleFetchResponse } from './Fetch';
 import { appNavigatorConfig } from '../Scenes';
