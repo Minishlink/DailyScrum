@@ -15,6 +15,7 @@ import appStyle from 'DailyScrum/src/appStyle';
 import { Header, Drawer, Icon, Gradient } from './components';
 import { ProjectHeaderTitle, DrawerHeaderLeft } from './components/Header';
 import { getFontStyle } from './components/Text';
+import URIPrefix from './services/URIPrefix';
 
 const TabsNavigator = TabNavigator(
   {
@@ -130,12 +131,9 @@ const appNavigatorPages = {
   },
 };
 
-export const appNavigatorConfig = {
+const appNavigatorConfig = {
   initialRouteName: 'login',
-  URIPrefix:
-    Platform.OS !== 'web'
-      ? 'dailyscrum://'
-      : window.location.href.substr(0, window.location.href.lastIndexOf('/') + 1) + '#',
+  URIPrefix,
   cardStyle: {
     backgroundColor: appStyle.colors.primary,
   },
