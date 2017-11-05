@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
 import { Header } from 'react-navigation';
@@ -80,6 +80,7 @@ class CardTab extends PureComponent<Props, State> {
         renderScene={this.renderScene}
         renderHeader={this.renderHeader}
         onIndexChange={this.handleIndexChange}
+        swipeEnabled={Platform.OS !== 'web'}
         initialLayout={{
           height: 0,
           width: Dimensions.get('window').width,

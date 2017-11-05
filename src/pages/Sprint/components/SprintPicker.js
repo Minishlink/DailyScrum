@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Picker as RCTPicker, Platform } from 'react-native';
+import { Platform } from 'react-native';
+import RCTPicker from 'Picker';
 import { Picker } from '../../../components';
 import { currentSprintSelector, sprintsListForCurrentProjectSelector } from '../../../modules/sprints/reducer';
 import { SprintType } from '../../../types';

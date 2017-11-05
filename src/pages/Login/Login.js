@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Button, Linking, Platform } from 'react-native';
+import { StyleSheet, View, Button, Linking, Platform, Dimensions } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import SafariView from 'react-native-safari-view';
 import LottieAnimation from 'easy-lottie-react-native';
@@ -43,6 +43,8 @@ class Login extends Component<Props> {
           })
         )
         .catch(() => Linking.openURL(loginUrl));
+    } else if (Platform.OS === 'web') {
+      window.location.assign(loginUrl);
     } else {
       Linking.openURL(loginUrl);
     }
@@ -73,6 +75,7 @@ type Props = {
   isLoggedIn: boolean,
 };
 
+const dimensions = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -80,7 +83,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    height: '30%',
+    width: dimensions.width >= dimensions.height ? dimensions.width * 0.3 : undefined,
+    height: dimensions.height > dimensions.width ? dimensions.height * 0.3 : undefined,
   },
   title: {
     marginTop: 10,
