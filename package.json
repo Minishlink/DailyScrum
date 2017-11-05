@@ -48,6 +48,7 @@
 		"react-native-vector-icons": "^4.3.0",
 		"react-native-web": "^0.1.13",
 		"react-native-web-linear-gradient": "^1.0.2",
+		"react-native-web-lists": "^0.1.0",
 		"react-navigation": "git+ssh://git@github.com/Minishlink/react-navigation.git#330f4e85799f6bcc9f78e5e04d3e86ada2160321",
 		"react-redux": "^5.0.6",
 		"redux": "^3.7.2",

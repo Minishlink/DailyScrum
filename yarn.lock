@@ -6065,6 +6065,10 @@ react-native-web-linear-gradient@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-native-web-linear-gradient/-/react-native-web-linear-gradient-1.0.2.tgz#122dc158273833b315cf0dfc9ded74719fbbc153"
 
+react-native-web-lists@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-web-lists/-/react-native-web-lists-0.1.0.tgz#f40716cc62409f849bd7f21c95979bf38e125d03"
+
 react-native-web@^0.1.13:
   version "0.1.13"
   resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.1.13.tgz#9a24fab792a81d8c462c7576e949ec8ebed60303"
