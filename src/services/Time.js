@@ -10,7 +10,18 @@ const setDateWithBoundary = (date: Date): void => {
 const getTodayWorkableDate = (): Date => {
   const today = new Date();
   setDateWithBoundary(today);
-  return today;
+  const todayWeekNumber = today.getDay();
+
+  let offsetTime = 0;
+  if (todayWeekNumber === 0) {
+    // sunday
+    offsetTime += ONE_DAY;
+  } else if (todayWeekNumber === 6) {
+    // saturday
+    offsetTime += 2 * ONE_DAY;
+  }
+
+  return new Date(today.getTime() + offsetTime);
 };
 
 export const getTodayWorkableDayTime = (): number => getTodayWorkableDate().getTime();

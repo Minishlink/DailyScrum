@@ -515,6 +515,152 @@ describe('cards sagas', () => {
         });
       });
     });
+    describe('during the week-end', () => {
+      describe('on saturday', () => {
+        describe('when there are 0 points done', () => {
+          let storeState;
+          beforeAll(async () => {
+            MockDate.set(new Date('2017-09-16T17:00:00.000Z'));
+            const initialState = getInitialState();
+            const result = await expectSaga(fetchDoneCards)
+              .withReducer(rootReducer, initialState)
+              .provide([
+                [select(tokenSelector), 'toto'],
+                [matchers.call.fn(Trello.getCardsFromList, 'toto', '59bc197d91e43e1f3892ccf2'), []],
+              ])
+              .run();
+
+            storeState = result.storeState;
+          });
+          afterAll(() => MockDate.reset());
+
+          it('is 35 points late', async () => {
+            expect(leadSelector(storeState)).toEqual({ points: -35, manDays: -3.5 });
+          });
+
+          it('has a today target of 45', async () => {
+            expect(todayTargetSelector(storeState)).toEqual(45);
+          });
+
+          it('has 45 points left overall', async () => {
+            expect(overallPointsLeftSelector(storeState)).toEqual(45);
+          });
+        });
+        describe('when there are 30 points done', () => {
+          let storeState;
+          beforeAll(async () => {
+            MockDate.set(new Date('2017-09-16T17:00:00.000Z'));
+            const initialState = getInitialState();
+            const result = await expectSaga(fetchDoneCards)
+              .withReducer(rootReducer, initialState)
+              .provide([
+                [select(tokenSelector), 'toto'],
+                [
+                  matchers.call.fn(Trello.getCardsFromList, 'toto', '59bc197d91e43e1f3892ccf2'),
+                  [
+                    {
+                      name: '(4) Done',
+                      actions: [],
+                    },
+                    {
+                      name: '(26) Done',
+                      actions: [],
+                    },
+                  ],
+                ],
+              ])
+              .run();
+
+            storeState = result.storeState;
+          });
+          afterAll(() => MockDate.reset());
+
+          it('is 5 points late', async () => {
+            expect(leadSelector(storeState)).toEqual({ points: -5, manDays: -0.5 });
+          });
+
+          it('has a today target of 15', async () => {
+            expect(todayTargetSelector(storeState)).toEqual(15);
+          });
+
+          it('has 15 points left overall', async () => {
+            expect(overallPointsLeftSelector(storeState)).toEqual(15);
+          });
+        });
+      });
+      describe('on sunday', () => {
+        describe('when there are 0 points done', () => {
+          let storeState;
+          beforeAll(async () => {
+            MockDate.set(new Date('2017-09-17T16:00:00.000Z'));
+            const initialState = getInitialState();
+            const result = await expectSaga(fetchDoneCards)
+              .withReducer(rootReducer, initialState)
+              .provide([
+                [select(tokenSelector), 'toto'],
+                [matchers.call.fn(Trello.getCardsFromList, 'toto', '59bc197d91e43e1f3892ccf2'), []],
+              ])
+              .run();
+
+            storeState = result.storeState;
+          });
+          afterAll(() => MockDate.reset());
+
+          it('is 35 points late', async () => {
+            expect(leadSelector(storeState)).toEqual({ points: -35, manDays: -3.5 });
+          });
+
+          it('has a today target of 45', async () => {
+            expect(todayTargetSelector(storeState)).toEqual(45);
+          });
+
+          it('has 45 points left overall', async () => {
+            expect(overallPointsLeftSelector(storeState)).toEqual(45);
+          });
+        });
+        describe('when there are 30 points done', () => {
+          let storeState;
+          beforeAll(async () => {
+            MockDate.set(new Date('2017-09-17T16:00:00.000Z'));
+            const initialState = getInitialState();
+            const result = await expectSaga(fetchDoneCards)
+              .withReducer(rootReducer, initialState)
+              .provide([
+                [select(tokenSelector), 'toto'],
+                [
+                  matchers.call.fn(Trello.getCardsFromList, 'toto', '59bc197d91e43e1f3892ccf2'),
+                  [
+                    {
+                      name: '(4) Done',
+                      actions: [],
+                    },
+                    {
+                      name: '(26) Done',
+                      actions: [],
+                    },
+                  ],
+                ],
+              ])
+              .run();
+
+            storeState = result.storeState;
+          });
+          afterAll(() => MockDate.reset());
+
+          it('is 5 points late', async () => {
+            expect(leadSelector(storeState)).toEqual({ points: -5, manDays: -0.5 });
+          });
+
+          it('has a today target of 15', async () => {
+            expect(todayTargetSelector(storeState)).toEqual(15);
+          });
+
+          it('has 15 points left overall', async () => {
+            expect(overallPointsLeftSelector(storeState)).toEqual(15);
+          });
+        });
+      });
+    });
     describe('on monday', () => {
       describe('morning', () => {
         describe('when there are 0 points done', () => {
