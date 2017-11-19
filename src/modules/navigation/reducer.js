@@ -2,6 +2,7 @@ import { isArray, isEqual } from 'lodash';
 import { NavigationActions } from 'react-navigation';
 import { AppNavigator } from '../../Scenes';
 import { Analytics } from '../../services';
+import { getRouteNamesFromState } from '../../services/Navigation';
 
 export default (state, action) => {
   const { type } = action;
@@ -53,41 +54,21 @@ const isRouteSameAsLastRouteFromNavigationStateSelector = (state, action) => {
   }
 
   // FUTURE add exceptions here (params in lastRoute.params, action.params)
-  if (
-    lastRoute.routeName === 'DrawerClose' &&
-    ['about', 'projectSettings'].includes(action.routeName) &&
-    !(action.params && action.params.firstTime)
-  ) {
-    return true;
-  }
-
   if (lastRoute.routeName !== action.routeName) {
-    return false;
-  }
-
-  if (action.routeName.startsWith('Drawer')) {
     return false;
   }
 
   return isEqual(lastRoute.params, action.params);
 };
 
-export const routeFromNavigationStateSelector = (state, maxNesting) => {
-  // TODO handle nested
+export const routeFromNavigationStateSelector = (state: any) => {
   const currentRootRoute = state.routes[state.index];
-  let route;
   if (isArray(currentRootRoute.routes)) {
-    route = currentRootRoute.routes[currentRootRoute.index];
-  } else {
-    route = currentRootRoute;
+    return routeFromNavigationStateSelector(currentRootRoute);
   }
-  return route;
+  return currentRootRoute;
 };
 
-export const currentRouteSelector = (state, maxNesting) =>
-  routeFromNavigationStateSelector(state.navigation, maxNesting);
+export const currentRouteSelector = state => routeFromNavigationStateSelector(state.navigation);
 
-export const isDrawerOpenSelector = state => {
-  const route = currentRouteSelector(state, 2);
-  return route && route.routeName === 'DrawerOpen';
-};
+export const isDrawerOpenSelector = state => getRouteNamesFromState(state.navigation).includes('DrawerOpen');
