@@ -3,7 +3,6 @@ import React, { PureComponent } from 'react';
 import { Dimensions, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
-import { Header } from 'react-navigation';
 import { StyleSheet } from 'react-native';
 import { Text, Page } from '../../../components';
 import Today from './Today';
@@ -11,6 +10,15 @@ import Yesterday from './Yesterday';
 import appStyle from '../../../appStyle';
 import { yesterdayTotalSelector, todayTotalSelector } from '../../../modules/cards/reducer';
 import { roundToDecimalPlace } from '../../../services/MathService';
+import { HEADER_HEIGHT } from '../../../services/Navigation';
+
+const initialLayout =
+  Platform.OS === 'android'
+    ? {
+        height: 0,
+        width: Dimensions.get('window').width,
+      }
+    : undefined;
 
 class CardTab extends PureComponent<Props, State> {
   state = {
@@ -81,10 +89,7 @@ class CardTab extends PureComponent<Props, State> {
         renderHeader={this.renderHeader}
         onIndexChange={this.handleIndexChange}
         swipeEnabled={Platform.OS !== 'web'}
-        initialLayout={{
-          height: 0,
-          width: Dimensions.get('window').width,
-        }}
+        initialLayout={initialLayout}
       />
     );
   }
@@ -96,7 +101,7 @@ const styles = StyleSheet.create({
   },
   headerTabStyle: {
     alignSelf: 'center',
-    height: Header.HEIGHT,
+    height: HEADER_HEIGHT,
   },
   headerTabLabelStyle: {
     color: appStyle.colors.lightGray,

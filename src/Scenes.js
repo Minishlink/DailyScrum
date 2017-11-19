@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { Linking, BackHandler, Platform } from 'react-native';
+import { Linking, BackHandler, Platform, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import {
   StackNavigator,
@@ -54,6 +54,13 @@ const TabsNavigator = TabNavigator(
     tabBarOptions: {
       showIcon: true,
       upperCaseLabel: false,
+      initialLayout:
+        Platform.OS === 'android'
+          ? {
+              height: Dimensions.get('window').height,
+              width: Dimensions.get('window').width,
+            }
+          : undefined,
       tabStyle: {
         height: 56,
       },
