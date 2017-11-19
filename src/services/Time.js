@@ -38,9 +38,13 @@ export const BOUNDARY_MINUTES = 30;
 export const isDateEqual = (a: Date, b: Date) => isEqual(a.setHours(0, 0, 0, 0), b.setHours(0, 0, 0, 0));
 
 export const differenceInBusinessDays = (aTime: number, bTime: number): number => {
-  const a = new Date(aTime);
-  const b = new Date(bTime);
+  let a = new Date(aTime);
   setDateWithBoundary(a);
+  if (aTime < a.getTime()) {
+    a = new Date(aTime - ONE_DAY);
+  }
+
+  const b = new Date(bTime);
   setDateWithBoundary(b);
 
   let days = 0;

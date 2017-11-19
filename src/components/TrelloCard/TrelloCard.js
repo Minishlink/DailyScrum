@@ -49,7 +49,7 @@ export default class extends Component<Props> {
               <View style={styles.idShortContainer}>
                 <Text>#{card.idShort}</Text>
               </View>
-              {validationLatenessInDays > 1 && (
+              {validationLatenessInDays >= 1 && (
                 <View style={styles.lateValidationContainer}>
                   <Text style={styles.lateValidationText}>{validationLatenessInDays}</Text>
                   <Icon

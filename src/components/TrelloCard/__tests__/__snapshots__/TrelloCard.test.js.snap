@@ -1,0 +1,2216 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TrelloCard /> renders correctly when the card is late for validation 1`] = `
+<View
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
+  accessible={true}
+  collapsable={undefined}
+  hitSlop={undefined}
+  isTVSelectable={true}
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
+  testID={undefined}
+  tvParallaxProperties={undefined}
+>
+  <View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+            "borderRadius": 4,
+            "elevation": 2,
+            "marginHorizontal": 4,
+            "marginVertical": 4,
+            "minHeight": 20,
+            "padding": 10,
+            "shadowColor": "#333333",
+            "shadowOffset": Object {
+              "height": 1,
+            },
+            "shadowOpacity": 0.15,
+            "shadowRadius": 4,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#FFD91C",
+              "borderRadius": 4,
+              "justifyContent": "center",
+              "paddingHorizontal": 7,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#4d4d4d",
+                  "fontFamily": "Open Sans",
+                  "fontSize": 15,
+                },
+                undefined,
+                Object {
+                  "fontFamily": "Open Sans",
+                  "fontStyle": undefined,
+                  "fontWeight": undefined,
+                },
+              ]
+            }
+          >
+            #
+            40
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#c30016",
+              "borderRadius": 4,
+              "flexDirection": "row",
+              "justifyContent": "center",
+              "paddingHorizontal": 7,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#4d4d4d",
+                  "fontFamily": "Open Sans",
+                  "fontSize": 15,
+                },
+                Object {
+                  "color": "white",
+                  "marginRight": 2,
+                },
+                Object {
+                  "fontFamily": "Open Sans",
+                  "fontStyle": undefined,
+                  "fontWeight": undefined,
+                },
+              ]
+            }
+          >
+            1
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={false}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "color": "white",
+                  "fontSize": 15,
+                },
+                undefined,
+                Object {
+                  "fontFamily": "Material Design Icons",
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                },
+              ]
+            }
+          >
+            
+          </Text>
+        </View>
+      </View>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        disabled={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+              "color": "#4d4d4d",
+              "fontFamily": "Open Sans",
+              "fontSize": 15,
+            },
+            Object {
+              "marginVertical": 10,
+            },
+            Object {
+              "fontFamily": "Open Sans",
+              "fontStyle": undefined,
+              "fontWeight": undefined,
+            },
+          ]
+        }
+      >
+        AAU, I do this
+      </Text>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "flexDirection": "row",
+            }
+          }
+        />
+        <View
+          style={
+            Object {
+              "alignSelf": "flex-end",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignSelf": "flex-end",
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+              }
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<TrelloCard /> renders correctly when the card is not late for validation 1`] = `
+<View
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
+  accessible={true}
+  collapsable={undefined}
+  hitSlop={undefined}
+  isTVSelectable={true}
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
+  testID={undefined}
+  tvParallaxProperties={undefined}
+>
+  <View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+            "borderRadius": 4,
+            "elevation": 2,
+            "marginHorizontal": 4,
+            "marginVertical": 4,
+            "minHeight": 20,
+            "padding": 10,
+            "shadowColor": "#333333",
+            "shadowOffset": Object {
+              "height": 1,
+            },
+            "shadowOpacity": 0.15,
+            "shadowRadius": 4,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#FFD91C",
+              "borderRadius": 4,
+              "justifyContent": "center",
+              "paddingHorizontal": 7,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#4d4d4d",
+                  "fontFamily": "Open Sans",
+                  "fontSize": 15,
+                },
+                undefined,
+                Object {
+                  "fontFamily": "Open Sans",
+                  "fontStyle": undefined,
+                  "fontWeight": undefined,
+                },
+              ]
+            }
+          >
+            #
+            40
+          </Text>
+        </View>
+      </View>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        disabled={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+              "color": "#4d4d4d",
+              "fontFamily": "Open Sans",
+              "fontSize": 15,
+            },
+            Object {
+              "marginVertical": 10,
+            },
+            Object {
+              "fontFamily": "Open Sans",
+              "fontStyle": undefined,
+              "fontWeight": undefined,
+            },
+          ]
+        }
+      >
+        AAU, I do this
+      </Text>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "flexDirection": "row",
+            }
+          }
+        />
+        <View
+          style={
+            Object {
+              "alignSelf": "flex-end",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignSelf": "flex-end",
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+              }
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<TrelloCard /> renders correctly when the card was late for validation 1`] = `
+<View
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
+  accessible={true}
+  collapsable={undefined}
+  hitSlop={undefined}
+  isTVSelectable={true}
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
+  testID={undefined}
+  tvParallaxProperties={undefined}
+>
+  <View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+            "borderRadius": 4,
+            "elevation": 2,
+            "marginHorizontal": 4,
+            "marginVertical": 4,
+            "minHeight": 20,
+            "padding": 10,
+            "shadowColor": "#333333",
+            "shadowOffset": Object {
+              "height": 1,
+            },
+            "shadowOpacity": 0.15,
+            "shadowRadius": 4,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#FFD91C",
+              "borderRadius": 4,
+              "justifyContent": "center",
+              "paddingHorizontal": 7,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#4d4d4d",
+                  "fontFamily": "Open Sans",
+                  "fontSize": 15,
+                },
+                undefined,
+                Object {
+                  "fontFamily": "Open Sans",
+                  "fontStyle": undefined,
+                  "fontWeight": undefined,
+                },
+              ]
+            }
+          >
+            #
+            40
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#c30016",
+              "borderRadius": 4,
+              "flexDirection": "row",
+              "justifyContent": "center",
+              "paddingHorizontal": 7,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#4d4d4d",
+                  "fontFamily": "Open Sans",
+                  "fontSize": 15,
+                },
+                Object {
+                  "color": "white",
+                  "marginRight": 2,
+                },
+                Object {
+                  "fontFamily": "Open Sans",
+                  "fontStyle": undefined,
+                  "fontWeight": undefined,
+                },
+              ]
+            }
+          >
+            1
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={false}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "color": "white",
+                  "fontSize": 15,
+                },
+                undefined,
+                Object {
+                  "fontFamily": "Material Design Icons",
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                },
+              ]
+            }
+          >
+            
+          </Text>
+        </View>
+      </View>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        disabled={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+              "color": "#4d4d4d",
+              "fontFamily": "Open Sans",
+              "fontSize": 15,
+            },
+            Object {
+              "marginVertical": 10,
+            },
+            Object {
+              "fontFamily": "Open Sans",
+              "fontStyle": undefined,
+              "fontWeight": undefined,
+            },
+          ]
+        }
+      >
+        AAU, I do this
+      </Text>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "flexDirection": "row",
+            }
+          }
+        />
+        <View
+          style={
+            Object {
+              "alignSelf": "flex-end",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignSelf": "flex-end",
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+              }
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<TrelloCard /> renders correctly when the card was not late for validation 1`] = `
+<View
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
+  accessible={true}
+  collapsable={undefined}
+  hitSlop={undefined}
+  isTVSelectable={true}
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
+  testID={undefined}
+  tvParallaxProperties={undefined}
+>
+  <View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+            "borderRadius": 4,
+            "elevation": 2,
+            "marginHorizontal": 4,
+            "marginVertical": 4,
+            "minHeight": 20,
+            "padding": 10,
+            "shadowColor": "#333333",
+            "shadowOffset": Object {
+              "height": 1,
+            },
+            "shadowOpacity": 0.15,
+            "shadowRadius": 4,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#FFD91C",
+              "borderRadius": 4,
+              "justifyContent": "center",
+              "paddingHorizontal": 7,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#4d4d4d",
+                  "fontFamily": "Open Sans",
+                  "fontSize": 15,
+                },
+                undefined,
+                Object {
+                  "fontFamily": "Open Sans",
+                  "fontStyle": undefined,
+                  "fontWeight": undefined,
+                },
+              ]
+            }
+          >
+            #
+            40
+          </Text>
+        </View>
+      </View>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        disabled={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+              "color": "#4d4d4d",
+              "fontFamily": "Open Sans",
+              "fontSize": 15,
+            },
+            Object {
+              "marginVertical": 10,
+            },
+            Object {
+              "fontFamily": "Open Sans",
+              "fontStyle": undefined,
+              "fontWeight": undefined,
+            },
+          ]
+        }
+      >
+        AAU, I do this
+      </Text>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "flexDirection": "row",
+            }
+          }
+        />
+        <View
+          style={
+            Object {
+              "alignSelf": "flex-end",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignSelf": "flex-end",
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+              }
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<TrelloCard /> renders correctly with both points and post-estimated points 1`] = `
+<View
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
+  accessible={true}
+  collapsable={undefined}
+  hitSlop={undefined}
+  isTVSelectable={true}
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
+  testID={undefined}
+  tvParallaxProperties={undefined}
+>
+  <View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+            "borderRadius": 4,
+            "elevation": 2,
+            "marginHorizontal": 4,
+            "marginVertical": 4,
+            "minHeight": 20,
+            "padding": 10,
+            "shadowColor": "#333333",
+            "shadowOffset": Object {
+              "height": 1,
+            },
+            "shadowOpacity": 0.15,
+            "shadowRadius": 4,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#FFD91C",
+              "borderRadius": 4,
+              "justifyContent": "center",
+              "paddingHorizontal": 7,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#4d4d4d",
+                  "fontFamily": "Open Sans",
+                  "fontSize": 15,
+                },
+                undefined,
+                Object {
+                  "fontFamily": "Open Sans",
+                  "fontStyle": undefined,
+                  "fontWeight": undefined,
+                },
+              ]
+            }
+          >
+            #
+            40
+          </Text>
+        </View>
+      </View>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        disabled={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+              "color": "#4d4d4d",
+              "fontFamily": "Open Sans",
+              "fontSize": 15,
+            },
+            Object {
+              "marginVertical": 10,
+            },
+            Object {
+              "fontFamily": "Open Sans",
+              "fontStyle": undefined,
+              "fontWeight": undefined,
+            },
+          ]
+        }
+      >
+        AAU, I do this
+      </Text>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "flexDirection": "row",
+            }
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#6487fa",
+                  "borderColor": "#1f5bc6",
+                  "borderRadius": 4,
+                  "justifyContent": "center",
+                  "paddingHorizontal": 10,
+                },
+                undefined,
+              ]
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              disabled={false}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "color": "#4d4d4d",
+                    "fontFamily": "Open Sans",
+                    "fontSize": 15,
+                  },
+                  Object {
+                    "color": "white",
+                  },
+                  Object {
+                    "fontFamily": "Open Sans",
+                    "fontStyle": undefined,
+                    "fontWeight": undefined,
+                  },
+                ]
+              }
+            >
+              3
+            </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "width": 4,
+              }
+            }
+          />
+          <View
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#6487fa",
+                  "borderColor": "#1f5bc6",
+                  "borderRadius": 4,
+                  "justifyContent": "center",
+                  "paddingHorizontal": 10,
+                },
+                Object {
+                  "backgroundColor": "#9bb6ff",
+                },
+              ]
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              disabled={false}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "color": "#4d4d4d",
+                    "fontFamily": "Open Sans",
+                    "fontSize": 15,
+                  },
+                  Object {
+                    "color": "white",
+                  },
+                  Object {
+                    "fontFamily": "Open Sans",
+                    "fontStyle": undefined,
+                    "fontWeight": undefined,
+                  },
+                ]
+              }
+            >
+              2
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "alignSelf": "flex-end",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignSelf": "flex-end",
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+              }
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<TrelloCard /> renders correctly with members 1`] = `
+<View
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
+  accessible={true}
+  collapsable={undefined}
+  hitSlop={undefined}
+  isTVSelectable={true}
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
+  testID={undefined}
+  tvParallaxProperties={undefined}
+>
+  <View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+            "borderRadius": 4,
+            "elevation": 2,
+            "marginHorizontal": 4,
+            "marginVertical": 4,
+            "minHeight": 20,
+            "padding": 10,
+            "shadowColor": "#333333",
+            "shadowOffset": Object {
+              "height": 1,
+            },
+            "shadowOpacity": 0.15,
+            "shadowRadius": 4,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#FFD91C",
+              "borderRadius": 4,
+              "justifyContent": "center",
+              "paddingHorizontal": 7,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#4d4d4d",
+                  "fontFamily": "Open Sans",
+                  "fontSize": 15,
+                },
+                undefined,
+                Object {
+                  "fontFamily": "Open Sans",
+                  "fontStyle": undefined,
+                  "fontWeight": undefined,
+                },
+              ]
+            }
+          >
+            #
+            40
+          </Text>
+        </View>
+      </View>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        disabled={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+              "color": "#4d4d4d",
+              "fontFamily": "Open Sans",
+              "fontSize": 15,
+            },
+            Object {
+              "marginVertical": 10,
+            },
+            Object {
+              "fontFamily": "Open Sans",
+              "fontStyle": undefined,
+              "fontWeight": undefined,
+            },
+          ]
+        }
+      >
+        AAU, I do this
+      </Text>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "flexDirection": "row",
+            }
+          }
+        />
+        <View
+          style={
+            Object {
+              "alignSelf": "flex-end",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignSelf": "flex-end",
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "marginLeft": 5,
+                }
+              }
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "center",
+                      "justifyContent": "center",
+                    },
+                    Object {
+                      "backgroundColor": "#fddaec",
+                    },
+                    Object {
+                      "borderRadius": 15,
+                      "height": 30,
+                      "width": 30,
+                    },
+                  ]
+                }
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  disabled={false}
+                  ellipsizeMode="tail"
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "transparent",
+                        "color": "#4d4d4d",
+                        "fontFamily": "Open Sans",
+                        "fontSize": 15,
+                      },
+                      Array [
+                        Object {
+                          "fontWeight": "700",
+                        },
+                        Object {
+                          "fontSize": 12,
+                        },
+                      ],
+                      Object {
+                        "fontFamily": "Open Sans",
+                        "fontStyle": undefined,
+                        "fontWeight": "700",
+                      },
+                    ]
+                  }
+                >
+                  FB
+                </Text>
+                <Image
+                  onLoad={[Function]}
+                  resizeMode="cover"
+                  source={
+                    Object {
+                      "uri": "https://trello-avatars.s3.amazonaws.com/foobar/50.png",
+                    }
+                  }
+                  style={
+                    Array [
+                      Object {
+                        "position": "absolute",
+                      },
+                      Object {
+                        "borderRadius": 15,
+                        "height": 30,
+                        "width": 30,
+                      },
+                    ]
+                  }
+                />
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "marginLeft": 5,
+                }
+              }
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "center",
+                      "justifyContent": "center",
+                    },
+                    Object {
+                      "backgroundColor": "#fed9a6",
+                    },
+                    Object {
+                      "borderRadius": 15,
+                      "height": 30,
+                      "width": 30,
+                    },
+                  ]
+                }
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  disabled={false}
+                  ellipsizeMode="tail"
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "transparent",
+                        "color": "#4d4d4d",
+                        "fontFamily": "Open Sans",
+                        "fontSize": 15,
+                      },
+                      Array [
+                        Object {
+                          "fontWeight": "700",
+                        },
+                        Object {
+                          "fontSize": 12,
+                        },
+                      ],
+                      Object {
+                        "fontFamily": "Open Sans",
+                        "fontStyle": undefined,
+                        "fontWeight": "700",
+                      },
+                    ]
+                  }
+                >
+                  LL
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<TrelloCard /> renders correctly with members and points 1`] = `
+<View
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
+  accessible={true}
+  collapsable={undefined}
+  hitSlop={undefined}
+  isTVSelectable={true}
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
+  testID={undefined}
+  tvParallaxProperties={undefined}
+>
+  <View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+            "borderRadius": 4,
+            "elevation": 2,
+            "marginHorizontal": 4,
+            "marginVertical": 4,
+            "minHeight": 20,
+            "padding": 10,
+            "shadowColor": "#333333",
+            "shadowOffset": Object {
+              "height": 1,
+            },
+            "shadowOpacity": 0.15,
+            "shadowRadius": 4,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#FFD91C",
+              "borderRadius": 4,
+              "justifyContent": "center",
+              "paddingHorizontal": 7,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#4d4d4d",
+                  "fontFamily": "Open Sans",
+                  "fontSize": 15,
+                },
+                undefined,
+                Object {
+                  "fontFamily": "Open Sans",
+                  "fontStyle": undefined,
+                  "fontWeight": undefined,
+                },
+              ]
+            }
+          >
+            #
+            40
+          </Text>
+        </View>
+      </View>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        disabled={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+              "color": "#4d4d4d",
+              "fontFamily": "Open Sans",
+              "fontSize": 15,
+            },
+            Object {
+              "marginVertical": 10,
+            },
+            Object {
+              "fontFamily": "Open Sans",
+              "fontStyle": undefined,
+              "fontWeight": undefined,
+            },
+          ]
+        }
+      >
+        AAU, I do this
+      </Text>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "flexDirection": "row",
+            }
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#6487fa",
+                  "borderColor": "#1f5bc6",
+                  "borderRadius": 4,
+                  "justifyContent": "center",
+                  "paddingHorizontal": 10,
+                },
+                undefined,
+              ]
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              disabled={false}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "color": "#4d4d4d",
+                    "fontFamily": "Open Sans",
+                    "fontSize": 15,
+                  },
+                  Object {
+                    "color": "white",
+                  },
+                  Object {
+                    "fontFamily": "Open Sans",
+                    "fontStyle": undefined,
+                    "fontWeight": undefined,
+                  },
+                ]
+              }
+            >
+              3
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "alignSelf": "flex-end",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignSelf": "flex-end",
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "marginLeft": 5,
+                }
+              }
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "center",
+                      "justifyContent": "center",
+                    },
+                    Object {
+                      "backgroundColor": "#fddaec",
+                    },
+                    Object {
+                      "borderRadius": 15,
+                      "height": 30,
+                      "width": 30,
+                    },
+                  ]
+                }
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  disabled={false}
+                  ellipsizeMode="tail"
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "transparent",
+                        "color": "#4d4d4d",
+                        "fontFamily": "Open Sans",
+                        "fontSize": 15,
+                      },
+                      Array [
+                        Object {
+                          "fontWeight": "700",
+                        },
+                        Object {
+                          "fontSize": 12,
+                        },
+                      ],
+                      Object {
+                        "fontFamily": "Open Sans",
+                        "fontStyle": undefined,
+                        "fontWeight": "700",
+                      },
+                    ]
+                  }
+                >
+                  FB
+                </Text>
+                <Image
+                  onLoad={[Function]}
+                  resizeMode="cover"
+                  source={
+                    Object {
+                      "uri": "https://trello-avatars.s3.amazonaws.com/foobar/50.png",
+                    }
+                  }
+                  style={
+                    Array [
+                      Object {
+                        "position": "absolute",
+                      },
+                      Object {
+                        "borderRadius": 15,
+                        "height": 30,
+                        "width": 30,
+                      },
+                    ]
+                  }
+                />
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "marginLeft": 5,
+                }
+              }
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "center",
+                      "justifyContent": "center",
+                    },
+                    Object {
+                      "backgroundColor": "#fed9a6",
+                    },
+                    Object {
+                      "borderRadius": 15,
+                      "height": 30,
+                      "width": 30,
+                    },
+                  ]
+                }
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  disabled={false}
+                  ellipsizeMode="tail"
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "transparent",
+                        "color": "#4d4d4d",
+                        "fontFamily": "Open Sans",
+                        "fontSize": 15,
+                      },
+                      Array [
+                        Object {
+                          "fontWeight": "700",
+                        },
+                        Object {
+                          "fontSize": 12,
+                        },
+                      ],
+                      Object {
+                        "fontFamily": "Open Sans",
+                        "fontStyle": undefined,
+                        "fontWeight": "700",
+                      },
+                    ]
+                  }
+                >
+                  LL
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<TrelloCard /> renders correctly with only the required props 1`] = `
+<View
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
+  accessible={true}
+  collapsable={undefined}
+  hitSlop={undefined}
+  isTVSelectable={true}
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
+  testID={undefined}
+  tvParallaxProperties={undefined}
+>
+  <View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+            "borderRadius": 4,
+            "elevation": 2,
+            "marginHorizontal": 4,
+            "marginVertical": 4,
+            "minHeight": 20,
+            "padding": 10,
+            "shadowColor": "#333333",
+            "shadowOffset": Object {
+              "height": 1,
+            },
+            "shadowOpacity": 0.15,
+            "shadowRadius": 4,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#FFD91C",
+              "borderRadius": 4,
+              "justifyContent": "center",
+              "paddingHorizontal": 7,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#4d4d4d",
+                  "fontFamily": "Open Sans",
+                  "fontSize": 15,
+                },
+                undefined,
+                Object {
+                  "fontFamily": "Open Sans",
+                  "fontStyle": undefined,
+                  "fontWeight": undefined,
+                },
+              ]
+            }
+          >
+            #
+            40
+          </Text>
+        </View>
+      </View>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        disabled={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+              "color": "#4d4d4d",
+              "fontFamily": "Open Sans",
+              "fontSize": 15,
+            },
+            Object {
+              "marginVertical": 10,
+            },
+            Object {
+              "fontFamily": "Open Sans",
+              "fontStyle": undefined,
+              "fontWeight": undefined,
+            },
+          ]
+        }
+      >
+        AAU, I do this
+      </Text>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "flexDirection": "row",
+            }
+          }
+        />
+        <View
+          style={
+            Object {
+              "alignSelf": "flex-end",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignSelf": "flex-end",
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+              }
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<TrelloCard /> renders correctly with points 1`] = `
+<View
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
+  accessible={true}
+  collapsable={undefined}
+  hitSlop={undefined}
+  isTVSelectable={true}
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
+  testID={undefined}
+  tvParallaxProperties={undefined}
+>
+  <View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+            "borderRadius": 4,
+            "elevation": 2,
+            "marginHorizontal": 4,
+            "marginVertical": 4,
+            "minHeight": 20,
+            "padding": 10,
+            "shadowColor": "#333333",
+            "shadowOffset": Object {
+              "height": 1,
+            },
+            "shadowOpacity": 0.15,
+            "shadowRadius": 4,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#FFD91C",
+              "borderRadius": 4,
+              "justifyContent": "center",
+              "paddingHorizontal": 7,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#4d4d4d",
+                  "fontFamily": "Open Sans",
+                  "fontSize": 15,
+                },
+                undefined,
+                Object {
+                  "fontFamily": "Open Sans",
+                  "fontStyle": undefined,
+                  "fontWeight": undefined,
+                },
+              ]
+            }
+          >
+            #
+            40
+          </Text>
+        </View>
+      </View>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        disabled={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+              "color": "#4d4d4d",
+              "fontFamily": "Open Sans",
+              "fontSize": 15,
+            },
+            Object {
+              "marginVertical": 10,
+            },
+            Object {
+              "fontFamily": "Open Sans",
+              "fontStyle": undefined,
+              "fontWeight": undefined,
+            },
+          ]
+        }
+      >
+        AAU, I do this
+      </Text>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "flexDirection": "row",
+            }
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#6487fa",
+                  "borderColor": "#1f5bc6",
+                  "borderRadius": 4,
+                  "justifyContent": "center",
+                  "paddingHorizontal": 10,
+                },
+                undefined,
+              ]
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              disabled={false}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "color": "#4d4d4d",
+                    "fontFamily": "Open Sans",
+                    "fontSize": 15,
+                  },
+                  Object {
+                    "color": "white",
+                  },
+                  Object {
+                    "fontFamily": "Open Sans",
+                    "fontStyle": undefined,
+                    "fontWeight": undefined,
+                  },
+                ]
+              }
+            >
+              3
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "alignSelf": "flex-end",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignSelf": "flex-end",
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+              }
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<TrelloCard /> renders correctly with post-estimated points 1`] = `
+<View
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
+  accessible={true}
+  collapsable={undefined}
+  hitSlop={undefined}
+  isTVSelectable={true}
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
+  testID={undefined}
+  tvParallaxProperties={undefined}
+>
+  <View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+            "borderRadius": 4,
+            "elevation": 2,
+            "marginHorizontal": 4,
+            "marginVertical": 4,
+            "minHeight": 20,
+            "padding": 10,
+            "shadowColor": "#333333",
+            "shadowOffset": Object {
+              "height": 1,
+            },
+            "shadowOpacity": 0.15,
+            "shadowRadius": 4,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#FFD91C",
+              "borderRadius": 4,
+              "justifyContent": "center",
+              "paddingHorizontal": 7,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#4d4d4d",
+                  "fontFamily": "Open Sans",
+                  "fontSize": 15,
+                },
+                undefined,
+                Object {
+                  "fontFamily": "Open Sans",
+                  "fontStyle": undefined,
+                  "fontWeight": undefined,
+                },
+              ]
+            }
+          >
+            #
+            40
+          </Text>
+        </View>
+      </View>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        disabled={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+              "color": "#4d4d4d",
+              "fontFamily": "Open Sans",
+              "fontSize": 15,
+            },
+            Object {
+              "marginVertical": 10,
+            },
+            Object {
+              "fontFamily": "Open Sans",
+              "fontStyle": undefined,
+              "fontWeight": undefined,
+            },
+          ]
+        }
+      >
+        AAU, I do this
+      </Text>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "flexDirection": "row",
+            }
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#6487fa",
+                  "borderColor": "#1f5bc6",
+                  "borderRadius": 4,
+                  "justifyContent": "center",
+                  "paddingHorizontal": 10,
+                },
+                Object {
+                  "backgroundColor": "#9bb6ff",
+                },
+              ]
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              disabled={false}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "color": "#4d4d4d",
+                    "fontFamily": "Open Sans",
+                    "fontSize": 15,
+                  },
+                  Object {
+                    "color": "white",
+                  },
+                  Object {
+                    "fontFamily": "Open Sans",
+                    "fontStyle": undefined,
+                    "fontWeight": undefined,
+                  },
+                ]
+              }
+            >
+              2
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "alignSelf": "flex-end",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignSelf": "flex-end",
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+              }
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
