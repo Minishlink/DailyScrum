@@ -38,4 +38,6 @@ type PropsType = {
   children?: any,
   borderless?: boolean,
   withRipple?: boolean,
+  style?: any,
+  onPress: Function,
 };

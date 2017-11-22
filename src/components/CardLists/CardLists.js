@@ -51,7 +51,7 @@ class CardsList extends PureComponent<Props> {
   render() {
     const { cardLists } = this.props;
     // $FlowFixMe https://github.com/facebook/flow/issues/2221
-    const sections = Object.entries(cardLists)
+    const sections = Object.entries(cardLists) // $FlowFixMe https://github.com/facebook/flow/issues/2221
       .map(([columnKey, column]: [string, CardListType]) => ({
         key: columnKey,
         points: column.points,
