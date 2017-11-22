@@ -5963,14 +5963,14 @@ react-native-linear-gradient@^2.3.0:
   dependencies:
     prop-types "^15.5.10"
 
-"react-native-pathjs-charts@git+ssh://git@github.com/capitalone/react-native-pathjs-charts.git#3267c55cb1134ca57ad4cb7c1df720a0c307c270":
-  version "0.0.31"
-  resolved "git+ssh://git@github.com/capitalone/react-native-pathjs-charts.git#3267c55cb1134ca57ad4cb7c1df720a0c307c270"
+react-native-pathjs-charts@^0.0.32:
+  version "0.0.32"
+  resolved "https://registry.yarnpkg.com/react-native-pathjs-charts/-/react-native-pathjs-charts-0.0.32.tgz#36d3256253722b5abc605ebba42db964c99e7db7"
   dependencies:
     babel-polyfill "^6.23.0"
     lodash "^4.12.0"
     paths-js "^0.4.5"
-    react-native-svg "~5.4.0"
+    react-native-svg "~5.5.1"
 
 react-native-safari-view@^2.0.0:
   version "2.1.0"
@@ -5986,9 +5986,9 @@ react-native-splash-screen@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.0.1.tgz#178b29b7d848e6ee5a41fbb9c1299eb2b5aaa600"
 
-react-native-svg@~5.4.0:
-  version "5.4.1"
-  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-5.4.1.tgz#c46191c786adbe9d5007342b4279efd153db8839"
+react-native-svg@~5.5.1:
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-5.5.1.tgz#633d882077f048f05c721ebb793cd073e846ba1f"
   dependencies:
     color "^0.11.1"
     lodash "^4.16.6"
