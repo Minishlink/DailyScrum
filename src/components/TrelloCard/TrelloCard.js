@@ -39,7 +39,11 @@ export default class extends Component<Props> {
   render() {
     const { card } = this.props;
     const validationLatenessInDays =
-      card.dateEndDevelopment && differenceInBusinessDays(card.dateDone || Date.now(), card.dateEndDevelopment);
+      card.dateEndDevelopment &&
+      differenceInBusinessDays(
+        (card.dateDone && new Date(card.dateDone).getTime()) || Date.now(),
+        new Date(card.dateEndDevelopment).getTime()
+      );
 
     return (
       <Button style={this.props.style} onLongPress={this.showActionSheet}>

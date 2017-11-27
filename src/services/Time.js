@@ -51,15 +51,27 @@ export const isDateEqual = (a: Date, b: Date) => isEqual(a.setHours(0, 0, 0, 0),
 export const differenceInBusinessDays = (aTime: number, bTime: number): number => {
   let a = new Date(aTime);
   setDateWithBoundary(a);
+
+  // handle case where the validation was made during the morning before the boundary
   if (aTime < a.getTime()) {
-    a = new Date(aTime - ONE_DAY);
+    a = new Date(a.getTime() - ONE_DAY);
+  }
+
+  // handle Sunday
+  if (a.getDay() === 0) {
+    a = new Date(a.getTime() - ONE_DAY);
+  }
+
+  // handle Saturday
+  if (a.getDay() === 6) {
+    a = new Date(a.getTime() - ONE_DAY);
   }
 
   const b = new Date(bTime);
   setDateWithBoundary(b);
 
   let days = 0;
-  if (b.getTime() === a.getTime()) {
+  if (b.getTime() >= a.getTime()) {
     return days;
   }
 
