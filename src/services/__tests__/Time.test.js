@@ -4,6 +4,15 @@ import { differenceInBusinessDays, getLastWorkableDayTime, getTodayWorkableDayTi
 describe('Time', () => {
   describe('differenceInBusinessDays', () => {
     const baseDateTime = new Date('2017-11-13T10:45:00.000Z').getTime();
+    it('returns 0', () => {
+      expect(
+        differenceInBusinessDays(
+          new Date('2017-11-27T08:20:46.369Z').getTime(),
+          new Date('2017-11-24T15:50:57.722Z').getTime()
+        )
+      ).toEqual(0);
+    });
+
     it('returns 0 on the same day', () => {
       expect(differenceInBusinessDays(baseDateTime, baseDateTime)).toEqual(0);
     });
@@ -31,12 +40,16 @@ describe('Time', () => {
       expect(differenceInBusinessDays(new Date('2017-11-17T09:00:00.000Z').getTime(), baseDateTime)).toEqual(3);
     });
 
-    it('returns 3 after four days, after the daily', () => {
+    it('returns 4 after four days, after the daily', () => {
       expect(differenceInBusinessDays(new Date('2017-11-17T11:00:00.000Z').getTime(), baseDateTime)).toEqual(4);
     });
 
-    it('returns 5 after one week', () => {
-      expect(differenceInBusinessDays(new Date('2017-11-20').getTime(), baseDateTime)).toEqual(5);
+    it('returns 4 after one week, before the daily', () => {
+      expect(differenceInBusinessDays(new Date('2017-11-20T08:00:00.000Z').getTime(), baseDateTime)).toEqual(4);
+    });
+
+    it('returns 5 after one week, after the daily', () => {
+      expect(differenceInBusinessDays(new Date('2017-11-20T11:00:00.000Z').getTime(), baseDateTime)).toEqual(5);
     });
   });
 
