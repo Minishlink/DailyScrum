@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import FlatList from 'FlatList';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 import type { UserType } from '../../types';
@@ -9,10 +10,8 @@ import { makeFilterByMember, filteredMemberSelector, filterableMembersSelector }
 import type { CardListsKeyType } from '../../modules/cardLists/reducer';
 import { userPointsSelector } from '../../modules/cardLists/selectors';
 
-export class FilterMembers extends Component {
-  props: PropsType;
-
-  shouldComponentUpdate(nextProps: PropsType) {
+export class FilterMembers extends Component<Props> {
+  shouldComponentUpdate(nextProps: Props) {
     return (
       nextProps.filtered !== this.props.filtered ||
       !isEqual(nextProps.filterable, this.props.filterable) ||
@@ -20,14 +19,15 @@ export class FilterMembers extends Component {
     );
   }
 
-  renderFilterableMember = ({ item: user }: { item: UserType }) =>
+  renderFilterableMember = ({ item: user }: { item: UserType }) => (
     <FilterableMember
       style={styles.filterableMemberContainer}
       member={user}
       points={this.props.userPoints[user.id]}
       isFiltered={!this.props.filtered || this.props.filtered === user.id}
       onFilter={memberId => this.props.filterByMember(this.props.filtered === memberId ? null : memberId)}
-    />;
+    />
+  );
 
   render() {
     if (!this.props.filterable.length) return null;
@@ -46,7 +46,7 @@ export class FilterMembers extends Component {
   }
 }
 
-type PropsType = {
+type Props = {
   style?: any,
   contentContainerStyle?: any,
   filtered: ?string,

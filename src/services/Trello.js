@@ -1,5 +1,6 @@
-import { TRELLO_APP_KEY, TRELLO_API_URL } from 'DailyScrum/environment';
+import { TRELLO_APP_KEY, TRELLO_API_URL } from '../../environment';
 import { handleFetchResponse } from './Fetch';
+import URIPrefix from './URIPrefix';
 
 export default class {
   static getLoginURL = () =>
@@ -8,7 +9,7 @@ export default class {
     `key=${TRELLO_APP_KEY}&` +
     'expiration=never&' +
     'name=DailyScrum&' +
-    'return_url=dailyscrum://login&' +
+    `return_url=${encodeURIComponent(URIPrefix)}login&` +
     'scope=read,account';
 
   static getCurrentUser = token =>

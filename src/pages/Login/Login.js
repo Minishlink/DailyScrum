@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Button, Linking, Platform } from 'react-native';
+import { StyleSheet, View, Button, Linking, Platform, Dimensions } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import SafariView from 'react-native-safari-view';
 import LottieAnimation from 'easy-lottie-react-native';
@@ -12,9 +12,7 @@ import { redirectAfterLogin } from '../../modules/navigation';
 import { login } from '../../modules/auth';
 import { isLoggedInSelector } from '../../modules/auth/reducer';
 
-class Login extends Component {
-  props: PropsType;
-
+class Login extends Component<Props> {
   componentDidMount() {
     // check if tokens exist in store
     if (this.props.isLoggedIn) {
@@ -45,6 +43,8 @@ class Login extends Component {
           })
         )
         .catch(() => Linking.openURL(loginUrl));
+    } else if (Platform.OS === 'web') {
+      window.location.assign(loginUrl);
     } else {
       Linking.openURL(loginUrl);
     }
@@ -68,13 +68,14 @@ class Login extends Component {
   }
 }
 
-type PropsType = {
+type Props = {
   navigation: any,
   login: Function,
   redirectAfterLogin: Function,
   isLoggedIn: boolean,
 };
 
+const dimensions = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -82,7 +83,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    height: '30%',
+    width: dimensions.width >= dimensions.height ? dimensions.width * 0.3 : undefined,
+    height: dimensions.height > dimensions.width ? dimensions.height * 0.3 : undefined,
   },
   title: {
     marginTop: 10,

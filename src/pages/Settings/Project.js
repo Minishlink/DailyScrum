@@ -1,7 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, FlatList, TextInput } from 'react-native';
+import { StyleSheet, TextInput } from 'react-native';
+import FlatList from 'FlatList';
 import { Page, Text } from 'DailyScrum/src/components';
 import { fetchBoards } from 'DailyScrum/src/modules/boards';
 import { boardsListSelector } from '../../modules/boards/reducer';
@@ -12,9 +13,8 @@ import { currentProjectSelector } from '../../modules/projects/reducer';
 import { isSyncingSelector } from '../../modules/sync';
 import appStyle from '../../appStyle';
 
-class Settings extends Component {
-  props: PropsType;
-  state: StateType = { filterBoard: '', lastSelectedBoard: '' };
+class Settings extends Component<Props, State> {
+  state = { filterBoard: '', lastSelectedBoard: '' };
 
   static navigationOptions = ({ navigation }) => ({
     headerTitle: navigation.state.params && navigation.state.params.firstTime ? 'Select a project' : 'Change project',
@@ -29,13 +29,14 @@ class Settings extends Component {
     this.props.changeCurrentRemoteProject(board);
   };
 
-  renderBoard = ({ item: board }) =>
+  renderBoard = ({ item: board }) => (
     <BoardCard
       board={board}
       isActive={board.id === this.props.currentBoardId}
       isLoading={this.props.isChangingProject && board.id === this.state.lastSelectedBoard}
       onPress={this.changeProject}
-    />;
+    />
+  );
 
   renderEmpty = () => <Text style={styles.noBoardsText}>No boards found</Text>;
 
@@ -71,7 +72,7 @@ class Settings extends Component {
   }
 }
 
-type PropsType = {
+type Props = {
   navigation: any,
   boards: BoardType[],
   currentBoardId: ?string,
@@ -81,7 +82,7 @@ type PropsType = {
   isChangingProject: boolean,
 };
 
-type StateType = {
+type State = {
   filterBoard: string,
   lastSelectedBoard: string,
 };

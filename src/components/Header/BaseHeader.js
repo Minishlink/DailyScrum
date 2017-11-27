@@ -7,7 +7,7 @@ import { STATUSBAR_HEIGHT } from '../../appStyle';
 import createErrorBar from '../ErrorBar';
 const ErrorBar = createErrorBar();
 
-export default class BaseHeader extends PureComponent {
+export default class BaseHeader extends PureComponent<any> {
   render() {
     return (
       <Gradient>

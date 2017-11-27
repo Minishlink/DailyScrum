@@ -7,15 +7,14 @@ import appStyle from '../../appStyle';
 
 const colors = ['#fbb4ae', '#b3cde3', '#ccebc5', '#decbe4', '#fed9a6', '#ffffcc', '#e5d8bd', '#fddaec', '#f2f2f2'];
 
-export default class MemberIcon extends Component {
+export default class MemberIcon extends Component<Props, State> {
   static defaultProps = {
     size: 30,
   };
 
-  props: PropsType;
-  state: StateType = { isImageLoaded: false };
+  state: State = { isImageLoaded: false };
 
-  shouldComponentUpdate(nextProps: PropsType, nextState: StateType) {
+  shouldComponentUpdate(nextProps: Props, nextState: State) {
     return this.state.isImageLoaded !== nextState.isImageLoaded || this.props.member.id !== nextProps.member.id;
   }
 
@@ -36,17 +35,15 @@ export default class MemberIcon extends Component {
 
     return (
       <View style={[styles.container, !this.state.isImageLoaded && { backgroundColor: color }, sizeStyle]}>
-        {!this.state.isImageLoaded &&
-          <Text style={[styles.text, { fontSize }]}>
-            {member.initials}
-          </Text>}
-        {avatar &&
+        {!this.state.isImageLoaded && <Text style={[styles.text, { fontSize }]}>{member.initials}</Text>}
+        {avatar && (
           <Image
             style={[styles.image, sizeStyle]}
             source={{ uri: avatar }}
             onLoad={this.onLoadImage}
             resizeMode="cover"
-          />}
+          />
+        )}
       </View>
     );
   }
@@ -74,11 +71,11 @@ const styles = StyleSheet.create({
   },
 });
 
-type StateType = {
+type State = {
   isImageLoaded: boolean,
 };
 
-type PropsType = {
+type Props = {
   member: ScrumbleTeamMemberType,
   size: number,
 };

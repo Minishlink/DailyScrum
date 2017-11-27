@@ -18,10 +18,8 @@ import { isDrawerOpenSelector } from '../modules/navigation/reducer';
 import { logout } from '../modules/auth';
 const ErrorBar = createErrorBar();
 
-class Drawer extends Component {
-  props: PropsType;
-
-  shouldComponentUpdate(nextProps: PropsType) {
+class Drawer extends Component<Props> {
+  shouldComponentUpdate(nextProps: Props) {
     return (
       this.props.isSyncing !== nextProps.isSyncing || this.props.lastSuccessfulSync !== nextProps.lastSuccessfulSync
     );
@@ -41,13 +39,12 @@ class Drawer extends Component {
     return (
       <View style={styles.container}>
         {this.props.isDrawerOpen && <ErrorBar style={styles.errorBar} />}
-        {user &&
+        {user && (
           <Gradient style={styles.profile}>
             <MemberIcon member={user} size={84} />
-            <Text style={styles.fullName}>
-              {user.fullName}
-            </Text>
-          </Gradient>}
+            <Text style={styles.fullName}>{user.fullName}</Text>
+          </Gradient>
+        )}
         <View style={[styles.actions, styles.mainActions]}>
           <Button
             disabled={this.props.isSyncing}
@@ -99,7 +96,7 @@ class Drawer extends Component {
   }
 }
 
-type PropsType = {
+type Props = {
   fetchBaseData: Function,
   user: ?UserType,
   lastSuccessfulSync: ?Date,

@@ -1,9 +1,10 @@
 // @flow
 import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
-import type { SprintType, TeamType } from 'DailyScrum/src/types';
-import { adaptSprintFromScrumble } from 'DailyScrum/src/services/adapter';
-import { roundToDecimalPlace } from 'DailyScrum/src/services/MathService';
+import type { SprintType, TeamType } from '../../types';
+import { adaptSprintFromScrumble } from '../../services/adapter';
+import { roundToDecimalPlace } from '../../services/MathService';
+import { getTodayWorkableDayTime, isDateEqual } from '../../services/Time';
 import { userSelectorById } from '../users/reducer';
 import { currentProjectSelector } from '../projects/reducer';
 import { PerformanceType } from '../../types';
@@ -50,21 +51,35 @@ export default (state: SprintsStateType = initialState, action: ActionType) => {
 };
 
 const addAdditionalData = (sprint: SprintType): SprintType => {
-  // find the dates that have a positive standard and a positive done
-  const performances = sprint.performance.filter(data => !!data.done && !!data.standard);
+  let lastPerformance = null;
+  const todayWorkableDayTime = getTodayWorkableDayTime();
+  sprint.performance = sprint.performance.map(performance => {
+    if (new Date(performance.date).getTime() > todayWorkableDayTime) {
+      // reset done performances that are in the future
+      performance.done = null;
+    } else if (performance.done == null) {
+      // set done performance to last known done performance for earlier dates
+      performance.done = lastPerformance ? lastPerformance.done : 0;
+    }
 
-  sprint.pointsLeft = sprint.resources.totalPoints;
-  if (performances.length) {
-    const todayPerformance = performances[performances.length - 1];
-    sprint.pointsLeft -= todayPerformance.done;
+    if (performance.done != null) {
+      lastPerformance = performance;
+    }
 
-    const points = todayPerformance.done - todayPerformance.standard;
+    return performance;
+  });
+
+  if (lastPerformance && (lastPerformance.done || lastPerformance.standard)) {
+    const pointsLead = lastPerformance.done - lastPerformance.standard;
     sprint.lead = {
-      points: roundToDecimalPlace(points),
-      manDays: roundToDecimalPlace(sprint.resources.totalManDays / sprint.resources.totalPoints * points),
+      points: roundToDecimalPlace(pointsLead),
+      manDays: roundToDecimalPlace(sprint.resources.totalManDays / sprint.resources.totalPoints * pointsLead),
     };
+
+    sprint.pointsLeft = roundToDecimalPlace(sprint.resources.totalPoints - lastPerformance.done);
+  } else {
+    sprint.pointsLeft = roundToDecimalPlace(sprint.resources.totalPoints);
   }
-  sprint.pointsLeft = roundToDecimalPlace(sprint.pointsLeft);
 
   return sprint;
 };
@@ -91,6 +106,18 @@ export function currentSprintSelector(state: StateType): ?SprintType {
   }
 
   return null;
+}
+
+export function leadSelector(state: StateType): ?PerformanceType {
+  const currentSprint = currentSprintSelector(state);
+  if (!currentSprint) return null;
+  return currentSprint.lead;
+}
+
+export function overallPointsLeftSelector(state: StateType): ?number {
+  const currentSprint = currentSprintSelector(state);
+  if (!currentSprint) return null;
+  return currentSprint.pointsLeft;
 }
 
 export function teamSelector(state: StateType): ?TeamType {
@@ -145,13 +172,35 @@ export function bdcDataPointsSelector(state: StateType): ?BdcDataPointsType {
     const date = new Date(performance.date).getTime();
     standardDataPoints.push({ x: index, y: roundToDecimalPlace(totalPoints - performance.standard), date });
 
-    if (performance.done || (!performance.done && !performance.standard)) {
+    if (performance.done != null) {
       doneDataPoints.push({ x: index, y: roundToDecimalPlace(totalPoints - performance.done), date });
     }
   });
 
   return [standardDataPoints, doneDataPoints].filter(array => array.length > 0);
 }
+
+// next standard minus current done points
+export const todayTargetSelector = (state: StateType): ?number => {
+  const sprint = currentSprintSelector(state);
+  if (!sprint) return null;
+
+  let todayPerformanceIndex = sprint.performance.findIndex(performance =>
+    isDateEqual(new Date(), new Date(performance.date))
+  );
+
+  if (todayPerformanceIndex === -1) {
+    todayPerformanceIndex = [...sprint.performance].reverse().findIndex(performance => performance.done !== null);
+    if (todayPerformanceIndex === -1) return null;
+    todayPerformanceIndex = sprint.performance.length - 1 - todayPerformanceIndex;
+  }
+
+  const todayPerformance = sprint.performance[todayPerformanceIndex];
+  const nextDayPerformance = sprint.performance[todayPerformanceIndex + 1] || todayPerformance;
+  const todo = nextDayPerformance.standard - todayPerformance.done;
+
+  return todo > 0 ? todo : null;
+};
 
 export function isCurrentSprintActiveSelector(state: StateType): boolean {
   const currentSprint = currentSprintSelector(state);

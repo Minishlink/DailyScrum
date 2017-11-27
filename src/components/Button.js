@@ -8,11 +8,7 @@ const canUseForegroundNativeFeedback = canUseNativeFeedback && TouchableNativeFe
 
 export default ({ children, disabled, withRipple, ...props }: PropsType) => {
   if (disabled) {
-    return (
-      <View {...props}>
-        {children}
-      </View>
-    );
+    return <View {...props}>{children}</View>;
   }
 
   if (withRipple && Platform.OS === 'android' && Platform.Version >= ANDROID_VERSION_LOLLIPOP) {
@@ -25,9 +21,7 @@ export default ({ children, disabled, withRipple, ...props }: PropsType) => {
         useForeground={canUseForegroundNativeFeedback && !borderless}
         onPress={() => requestAnimationFrame(props.onPress)}
       >
-        <View style={style}>
-          {Children.only(children)}
-        </View>
+        <View style={style}>{Children.only(children)}</View>
       </TouchableNativeFeedback>
     );
   }
@@ -44,4 +38,6 @@ type PropsType = {
   children?: any,
   borderless?: boolean,
   withRipple?: boolean,
+  style?: any,
+  onPress: Function,
 };

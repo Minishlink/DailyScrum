@@ -23,10 +23,11 @@ export default class BigButton extends Component {
           ]}
         >
           {isLoading && <ActivityIndicator color="white" />}
-          {!isLoading &&
+          {!isLoading && (
             <Text style={styles.buttonText} numberOfLines={1}>
               {title}
-            </Text>}
+            </Text>
+          )}
         </View>
         {icon && icon.right && <Icon color="white" size={20} name={icon.name} />}
       </Button>

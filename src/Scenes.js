@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { Linking, BackHandler } from 'react-native';
+import { Linking, BackHandler, Platform, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import {
   StackNavigator,
@@ -15,6 +15,7 @@ import appStyle from 'DailyScrum/src/appStyle';
 import { Header, Drawer, Icon, Gradient } from './components';
 import { ProjectHeaderTitle, DrawerHeaderLeft } from './components/Header';
 import { getFontStyle } from './components/Text';
+import URIPrefix from './services/URIPrefix';
 
 const TabsNavigator = TabNavigator(
   {
@@ -42,16 +43,24 @@ const TabsNavigator = TabNavigator(
   },
   {
     initialRouteName: 'daily',
-    swipeEnabled: true,
+    swipeEnabled: Platform.OS !== 'web',
     animationEnabled: true,
-    tabBarComponent: props =>
+    tabBarComponent: props => (
       <Gradient>
         <TabBarTop {...props} />
-      </Gradient>,
+      </Gradient>
+    ),
     tabBarPosition: 'bottom',
     tabBarOptions: {
       showIcon: true,
       upperCaseLabel: false,
+      initialLayout:
+        Platform.OS === 'android'
+          ? {
+              height: Dimensions.get('window').height,
+              width: Dimensions.get('window').width,
+            }
+          : undefined,
       tabStyle: {
         height: 56,
       },
@@ -65,6 +74,8 @@ const TabsNavigator = TabNavigator(
         height: 4,
         top: 0,
         backgroundColor: 'white',
+        ...appStyle.shadowStyle,
+        elevation: 0,
       },
       labelStyle: {
         marginVertical: 0,
@@ -118,7 +129,7 @@ const MainNavigator = DrawerNavigator(
 const appNavigatorPages = {
   login: {
     screen: Pages.Login,
-    path: 'login#token=:token',
+    path: Platform.OS !== 'web' ? 'login#token=:token' : 'login&token=:token',
     navigationOptions: { header: null },
   },
   main: {
@@ -129,7 +140,7 @@ const appNavigatorPages = {
 
 const appNavigatorConfig = {
   initialRouteName: 'login',
-  URIPrefix: 'dailyscrum://',
+  URIPrefix,
   cardStyle: {
     backgroundColor: appStyle.colors.primary,
   },
@@ -151,7 +162,7 @@ function urlToPathAndParams(url: string) {
   };
 }
 
-class Scenes extends Component {
+class Scenes extends Component<any, any> {
   backPressListener: ?{
     remove: () => void,
   } = null;

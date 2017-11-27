@@ -63,9 +63,10 @@ platform :ios do
     plist_full_path = "#{ENV['IOS_PROJECT_PATH']}/#{ENV['IOS_PLIST_PATH']}"
     set_js_env
     xcodeproj = "#{ENV['IOS_PROJECT_PATH']}/#{ENV['IOS_PROJECT_NAME']}.xcodeproj"
+    pbxproj_full_path = "#{xcodeproj}/project.pbxproj"
     xcworkspace = "#{ENV['IOS_PROJECT_PATH']}/#{ENV['IOS_PROJECT_NAME']}.xcworkspace"
     backup_file(path: plist_full_path)
-    backup_file(path: xcodeproj)
+    backup_file(path: pbxproj_full_path)
     update_info_plist(
       xcodeproj: xcodeproj,
       plist_path: ENV['IOS_PLIST_PATH'],
@@ -93,7 +94,7 @@ platform :ios do
     )
     gym(gymOptions)
     restore_file(path: plist_full_path)
-    restore_file(path: xcodeproj)
+    restore_file(path: pbxproj_full_path)
   end
 
   lane :deploy_hockey do |options|
@@ -140,5 +141,21 @@ platform :android do
     if ENV['DEPLOYMENT_PLATFORM'] === 'hockeyapp' then
       deploy_hockey
     end
+  end
+end
+
+# WEB
+
+platform :web do
+  lane :build do |options|
+    set_js_env
+    sh "yarn init:web"
+    sh "yarn build:web"
+    sh "yarn stop:web"
+  end
+
+  lane :deploy do |options|
+    build
+    sh "yarn gh-pages -d dist/web"
   end
 end

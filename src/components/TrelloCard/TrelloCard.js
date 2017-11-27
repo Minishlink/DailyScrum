@@ -9,11 +9,11 @@ import MemberIcon from './MemberIcon';
 import PointsBadge from './PointsBadge';
 import { Analytics } from '../../services';
 import type { CardType } from '../../types';
+import { differenceInBusinessDays } from '../../services/Time';
+import Icon from '../Icon';
 
-export default class extends Component {
-  props: PropsType;
-
-  shouldComponentUpdate(nextProps: PropsType) {
+export default class extends Component<Props> {
+  shouldComponentUpdate(nextProps: Props) {
     return !isEqual(nextProps.card, this.props.card);
   }
 
@@ -38,20 +38,30 @@ export default class extends Component {
 
   render() {
     const { card } = this.props;
+    const validationLatenessInDays =
+      card.dateEndDevelopment && differenceInBusinessDays(card.dateDone || Date.now(), card.dateEndDevelopment);
+
     return (
       <Button style={this.props.style} onLongPress={this.showActionSheet}>
         <View>
           <Card>
             <View style={styles.labelsRow}>
               <View style={styles.idShortContainer}>
-                <Text>
-                  #{card.idShort}
-                </Text>
+                <Text>#{card.idShort}</Text>
               </View>
+              {validationLatenessInDays >= 1 && (
+                <View style={styles.lateValidationContainer}>
+                  <Text style={styles.lateValidationText}>{validationLatenessInDays}</Text>
+                  <Icon
+                    type="material-community"
+                    name="clock-alert"
+                    size={appStyle.font.size.default}
+                    color={appStyle.colors.overRed}
+                  />
+                </View>
+              )}
             </View>
-            <Text style={styles.title}>
-              {card.name}
-            </Text>
+            <Text style={styles.title}>{card.name}</Text>
             <View style={styles.membersRow}>
               <View style={styles.pointsContainer}>
                 {card.points != null && <PointsBadge points={card.points.toLocaleString()} />}
@@ -60,11 +70,11 @@ export default class extends Component {
               </View>
               <View style={styles.membersContainer}>
                 <View style={styles.members}>
-                  {card.members.map(member =>
+                  {card.members.map(member => (
                     <View key={member.id} style={styles.member}>
                       <MemberIcon member={member} />
                     </View>
-                  )}
+                  ))}
                 </View>
               </View>
             </View>
@@ -82,14 +92,13 @@ const styles = StyleSheet.create({
   },
   membersRow: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   title: {
     marginVertical: appStyle.margin,
   },
   membersContainer: {
-    flex: 5,
     alignSelf: 'flex-end',
-    justifyContent: 'flex-end',
   },
   members: {
     flexDirection: 'row',
@@ -106,15 +115,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 7,
     borderRadius: appStyle.borderRadius,
   },
-  pointsContainer: {
-    flex: 1,
+  lateValidationContainer: {
     flexDirection: 'row',
-    flexShrink: 1,
+    backgroundColor: appStyle.colors.red,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 7,
+    borderRadius: appStyle.borderRadius,
+  },
+  lateValidationText: {
+    marginRight: 2,
+    color: appStyle.colors.overRed,
+  },
+  pointsContainer: {
+    flexDirection: 'row',
     alignItems: 'flex-end',
   },
 });
 
-type PropsType = {
+type Props = {
   card: CardType,
   style?: any,
 };

@@ -2,8 +2,7 @@
 import type { ActionType } from './actions';
 import type { StateType } from '../reducers';
 import { devTeamSelector } from '../sprints/reducer';
-import { getLastWorkableDayTime } from '../../services/Time';
-import { adaptCardsFromTrello } from '../../services/adapter';
+import { getLastWorkableDayTime, getTodayWorkableDayTime } from '../../services/Time';
 import { CardType, StoreCardType } from '../../types';
 import type { CardListsKeyType } from '../cardLists/reducer';
 
@@ -17,6 +16,7 @@ export const initialState: CardsStateType = {
     doing: [],
     sprint: [],
     toValidate: [],
+    done: [],
   },
   done: [],
   blocked: [],
@@ -32,6 +32,7 @@ export const initialState: CardsStateType = {
       doing: 0,
       sprint: 0,
       toValidate: 0,
+      done: 0,
     },
     done: 0,
     blocked: 0,
@@ -49,10 +50,11 @@ export default (state: CardsStateType = initialState, action: ActionType) => {
   switch (action.type) {
     case 'PUT_CARDS':
       const lastWorkableDayTime = getLastWorkableDayTime();
+      const todayWorkableDayTime = getTodayWorkableDayTime();
       const columns = action.payload.cards;
       const newPoints = { today: {}, yesterday: {} };
       for (let columnKey in columns) {
-        const cards = adaptCardsFromTrello(columns[columnKey]);
+        const cards = columns[columnKey];
         cards.forEach(card => (list[card.id] = card));
         columns[columnKey] = cards.map(card => card.id);
         newPoints[columnKey] = cards.reduce(cardsArrayToPointsReducer, 0);
@@ -66,19 +68,31 @@ export default (state: CardsStateType = initialState, action: ActionType) => {
           );
           today[columnKey] = todayCards.map(card => card.id);
           newPoints.today[columnKey] = todayCards.reduce(cardsArrayToPointsReducer, 0);
-        }
-
-        // cards of yesterday are those in done
-        // whose last activity was after the start of the last workable day
-        // and that have poins.
-        // Last activity being last time somebody put the card in the column
-        // or, if not available, the last "general" activity returned by Trello
-        if (columnKey === 'done') {
-          const yesterdayCards = cards.filter(
-            card => new Date(card.dateLastActivity).getTime() > lastWorkableDayTime && card.points !== null
-          );
+        } else if (columnKey === 'done') {
+          // cards of yesterday are those in done
+          // whose last activity was after the start of the last workable day
+          // and before the start of this day
+          // and that have points.
+          // Last activity being last time somebody put the card in the column
+          // or, if not available, the last "general" activity returned by Trello
+          const yesterdayCards = cards.filter(card => {
+            const lastActivityTime = new Date(card.dateLastActivity).getTime();
+            return (
+              lastActivityTime > lastWorkableDayTime && lastActivityTime <= todayWorkableDayTime && card.points !== null
+            );
+          });
           yesterday[columnKey] = yesterdayCards.map(card => card.id);
           newPoints.yesterday[columnKey] = yesterdayCards.reduce(cardsArrayToPointsReducer, 0);
+
+          // cards that were done today
+          const todayCards = cards.filter(card => {
+            const lastActivityTime = new Date(card.dateLastActivity).getTime();
+            return lastActivityTime > todayWorkableDayTime && card.points !== null;
+          });
+          today[columnKey] = todayCards.map(card => card.id);
+          newPoints.today[columnKey] = todayCards.reduce(cardsArrayToPointsReducer, 0);
+        } else {
+          console.warn('[cardsReducer] column type not handled:', columnKey);
         }
       }
 
@@ -162,7 +176,7 @@ function dailyCardsSelector(state: StateType, time: CardListsKeyType): CardLists
   const dailyCards = state.cards[time];
   const lists = Object.keys(dailyCards);
   const cardLists = {};
-  lists.forEach(list => {
+  lists.sort(compareColumns).forEach(list => {
     // $FlowFixMe
     const cards = dailyCards[list].map(cardId => everyCards[cardId]);
     cardLists[list] = {
@@ -172,6 +186,11 @@ function dailyCardsSelector(state: StateType, time: CardListsKeyType): CardLists
   });
   return cardLists;
 }
+
+const compareColumns = (columnA: string, columnB: string): number => {
+  const order = ['toValidate', 'doing', 'blocked', 'sprint', 'done'];
+  return order.indexOf(columnA) - order.indexOf(columnB);
+};
 
 export function yesterdayCardsSelector(state: StateType): CardListsType {
   return dailyCardsSelector(state, 'yesterday');
@@ -191,6 +210,7 @@ export type CardsStateType = {|
     doing: string[],
     sprint: string[],
     toValidate: string[],
+    done: string[],
   |},
   done: string[],
   blocked: string[],

@@ -5,8 +5,11 @@ import LottieAnimation from 'easy-lottie-react-native';
 import Text from './Text';
 import appStyle from '../appStyle';
 
-export default class NoProjectFound extends PureComponent {
-  openURL = (url: string) => Linking.canOpenURL(url).then(() => Linking.openURL(url)).catch(() => {});
+export default class NoProjectFound extends PureComponent<void> {
+  openURL = (url: string) =>
+    Linking.canOpenURL(url)
+      .then(() => Linking.openURL(url))
+      .catch(() => {});
   goToScrumble = () => this.openURL('https://app.scrumble.io');
 
   render() {

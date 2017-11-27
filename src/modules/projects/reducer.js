@@ -56,6 +56,12 @@ export const currentProjectNameSelector = (state: StateType): ?string => {
   return project ? project.name : null;
 };
 
+export const validateColumnIdSelector = (state: StateType): ?string => {
+  const project = currentProjectSelector(state);
+  if (!project) return null;
+  return project.columnMapping.toValidate;
+};
+
 export type ProjectsStateType = {|
   currentProject: ?number,
   list: ProjectsType,

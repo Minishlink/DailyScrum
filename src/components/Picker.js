@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Picker as RCTPicker } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import RCTPicker from 'Picker';
 import appStyle from '../appStyle';
 
 export default class Picker extends Component {
@@ -9,9 +10,7 @@ export default class Picker extends Component {
     const { style, ...rest } = this.props;
     return (
       <View style={[styles.pickerContainer, style]}>
-        <RCTPicker {...rest}>
-          {this.props.children}
-        </RCTPicker>
+        <RCTPicker {...rest}>{this.props.children}</RCTPicker>
       </View>
     );
   }

@@ -1,56 +1,67 @@
 // @flow
-import React from 'react';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import LottieAnimation from 'easy-lottie-react-native';
 import { Text } from '../../../components';
 import appStyle from '../../../appStyle';
+import { todayTargetSelector } from '../../../modules/sprints/reducer';
+import { roundToDecimalPlace } from '../../../services/MathService';
 
-export default (props: PropsType) => {
-  const isLeading = !(props.lead && props.lead.points < 0);
-  return (
-    <View style={styles.container}>
-      <View style={styles.starContainer}>
-        <LottieAnimation
-          source={
-            isLeading
-              ? require('../../../../assets/lottie/sun_happy.json')
-              : require('../../../../assets/lottie/sun_sad.json')
-          }
-          style={styles.image}
-          loop={isLeading}
-        />
+class PointsStatus extends PureComponent<Props> {
+  render() {
+    const { lead, pointsLeft, todayTarget } = this.props;
+    const isLeading = !(lead && lead.points < 0);
+    return (
+      <View style={styles.container}>
+        <View style={styles.starContainer}>
+          <LottieAnimation
+            source={
+              isLeading
+                ? require('../../../../assets/lottie/sun_happy.json')
+                : require('../../../../assets/lottie/sun_sad.json')
+            }
+            style={styles.image}
+            loop={isLeading}
+          />
+        </View>
+        <View style={styles.statusContainer}>
+          {pointsLeft != null &&
+            pointsLeft <= 0 && (
+              <View style={styles.pointsLeftAnimationContainer}>
+                <LottieAnimation source={require('../../../../assets/lottie/colorline.json')} loop duration={2000} />
+              </View>
+            )}
+          <Text style={[styles.lead, { color: isLeading ? appStyle.colors.green : appStyle.colors.red }]}>
+            {lead
+              ? `${lead.points >= 0 ? 'Lead' : 'Lateness'}: ${lead.points > 0
+                  ? lead.points
+                  : -lead.points} pts / ${lead.manDays > 0 ? lead.manDays : -lead.manDays} man-days`
+              : "You're just getting started!"}
+          </Text>
+          <Text style={styles.pointsLeft}>
+            {pointsLeft != null && pointsLeft > 0
+              ? `Left overall: ${pointsLeft} pts`
+              : `Congratulations, this sprint is a success!`}
+          </Text>
+          {todayTarget != null && (
+            <Text style={styles.pointsLeft}>
+              Left for today: {todayTarget > 0 ? roundToDecimalPlace(todayTarget).toLocaleString() : 0} pts
+            </Text>
+          )}
+        </View>
       </View>
-      <View style={styles.statusContainer}>
-        {props.pointsLeft != null &&
-          props.pointsLeft <= 0 &&
-          <View style={styles.pointsLeftAnimationContainer}>
-            <LottieAnimation source={require('../../../../assets/lottie/colorline.json')} loop duration={2000} />
-          </View>}
-        <Text style={[styles.lead, { color: isLeading ? appStyle.colors.green : appStyle.colors.red }]}>
-          {props.lead
-            ? `${props.lead.points >= 0 ? 'Lead' : 'Lateness'}: ${props.lead.points > 0
-                ? props.lead.points
-                : -props.lead.points} pts / ${props.lead.manDays > 0
-                ? props.lead.manDays
-                : -props.lead.manDays} man-days`
-            : "You're just getting started!"}
-        </Text>
-        <Text style={styles.pointsLeft}>
-          {props.pointsLeft != null && props.pointsLeft > 0
-            ? `Left overall: ${props.pointsLeft} pts`
-            : `Congratulations, this sprint is a success!`}
-        </Text>
-      </View>
-    </View>
-  );
-};
+    );
+  }
+}
 
-type PropsType = {
-  lead?: {
+type Props = {
+  lead: ?{
     points: number,
     manDays: number,
   },
-  pointsLeft?: number,
+  pointsLeft: ?number,
+  todayTarget: ?number,
 };
 
 const styles = StyleSheet.create({
@@ -77,7 +88,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   pointsLeft: {
-    marginTop: 7,
+    marginTop: 5,
     textAlign: 'center',
   },
   pointsLeftAnimationContainer: {
@@ -86,3 +97,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center', // normal behaviour
   },
 });
+
+const mapStateToProps = state => ({
+  todayTarget: todayTargetSelector(state),
+});
+
+export default connect(mapStateToProps)(PointsStatus);

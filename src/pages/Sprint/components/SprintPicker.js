@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Picker as RCTPicker, Platform } from 'react-native';
+import { Platform } from 'react-native';
+import RCTPicker from 'Picker';
 import { Picker } from '../../../components';
 import { currentSprintSelector, sprintsListForCurrentProjectSelector } from '../../../modules/sprints/reducer';
 import { SprintType } from '../../../types';
@@ -25,7 +26,7 @@ class SprintPicker extends Component {
         prompt="Change current sprint"
         selectedValueText={currentSprint && `#${currentSprint.number} - ${currentSprint.goal}`}
       >
-        {sprints.map(sprint =>
+        {sprints.map(sprint => (
           <RCTPicker.Item
             key={sprint.id}
             label={`#${sprint.number} - ${sprint.goal}`}
@@ -37,7 +38,7 @@ class SprintPicker extends Component {
                 : 'black'
             }
           />
-        )}
+        ))}
       </Picker>
     );
   }

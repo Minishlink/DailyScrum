@@ -1,7 +1,8 @@
 // @flow
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, SectionList, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
+import SectionList from 'SectionList';
 import * as Animatable from 'react-native-animatable';
 import LottieAnimation from 'easy-lottie-react-native';
 import { TrelloCard, Text } from '../../components';
@@ -13,19 +14,18 @@ import type { TipType } from '../../modules/tips/reducer';
 import TipCard from '../TipCard';
 import appStyle from '../../appStyle';
 
-class CardsList extends PureComponent {
-  props: PropsType;
-
+class CardsList extends PureComponent<Props> {
   renderCard = ({ item }: { item: CardType }) => <TrelloCard style={styles.card} card={item} />;
   renderSectionHeader = ({ section }: { section: any }) =>
     section.data.length ? <ListHeader listKey={section.key} total={section.points} /> : null;
 
-  renderEmpty = () =>
+  renderEmpty = () => (
     <View style={styles.emptyContainer}>
       <Text>No cards yet</Text>
       <Text>Pull to refresh :)</Text>
       <LottieAnimation source={require('../../../assets/lottie/empty_status.json')} loop duration={6000} />
-    </View>;
+    </View>
+  );
 
   renderHeader = () => {
     const { FilterMembersComponent } = this.props;
@@ -38,10 +38,11 @@ class CardsList extends PureComponent {
   };
 
   renderTip = () =>
-    this.props.tip &&
-    <View style={styles.tipContainer}>
-      <TipCard tip={this.props.tip} />
-    </View>;
+    this.props.tip && (
+      <View style={styles.tipContainer}>
+        <TipCard tip={this.props.tip} />
+      </View>
+    );
 
   renderSeperator = () => <View style={styles.listSeparator} />;
 
@@ -50,7 +51,7 @@ class CardsList extends PureComponent {
   render() {
     const { cardLists } = this.props;
     // $FlowFixMe https://github.com/facebook/flow/issues/2221
-    const sections = Object.entries(cardLists)
+    const sections = Object.entries(cardLists) // $FlowFixMe https://github.com/facebook/flow/issues/2221
       .map(([columnKey, column]: [string, CardListType]) => ({
         key: columnKey,
         points: column.points,
@@ -85,6 +86,7 @@ class CardsList extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexGrow: 1,
   },
   emptyContainer: {
@@ -110,7 +112,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type PropsType = {
+type Props = {
   style?: any,
   cardLists: CardListsType,
   filteredMember: ?string,
