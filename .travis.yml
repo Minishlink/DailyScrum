@@ -1,7 +1,15 @@
 language: node_js
 cache:
-  directories: 
+  directories:
     - jest/tmp
     - node_modules
 notifications:
   email: false
+  webhooks:
+    urls:
+      - 'https://www.travisbuddy.com/'
+    on_success: never
+    on_failure: always
+    on_start: never
+    on_cancel: never
+    on_error: never
