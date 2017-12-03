@@ -1,5 +1,4 @@
 //@flow
-import { NavigationActions } from 'react-navigation';
 
 export type ActionType = {|
   type: 'REDIRECT_AFTER_LOGIN',
@@ -15,9 +14,4 @@ export const redirectAfterLogin = (isFirstTime: boolean): ActionType => ({
   },
 });
 
-export const resetToLogin = () =>
-  NavigationActions.reset({
-    index: 0,
-    actions: [NavigationActions.reset({ routeName: 'login' })],
-    key: null,
-  });
+export const resetToLogin = () => ({ type: 'RESET_TO_LOGIN'});
