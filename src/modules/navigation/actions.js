@@ -14,4 +14,4 @@ export const redirectAfterLogin = (isFirstTime: boolean): ActionType => ({
   },
 });
 
-export const resetToLogin = () => ({ type: 'RESET_TO_LOGIN'});
+export const resetToLogin = () => ({ type: 'RESET_TO_LOGIN' });
