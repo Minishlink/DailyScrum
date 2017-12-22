@@ -15,7 +15,7 @@ export default class NoProjectFound extends PureComponent<void> {
   render() {
     return (
       <View style={styles.container}>
-        <LottieAnimation source={require('../../assets/lottie/sad_cloud.json')} style={styles.image} />
+        <LottieAnimation source={require('../../assets/lottie/sad_cloud.json')} loop style={styles.image} />
         <Text style={styles.text}>Looks like you don't have any project yet, or it is not configured.</Text>
         <TouchableOpacity onPress={this.goToScrumble}>
           <Text style={[styles.text, styles.link]}>Create one on Scrumble!</Text>

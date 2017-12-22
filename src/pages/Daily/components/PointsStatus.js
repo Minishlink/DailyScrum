@@ -22,7 +22,7 @@ class PointsStatus extends PureComponent<Props> {
                 : require('../../../../assets/lottie/sad_cloud.json')
             }
             style={styles.image}
-            loop={isLeading}
+            loop
           />
         </View>
         <View style={styles.statusContainer}>
