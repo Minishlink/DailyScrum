@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableHighlight, ActivityIndicator } from 'react-native';
-import ImageBackground from 'ImageBackground';
+import { StyleSheet, View, TouchableHighlight, ActivityIndicator, ImageBackground } from 'react-native';
 import type { BoardType } from '../../../types';
 import { Text, Icon } from '../../../components';
 import appStyle from '../../../appStyle';
