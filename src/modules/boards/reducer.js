@@ -1,5 +1,5 @@
 // @flow
-import type { ActionType } from './actions';
+import type { ActionType } from '../actions';
 import type { StateType } from '../reducers';
 import type { BoardType } from '../../types';
 import { currentProjectSelector } from '../projects/reducer';

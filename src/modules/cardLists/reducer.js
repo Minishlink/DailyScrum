@@ -1,5 +1,5 @@
 // @flow
-import type { ActionType } from './actions';
+import type { ActionType } from '../actions';
 
 const initialState: CardListsStateType = {
   today: {

@@ -1,5 +1,5 @@
 // @flow
-import type { ActionType } from './actions';
+import type { ActionType } from '../actions';
 import type { StateType } from '../reducers';
 import type { SprintType, TeamType } from '../../types';
 import { adaptSprintFromScrumble } from '../../services/adapter';

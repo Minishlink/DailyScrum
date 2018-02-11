@@ -1,5 +1,5 @@
 // @flow
-import type { ActionType } from './actions';
+import type { ActionType } from '../actions';
 import type { StateType } from '../reducers';
 import { devTeamSelector } from '../sprints/reducer';
 import { getLastWorkableDayTime, getTodayWorkableDayTime } from '../../services/Time';
