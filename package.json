@@ -22,7 +22,7 @@
 		"deploy:prod:android": "bundle exec fastlane android deploy --env=prod",
 		"deploy:prod:ios": "bundle exec fastlane ios deploy --env=prod",
 		"deploy:prod:web": "bundle exec fastlane web deploy --env=prod",
-		"init:web": "yarn remove react && yarn add react react-dom react-native-web@0.3.2",
+		"init:web": "yarn remove react && yarn add react react-dom react-native-web@0.4.0",
 		"stop:web": "git stash && yarn",
 		"start:web": "./node_modules/.bin/webpack-dev-server --port 3000 --config web/webpack.config.babel.js --inline --colors",
 		"build:web": "NODE_ENV=production ./node_modules/.bin/webpack -p --config web/webpack.config.babel.js"
