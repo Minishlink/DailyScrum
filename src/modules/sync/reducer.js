@@ -21,8 +21,9 @@ const assignState = (state: SyncStateType, name: ?string, key: ?string, sync: Sy
 export default (state: SyncStateType = initialState, action: ActionType) => {
   if (action.type === 'RESET_STORE') return initialState;
 
-  if (!action.payload || !action.payload.name || !action.payload.key) return state; // payload is mandatory for these actions
-  const { name, key } = action.payload;
+  if (!action.payload) return state; // payload is mandatory for these actions
+  const name = action.payload.name || null;
+  const key = action.payload.key || null;
 
   switch (action.type) {
     case 'START_SYNC':
