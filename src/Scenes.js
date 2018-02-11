@@ -202,6 +202,7 @@ class Scenes extends Component<any, any> {
         navigation={addNavigationHelpers({
           dispatch: this.props.dispatch,
           state: this.props.navigation,
+          addListener: this.props.reactNavigationAddListener,
         })}
       />
     );
