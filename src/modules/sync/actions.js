@@ -2,25 +2,25 @@
 export type ActionType =
   | {|
       type: 'START_SYNC',
-      payload: {
+      payload: {|
         name: string,
         key: string,
-      },
+      |},
     |}
   | {|
       type: 'END_SYNC',
-      payload: {
+      payload: {|
         name: string,
         key: string,
         error: ?(string | true),
-      },
+      |},
     |}
   | {|
       type: 'CLEAR_ERRORS',
-      payload: {
+      payload: {|
         name: string,
         key: string,
-      },
+      |},
     |};
 
 export const startSync = (name: string, key: string): ActionType => ({

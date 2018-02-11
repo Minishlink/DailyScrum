@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
-import RCTPicker from 'Picker';
+import { StyleSheet, View, Picker as RCTPicker } from 'react-native';
 import appStyle from '../appStyle';
 
 export default class Picker extends Component {

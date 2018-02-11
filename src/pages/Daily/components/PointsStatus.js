@@ -19,10 +19,10 @@ class PointsStatus extends PureComponent<Props> {
             source={
               isLeading
                 ? require('../../../../assets/lottie/sun_happy.json')
-                : require('../../../../assets/lottie/sun_sad.json')
+                : require('../../../../assets/lottie/sad_cloud.json')
             }
             style={styles.image}
-            loop={isLeading}
+            loop
           />
         </View>
         <View style={styles.statusContainer}>
