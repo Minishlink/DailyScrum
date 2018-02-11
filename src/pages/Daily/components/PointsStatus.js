@@ -9,6 +9,19 @@ import { todayTargetSelector } from '../../../modules/sprints/reducer';
 import { roundToDecimalPlace } from '../../../services/MathService';
 
 class PointsStatus extends PureComponent<Props> {
+  showLeadingText = () => {
+    const { lead } = this.props;
+    if (!lead) return "You're just getting started!";
+
+    const prefix = lead.points >= 0 ? 'Lead' : 'Lateness';
+    const shownPoints = roundToDecimalPlace(lead.points > 0 ? lead.points : -lead.points).toLocaleString();
+    const shownManDays = roundToDecimalPlace(lead.manDays > 0 ? lead.manDays : -lead.manDays).toLocaleString();
+
+    const suffix = lead.points > 0 ? shownPoints : `${shownPoints} pts / ${shownManDays} man-days`;
+
+    return prefix + ': ' + suffix;
+  };
+
   render() {
     const { lead, pointsLeft, todayTarget } = this.props;
     const isLeading = !(lead && lead.points < 0);
@@ -33,15 +46,11 @@ class PointsStatus extends PureComponent<Props> {
               </View>
             )}
           <Text style={[styles.lead, { color: isLeading ? appStyle.colors.green : appStyle.colors.red }]}>
-            {lead
-              ? `${lead.points >= 0 ? 'Lead' : 'Lateness'}: ${lead.points > 0
-                  ? lead.points
-                  : -lead.points} pts / ${lead.manDays > 0 ? lead.manDays : -lead.manDays} man-days`
-              : "You're just getting started!"}
+            {this.showLeadingText()}
           </Text>
           <Text style={styles.pointsLeft}>
             {pointsLeft != null && pointsLeft > 0
-              ? `Left overall: ${pointsLeft} pts`
+              ? `Left overall: ${roundToDecimalPlace(pointsLeft).toLocaleString()} pts`
               : `Congratulations, this sprint is a success!`}
           </Text>
           {todayTarget != null && (
