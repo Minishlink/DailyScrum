@@ -11,15 +11,15 @@ export type ActionType =
     |}
   | {|
       type: 'SET_CURRENT_SPRINT',
-      payload: {
+      payload: {|
         sprintId: number,
-      },
+      |},
     |}
   | {|
       type: 'CHANGE_CURRENT_SPRINT',
-      payload: {
+      payload: {|
         sprintId: number,
-      },
+      |},
     |}
   | {|
       type: 'CLEAR_SPRINTS',

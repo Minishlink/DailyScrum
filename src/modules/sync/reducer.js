@@ -1,15 +1,10 @@
 // @flow
 import { merge } from 'lodash';
-import type { ActionType } from './';
+import type { ActionType } from '../actions';
 
 const initialState: SyncStateType = {};
 
-const assignState = (
-  state: SyncStateType,
-  name: ?$Keys<SyncStateType>,
-  key: ?string,
-  sync: SyncType
-): SyncStateType => {
+const assignState = (state: SyncStateType, name: ?string, key: ?string, sync: SyncType): SyncStateType => {
   if (!name) {
     Object.keys(state).forEach(name => assignState(state, name, null, sync));
     return state;
@@ -24,10 +19,10 @@ const assignState = (
 };
 
 export default (state: SyncStateType = initialState, action: ActionType) => {
-  if (!action.payload) return state; // payload is mandatory for these actions
+  if (action.type === 'RESET_STORE') return initialState;
 
-  const name = action.payload.name;
-  const key = action.payload.key;
+  if (!action.payload || !action.payload.name || !action.payload.key) return state; // payload is mandatory for these actions
+  const { name, key } = action.payload;
 
   switch (action.type) {
     case 'START_SYNC':
@@ -52,9 +47,6 @@ export default (state: SyncStateType = initialState, action: ActionType) => {
           error: null,
         }),
       };
-
-    case 'RESET_STORE':
-      return initialState;
 
     default:
       return state;
