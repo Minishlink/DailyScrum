@@ -138,28 +138,49 @@ export function devTeamSelector(state: StateType): ?TeamType {
   return null;
 }
 
-export function sprintsSuccessMatrixSelector(state: StateType): SprintsSuccessMatrixType {
+const isSprintFinished = (sprint: SprintType) => {
+  const lastPerformance = sprint.performance[sprint.performance.length - 1];
+  return lastPerformance && new Date().getTime() >= new Date(lastPerformance.date).getTime();
+};
+
+const orderedSprintForCurrentProjectSelector = (state: StateType): SprintType[] => {
   const sprints = sprintsListSelector(state);
   const project = currentProjectSelector(state);
   if (!project) return [];
-
   return sprints
     .filter(sprint => sprint.projectId === project.id)
-    .sort((a: SprintType, b: SprintType) => a.number - b.number)
-    .map(sprint => {
-      const lastPerformance = sprint.performance[sprint.performance.length - 1];
-      const isSprintFinished = lastPerformance && new Date().getTime() >= new Date(lastPerformance.date).getTime();
-      return {
-        number: sprint.number,
-        manDays: sprint.resources.totalManDays,
-        foreseenPoints: roundToDecimalPlace(sprint.resources.totalPoints),
-        donePoints: roundToDecimalPlace(sprint.resources.totalPoints - sprint.pointsLeft),
-        result: sprint.pointsLeft <= 0 ? true : isSprintFinished ? false : null, // return true even if the sprint is not finished in case of success
-      };
-    });
+    .sort((a: SprintType, b: SprintType) => a.number - b.number);
+};
+
+export function sprintsSuccessMatrixSelector(state: StateType): SprintsSuccessMatrixType {
+  const sprints = orderedSprintForCurrentProjectSelector(state);
+  return sprints.map(sprint => ({
+    number: sprint.number,
+    manDays: sprint.resources.totalManDays,
+    foreseenPoints: roundToDecimalPlace(sprint.resources.totalPoints),
+    donePoints: roundToDecimalPlace(sprint.resources.totalPoints - sprint.pointsLeft),
+    result: sprint.pointsLeft <= 0 ? true : isSprintFinished(sprint) ? false : null, // return true even if the sprint is not finished in case of success
+  }));
 }
 
-export function bdcDataPointsSelector(state: StateType): ?BdcDataPointsType {
+export function sprintsCelerityGraphDataPointsSelector(state: StateType): ?GraphDataType {
+  const sprints = orderedSprintForCurrentProjectSelector(state);
+  if (!sprints.length) return null;
+  return [
+    sprints.map((sprint: SprintType, index: number) => ({
+      x: index,
+      y: roundToDecimalPlace(sprint.resources.totalPoints / sprint.resources.totalManDays),
+      number: sprint.number,
+    })),
+    sprints.filter(isSprintFinished).map((sprint: SprintType, index: number) => ({
+      x: index,
+      y: roundToDecimalPlace((sprint.resources.totalPoints - sprint.pointsLeft) / sprint.resources.totalManDays),
+      number: sprint.number,
+    })),
+  ];
+}
+
+export function bdcDataPointsSelector(state: StateType): ?GraphDataType {
   const currentSprint = currentSprintSelector(state);
   if (!currentSprint) return null;
 
@@ -209,7 +230,7 @@ export function isCurrentSprintActiveSelector(state: StateType): boolean {
 
 type DataPointsType = Array<{ x: number, y: number }>;
 
-export type BdcDataPointsType = Array<DataPointsType>;
+export type GraphDataType = Array<DataPointsType>;
 
 export type SprintsSuccessMatrixType = Array<{|
   number: number,
