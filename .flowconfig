@@ -21,7 +21,6 @@
 .*/node_modules/react-native-firebase
 .*/node_modules/react-native-linear-gradient
 .*/node_modules/react-native-tab-view
-.*/node_modules/react-navigation
 .*/node_modules/redux-saga-test-plan
 .*/node_modules/react-native-web-lists
 .*/node_modules/babel-plugin-transform-react-remove-prop-types
