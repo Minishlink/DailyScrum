@@ -110,6 +110,7 @@ module.exports = {
       'react-native-code-push': path.join(__dirname, 'src/mocks/react-native-code-push'),
       'react-native-safari-view': path.join(__dirname, 'src/mocks/unimplemented'),
       'react-native-splash-screen': path.join(__dirname, 'src/mocks/react-native-splash-screen'),
+      'react-native-safe-area-view': path.join(__dirname, 'src/mocks/react-native-safe-area-view'),
       'react-native-firebase': path.join(__dirname, 'src/mocks/react-native-firebase'),
       '@yfuks/react-native-action-sheet': path.join(__dirname, 'src/mocks/react-native-action-sheet'),
     },
