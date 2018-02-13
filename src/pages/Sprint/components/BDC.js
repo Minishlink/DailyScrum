@@ -1,82 +1,26 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
-import { StockLine } from 'react-native-pathjs-charts';
+import { View, StyleSheet } from 'react-native';
 import { format } from 'date-fns';
 import { isEqual } from 'lodash';
-import { Text } from '../../../components';
+import { Text, Card, Graph } from '../../../components';
 import appStyle from '../../../appStyle';
 import { bdcDataPointsSelector } from '../../../modules/sprints/reducer';
 import type { GraphDataType } from '../../../modules/sprints/reducer';
-import Card from '../../../components/Card';
 
-class BDC extends Component<Props, State> {
-  state = { graphSize: null };
-
-  shouldComponentUpdate(nextProps: Props, nextState: State) {
-    return (
-      !isEqual(this.props.bdcDataPoints, nextProps.bdcDataPoints) || !isEqual(this.state.graphSize, nextState.graphSize)
-    );
+class BDC extends Component<Props> {
+  shouldComponentUpdate(nextProps: Props) {
+    return !isEqual(this.props.bdcDataPoints, nextProps.bdcDataPoints);
   }
 
-  measureGraphSize = ({ nativeEvent }) =>
-    this.setState({
-      graphSize: {
-        width: nativeEvent.layout.width - 50, // 50 is experimental
-        height: nativeEvent.layout.height - 40, // 40 is experimental
-      },
-    });
-
-  getGraphOptions = () =>
-    this.state.graphSize && {
-      width: this.state.graphSize.width,
-      height: this.state.graphSize.height,
-      color: appStyle.colors.text,
-      strokeWidth: 2,
-      showAreas: false,
-      showPoints: true,
-      pointRadius: 3.5,
-      margin: {
-        // experimental
-        top: 2 * appStyle.margin,
-        left: 24,
-        bottom: 25,
-        right: 2 * appStyle.margin,
-      },
-      animate: {
-        type: 'delayed',
-        duration: 200,
-      },
-      axisX: {
-        showLabels: true,
-        orient: 'bottom',
-        label: {
-          fontFamily: appStyle.font.family,
-          fontSize: appStyle.font.size.small,
-          fill: appStyle.colors.warmGray,
-        },
-        labelFunction: index => {
-          const standardGraph = this.props.bdcDataPoints[0];
-          if (!standardGraph) return null;
-          const dataPoint = standardGraph[index];
-          if (!dataPoint) return null;
-          return format(dataPoint.date, 'D/M');
-        },
-      },
-      axisY: {
-        showLines: true,
-        showLabels: true,
-        gridColor: appStyle.colors.veryLightGray,
-        orient: 'left',
-        label: {
-          fontFamily: appStyle.font.family,
-          fontSize: appStyle.font.size.small,
-          fill: appStyle.colors.text,
-        },
-        labelFunction: Math.round,
-      },
-    };
+  formatXLabel = index => {
+    const firstGraph = this.props.bdcDataPoints[0];
+    if (!firstGraph) return null;
+    const dataPoint = firstGraph[index];
+    if (!dataPoint) return null;
+    return format(dataPoint.date, 'D/M');
+  };
 
   render() {
     if (!this.props.bdcDataPoints) {
@@ -98,36 +42,18 @@ class BDC extends Component<Props, State> {
             </View>
           </View>
         </View>
-        <View style={styles.graphContainer} onLayout={this.measureGraphSize}>
-          {this.state.graphSize ? (
-            <StockLine
-              data={this.props.bdcDataPoints}
-              options={this.getGraphOptions()}
-              pallete={pallete}
-              xKey="x"
-              yKey="y"
-            />
-          ) : (
-            <ActivityIndicator />
-          )}
-        </View>
+        <Graph
+          dataPoints={this.props.bdcDataPoints}
+          style={styles.graph}
+          colors={[appStyle.colors.red, appStyle.colors.primary]}
+          formatXLabel={this.formatXLabel}
+          formatYLabel={Math.round}
+        />
       </Card>
     );
   }
 }
 
-const hexToRgb = hex => {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result
-    ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
-    : null;
-};
-
-const pallete = [hexToRgb(appStyle.colors.red), hexToRgb(appStyle.colors.primary)];
 const strokeSize = 2;
 const styles = StyleSheet.create({
   container: {
@@ -158,22 +84,13 @@ const styles = StyleSheet.create({
     fontSize: appStyle.font.size.small,
     marginLeft: appStyle.margin,
   },
-  graphContainer: {
+  graph: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
 
 type Props = {
   bdcDataPoints: GraphDataType,
-};
-
-type State = {
-  graphSize: ?{
-    width: number,
-    height: number,
-  },
 };
 
 const mapStateToProps = state => ({

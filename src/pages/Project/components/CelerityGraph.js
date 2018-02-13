@@ -1,84 +1,26 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, StyleSheet, ActivityIndicator, Dimensions } from 'react-native';
-import { StockLine } from 'react-native-pathjs-charts';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { isEqual } from 'lodash';
-import { Text } from '../../../components';
+import { Text, Graph, Card } from '../../../components';
 import appStyle from '../../../appStyle';
 import { sprintsCelerityGraphDataPointsSelector } from '../../../modules/sprints/reducer';
 import type { GraphDataType } from '../../../modules/sprints/reducer';
-import Card from '../../../components/Card';
 import { roundToDecimalPlace } from '../../../services/MathService';
 
-class CelerityGraph extends Component<Props, State> {
-  state = { graphSize: null };
-
-  shouldComponentUpdate(nextProps: Props, nextState: State) {
-    return (
-      !isEqual(this.props.celerityGraphDataPoints, nextProps.celerityGraphDataPoints) ||
-      !isEqual(this.state.graphSize, nextState.graphSize)
-    );
+class CelerityGraph extends Component<Props> {
+  shouldComponentUpdate(nextProps: Props) {
+    return !isEqual(this.props.celerityGraphDataPoints, nextProps.celerityGraphDataPoints);
   }
 
-  measureGraphSize = ({ nativeEvent }) =>
-    this.setState({
-      graphSize: {
-        width: nativeEvent.layout.width - 50, // 50 is experimental
-        height: nativeEvent.layout.height - 40, // 40 is experimental
-      },
-    });
-
-  getGraphOptions = () =>
-    this.state.graphSize && {
-      width: this.state.graphSize.width,
-      height: this.state.graphSize.height,
-      min: 0,
-      color: appStyle.colors.text,
-      strokeWidth: 2,
-      showAreas: false,
-      showPoints: true,
-      pointRadius: this.props.celerityGraphDataPoints[0].length > 15 ? 2 : 3.5,
-      margin: {
-        // experimental
-        top: 1.5 * appStyle.margin,
-        left: 24,
-        bottom: 25,
-        right: 2 * appStyle.margin,
-      },
-      animate: {
-        type: 'delayed',
-        duration: 200,
-      },
-      axisX: {
-        showLabels: true,
-        orient: 'bottom',
-        label: {
-          fontFamily: appStyle.font.family,
-          fontSize: appStyle.font.size.small,
-          fill: appStyle.colors.warmGray,
-        },
-        labelFunction: index => {
-          const standardGraph = this.props.celerityGraphDataPoints[0];
-          if (!standardGraph) return null;
-          const dataPoint = standardGraph[index];
-          if (!dataPoint) return null;
-          return '#' + dataPoint.number;
-        },
-      },
-      axisY: {
-        showLines: true,
-        showLabels: true,
-        gridColor: appStyle.colors.veryLightGray,
-        orient: 'left',
-        label: {
-          fontFamily: appStyle.font.family,
-          fontSize: appStyle.font.size.small,
-          fill: appStyle.colors.text,
-        },
-        labelFunction: Math.round,
-      },
-    };
+  formatXLabel = index => {
+    const firstGraph = this.props.celerityGraphDataPoints[0];
+    if (!firstGraph) return null;
+    const dataPoint = firstGraph[index];
+    if (!dataPoint) return null;
+    return '#' + dataPoint.number;
+  };
 
   render() {
     if (!this.props.celerityGraphDataPoints) {
@@ -111,37 +53,19 @@ class CelerityGraph extends Component<Props, State> {
             </View>
           </View>
         </View>
-
-        <View style={styles.graphContainer} onLayout={this.measureGraphSize}>
-          {this.state.graphSize ? (
-            <StockLine
-              data={this.props.celerityGraphDataPoints}
-              options={this.getGraphOptions()}
-              pallete={pallete}
-              xKey="x"
-              yKey="y"
-            />
-          ) : (
-            <ActivityIndicator />
-          )}
-        </View>
+        <Graph
+          dataPoints={this.props.celerityGraphDataPoints}
+          style={styles.graph}
+          colors={[appStyle.colors.red, appStyle.colors.primary]}
+          minY={0}
+          formatXLabel={this.formatXLabel}
+          formatYLabel={Math.round}
+        />
       </Card>
     );
   }
 }
 
-const hexToRgb = hex => {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result
-    ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
-    : null;
-};
-
-const pallete = [hexToRgb(appStyle.colors.red), hexToRgb(appStyle.colors.primary)];
 const strokeSize = 2;
 const styles = StyleSheet.create({
   container: {
@@ -175,23 +99,14 @@ const styles = StyleSheet.create({
     fontSize: appStyle.font.size.small,
     marginLeft: appStyle.margin,
   },
-  graphContainer: {
+  graph: {
     height: 0.25 * Dimensions.get('window').height,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
 
 type Props = {
   celerityGraphDataPoints: GraphDataType,
   style: any,
-};
-
-type State = {
-  graphSize: ?{
-    width: number,
-    height: number,
-  },
 };
 
 const mapStateToProps = state => ({
