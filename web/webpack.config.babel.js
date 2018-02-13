@@ -6,9 +6,16 @@ import environment from '../environment';
 
 const isDev = process.env.NODE_ENV !== 'production';
 
-const everythingExceptNodeModulesLoader = {
+const modulesLoader = {
   test: /\.js$/,
-  exclude: /node_modules/,
+  include: [
+    path.join(__dirname, '../src'),
+    path.join(__dirname, './'),
+    path.join(__dirname, '../node_modules/easy-lottie-react-native'),
+    path.join(__dirname, '../node_modules/react-navigation'),
+    path.join(__dirname, '../node_modules/svgs'),
+    /node_modules\/react-native-/,
+  ],
   use: {
     loader: 'babel-loader',
     options: {
@@ -32,23 +39,6 @@ const everythingExceptNodeModulesLoader = {
           },
         ],
       ],
-    },
-  },
-};
-
-const modulesLoader = {
-  test: /\.js$/,
-  include: [
-    /node_modules\/react-native-/,
-    /node_modules\/react-navigation/,
-    /node_modules\/easy-lottie-react-native/,
-    /node_modules\/svgs/,
-  ],
-  use: {
-    loader: 'babel-loader',
-    options: {
-      cacheDirectory: !isDev,
-      presets: ['react-native'],
     },
   },
 };
@@ -87,7 +77,7 @@ module.exports = {
   },
 
   module: {
-    rules: [everythingExceptNodeModulesLoader, modulesLoader, imageLoaderConfiguration, fontLoaderConfiguration],
+    rules: [modulesLoader, imageLoaderConfiguration, fontLoaderConfiguration],
   },
 
   plugins: [
