@@ -7,7 +7,7 @@ import { roundToDecimalPlace } from '../../services/MathService';
 import { getTodayWorkableDayTime, isDateEqual } from '../../services/Time';
 import { userSelectorById } from '../users/reducer';
 import { currentProjectSelector } from '../projects/reducer';
-import { PerformanceType } from '../../types';
+import { PerformanceType, GraphDataType } from '../../types';
 
 const initialState: SprintsStateType = {
   currentSprint: null,
@@ -227,10 +227,6 @@ export function isCurrentSprintActiveSelector(state: StateType): boolean {
   const currentSprint = currentSprintSelector(state);
   return !!currentSprint && currentSprint.isActive;
 }
-
-type DataPointsType = Array<{ x: number, y: number }>;
-
-export type GraphDataType = Array<DataPointsType>;
 
 export type SprintsSuccessMatrixType = Array<{|
   number: number,

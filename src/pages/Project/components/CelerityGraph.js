@@ -6,7 +6,7 @@ import { isEqual } from 'lodash';
 import { Text, Graph, Card } from '../../../components';
 import appStyle from '../../../appStyle';
 import { sprintsCelerityGraphDataPointsSelector } from '../../../modules/sprints/reducer';
-import type { GraphDataType } from '../../../modules/sprints/reducer';
+import type { GraphDataType } from '../../../types';
 import { roundToDecimalPlace } from '../../../services/MathService';
 
 class CelerityGraph extends Component<Props> {

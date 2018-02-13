@@ -4,7 +4,7 @@ import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { StockLine } from 'react-native-pathjs-charts';
 import { isEqual } from 'lodash';
 import appStyle from '../appStyle';
-import type { GraphDataType } from '../modules/sprints/reducer'; // TODO move type
+import type { GraphDataType } from '../types';
 
 export default class Graph extends Component<Props, State> {
   state = { graphSize: null };

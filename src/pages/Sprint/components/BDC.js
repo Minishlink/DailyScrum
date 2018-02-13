@@ -7,7 +7,7 @@ import { isEqual } from 'lodash';
 import { Text, Card, Graph } from '../../../components';
 import appStyle from '../../../appStyle';
 import { bdcDataPointsSelector } from '../../../modules/sprints/reducer';
-import type { GraphDataType } from '../../../modules/sprints/reducer';
+import type { GraphDataType } from '../../../types';
 
 class BDC extends Component<Props> {
   shouldComponentUpdate(nextProps: Props) {
