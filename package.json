@@ -29,6 +29,7 @@
 	},
 	"dependencies": {
 		"@yfuks/react-native-action-sheet": "^0.0.4",
+		"babel-runtime": "^6.26.0",
 		"chroma-js": "^1.3.4",
 		"date-fns": "^1.28.4",
 		"easy-lottie-react-native": "^2.0.2",
