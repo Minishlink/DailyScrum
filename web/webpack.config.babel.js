@@ -39,6 +39,7 @@ const modulesLoader = {
             polyfill: false,
           },
         ],
+        'lodash',
       ],
     },
   },
