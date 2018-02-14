@@ -10,6 +10,7 @@ const modulesLoader = {
   test: /\.js$/,
   include: [
     path.join(__dirname, '../src'),
+    path.join(__dirname, '../index.web.js'),
     path.join(__dirname, './'),
     path.join(__dirname, '../node_modules/easy-lottie-react-native'),
     path.join(__dirname, '../node_modules/react-navigation'),
