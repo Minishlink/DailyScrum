@@ -26,8 +26,8 @@ class Summary extends Component<Props> {
     return (
       <Page noMargin style={styles.container}>
         <ScrollView contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={false}>
-          <CelerityGraph style={styles.celerityGraph} />
-          <SuccessMatrix style={styles.matrix} />
+          <CelerityGraph style={styles.scrollViewItem} />
+          <SuccessMatrix style={styles.scrollViewItem} />
         </ScrollView>
       </Page>
     );
@@ -47,11 +47,8 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     paddingVertical: appStyle.margin,
   },
-  matrix: {
-    marginVertical: appStyle.margin,
-  },
-  celerityGraph: {
-    marginVertical: appStyle.margin,
+  scrollViewItem: {
+    marginVertical: appStyle.margin - appStyle.shadow.radius,
   },
 });
 
