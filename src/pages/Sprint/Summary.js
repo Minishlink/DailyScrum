@@ -27,7 +27,7 @@ class Summary extends Component<Props> {
     return (
       <Page noMargin>
         <SprintPicker />
-        <View style={styles.bdcContainer}>
+        <View style={styles.content}>
           <BDC />
           <QualityIndicators style={styles.qualityIndicators} />
         </View>
@@ -43,7 +43,7 @@ type Props = {
 };
 
 const styles = StyleSheet.create({
-  bdcContainer: {
+  content: {
     flex: 1,
     marginHorizontal: appStyle.margin - appStyle.shadow.radius,
     marginVertical: 2 * appStyle.margin - appStyle.shadow.radius,

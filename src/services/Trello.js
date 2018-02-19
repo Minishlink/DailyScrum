@@ -30,7 +30,14 @@ export default class {
     fetch(
       `${TRELLO_API_URL}/lists/${listId}/cards?fields=id,idShort,idMembers,name,dateLastActivity,shortUrl&actions=updateCard:idList&key=${TRELLO_APP_KEY}&token=${token}`
     ).then(handleFetchResponse);
+
+  static getCardsFromBoard = (token, boardId) =>
+    fetch(`${TRELLO_API_URL}/boards/${boardId}/cards?fields=id,labels&key=${TRELLO_APP_KEY}&token=${token}`).then(
+      handleFetchResponse
+    );
 }
+
+export const idToTimestampCreated = id => 1000 * parseInt(id.substring(0, 8), 16);
 
 export const getPoints = text => {
   const points = text.match(/\(([0-9]*\.?[0-9]+)\)/);
