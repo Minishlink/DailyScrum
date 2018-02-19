@@ -4,6 +4,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import appStyle from '../appStyle';
 
 export default (props: Props) => {
   let Icon;
@@ -24,7 +25,7 @@ export default (props: Props) => {
       break;
   }
 
-  return <Icon name={props.name} size={props.size} color={props.color} />;
+  return <Icon name={props.name} size={props.size} color={props.color || appStyle.colors.text} />;
 };
 
 type Props = {
