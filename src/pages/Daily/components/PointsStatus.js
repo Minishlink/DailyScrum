@@ -14,10 +14,10 @@ class PointsStatus extends PureComponent<Props> {
     if (!lead) return "You're just getting started!";
 
     const prefix = lead.points >= 0 ? 'Lead' : 'Lateness';
+
     const shownPoints = roundToDecimalPlace(lead.points > 0 ? lead.points : -lead.points).toLocaleString();
     const shownManDays = roundToDecimalPlace(lead.manDays > 0 ? lead.manDays : -lead.manDays).toLocaleString();
-
-    const suffix = lead.points > 0 ? shownPoints : `${shownPoints} pts / ${shownManDays} man-days`;
+    const suffix = `${shownPoints} pts / ${shownManDays} man-days`;
 
     return prefix + ': ' + suffix;
   };
@@ -40,11 +40,11 @@ class PointsStatus extends PureComponent<Props> {
         </View>
         <View style={styles.statusContainer}>
           {pointsLeft != null &&
-            pointsLeft <= 0 && (
-              <View style={styles.pointsLeftAnimationContainer}>
-                <LottieAnimation source={require('../../../../assets/lottie/colorline.json')} loop duration={2000} />
-              </View>
-            )}
+          pointsLeft <= 0 && (
+            <View style={styles.pointsLeftAnimationContainer}>
+              <LottieAnimation source={require('../../../../assets/lottie/colorline.json')} loop duration={2000} />
+            </View>
+          )}
           <Text style={[styles.lead, { color: isLeading ? appStyle.colors.green : appStyle.colors.red }]}>
             {this.showLeadingText()}
           </Text>
