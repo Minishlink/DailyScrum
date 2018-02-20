@@ -11,6 +11,7 @@ export type StoreCardType = {|
   dateEndDevelopment: ?string,
   idMembers: string[],
   url: string,
+  labels: string[],
 |};
 
 export type CardType = StoreCardType & {|

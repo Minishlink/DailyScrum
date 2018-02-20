@@ -6,4 +6,5 @@ export type TrelloCardType = {
   name: string,
   idMembers: string[],
   shortUrl: string,
+  labels: string[],
 };

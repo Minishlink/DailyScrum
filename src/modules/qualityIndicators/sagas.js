@@ -2,10 +2,11 @@
 import { put, select, takeEvery, cancelled, call, cancel } from 'redux-saga/effects';
 import { tokenSelector } from '../auth/reducer';
 import { startSync, endSync } from '../sync';
-import { setBugsCount } from './actions';
+import { setBugsCount, setValidationFeedbacksCount } from './actions';
 import { currentBoardSelector } from '../boards/reducer';
 import { currentSprintSelector } from '../sprints/reducer';
 import Trello, { idToTimestampCreated } from '../../services/Trello';
+import { sprintsCardsSelector } from '../cards/reducer';
 
 export function* analyzeQualitySaga(): Generator<*, *, *> {
   try {
@@ -37,6 +38,15 @@ export function* analyzeQualitySaga(): Generator<*, *, *> {
     }, 0);
 
     yield put(setBugsCount(bugs));
+
+    const sprintCards = yield select(sprintsCardsSelector);
+    const isValidationFeedbackRegex = /validation/i;
+    const validationFeedbacks = sprintCards.reduce((count, card) => {
+      if (!card.labels.some(label => isValidationFeedbackRegex.test(label.name))) return count;
+      return count + 1;
+    }, 0);
+    yield put(setValidationFeedbacksCount(validationFeedbacks));
+
     yield put(endSync('sprints', 'qualityIndicators'));
   } catch (error) {
     yield put(endSync('sprints', 'qualityIndicators', error.message));

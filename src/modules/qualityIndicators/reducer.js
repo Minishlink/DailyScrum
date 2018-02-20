@@ -4,6 +4,7 @@ import type { StateType } from '../reducers';
 
 const initialState: QualityIndicatorsStateType = {
   bugs: null,
+  validationFeedbacks: null,
 };
 
 export default (state: QualityIndicatorsStateType = initialState, action: ActionType) => {
@@ -12,6 +13,12 @@ export default (state: QualityIndicatorsStateType = initialState, action: Action
       return {
         ...state,
         bugs: action.payload.count,
+      };
+
+    case 'SET_VALIDATION_FEEDBACKS_COUNT':
+      return {
+        ...state,
+        validationFeedbacks: action.payload.count,
       };
 
     case 'RESET_STORE':
@@ -25,8 +32,10 @@ export default (state: QualityIndicatorsStateType = initialState, action: Action
 const qualityIndicatorsStateSelector = (state: StateType) => state.qualityIndicators;
 
 export const bugsCountSelector = (state: StateType) => qualityIndicatorsStateSelector(state).bugs;
-export const validationFeedbacksCountSelector = (state: StateType) => 0;
+export const validationFeedbacksCountSelector = (state: StateType) =>
+  qualityIndicatorsStateSelector(state).validationFeedbacks;
 
 export type QualityIndicatorsStateType = {|
   bugs: ?number,
+  validationFeedbacks: ?number,
 |};

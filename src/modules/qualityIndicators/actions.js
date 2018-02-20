@@ -8,6 +8,12 @@ export type ActionType =
       payload: {|
         count: number,
       |},
+    |}
+  | {|
+      type: 'SET_VALIDATION_FEEDBACKS_COUNT',
+      payload: {|
+        count: number,
+      |},
     |};
 
 export const analyzeQuality = () => ({
@@ -16,5 +22,10 @@ export const analyzeQuality = () => ({
 
 export const setBugsCount = (count: number) => ({
   type: 'SET_BUGS_COUNT',
+  payload: { count },
+});
+
+export const setValidationFeedbacksCount = (count: number) => ({
+  type: 'SET_VALIDATION_FEEDBACKS_COUNT',
   payload: { count },
 });
