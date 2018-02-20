@@ -31,7 +31,7 @@ export function* analyzeQualitySaga(): Generator<*, *, *> {
 
     const isBugRegex = /bug/i;
     const bugs = cards.reduce((count, card) => {
-      if (!card.labels.some(label => isBugRegex.test(label.name))) return count;
+      if (!card.labels.some(label => label.color === 'red' && isBugRegex.test(label.name))) return count;
 
       const createdDateTime = idToTimestampCreated(card.id);
       return sprintStartDateTime < createdDateTime && createdDateTime < sprintEndDateTime ? count + 1 : count;
@@ -42,7 +42,7 @@ export function* analyzeQualitySaga(): Generator<*, *, *> {
     const sprintCards = yield select(sprintsCardsSelector);
     const isValidationFeedbackRegex = /validation/i;
     const validationFeedbacks = sprintCards.reduce((count, card) => {
-      if (!card.labels.some(label => isValidationFeedbackRegex.test(label.name))) return count;
+      if (!card.labels.some(label => label.color === 'red' && isValidationFeedbackRegex.test(label.name))) return count;
       return count + 1;
     }, 0);
     yield put(setValidationFeedbacksCount(validationFeedbacks));
