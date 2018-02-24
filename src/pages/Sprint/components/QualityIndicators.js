@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     marginRight: 2 * (appStyle.margin - appStyle.shadow.radius),
   },
   card: {
-    flex: 1,
+    flexGrow: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
