@@ -8,7 +8,7 @@ import Icon from './Icon';
 import { markTipAsRead } from '../modules/tips';
 import type { TipType } from '../modules/tips/reducer';
 
-const TipCard = (props: PropsType) => (
+export const TipCard = (props: PropsType) => (
   <Animatable.View animation="bounceIn" delay={200} useNativeDriver>
     <Card>
       <View style={styles.container}>
@@ -30,7 +30,7 @@ const TipCard = (props: PropsType) => (
 );
 
 type PropsType = {
-  tip: TipType,
+  tip: TipType | {| text: string |},
   markAsRead: Function,
 };
 
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapDispatchToProps = (dispatch, ownProps: PropsType) => ({
+const mapDispatchToProps = (dispatch, ownProps: { tip: TipType }) => ({
   markAsRead: () => dispatch(markTipAsRead(ownProps.tip)),
 });
 

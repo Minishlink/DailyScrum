@@ -1,14 +1,44 @@
 // @flow
 import React, { Component } from 'react';
-import { StyleSheet, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, Dimensions, Platform } from 'react-native';
 import { connect } from 'react-redux';
-import { Card, Text } from '../../../components';
+import { Card, Icon, Text, Modal } from '../../../components';
 import appStyle from '../../../appStyle';
 import { analyzeQuality } from '../../../modules/qualityIndicators';
 import { bugsCountSelector, validationFeedbacksCountSelector } from '../../../modules/qualityIndicators/reducer';
 import { isSyncingSelector } from '../../../modules/sync';
+import { TipCard } from '../../../components/TipCard';
 
-export class QualityIndicators extends Component<Props> {
+export class QualityIndicators extends Component<Props, State> {
+  state = { helpText: null };
+
+  onCloseModal = () => this.setState({ helpText: null });
+  showBugsModal = () =>
+    this.setState({
+      helpText:
+        'Bugs: this counts the tickets that were created during the sprint with a label that contains "bug" (case-insensitive).',
+    });
+  showValidationFeedbacksModal = () =>
+    this.setState({
+      helpText:
+        'Validation feedbacks: this counts the tickets that are in the columns of the sprint with a label that contains "validation" (case-insensitive).',
+    });
+
+  renderQualityIndicator = (
+    { id, count, text, showModal }: { id: string, count: number, text: string, showModal: Function },
+    index: number
+  ) => (
+    <Card key={id} style={[styles.card, index === 0 && styles.firstCard]} onPress={Platform.OS !== 'web' && showModal}>
+      {Platform.OS !== 'web' && (
+        <View style={styles.helpIcon}>
+          <Icon type="material" name="info-outline" size={appStyle.font.size.default} />
+        </View>
+      )}
+      {this.renderCount(count)}
+      <Text>{text}</Text>
+    </Card>
+  );
+
   renderCount = (count: number) => (
     <Text style={[styles.count, count === 0 ? styles.standardOK : styles.standardKO]}>{count}</Text>
   );
@@ -27,16 +57,32 @@ export class QualityIndicators extends Component<Props> {
       return null;
     }
 
+    const qualityIndicators = [
+      {
+        id: 'bugs',
+        count: bugs,
+        text: 'bugs',
+        showModal: this.showBugsModal,
+      },
+      {
+        id: 'validationFeedbacks',
+        count: validationFeedbacks,
+        text: 'validation feedbacks',
+        showModal: this.showValidationFeedbacksModal,
+      },
+    ];
+
     return (
       <View style={[styles.container, styles.indicatorCardsContainer, this.props.style]}>
-        <Card style={[styles.card, styles.firstCard]}>
-          {this.renderCount(bugs)}
-          <Text>bugs</Text>
-        </Card>
-        <Card style={styles.card}>
-          {this.renderCount(validationFeedbacks)}
-          <Text>validation feedbacks</Text>
-        </Card>
+        {qualityIndicators.map(this.renderQualityIndicator)}
+        {Platform.OS !== 'web' &&
+          !!this.state.helpText && (
+            <Modal visible={!!this.state.helpText} onRequestClose={this.onCloseModal}>
+              <View style={[styles.helpContainer, { top: Dimensions.get('screen').height / 3 }]}>
+                <TipCard tip={{ text: this.state.helpText }} markAsRead={this.onCloseModal} />
+              </View>
+            </Modal>
+          )}
       </View>
     );
   }
@@ -47,6 +93,10 @@ type Props = {
   bugs: ?number,
   validationFeedbacks: ?number,
   analyzeQuality: Function,
+};
+
+type State = {
+  helpText: ?string,
 };
 
 const styles = StyleSheet.create({
@@ -80,6 +130,17 @@ const styles = StyleSheet.create({
   },
   standardKO: {
     color: appStyle.colors.red,
+  },
+  helpIcon: {
+    position: 'absolute',
+    top: appStyle.margin / 2,
+    right: appStyle.margin / 2,
+  },
+  helpContainer: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    alignItems: 'center',
   },
 });
 
