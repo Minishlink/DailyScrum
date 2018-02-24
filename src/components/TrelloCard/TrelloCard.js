@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Linking } from 'react-native';
 import { isEqual } from 'lodash';
 import ActionSheet from '@yfuks/react-native-action-sheet';
-import { Text, Card, Button } from '../../components';
+import { Text, Card } from '../../components';
 import appStyle from '../../appStyle';
 import MemberIcon from './MemberIcon';
 import PointsBadge from './PointsBadge';
