@@ -34,7 +34,7 @@ Have corresponding keystores in `android/app`.
 Create them with `keytool -genkey -v -keystore dailyscrum.envName.keystore -keyalg RSA -keysize 2048 -validity 10000 -alias dailyscrum`.
 
 ### Staging
-Please bump the staging app version (`ANDROID_VERSION_CODE`, `ANDROID_VERSION_NAME`, `IOS_VERSION`, `IOS_VERSION_BUILD_NUMBER`) in the `fastlane/.env.staging`.
+Please bump the app version (`APP_VERSION_CODE`, `APP_VERSION_NAME`) in `fastlane/.env` if necessary.
 
 The following commands will deploy to [HockeyApp](https://rink.hockeyapp.net/manage/dashboard):
 ```bash
@@ -44,8 +44,7 @@ yarn deploy:staging:ios     # only iOS
 ```
 
 ### Production
-Please bump the prod app version (`ANDROID_VERSION_CODE`, `ANDROID_VERSION_NAME`, `IOS_VERSION`, `IOS_VERSION_BUILD_NUMBER`) in the `fastlane/.env.prod`.
-Make a PR of `staging` to `master` and merge (no squash and merge).
+Please bump the app version (`APP_VERSION_CODE`, `APP_VERSION_NAME`) in `fastlane/.env` if necessary.
 
 The following commands will deploy to TestFlight and Android Beta.
 ```bash

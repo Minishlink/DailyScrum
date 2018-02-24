@@ -35,7 +35,7 @@ echo "Deploying to CodePush"
 
 if [ $FORCE = 0 ]; then
   git stash
-  git checkout staging
+  git checkout master
   git pull
 else
   RED='\033[0;31m'

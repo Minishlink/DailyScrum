@@ -6,7 +6,7 @@ lane :ensure_clean_status do
   end
 
   ensure_git_branch(
-    branch: ENV['ENV'] === 'prod' ? 'master' : 'staging'
+    branch: 'master'
   )
   sh "git stash"
   git_pull
