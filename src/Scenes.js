@@ -44,7 +44,7 @@ const TabsNavigator = TabNavigator(
   },
   {
     initialRouteName: 'daily',
-    swipeEnabled: Platform.OS !== 'web',
+    swipeEnabled: true,
     animationEnabled: true,
     tabBarComponent: props => (
       <Gradient>

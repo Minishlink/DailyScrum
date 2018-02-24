@@ -88,7 +88,7 @@ class CardTab extends PureComponent<Props, State> {
         renderScene={this.renderScene}
         renderHeader={this.renderHeader}
         onIndexChange={this.handleIndexChange}
-        swipeEnabled={Platform.OS !== 'web'}
+        swipeEnabled
         initialLayout={initialLayout}
       />
     );
