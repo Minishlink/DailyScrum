@@ -67,8 +67,9 @@
 		EC5BCA9FF09D43BB96BD3F6D /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6378A110379F4E34BB06B0B5 /* Feather.ttf */; };
 		F4BBA80CF71B4C1DA0F67C45 /* Open Sans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FBA04EC16FC4AB5AD9BB11D /* Open Sans-SemiBold.ttf */; };
 		FD011C3EFEB9435DBA92D4CD /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F65B39E7DDC45CFA99E63FF /* SimpleLineIcons.ttf */; };
-		FF2EAA9D1FCAE35C00CB60FC /* Lottie.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FF9179CF1F520D3C004E8DB2 /* Lottie.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FF36EA651F6DCC7C00F5E189 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF36EA631F6DCC7C00F5E189 /* GoogleService-Info.plist */; };
+		FF6595FC20420A3800C6689B /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF9179CF1F520D3C004E8DB2 /* Lottie.framework */; };
+		FF6595FD20420A3800C6689B /* Lottie.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FF9179CF1F520D3C004E8DB2 /* Lottie.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FFE70B161E870A3100090A28 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 /* End PBXBuildFile section */
 
@@ -353,6 +354,13 @@
 			remoteGlobalIDString = 3D7682761D8E76B80014119E;
 			remoteInfo = SplashScreen;
 		};
+		FF6595FE20420A3800C6689B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A5A0756709834AEDB951622A /* Lottie.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 62CA59B71E3C173B002D7188;
+			remoteInfo = Lottie_iOS;
+		};
 		FF6FFC4E1F0FA97500580C43 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 46AAD3ABC512469784C5E009 /* CodePush.xcodeproj */;
@@ -454,13 +462,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		FFA3BE551F0823A000A8FF1D /* Embed Frameworks */ = {
+		FF65960020420A3800C6689B /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				FF2EAA9D1FCAE35C00CB60FC /* Lottie.framework in Embed Frameworks */,
+				FF6595FD20420A3800C6689B /* Lottie.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -558,6 +566,7 @@
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
+				FF6595FC20420A3800C6689B /* Lottie.framework in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
@@ -994,13 +1003,14 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				FFDEACCC1F6DCFA2003FA478 /* Clean GoogleService-Info.plist */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				FFA3BE551F0823A000A8FF1D /* Embed Frameworks */,
 				F3864AFCE9E3790C01AE3968 /* [CP] Embed Pods Frameworks */,
 				9FC14045FDC42E2CB9B14B34 /* [CP] Copy Pods Resources */,
+				FF65960020420A3800C6689B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				FF6595FF20420A3800C6689B /* PBXTargetDependency */,
 			);
 			name = DailyScrum;
 			productName = "Hello World";
@@ -1729,6 +1739,11 @@
 			isa = PBXTargetDependency;
 			target = 2D02E47A1E0B4A5D006451C7 /* DailyScrum-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
+		};
+		FF6595FF20420A3800C6689B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Lottie_iOS;
+			targetProxy = FF6595FE20420A3800C6689B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
