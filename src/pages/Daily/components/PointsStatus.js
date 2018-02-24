@@ -40,11 +40,11 @@ class PointsStatus extends PureComponent<Props> {
         </View>
         <View style={styles.statusContainer}>
           {pointsLeft != null &&
-          pointsLeft <= 0 && (
-            <View style={styles.pointsLeftAnimationContainer}>
-              <LottieAnimation source={require('../../../../assets/lottie/colorline.json')} loop duration={2000} />
-            </View>
-          )}
+            pointsLeft <= 0 && (
+              <View style={styles.pointsLeftAnimationContainer}>
+                <LottieAnimation source={require('../../../../assets/lottie/colorline.json')} loop duration={2000} />
+              </View>
+            )}
           <Text style={[styles.lead, { color: isLeading ? appStyle.colors.green : appStyle.colors.red }]}>
             {this.showLeadingText()}
           </Text>
