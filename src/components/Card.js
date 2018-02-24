@@ -1,13 +1,26 @@
 // @flow
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import Button from './Button';
 import appStyle from '../appStyle';
 
-export default (props: PropsType) => <View style={[styles.container, props.style]}>{props.children}</View>;
+export default (props: PropsType) => {
+  if (props.onPress || props.onLongPress) {
+    return (
+      <Button style={[styles.container, props.style]} onPress={props.onPress} onLongPress={props.onLongPress}>
+        {props.children}
+      </Button>
+    );
+  }
+
+  return <View style={[styles.container, props.style]}>{props.children}</View>;
+};
 
 type PropsType = {
   children: any,
   style?: any,
+  onPress?: Function,
+  onLongPress?: Function,
 };
 
 const styles = StyleSheet.create({
