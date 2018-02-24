@@ -57,7 +57,7 @@ appStyle.shadowStyle = {
   shadowColor: appStyle.colors.darkGray,
   shadowRadius: appStyle.shadow.radius,
   shadowOpacity: 0.15,
-  shadowOffset: { height: 1 },
+  shadowOffset: Platform.OS !== 'web' ? { height: 1 } : undefined,
   elevation: appStyle.shadow.radius / 2,
 };
 

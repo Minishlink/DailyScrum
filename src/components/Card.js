@@ -31,10 +31,6 @@ const styles = StyleSheet.create({
     padding: appStyle.margin,
     backgroundColor: '#fff',
     borderRadius: appStyle.borderRadius,
-    elevation: appStyle.shadow.radius / 2,
-    shadowColor: appStyle.colors.darkGray,
-    shadowRadius: appStyle.shadow.radius,
-    shadowOpacity: 0.15,
-    shadowOffset: { height: 1 },
+    ...appStyle.shadowStyle,
   },
 });
