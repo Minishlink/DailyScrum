@@ -35,7 +35,10 @@ export class QualityIndicators extends Component<Props, State> {
         </View>
       )}
       {this.renderCount(count)}
-      <Text>{text}</Text>
+      <Text>
+        {text}
+        {count !== 1 ? 's' : ''}
+      </Text>
     </Card>
   );
 
@@ -61,13 +64,13 @@ export class QualityIndicators extends Component<Props, State> {
       {
         id: 'bugs',
         count: bugs,
-        text: 'bugs',
+        text: 'bug',
         showModal: this.showBugsModal,
       },
       {
         id: 'validationFeedbacks',
         count: validationFeedbacks,
-        text: 'validation feedbacks',
+        text: 'validation feedback',
         showModal: this.showValidationFeedbacksModal,
       },
     ];
