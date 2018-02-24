@@ -1,12 +1,13 @@
 // @flow
-import { call, all, put, select, takeEvery, cancelled, cancel } from 'redux-saga/effects';
+import { call, put, select, takeEvery, cancelled, cancel } from 'redux-saga/effects';
 import Scrumble from 'DailyScrum/src/services/Scrumble';
 import { putSprints, setCurrentSprint } from './actions';
 import { tokenSelector } from '../auth/reducer';
 import type { ScrumbleSprintType } from '../../types/Scrumble/Sprint';
 import { currentProjectSelector } from '../projects/reducer';
 import { startSync, endSync } from '../sync';
-import { fetchDoneCards, fetchNotDoneCards } from '../cards/sagas';
+import { fetchCards } from '../cards/sagas';
+import { analyzeQualitySaga } from '../qualityIndicators/sagas';
 
 export function* fetchSprints(): Generator<*, *, *> {
   try {
@@ -53,7 +54,8 @@ function* fetchCurrentSprint() {
 
 function* changeCurrentSprint(action: { payload: { sprintId: number } }): Generator<*, *, *> {
   yield put(setCurrentSprint(action.payload.sprintId));
-  yield all([call(fetchNotDoneCards), call(fetchDoneCards)]);
+  yield call(fetchCards);
+  yield call(analyzeQualitySaga);
 }
 
 export default function*(): Generator<*, *, *> {

@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   card: {
-    marginVertical: appStyle.margin / 2 - appStyle.shadow.radius,
+    marginVertical: appStyle.margin / 2,
   },
 });
 

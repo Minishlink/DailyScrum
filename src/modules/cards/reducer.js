@@ -200,6 +200,14 @@ export function todayCardsSelector(state: StateType): CardListsType {
   return dailyCardsSelector(state, 'today');
 }
 
+export function sprintsCardsSelector(state: StateType): CardType[] {
+  const everyCards = everyCardsSelector(state);
+  return ['done', 'blocked', 'doing', 'sprint', 'toValidate'].reduce(
+    (result, column) => result.concat(state.cards[column].map(id => everyCards[id])),
+    []
+  );
+}
+
 export type CardsStateType = {|
   list: { [id: string]: CardType },
   yesterday: {|

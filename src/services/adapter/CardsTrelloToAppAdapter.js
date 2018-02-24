@@ -25,6 +25,7 @@ function adaptCard(card: TrelloCardType, validateColumnId: ?string, doneColumnId
     dateDone: doneAction ? doneAction.date : null,
     idMembers: card.idMembers,
     url: card.shortUrl,
+    labels: card.labels,
   };
 }
 
