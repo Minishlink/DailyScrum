@@ -1,36 +1,47 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, StyleSheet } from 'react-native';
-import { format } from 'date-fns';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { isEqual } from 'lodash';
-import { Text, Card, Graph } from '../../../components';
+import { Text, Graph, Card } from '../../../components';
 import appStyle from '../../../appStyle';
-import { bdcDataPointsSelector } from '../../../modules/sprints/reducer';
+import { sprintsCelerityGraphDataPointsSelector } from '../../../modules/sprints/reducer';
 import type { GraphDataType } from '../../../types';
+import { roundToDecimalPlace } from '../../../services/MathService';
 
-class BDC extends Component<Props> {
+class CelerityGraph extends Component<Props> {
   shouldComponentUpdate(nextProps: Props) {
-    return !isEqual(this.props.bdcDataPoints, nextProps.bdcDataPoints);
+    return !isEqual(this.props.celerityGraphDataPoints, nextProps.celerityGraphDataPoints);
   }
 
   formatXLabel = index => {
-    const firstGraph = this.props.bdcDataPoints[0];
+    const firstGraph = this.props.celerityGraphDataPoints[0];
     if (!firstGraph) return null;
     const dataPoint = firstGraph[index];
     if (!dataPoint) return null;
-    return format(dataPoint.date, 'D/M');
+    return '#' + dataPoint.number;
   };
 
   render() {
-    if (!this.props.bdcDataPoints) {
+    if (!this.props.celerityGraphDataPoints) {
       return <Text>You don't have any sprint yet!</Text>;
     }
 
+    const lastThreeDataPoints = this.props.celerityGraphDataPoints[1].slice(-3);
+    const recentAverage = roundToDecimalPlace(
+      lastThreeDataPoints.map(points => points.y).reduce((a, b) => a + b, 0) / lastThreeDataPoints.length
+    );
+    const [lastDataPoint] = lastThreeDataPoints.slice(-1);
+
     return (
-      <Card style={styles.container}>
+      <Card style={[styles.container, this.props.style]}>
         <View style={styles.titleAndCaption}>
-          <Text style={styles.title}>Burndown chart</Text>
+          <View>
+            <Text style={styles.title}>Celerity</Text>
+            {!!lastDataPoint && (
+              <Text style={styles.lastCelerities}>{`(last: ${lastDataPoint.y} / recent avg.: ${recentAverage})`}</Text>
+            )}
+          </View>
           <View>
             <View style={styles.caption}>
               <View style={[styles.line, styles.standard]} />
@@ -43,9 +54,10 @@ class BDC extends Component<Props> {
           </View>
         </View>
         <Graph
-          dataPoints={this.props.bdcDataPoints}
+          dataPoints={this.props.celerityGraphDataPoints}
           style={styles.graph}
           colors={[appStyle.colors.red, appStyle.colors.primary]}
+          minY={0}
           formatXLabel={this.formatXLabel}
           formatYLabel={Math.round}
         />
@@ -66,6 +78,9 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
   },
+  lastCelerities: {
+    fontSize: appStyle.font.size.small,
+  },
   caption: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -85,16 +100,17 @@ const styles = StyleSheet.create({
     marginLeft: appStyle.margin,
   },
   graph: {
-    flex: 1,
+    height: 0.25 * Dimensions.get('window').height,
   },
 });
 
 type Props = {
-  bdcDataPoints: GraphDataType,
+  celerityGraphDataPoints: GraphDataType,
+  style: any,
 };
 
 const mapStateToProps = state => ({
-  bdcDataPoints: bdcDataPointsSelector(state),
+  celerityGraphDataPoints: sprintsCelerityGraphDataPointsSelector(state),
 });
 
-export default connect(mapStateToProps)(BDC);
+export default connect(mapStateToProps)(CelerityGraph);

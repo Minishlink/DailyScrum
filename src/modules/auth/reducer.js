@@ -1,6 +1,7 @@
 // @flow
-import type { ActionType } from './actions';
+import type { ActionType } from '../actions';
 import type { StateType } from '../reducers';
+import env from '../../../environment';
 
 const initialState: AuthStateType = {
   token: {
@@ -19,15 +20,18 @@ export default (state: AuthStateType = initialState, action: ActionType) => {
       return {
         ...state,
         token,
+        trelloAppKey: env.TRELLO_APP_KEY,
       };
 
     case 'LOGOUT':
-      return { token: {} };
+      return initialState;
 
     default:
       return state;
   }
 };
+
+const trelloAppKeySelector = (state: StateType): ?string => state.auth.trelloAppKey;
 
 export function tokenSelector(state: StateType): TokenType {
   return state.auth.token;
@@ -35,11 +39,14 @@ export function tokenSelector(state: StateType): TokenType {
 
 export function isLoggedInSelector(state: StateType): boolean {
   const token = tokenSelector(state);
-  return !!token.trello && !!token.scrumble;
+  const storedTrelloAppKey = trelloAppKeySelector(state);
+  const currentTrelloAppKey = env.TRELLO_APP_KEY;
+  return storedTrelloAppKey === currentTrelloAppKey && !!token.trello && !!token.scrumble;
 }
 
 export type AuthStateType = {|
   token: TokenType,
+  trelloAppKey?: string,
 |};
 
 export type TokenType = {|

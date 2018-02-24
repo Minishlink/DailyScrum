@@ -32,6 +32,8 @@ export default (state, action) => {
       });
       newState = AppNavigator.router.getStateForAction(navigateToProjectSettingsAction, newState);
     }
+  } else if (type === 'RESET_TO_LOGIN') {
+    newState = AppNavigator.router.getStateForAction({ type: '@@INIT' });
   } else {
     newState = AppNavigator.router.getStateForAction(action, state);
   }

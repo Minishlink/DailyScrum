@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text } from '../../components';
 import appStyle from '../../appStyle';
+import { roundToDecimalPlace } from '../../services/MathService';
 
 export default class ListHeader extends Component<Props> {
   shouldComponentUpdate(nextProps: Props) {
@@ -30,7 +31,7 @@ export default class ListHeader extends Component<Props> {
     return (
       <View>
         <Text style={styles.listName}>{this.getListNameFromKey(this.props.listKey)}</Text>
-        <Text style={styles.total}>total {this.props.total.toLocaleString()} pts</Text>
+        <Text style={styles.total}>total {roundToDecimalPlace(this.props.total).toLocaleString()} pts</Text>
       </View>
     );
   }

@@ -6,9 +6,17 @@ import environment from '../environment';
 
 const isDev = process.env.NODE_ENV !== 'production';
 
-const everythingExceptNodeModulesLoader = {
+const modulesLoader = {
   test: /\.js$/,
-  exclude: /node_modules/,
+  include: [
+    path.join(__dirname, '../src'),
+    path.join(__dirname, '../index.web.js'),
+    path.join(__dirname, './'),
+    path.join(__dirname, '../node_modules/easy-lottie-react-native'),
+    path.join(__dirname, '../node_modules/react-navigation'),
+    path.join(__dirname, '../node_modules/svgs'),
+    /node_modules\/react-native-/,
+  ],
   use: {
     loader: 'babel-loader',
     options: {
@@ -31,24 +39,8 @@ const everythingExceptNodeModulesLoader = {
             polyfill: false,
           },
         ],
+        'lodash',
       ],
-    },
-  },
-};
-
-const modulesLoader = {
-  test: /\.js$/,
-  include: [
-    /node_modules\/react-native-/,
-    /node_modules\/react-navigation/,
-    /node_modules\/easy-lottie-react-native/,
-    /node_modules\/svgs/,
-  ],
-  use: {
-    loader: 'babel-loader',
-    options: {
-      cacheDirectory: !isDev,
-      presets: ['react-native'],
     },
   },
 };
@@ -87,7 +79,7 @@ module.exports = {
   },
 
   module: {
-    rules: [everythingExceptNodeModulesLoader, modulesLoader, imageLoaderConfiguration, fontLoaderConfiguration],
+    rules: [modulesLoader, imageLoaderConfiguration, fontLoaderConfiguration],
   },
 
   plugins: [
@@ -116,12 +108,11 @@ module.exports = {
       'react-native-svg': 'svgs',
       'lottie-react-native': 'react-native-web-lottie',
       'react-native-linear-gradient': 'react-native-web-linear-gradient',
-      ImageBackground: path.join(__dirname, 'src/mocks/ImageBackground'),
       Modal: path.join(__dirname, 'src/mocks/unimplemented'),
-      Picker: path.join(__dirname, 'src/mocks/Picker'),
       'react-native-code-push': path.join(__dirname, 'src/mocks/react-native-code-push'),
       'react-native-safari-view': path.join(__dirname, 'src/mocks/unimplemented'),
       'react-native-splash-screen': path.join(__dirname, 'src/mocks/react-native-splash-screen'),
+      'react-native-safe-area-view': path.join(__dirname, 'src/mocks/react-native-safe-area-view'),
       'react-native-firebase': path.join(__dirname, 'src/mocks/react-native-firebase'),
       '@yfuks/react-native-action-sheet': path.join(__dirname, 'src/mocks/react-native-action-sheet'),
     },

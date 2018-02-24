@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
-import { Linking, BackHandler, Platform, Dimensions } from 'react-native';
+import { Linking, Platform, Dimensions } from 'react-native';
+import BackHandler from './fix/BackHandler';
 import { connect } from 'react-redux';
 import {
   StackNavigator,
@@ -202,6 +203,7 @@ class Scenes extends Component<any, any> {
         navigation={addNavigationHelpers({
           dispatch: this.props.dispatch,
           state: this.props.navigation,
+          addListener: this.props.reactNavigationAddListener,
         })}
       />
     );

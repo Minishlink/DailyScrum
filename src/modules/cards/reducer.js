@@ -1,5 +1,5 @@
 // @flow
-import type { ActionType } from './actions';
+import type { ActionType } from '../actions';
 import type { StateType } from '../reducers';
 import { devTeamSelector } from '../sprints/reducer';
 import { getLastWorkableDayTime, getTodayWorkableDayTime } from '../../services/Time';
@@ -198,6 +198,14 @@ export function yesterdayCardsSelector(state: StateType): CardListsType {
 
 export function todayCardsSelector(state: StateType): CardListsType {
   return dailyCardsSelector(state, 'today');
+}
+
+export function sprintsCardsSelector(state: StateType): CardType[] {
+  const everyCards = everyCardsSelector(state);
+  return ['done', 'blocked', 'doing', 'sprint', 'toValidate'].reduce(
+    (result, column) => result.concat(state.cards[column].map(id => everyCards[id])),
+    []
+  );
 }
 
 export type CardsStateType = {|

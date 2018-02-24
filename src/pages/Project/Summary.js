@@ -7,6 +7,7 @@ import { currentProjectSelector } from '../../modules/projects/reducer';
 import type { ProjectType } from '../../types/Project';
 import { isSyncingSelector } from '../../modules/sync';
 import SuccessMatrix from './components/SuccessMatrix';
+import CelerityGraph from './components/CelerityGraph';
 import appStyle from '../../appStyle';
 
 class Summary extends Component<Props> {
@@ -25,7 +26,8 @@ class Summary extends Component<Props> {
     return (
       <Page noMargin style={styles.container}>
         <ScrollView contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={false}>
-          <SuccessMatrix style={styles.matrix} />
+          <CelerityGraph style={styles.scrollViewItem} />
+          <SuccessMatrix style={styles.scrollViewItem} />
         </ScrollView>
       </Page>
     );
@@ -45,8 +47,8 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     paddingVertical: appStyle.margin,
   },
-  matrix: {
-    marginVertical: appStyle.margin,
+  scrollViewItem: {
+    marginVertical: appStyle.margin - appStyle.shadow.radius,
   },
 });
 

@@ -8,6 +8,7 @@ import type { ProjectType } from '../../types/Project';
 import { isSyncingSelector } from '../../modules/sync';
 import SprintPicker from './components/SprintPicker';
 import BDC from './components/BDC';
+import QualityIndicators from './components/QualityIndicators';
 import appStyle from '../../appStyle';
 
 class Summary extends Component<Props> {
@@ -26,8 +27,9 @@ class Summary extends Component<Props> {
     return (
       <Page noMargin>
         <SprintPicker />
-        <View style={styles.bdcContainer}>
+        <View style={styles.content}>
           <BDC />
+          <QualityIndicators style={styles.qualityIndicators} />
         </View>
       </Page>
     );
@@ -41,10 +43,13 @@ type Props = {
 };
 
 const styles = StyleSheet.create({
-  bdcContainer: {
+  content: {
     flex: 1,
     marginHorizontal: appStyle.margin - appStyle.shadow.radius,
     marginVertical: 2 * appStyle.margin - appStyle.shadow.radius,
+  },
+  qualityIndicators: {
+    marginTop: appStyle.margin - appStyle.shadow.radius,
   },
 });
 

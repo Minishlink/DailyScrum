@@ -19,7 +19,10 @@ export default ({ children, disabled, withRipple, ...props }: PropsType) => {
         style={null}
         background={TouchableNativeFeedback.Ripple('rgba(0, 0, 0, .32)', borderless)}
         useForeground={canUseForegroundNativeFeedback && !borderless}
-        onPress={() => requestAnimationFrame(props.onPress)}
+        onPress={props.onPress ? () => props.onPress && requestAnimationFrame(props.onPress) : undefined}
+        onLongPress={
+          props.onLongPress ? () => props.onLongPress && requestAnimationFrame(props.onLongPress) : undefined
+        }
       >
         <View style={style}>{Children.only(children)}</View>
       </TouchableNativeFeedback>
@@ -39,5 +42,6 @@ type PropsType = {
   borderless?: boolean,
   withRipple?: boolean,
   style?: any,
-  onPress: Function,
+  onPress?: Function,
+  onLongPress?: Function,
 };

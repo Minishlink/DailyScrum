@@ -46,45 +46,41 @@ export default class extends Component<Props> {
       );
 
     return (
-      <Button style={this.props.style} onLongPress={this.showActionSheet}>
-        <View>
-          <Card>
-            <View style={styles.labelsRow}>
-              <View style={styles.idShortContainer}>
-                <Text>#{card.idShort}</Text>
-              </View>
-              {validationLatenessInDays >= 1 && (
-                <View style={styles.lateValidationContainer}>
-                  <Text style={styles.lateValidationText}>{validationLatenessInDays}</Text>
-                  <Icon
-                    type="material-community"
-                    name="clock-alert"
-                    size={appStyle.font.size.default}
-                    color={appStyle.colors.overRed}
-                  />
-                </View>
-              )}
+      <Card style={this.props.style} onLongPress={this.showActionSheet}>
+        <View style={styles.labelsRow}>
+          <View style={styles.idShortContainer}>
+            <Text>#{card.idShort}</Text>
+          </View>
+          {validationLatenessInDays >= 1 && (
+            <View style={styles.lateValidationContainer}>
+              <Text style={styles.lateValidationText}>{validationLatenessInDays}</Text>
+              <Icon
+                type="material-community"
+                name="clock-alert"
+                size={appStyle.font.size.default}
+                color={appStyle.colors.overRed}
+              />
             </View>
-            <Text style={styles.title}>{card.name}</Text>
-            <View style={styles.membersRow}>
-              <View style={styles.pointsContainer}>
-                {card.points != null && <PointsBadge points={card.points.toLocaleString()} />}
-                {card.points != null && card.postPoints != null && <View style={{ width: 4 }} />}
-                {card.postPoints != null && <PointsBadge points={card.postPoints.toLocaleString()} isPostEstimation />}
-              </View>
-              <View style={styles.membersContainer}>
-                <View style={styles.members}>
-                  {card.members.map(member => (
-                    <View key={member.id} style={styles.member}>
-                      <MemberIcon member={member} />
-                    </View>
-                  ))}
-                </View>
-              </View>
-            </View>
-          </Card>
+          )}
         </View>
-      </Button>
+        <Text style={styles.title}>{card.name}</Text>
+        <View style={styles.membersRow}>
+          <View style={styles.pointsContainer}>
+            {card.points != null && <PointsBadge points={card.points.toLocaleString()} />}
+            {card.points != null && card.postPoints != null && <View style={{ width: 4 }} />}
+            {card.postPoints != null && <PointsBadge points={card.postPoints.toLocaleString()} isPostEstimation />}
+          </View>
+          <View style={styles.membersContainer}>
+            <View style={styles.members}>
+              {card.members.map(member => (
+                <View key={member.id} style={styles.member}>
+                  <MemberIcon member={member} />
+                </View>
+              ))}
+            </View>
+          </View>
+        </View>
+      </Card>
     );
   }
 }

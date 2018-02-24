@@ -10,6 +10,7 @@ import { syncIsSuccessful } from './';
 import { startSync, endSync } from '../sync';
 import { isSyncSuccessfulSelector } from '../sync';
 import { setAnalyticsUser } from '../analytics/sagas';
+import { analyzeQualitySaga } from '../qualityIndicators/sagas';
 
 function* fetchBaseData(): Generator<*, *, *> {
   yield put(startSync('common', 'base'));
@@ -41,6 +42,7 @@ export function* fetchProjectData(): Generator<*, *, *> {
   yield call(fetchCurrentProject);
   yield call(fetchSprints);
   yield call(fetchCards);
+  yield call(analyzeQualitySaga);
 }
 
 export default function*(): Generator<*, *, *> {
