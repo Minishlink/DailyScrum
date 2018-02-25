@@ -83,6 +83,7 @@
 		"html-webpack-plugin": "^2.30.1",
 		"jest": "^21.2.1",
 		"mockdate": "^2.0.2",
+		"offline-plugin": "^4.9.0",
 		"prettier": "^1.5.3",
 		"react-test-renderer": "^16.1.1",
 		"redux-saga-test-plan": "^3.2.0",

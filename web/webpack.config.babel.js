@@ -3,6 +3,7 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import WebpackPwaManifest from 'webpack-pwa-manifest';
+import OfflinePlugin from 'offline-plugin';
 import environment from '../environment';
 
 const isDev = process.env.NODE_ENV !== 'production';
@@ -137,6 +138,7 @@ module.exports = {
       ],
       ios: true,
     }),
+    new OfflinePlugin(),
   ],
 
   resolve: {

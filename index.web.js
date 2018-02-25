@@ -1,5 +1,8 @@
 import { AppRegistry } from 'react-native';
 import App from './src/App';
+import * as OfflinePluginRuntime from 'offline-plugin/runtime';
+
+OfflinePluginRuntime.install();
 
 AppRegistry.registerComponent('App', () => App);
 AppRegistry.runApplication('App', {
