@@ -1,0 +1,28 @@
+CACHE MANIFEST
+#ver:2018-2-25 14:23:47
+#plugin:4.9.0
+
+CACHE:
+../assets/back-icon.png
+../assets/b06871f281fee6b241d60582ae9369b9.ttf
+../assets/a37b0c01c0baf1888ca812cc0508f6e2.ttf
+../assets/3ef6639a4cce5b903e4031b1b0102675.ttf
+../assets/744ce60078c17d86006dd0edabcd59a7.ttf
+../bundle.js
+../
+../manifest.76828f0b4b78defdbe8b92bb16543573.json
+../icons/android/icon_512x512.5b37f0f17f7b73c02ce1917e22a613ac.png
+../icons/android/icon_192x192.b6d252be282e4b4d14d334bf873412fb.png
+../icons/android/icon_144x144.c13da8de0078103d028666b37ebc9646.png
+../icons/android/icon_96x96.7df6fcbf0f78fc84d23be99956d21313.png
+../icons/android/icon_72x72.dda8c84dd3b2471e9eb2c6116101a4e3.png
+../icons/android/icon_48x48.847322a31412703a8e7b643ef9930ee9.png
+../icons/android/icon_36x36.30f8e8de787947fe36be657a8d1c1bb6.png
+../icons/ios/icon_1024x1024.5a74dd1e195537f34b15c7da36cc05e0.png
+../icons/ios/icon_180x180.96b30716f0e116071472938973cb63f6.png
+../icons/ios/icon_167x167.2ef0ac50fc33f6d62c06618dbbd326d2.png
+../icons/ios/icon_152x152.f0180740a587b8850ed62f5e52459be6.png
+../icons/ios/icon_120x120.592ee61f6aaeec8ed2c2b8bc8f1ed336.png
+
+NETWORK:
+*
