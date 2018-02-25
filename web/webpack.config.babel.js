@@ -100,7 +100,7 @@ module.exports = {
     }),
     new WebpackPwaManifest({
       name: environment.APP_NAME,
-      short_name: 'DailyScrum',
+      short_name: environment.APP_NAME,
       description: 'An app for your daily dose of Scrum',
       background_color: '#F5FCFF',
       theme_color: '#43d2fc',
@@ -121,7 +121,7 @@ module.exports = {
         },
         {
           src: path.resolve('./ios/DailyScrum/Images.xcassets/AppIcon.appiconset/icon-1024@1x.png'),
-          sizes: [36, 48, 72, 96, 144, 192, 512],
+          sizes: [36, 48, 72, 96, 128, 144, 192, 256, 512, 1024],
           destination: path.join('icons', 'android'),
         },
       ],
@@ -138,7 +138,9 @@ module.exports = {
       ],
       ios: true,
     }),
-    new OfflinePlugin(),
+    new OfflinePlugin({
+      AppCache: false,
+    }),
   ],
 
   resolve: {
