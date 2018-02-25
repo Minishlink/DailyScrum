@@ -11,6 +11,7 @@ class ErrorBar extends Component {
   getErrorMessage = (error: string) => {
     switch (error) {
       case 'Network request failed':
+      case 'Failed to fetch':
       case 'Timeout':
         return 'Connection failed. Please try again later :)';
       case 'NOT_SCRUMBLE_PROJECT':
