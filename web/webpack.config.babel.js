@@ -2,6 +2,7 @@ import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+import WebpackPwaManifest from 'webpack-pwa-manifest';
 import environment from '../environment';
 
 const isDev = process.env.NODE_ENV !== 'production';
@@ -95,6 +96,46 @@ module.exports = {
       filename: 'index.html',
       template: 'web/src/index.html',
       GA_ID: environment.GA_ID,
+    }),
+    new WebpackPwaManifest({
+      name: environment.APP_NAME,
+      short_name: 'DailyScrum',
+      description: 'An app for your daily dose of Scrum',
+      background_color: '#F5FCFF',
+      theme_color: '#43d2fc',
+      lang: 'en-US',
+      orientation: 'portrait-primary',
+      icons: [
+        {
+          src: path.resolve('./ios/DailyScrum/Images.xcassets/AppIcon.appiconset/icon-1024@1x.png'),
+          sizes: [120, 152, 167, 180, 1024],
+          destination: path.join('icons', 'ios'),
+          ios: true,
+        },
+        {
+          src: path.resolve('./ios/DailyScrum/Images.xcassets/AppIcon.appiconset/icon-1024@1x.png'),
+          size: 1024,
+          destination: path.join('icons', 'ios'),
+          ios: 'startup',
+        },
+        {
+          src: path.resolve('./ios/DailyScrum/Images.xcassets/AppIcon.appiconset/icon-1024@1x.png'),
+          sizes: [36, 48, 72, 96, 144, 192, 512],
+          destination: path.join('icons', 'android'),
+        },
+      ],
+      related_applications: [
+        {
+          platform: 'play',
+          url: 'https://play.google.com/store/apps/details?id=tech.bam.DailyScrum',
+          id: 'tech.bam.DailyScrum',
+        },
+        {
+          platform: 'itunes',
+          url: 'https://itunes.apple.com/app/dailyscrum/id1286338464',
+        },
+      ],
+      ios: true,
     }),
   ],
 
