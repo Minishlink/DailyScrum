@@ -91,7 +91,7 @@ module.exports = {
     }),
     new CopyWebpackPlugin([{ from: 'web/src/assets/', to: 'assets/', force: true }]),
     new HtmlWebpackPlugin({
-      title: 'DailyScrum',
+      title: environment.APP_NAME,
       filename: 'index.html',
       template: 'web/src/index.html',
       GA_ID: environment.GA_ID,
