@@ -177,7 +177,7 @@ export function sprintsCelerityGraphDataPointsSelector(state: StateType): ?Graph
       y: roundToDecimalPlace((sprint.resources.totalPoints - sprint.pointsLeft) / sprint.resources.totalManDays),
       number: sprint.number,
     })),
-  ];
+  ].filter(array => array.length > 0);
 }
 
 export function bdcDataPointsSelector(state: StateType): ?GraphDataType {

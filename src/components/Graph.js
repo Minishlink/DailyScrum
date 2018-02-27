@@ -73,6 +73,7 @@ export default class Graph extends Component<Props, State> {
     };
 
   render() {
+    if (this.props.dataPoints.some(dataPoint => !dataPoint.length)) return null;
     return (
       <View style={[styles.graphContainer, this.props.style]} onLayout={this.measureGraphSize}>
         {this.state.graphSize ? (

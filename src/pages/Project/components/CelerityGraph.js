@@ -22,25 +22,30 @@ class CelerityGraph extends Component<Props> {
     return '#' + dataPoint.number;
   };
 
-  render() {
-    if (!this.props.celerityGraphDataPoints) {
-      return <Text>You don't have any sprint yet!</Text>;
-    }
+  renderLastCelerities = () => {
+    if (!this.props.celerityGraphDataPoints[1]) return null;
 
     const lastThreeDataPoints = this.props.celerityGraphDataPoints[1].slice(-3);
     const recentAverage = roundToDecimalPlace(
       lastThreeDataPoints.map(points => points.y).reduce((a, b) => a + b, 0) / lastThreeDataPoints.length
     );
     const [lastDataPoint] = lastThreeDataPoints.slice(-1);
+    if (!lastDataPoint) return null;
+
+    return <Text style={styles.lastCelerities}>{`(last: ${lastDataPoint.y} / recent avg.: ${recentAverage})`}</Text>;
+  };
+
+  render() {
+    if (!this.props.celerityGraphDataPoints) {
+      return <Text>You don't have any sprint yet!</Text>;
+    }
 
     return (
       <Card style={[styles.container, this.props.style]}>
         <View style={styles.titleAndCaption}>
           <View>
             <Text style={styles.title}>Celerity</Text>
-            {!!lastDataPoint && (
-              <Text style={styles.lastCelerities}>{`(last: ${lastDataPoint.y} / recent avg.: ${recentAverage})`}</Text>
-            )}
+            {this.renderLastCelerities()}
           </View>
           <View>
             <View style={styles.caption}>
