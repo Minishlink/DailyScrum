@@ -16,16 +16,10 @@ jobs:
           command: cp environment/index.dist.js environment/index.js
       - run:
           name: Install deps
-          command: yarn
+          command: yarn --frozen-lockfile
       - run:
-          name: Unit tests
-          command: yarn test:unit
-      - run:
-          name: Flow
-          command: yarn test:flow
-      - run:
-          name: Linter
-          command: yarn test:lint
+          name: Tests
+          command: yarn test
       - save_cache:
           key: cache-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
