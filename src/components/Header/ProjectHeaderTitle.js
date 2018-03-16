@@ -8,7 +8,11 @@ import appStyle from '../../appStyle';
 
 class ProjectHeaderTitle extends PureComponent<Props> {
   render() {
-    return <Text style={styles.title}>{this.props.projectName}</Text>;
+    return (
+      <Text style={styles.title} numberOfLines={1} allowFontScaling={false}>
+        {this.props.projectName}
+      </Text>
+    );
   }
 }
 
@@ -22,7 +26,7 @@ const styles = StyleSheet.create({
     color: appStyle.colors.overPrimaryColor,
     fontWeight: 'bold',
     textAlign: Platform.OS === 'ios' ? 'center' : 'left',
-    marginHorizontal: 16,
+    marginLeft: Platform.OS === 'android' ? 16 : 0,
   },
 });
 
