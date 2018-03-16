@@ -169,12 +169,16 @@ export function sprintsCelerityGraphDataPointsSelector(state: StateType): ?Graph
   return [
     sprints.map((sprint: SprintType, index: number) => ({
       x: index,
-      y: roundToDecimalPlace(sprint.resources.totalPoints / sprint.resources.totalManDays),
+      y: sprint.resources.totalManDays
+        ? roundToDecimalPlace(sprint.resources.totalPoints / sprint.resources.totalManDays)
+        : 0,
       number: sprint.number,
     })),
     sprints.filter(isSprintFinished).map((sprint: SprintType, index: number) => ({
       x: index,
-      y: roundToDecimalPlace((sprint.resources.totalPoints - sprint.pointsLeft) / sprint.resources.totalManDays),
+      y: sprint.resources.totalManDays
+        ? roundToDecimalPlace((sprint.resources.totalPoints - sprint.pointsLeft) / sprint.resources.totalManDays)
+        : 0,
       number: sprint.number,
     })),
   ].filter(array => array.length > 0);
