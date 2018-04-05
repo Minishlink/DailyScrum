@@ -281,6 +281,61 @@ describe('sync selectors', () => {
       expect(errorsSelector(state)).toEqual([true]);
     });
 
+    it('should return NOT SCRUMBLE PROJECT', () => {
+      state.sync = {
+        common: {
+          base: {
+            isLoading: false,
+            error: null,
+          },
+        },
+        users: {
+          current: {
+            isLoading: false,
+            error: null,
+          },
+        },
+        boards: {
+          all: {
+            isLoading: false,
+            error: null,
+          },
+        },
+        projects: {
+          current: {
+            isLoading: false,
+            error: null,
+          },
+          change: {
+            isLoading: false,
+            error: 'NOT_SCRUMBLE_PROJECT',
+          },
+        },
+        sprints: {
+          all: {
+            isLoading: false,
+            error: null,
+          },
+          qualityIndicators: {
+            isLoading: false,
+            error: null,
+          },
+        },
+        cards: {
+          notDone: {
+            isLoading: false,
+            error: null,
+          },
+          done: {
+            isLoading: false,
+            error: null,
+          },
+        },
+      };
+
+      expect(errorsSelector(state)).toEqual(['NOT_SCRUMBLE_PROJECT']);
+    });
+
     it('should return two errors if there are two errors', () => {
       state.sync = {
         ...state.sync,
