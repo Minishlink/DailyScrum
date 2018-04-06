@@ -1,8 +1,8 @@
 // @flow
 import type { ActionType } from '../actions';
 import type { StateType } from '../reducers';
-import type { UserType } from 'DailyScrum/src/types';
-import { adaptUserFromScrumble } from 'DailyScrum/src/services/adapter';
+import type { UserType } from '../../types';
+import { adaptUserFromScrumble } from '../../services/adapter';
 
 const initialState: UsersStateType = {
   currentUser: null,

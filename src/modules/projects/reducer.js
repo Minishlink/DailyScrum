@@ -2,7 +2,7 @@
 import type { ActionType } from '../actions';
 import type { StateType } from '../reducers';
 import type { ProjectType } from '../../types';
-import { adaptProjectFromScrumble } from 'DailyScrum/src/services/adapter';
+import { adaptProjectFromScrumble } from '../../services/adapter';
 
 const initialState: ProjectsStateType = {
   currentProject: null,

@@ -11,8 +11,8 @@ import {
   DrawerNavigator,
   NavigationActions,
 } from 'react-navigation';
-import * as Pages from 'DailyScrum/src/pages';
-import appStyle from 'DailyScrum/src/appStyle';
+import * as Pages from './pages';
+import appStyle from './appStyle';
 import { Header, Drawer, Icon, Gradient } from './components';
 import { ProjectHeaderTitle, DrawerHeaderLeft } from './components/Header';
 import { getFontStyle } from './components/Text';

@@ -16,7 +16,7 @@ const modulesLoader = {
     path.join(__dirname, './'),
     path.join(__dirname, '../node_modules/easy-lottie-react-native'),
     path.join(__dirname, '../node_modules/react-navigation'),
-    path.join(__dirname, '../node_modules/svgs'),
+    /node_modules\/svgs/,
     /node_modules\/react-native-/,
   ],
   use: {
@@ -30,7 +30,7 @@ const modulesLoader = {
           {
             root: ['./'],
             alias: {
-              DailyScrum: './',
+              DailyScrum: '../',
             },
           },
         ],
@@ -91,11 +91,11 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       __DEV__: JSON.stringify(isDev),
     }),
-    new CopyWebpackPlugin([{ from: 'web/src/assets/', to: 'assets/', force: true }]),
+    new CopyWebpackPlugin([{ from: 'src/assets/', to: 'assets/', force: true }]),
     new HtmlWebpackPlugin({
       title: environment.APP_NAME,
       filename: 'index.html',
-      template: 'web/src/index.html',
+      template: 'src/index.html',
       GA_ID: environment.GA_ID,
     }),
     new WebpackPwaManifest({
@@ -108,19 +108,19 @@ module.exports = {
       orientation: 'portrait-primary',
       icons: [
         {
-          src: path.resolve('./ios/DailyScrum/Images.xcassets/AppIcon.appiconset/icon-1024@1x.png'),
+          src: path.resolve('../ios/DailyScrum/Images.xcassets/AppIcon.appiconset/icon-1024@1x.png'),
           sizes: [120, 152, 167, 180, 1024],
           destination: path.join('icons', 'ios'),
           ios: true,
         },
         {
-          src: path.resolve('./ios/DailyScrum/Images.xcassets/AppIcon.appiconset/icon-1024@1x.png'),
+          src: path.resolve('../ios/DailyScrum/Images.xcassets/AppIcon.appiconset/icon-1024@1x.png'),
           size: 1024,
           destination: path.join('icons', 'ios'),
           ios: 'startup',
         },
         {
-          src: path.resolve('./ios/DailyScrum/Images.xcassets/AppIcon.appiconset/icon-1024@1x.png'),
+          src: path.resolve('../ios/DailyScrum/Images.xcassets/AppIcon.appiconset/icon-1024@1x.png'),
           sizes: [36, 48, 72, 96, 128, 144, 192, 256, 512, 1024],
           destination: path.join('icons', 'android'),
         },
@@ -144,6 +144,7 @@ module.exports = {
   ],
 
   resolve: {
+    modules: [path.join(__dirname, '../node_modules'), path.join(__dirname, 'node_modules')],
     // Maps the 'react-native' import to 'react-native-web' and the stubs or mocks.
     alias: {
       'react-native': 'react-native-web',

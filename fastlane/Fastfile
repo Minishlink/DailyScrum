@@ -149,9 +149,7 @@ end
 platform :web do
   lane :build do |options|
     set_js_env
-    sh "yarn init:web"
     sh "yarn build:web"
-    sh "yarn stop:web"
   end
 
   lane :deploy do |options|

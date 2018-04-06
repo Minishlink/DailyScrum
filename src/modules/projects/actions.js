@@ -1,5 +1,5 @@
 // @flow
-import type { ScrumbleProjectType } from 'DailyScrum/src/types/Scrumble/Project';
+import type { ScrumbleProjectType } from '../../types/Scrumble/Project';
 import type { BoardType } from '../../types';
 
 export type ActionType =

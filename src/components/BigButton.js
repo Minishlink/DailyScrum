@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, ActivityIndicator } from 'react-native';
-import { Button, Icon } from 'DailyScrum/src/components';
+import { Button, Icon } from '../components';
 import appStyle from '../appStyle';
 
 export default class BigButton extends Component {

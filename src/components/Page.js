@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
-import appStyle from 'DailyScrum/src/appStyle';
+import appStyle from '../appStyle';
 
 const Page = (props: Props) => (
   <View

@@ -1,5 +1,5 @@
 // @flow
-import type { TrelloBoardType } from 'DailyScrum/src/types/Trello';
+import type { TrelloBoardType } from '../../types/Trello';
 
 export type ActionType =
   | {|

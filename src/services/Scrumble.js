@@ -1,4 +1,4 @@
-import { SCRUMBLE_API_URL } from 'DailyScrum/environment';
+import { SCRUMBLE_API_URL } from '../../environment';
 import { handleFetchResponse } from './Fetch';
 
 export default class {

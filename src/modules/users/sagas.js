@@ -1,6 +1,6 @@
 // @flow
 import { call, put, select, cancelled } from 'redux-saga/effects';
-import { Trello } from 'DailyScrum/src/services';
+import { Trello } from '../../services';
 import { tokenSelector } from '../auth/reducer';
 import { putUsersFromTrello, setCurrentUser } from './';
 import { startSync, endSync } from '../sync';
