@@ -22,7 +22,7 @@ const modulesLoader = {
   use: {
     loader: 'babel-loader',
     options: {
-      cacheDirectory: !isDev,
+      cacheDirectory: isDev,
       presets: ['react-native'],
       plugins: [
         [
@@ -71,6 +71,8 @@ const fontLoaderConfiguration = {
 module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'src'),
+    open: true,
+    port: 3000,
   },
 
   entry: [path.join(__dirname, '../index.web.js')],
@@ -138,10 +140,14 @@ module.exports = {
       ],
       ios: true,
     }),
-    new OfflinePlugin({
-      AppCache: false,
-    }),
-  ],
+    !isDev &&
+      new OfflinePlugin({
+        ServiceWorker: {
+          minify: false,
+        },
+        AppCache: false,
+      }),
+  ].filter(Boolean),
 
   resolve: {
     modules: [path.join(__dirname, '../node_modules'), path.join(__dirname, 'node_modules')],
