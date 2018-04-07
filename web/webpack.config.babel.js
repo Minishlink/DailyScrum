@@ -9,7 +9,7 @@ import environment from '../environment';
 const isDev = process.env.NODE_ENV !== 'production';
 
 const modulesLoader = {
-  test: /\.js$/,
+  test: /\.(js|jsx|mjs)$/,
   include: [
     path.join(__dirname, '../src'),
     path.join(__dirname, '../index.web.js'),
@@ -23,6 +23,7 @@ const modulesLoader = {
     loader: 'babel-loader',
     options: {
       cacheDirectory: isDev,
+      compact: !isDev,
       presets: ['react-native'],
       plugins: [
         [
@@ -49,23 +50,21 @@ const modulesLoader = {
 
 // This is needed for webpack to import static images in JavaScript files
 const imageLoaderConfiguration = {
-  test: /\.(gif|jpe?g|png|svg)$/,
-  use: {
-    loader: 'file-loader',
-    options: {
-      outputPath: 'assets/',
-      name: '[name].[ext]',
-    },
+  test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg/],
+  loader: 'url-loader',
+  options: {
+    limit: 8000,
+    outputPath: 'assets/',
+    name: '[name].[ext]',
   },
 };
 
-const fontLoaderConfiguration = {
-  test: /\.ttf$/,
+const otherFilesLoaderConfiguration = {
+  exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/],
   loader: 'file-loader',
   options: {
     outputPath: 'assets/',
   },
-  include: [/node_modules\/react-native-vector-icons/, path.join(__dirname, '../assets/native/fonts')],
 };
 
 module.exports = {
@@ -83,7 +82,11 @@ module.exports = {
   },
 
   module: {
-    rules: [modulesLoader, imageLoaderConfiguration, fontLoaderConfiguration],
+    rules: [
+      {
+        oneOf: [imageLoaderConfiguration, modulesLoader, otherFilesLoaderConfiguration],
+      },
+    ],
   },
 
   plugins: [
@@ -168,9 +171,9 @@ module.exports = {
       'react-native-firebase': path.join(__dirname, 'src/mocks/react-native-firebase'),
       '@yfuks/react-native-action-sheet': path.join(__dirname, 'src/mocks/react-native-action-sheet'),
     },
-    // If you're working on a multi-platform React Native app, web-specific
-    // module implementations should be written in files using the extension
-    // `.web.js`.
-    extensions: ['.web.js', '.js'],
+    extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
+  },
+  performance: {
+    hints: isDev ? false : 'warning',
   },
 };
