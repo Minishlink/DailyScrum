@@ -140,7 +140,6 @@ const appNavigatorPages = {
 
 const appNavigatorConfig = {
   initialRouteName: 'login',
-  URIPrefix,
   cardStyle: {
     backgroundColor: appStyle.colors.primary,
   },
@@ -150,7 +149,6 @@ export const AppNavigator = createStackNavigator(appNavigatorPages, appNavigator
 
 function urlToPathAndParams(url: string) {
   const params = {};
-  const URIPrefix = appNavigatorConfig.URIPrefix;
   const delimiter = URIPrefix || '://';
   let path = url.split(delimiter)[1];
   if (!path) {

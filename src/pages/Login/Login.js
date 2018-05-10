@@ -23,14 +23,25 @@ class Login extends Component<Props> {
     SplashScreen.hide();
 
     // if not we login Scrumble if we have the trello Token
-    if (!this.props.navigation.state.params) return;
-    Platform.OS === 'ios' && SafariView.dismiss();
-
-    // the user logged in through Trello
-    Analytics.logEvent('login_trello_ok'); // are users unwilling to authorize Trello access?
-    const trelloToken = this.props.navigation.state.params.token;
-    this.props.login(trelloToken); // let's log the user in Scrumble
+    const trelloToken = this.props.navigation.state.params && this.props.navigation.state.params.token;
+    if (!trelloToken) return;
+    this.login(trelloToken);
   }
+
+  componentWillReceiveProps(nextProps: Props) {
+    const currentTrelloToken = this.props.navigation.state.params && this.props.navigation.state.params.token;
+    const nextTrelloToken = nextProps.navigation.state.params && nextProps.navigation.state.params.token;
+
+    if (!currentTrelloToken && nextTrelloToken) {
+      this.login(nextTrelloToken);
+    }
+  }
+
+  login = (token: string) => {
+    Platform.OS === 'ios' && SafariView.dismiss();
+    Analytics.logEvent('login_trello_ok'); // are users unwilling to authorize Trello access?
+    this.props.login(token); // let's log the user in Scrumble
+  };
 
   triggerLogin = () => {
     Analytics.logEvent('login_trello_trigger'); // are users unwilling to login with Trello?
