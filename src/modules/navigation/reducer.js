@@ -1,5 +1,5 @@
 import { isArray, isEqual } from 'lodash';
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions, StackActions } from 'react-navigation';
 import { AppNavigator } from '../../Scenes';
 import { Analytics } from '../../services';
 import { getRouteNamesFromState } from '../../services/Navigation';
@@ -19,7 +19,7 @@ export default (state, action) => {
   let newState = null;
   if (type === 'REDIRECT_AFTER_LOGIN') {
     const initialState = AppNavigator.router.getStateForAction({ type: '@@INIT' });
-    const resetToMainAction = NavigationActions.reset({
+    const resetToMainAction = StackActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'main' })],
     });

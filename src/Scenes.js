@@ -7,7 +7,6 @@ import {
   StackNavigator,
   TabNavigator,
   TabBarTop,
-  addNavigationHelpers,
   DrawerNavigator,
   NavigationActions,
 } from 'react-navigation';
@@ -200,11 +199,11 @@ class Scenes extends Component<any, any> {
   render() {
     return (
       <AppNavigator
-        navigation={addNavigationHelpers({
+        navigation={{
           dispatch: this.props.dispatch,
           state: this.props.navigation,
           addListener: this.props.reactNavigationAddListener,
-        })}
+        }}
       />
     );
   }
