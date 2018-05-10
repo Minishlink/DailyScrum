@@ -2,7 +2,6 @@ import { isArray } from 'lodash';
 import { NavigationActions } from 'react-navigation';
 import { AppNavigator } from '../../Scenes';
 import { Analytics } from '../../services';
-import { getRouteNamesFromState } from '../../services/Navigation';
 
 export default (state, action) => {
   const { type } = action;
@@ -26,5 +25,3 @@ export const routeFromNavigationStateSelector = (state: any) => {
   }
   return currentRootRoute;
 };
-
-export const isDrawerOpenSelector = state => getRouteNamesFromState(state.navigation).includes('DrawerOpen');

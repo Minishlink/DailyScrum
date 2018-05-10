@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { DrawerActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
 import { distanceInWordsToNow } from 'date-fns';
@@ -14,19 +15,25 @@ import { Analytics } from '../services';
 import createErrorBar from './ErrorBar';
 import { currentUserSelector } from '../modules/users/reducer';
 import MemberIcon from './TrelloCard/MemberIcon';
-import { isDrawerOpenSelector } from '../modules/navigation/reducer';
 import { logout } from '../modules/auth';
 const ErrorBar = createErrorBar();
 
 class Drawer extends Component<Props> {
   shouldComponentUpdate(nextProps: Props) {
     return (
-      this.props.isSyncing !== nextProps.isSyncing || this.props.lastSuccessfulSync !== nextProps.lastSuccessfulSync
+      this.props.isSyncing !== nextProps.isSyncing ||
+      this.props.lastSuccessfulSync !== nextProps.lastSuccessfulSync ||
+      this.props.navigation.state.isDrawerOpen !== nextProps.navigation.state.isDrawerOpen
     );
   }
 
-  goToProjectSettings = () => this.props.navigation.navigate('projectSettings');
-  goToAbout = () => this.props.navigation.navigate('about');
+  goToSubPage = routeName => {
+    this.props.navigation.dispatch(DrawerActions.closeDrawer());
+    this.props.navigation.navigate(routeName);
+  };
+
+  goToProjectSettings = () => this.goToSubPage('projectSettings');
+  goToAbout = () => this.goToSubPage('about');
 
   sync = () => {
     Analytics.logEvent('sync_trigger'); // are users using this sync button?
@@ -38,7 +45,7 @@ class Drawer extends Component<Props> {
 
     return (
       <View style={styles.container}>
-        {this.props.isDrawerOpen && <ErrorBar style={styles.errorBar} />}
+        {this.props.navigation.state.isDrawerOpen && <ErrorBar style={styles.errorBar} />}
         {user && (
           <Gradient style={styles.profile}>
             <MemberIcon member={user} size={84} />
@@ -160,7 +167,6 @@ const mapStateToProps = state => ({
   user: currentUserSelector(state),
   lastSuccessfulSync: lastSuccessfulSyncDateSelector(state),
   isSyncing: isSyncingSelector(state, 'common', 'base'),
-  isDrawerOpen: isDrawerOpenSelector(state),
 });
 
 const mapDispatchToProps = {
