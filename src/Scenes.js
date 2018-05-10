@@ -4,10 +4,10 @@ import { Linking, Platform, Dimensions } from 'react-native';
 import BackHandler from './fix/BackHandler';
 import { connect } from 'react-redux';
 import {
-  StackNavigator,
-  TabNavigator,
+  createStackNavigator,
+  createTabNavigator,
   TabBarTop,
-  DrawerNavigator,
+  createDrawerNavigator,
   NavigationActions,
 } from 'react-navigation';
 import * as Pages from './pages';
@@ -17,7 +17,7 @@ import { ProjectHeaderTitle, DrawerHeaderLeft } from './components/Header';
 import { getFontStyle } from './components/Text';
 import URIPrefix from './services/URIPrefix';
 
-const TabsNavigator = TabNavigator(
+const TabsNavigator = createTabNavigator(
   {
     project: {
       screen: Pages.Project.Summary,
@@ -87,7 +87,7 @@ const TabsNavigator = TabNavigator(
   }
 );
 
-const TabsStackNavigator = StackNavigator(
+const TabsStackNavigator = createStackNavigator(
   {
     tabs: {
       screen: TabsNavigator,
@@ -115,7 +115,7 @@ const TabsStackNavigator = StackNavigator(
   }
 );
 
-const MainNavigator = DrawerNavigator(
+const MainNavigator = createDrawerNavigator(
   {
     tabsStack: {
       screen: TabsStackNavigator,
@@ -146,7 +146,7 @@ const appNavigatorConfig = {
   },
 };
 
-export const AppNavigator = StackNavigator(appNavigatorPages, appNavigatorConfig);
+export const AppNavigator = createStackNavigator(appNavigatorPages, appNavigatorConfig);
 
 function urlToPathAndParams(url: string) {
   const params = {};
