@@ -4,7 +4,7 @@ import Icon from '../Icon';
 import Button from '../Button';
 
 export default class DrawerHeaderLeft extends PureComponent {
-  openDrawer = () => this.props.navigation.navigate('DrawerOpen');
+  openDrawer = () => this.props.navigation.openDrawer();
 
   render() {
     return (
