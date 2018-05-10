@@ -9,7 +9,22 @@ const setTopLevelNavigator = (navigatorRef: any) => {
   _navigator = navigatorRef;
 };
 
-const dispatch = (...args: any) => _navigator.dispatch(...args);
+const getNavigator = () =>
+  new Promise(resolve => {
+    if (_navigator) {
+      resolve(_navigator);
+      return;
+    }
+
+    const interval = setInterval(() => {
+      if (_navigator) {
+        resolve(_navigator);
+        clearInterval(interval);
+      }
+    }, 50);
+  });
+
+const dispatch = (...args: any): Promise<void> => getNavigator().then(navigator => navigator.dispatch(...args));
 
 const redirectAfterLogin = (isFirstTime?: boolean) => {
   const action = isFirstTime
