@@ -1,7 +1,6 @@
 // @flow
 import { combineReducers } from 'redux';
 import { commonReducer as common } from './common';
-import { navigationReducer as navigation } from './navigation';
 import { syncReducer as sync } from './sync';
 import { authReducer as auth } from './auth';
 import { usersReducer as users } from './users';
@@ -28,7 +27,6 @@ const initialState = {};
 
 const rootReducer = (state: any = initialState, action: any = {}) => {
   const appReducer = combineReducers({
-    navigation,
     common,
     sync,
     auth,
@@ -46,7 +44,6 @@ const rootReducer = (state: any = initialState, action: any = {}) => {
 };
 
 export type StateType = {|
-  navigation: any,
   common: CommonStateType,
   sync: SyncStateType,
   auth: AuthStateType,

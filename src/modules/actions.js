@@ -4,7 +4,6 @@ import type { ActionType as BoardsAction } from './boards/actions';
 import type { ActionType as CardListsAction } from './cardLists/actions';
 import type { ActionType as CardsAction } from './cards/actions';
 import type { ActionType as CommonAction } from './common/actions';
-import type { ActionType as NavigationAction } from './navigation/actions';
 import type { ActionType as ProjectsAction } from './projects/actions';
 import type { ActionType as QualityIndicatorsAction } from './qualityIndicators/actions';
 import type { ActionType as SprintsAction } from './sprints/actions';
@@ -18,7 +17,6 @@ export type ActionType =
   | CardListsAction
   | CardsAction
   | CommonAction
-  | NavigationAction
   | ProjectsAction
   | QualityIndicatorsAction
   | SprintsAction

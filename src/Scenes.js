@@ -1,21 +1,15 @@
 // @flow
-import React, { Component } from 'react';
-import { Linking, Platform, Dimensions } from 'react-native';
-import BackHandler from './fix/BackHandler';
-import { connect } from 'react-redux';
-import {
-  createStackNavigator,
-  createTabNavigator,
-  TabBarTop,
-  createDrawerNavigator,
-  NavigationActions,
-} from 'react-navigation';
+import React, { PureComponent } from 'react';
+import { Platform, Dimensions } from 'react-native';
+import { createStackNavigator, createTabNavigator, TabBarTop, createDrawerNavigator } from 'react-navigation';
 import * as Pages from './pages';
 import appStyle from './appStyle';
 import { Header, Drawer, Icon, Gradient } from './components';
 import { ProjectHeaderTitle, DrawerHeaderLeft } from './components/Header';
 import { getFontStyle } from './components/Text';
 import URIPrefix from './services/URIPrefix';
+import Navigation from './services/Navigation';
+import { Analytics } from "./services";
 
 const TabsNavigator = createTabNavigator(
   {
@@ -147,66 +141,31 @@ const appNavigatorConfig = {
 
 export const AppNavigator = createStackNavigator(appNavigatorPages, appNavigatorConfig);
 
-function urlToPathAndParams(url: string) {
-  const params = {};
-  const delimiter = URIPrefix || '://';
-  let path = url.split(delimiter)[1];
-  if (!path) {
-    path = url;
-  }
-  return {
-    path,
-    params,
+class Scenes extends PureComponent<{}> {
+  setNavigatorRef = (navigatorRef: any) => {
+    Navigation.setTopLevelNavigator(navigatorRef);
   };
-}
 
-class Scenes extends Component<any, any> {
-  backPressListener: ?{
-    remove: () => void,
-  } = null;
+  onNavigationStateChange = (prevState: any, currentState: any) => {
+    const currentRoute = Navigation.routeFromNavigationStateSelector(currentState);
+    const currentRouteName = currentRoute && currentRoute.routeName;
+    const prevRoute = Navigation.routeFromNavigationStateSelector(prevState);
+    const prevRouteName = prevRoute && prevRoute.routeName;
 
-  componentDidMount() {
-    Linking.addEventListener('url', this._handleOpenURL);
-    Linking.getInitialURL().then((url: ?string) => {
-      if (url) {
-        this._handleOpenURL({ url });
-      }
-    });
-
-    this.backPressListener = BackHandler.addEventListener('backPress', () =>
-      this.props.dispatch(NavigationActions.back())
-    );
-  }
-
-  componentWillUnmount() {
-    Linking.removeEventListener('url', this._handleOpenURL);
-    this.backPressListener && this.backPressListener.remove();
-  }
-
-  _handleOpenURL = ({ url }: { url: string }) => {
-    const parsedUrl = urlToPathAndParams(url);
-    if (parsedUrl) {
-      const { path, params } = parsedUrl;
-      const action = AppNavigator.router.getActionForPathAndParams(path, params);
-      if (action) {
-        this.props.dispatch(action);
-      }
+    if (prevRouteName !== currentRouteName) {
+      Analytics.setCurrentScreen(currentRouteName);
     }
   };
 
   render() {
     return (
       <AppNavigator
-        navigation={{
-          dispatch: this.props.dispatch,
-          state: this.props.navigation,
-          addListener: this.props.reactNavigationAddListener,
-        }}
+        uriPrefix={URIPrefix}
+        ref={this.setNavigatorRef}
+        onNavigationStateChange={this.onNavigationStateChange}
       />
     );
   }
 }
 
-export default connect(state => ({
-  navigation: state.navigation,
-}))(Scenes);
+export default Scenes;

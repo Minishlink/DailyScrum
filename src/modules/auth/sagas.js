@@ -4,17 +4,17 @@ import { Alert } from 'react-native';
 import { resetStore, putTokens } from './actions';
 import type { ActionType } from './actions';
 import { Scrumble, Analytics } from '../../services';
-import { redirectAfterLogin, resetToLogin } from '../navigation';
+import Navigation from '../../services/Navigation';
 
 function* login(action: ActionType): Generator<*, *, *> {
   if (action.type !== 'LOGIN') return;
   try {
     const scrumbleToken = yield call(Scrumble.login, action.payload.trelloToken);
     yield put(putTokens(action.payload.trelloToken, scrumbleToken));
-    yield put(redirectAfterLogin(true));
+    Navigation.redirectAfterLogin(true);
   } catch (error) {
     console.warn('[saga] login', error);
-    yield put(resetToLogin());
+    Navigation.resetToLogin();
     Alert.alert('Sorry!', 'There has been an error when trying to log you on Scrumble. ' + error);
   }
 }
@@ -22,7 +22,7 @@ function* login(action: ActionType): Generator<*, *, *> {
 function* logout(action: ActionType): Generator<*, *, *> {
   if (action.type !== 'LOGOUT') return;
   try {
-    yield put(resetToLogin());
+    Navigation.resetToLogin();
     yield put(resetStore());
     Analytics.logEvent('logout');
   } catch (error) {

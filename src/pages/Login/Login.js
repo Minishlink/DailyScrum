@@ -8,15 +8,15 @@ import LottieAnimation from 'easy-lottie-react-native';
 import { Page, Text } from '../../components';
 import appStyle from '../../appStyle';
 import { Trello, Analytics } from '../../services';
-import { redirectAfterLogin } from '../../modules/navigation';
 import { login } from '../../modules/auth';
 import { isLoggedInSelector } from '../../modules/auth/reducer';
+import Navigation from '../../services/Navigation';
 
 class Login extends Component<Props> {
   componentDidMount() {
     // check if tokens exist in store
     if (this.props.isLoggedIn) {
-      this.props.redirectAfterLogin();
+      Navigation.redirectAfterLogin();
       return;
     }
 
@@ -82,7 +82,6 @@ class Login extends Component<Props> {
 type Props = {
   navigation: any,
   login: Function,
-  redirectAfterLogin: Function,
   isLoggedIn: boolean,
 };
 
@@ -112,7 +111,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   login,
-  redirectAfterLogin,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
