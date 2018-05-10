@@ -1,6 +1,6 @@
 import { TRELLO_APP_KEY, TRELLO_API_URL } from '../../environment';
 import { handleFetchResponse } from './Fetch';
-import URIPrefix from './URIPrefix';
+import { URIPrefix } from './Navigation';
 
 export default class {
   static getLoginURL = () =>

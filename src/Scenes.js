@@ -7,9 +7,8 @@ import appStyle from './appStyle';
 import { Header, Drawer, Icon, Gradient } from './components';
 import { ProjectHeaderTitle, DrawerHeaderLeft } from './components/Header';
 import { getFontStyle } from './components/Text';
-import URIPrefix from './services/URIPrefix';
-import Navigation from './services/Navigation';
-import { Analytics } from "./services";
+import Navigation, { URIPrefix } from './services/Navigation';
+import { Analytics } from './services';
 
 const TabsNavigator = createTabNavigator(
   {
