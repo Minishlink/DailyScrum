@@ -1,7 +1,8 @@
 // @flow
 import React, { PureComponent } from 'react';
 import { Platform, Dimensions } from 'react-native';
-import { createStackNavigator, createTabNavigator, TabBarTop, createDrawerNavigator } from 'react-navigation';
+import { createStackNavigator, createMaterialTopTabNavigator, createDrawerNavigator } from 'react-navigation';
+import { MaterialTopTabBar } from 'react-navigation-tabs';
 import * as Pages from './pages';
 import appStyle from './appStyle';
 import { Header, Drawer, Icon, Gradient } from './components';
@@ -10,7 +11,7 @@ import { getFontStyle } from './components/Text';
 import Navigation, { URIPrefix } from './services/Navigation';
 import { Analytics } from './services';
 
-const TabsNavigator = createTabNavigator(
+const TabsNavigator = createMaterialTopTabNavigator(
   {
     project: {
       screen: Pages.Project.Summary,
@@ -40,7 +41,7 @@ const TabsNavigator = createTabNavigator(
     animationEnabled: true,
     tabBarComponent: props => (
       <Gradient>
-        <TabBarTop {...props} />
+        <MaterialTopTabBar {...props} />
       </Gradient>
     ),
     tabBarPosition: 'bottom',
