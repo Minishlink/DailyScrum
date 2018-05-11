@@ -9,17 +9,16 @@ import createStore from './modules/store';
 class App extends Component<void, State> {
   state = {
     store: null,
-    reactNavigationAddListener: null,
   };
 
   componentDidMount() {
-    createStore().then(({ store, reactNavigationAddListener }) => this.setState({ store, reactNavigationAddListener }));
+    createStore().then(({ store }) => this.setState({ store }));
   }
 
   render() {
     return this.state.store ? (
       <Provider store={this.state.store}>
-        <Scenes reactNavigationAddListener={this.state.reactNavigationAddListener} />
+        <Scenes />
       </Provider>
     ) : null;
   }
@@ -27,7 +26,6 @@ class App extends Component<void, State> {
 
 type State = {
   store: any,
-  reactNavigationAddListener: ?Function,
 };
 
 export default (!__DEV__ ? codePush()(App) : App);

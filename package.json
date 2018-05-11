@@ -3,6 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
+		"prepare": "patch-package",
 		"start": "node node_modules/react-native/local-cli/cli.js start",
 		"test": "npm-run-all --parallel test:*",
 		"test:lint": "eslint . --quiet",
@@ -43,8 +44,7 @@
 		"react-native-splash-screen": "^3.0.6",
 		"react-native-tab-view": "^0.0.74",
 		"react-native-vector-icons": "^4.3.0",
-		"react-navigation": "^1.0.3",
-		"react-navigation-redux-helpers": "^1.0.1",
+		"react-navigation": "^2.0.1",
 		"react-redux": "^5.0.6",
 		"redux": "^3.7.2",
 		"redux-persist": "^4.9.1",
@@ -74,6 +74,8 @@
 		"jest": "^21.2.1",
 		"mockdate": "^2.0.2",
 		"npm-run-all": "^4.1.2",
+		"patch-package": "^5.1.1",
+		"postinstall-prepare": "^1.0.1",
 		"prettier": "^1.5.3",
 		"react-test-renderer": "^16.1.1",
 		"redux-saga-test-plan": "^3.2.0"
