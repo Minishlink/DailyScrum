@@ -5,14 +5,19 @@ import { isEmpty } from 'lodash';
 import AppNavigator from './AppNavigator';
 import Navigation from '../services/Navigation';
 
+const publicPath = process.env.PUBLIC_PATH || '/';
+const publicPathRegex = new RegExp(`^${publicPath}`);
+
 const getPathAndParamsFromLocation = location => {
-  const path = location.pathname.substr(1);
+  const path = location.pathname.replace(publicPathRegex, '');
   const params = qs.parse(location.search);
   return { path, params };
 };
 
-const getLocationFromPathAndParams = ({ path, params }) =>
-  !isEmpty(params) ? `/${path}?${qs.stringify(params)}` : `/${path}`;
+const getLocationFromPathAndParams = ({ path, params }) => {
+  const suffix = !isEmpty(params) ? `?${qs.stringify(params)}` : '';
+  return publicPath + path + suffix;
+};
 
 class Routing extends PureComponent<Props> {
   dispatch = Navigation.dispatch;
