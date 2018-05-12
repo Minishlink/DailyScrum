@@ -154,6 +154,6 @@ platform :web do
 
   lane :deploy do |options|
     build
-    sh "yarn gh-pages --dist dist/web --dest #{ENV['WEB_TARGET_FOLDER']}"
+    sh "yarn gh-pages --dist dist/web"
   end
 end

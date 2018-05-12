@@ -7,6 +7,7 @@ import OfflinePlugin from 'offline-plugin';
 import environment from '../environment';
 
 const isDev = process.env.NODE_ENV !== 'production';
+const publicPath = environment.PUBLIC_PATH || '/';
 
 const modulesLoader = {
   test: /\.(js|jsx|mjs)$/,
@@ -69,9 +70,9 @@ const otherFilesLoaderConfiguration = {
 
 module.exports = {
   devServer: {
-    contentBase: path.join(__dirname, 'src'),
     open: true,
     port: 3000,
+    historyApiFallback: true,
   },
 
   entry: [path.join(__dirname, '../index.web.js')],
@@ -79,6 +80,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, '../dist/web'),
     filename: 'bundle.js',
+    publicPath,
   },
 
   module: {
@@ -94,14 +96,21 @@ module.exports = {
     // builds to eliminate development checks and reduce build size.
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+      'process.env.PUBLIC_PATH': JSON.stringify(publicPath),
       __DEV__: JSON.stringify(isDev),
     }),
-    new CopyWebpackPlugin([{ from: 'src/assets/', to: 'assets/', force: true }]),
+    new CopyWebpackPlugin(
+      [
+        { from: 'src/assets/', to: 'assets/', force: true },
+        environment.GITHUB && { from: 'src/404_redirection_GitHub.html', to: '404.html', force: true },
+      ].filter(Boolean)
+    ),
     new HtmlWebpackPlugin({
       title: environment.APP_NAME,
       filename: 'index.html',
       template: 'src/index.html',
       GA_ID: environment.GA_ID,
+      GITHUB: environment.GITHUB,
     }),
     new WebpackPwaManifest({
       name: environment.APP_NAME,

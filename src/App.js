@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import codePush from 'react-native-code-push';
-import Scenes from './Scenes';
+import Scenes from './navigation/Scenes';
 import createStore from './modules/store';
 
 class App extends Component<void, State> {
