@@ -1,7 +1,96 @@
 patch-package
+--- a/node_modules/react-navigation/src/createNavigationContainer.js
++++ b/node_modules/react-navigation/src/createNavigationContainer.js
+@@ -90,12 +90,7 @@ export default function createNavigationContainer(Component) {
+         });
+       }
+ 
+-      this.state = {
+-        nav:
+-          this._isStateful() && !props.persistenceKey
+-            ? Component.router.getStateForAction(this._initialAction)
+-            : null,
+-      };
++      this.state = { nav: null };
+     }
+ 
+     _renderLoading() {
+@@ -221,19 +216,6 @@ export default function createNavigationContainer(Component) {
+       // due to changes while async function was resolving
+       let action = this._initialAction;
+       let startupState = this.state.nav;
+-      if (!startupState) {
+-        !!process.env.REACT_NAV_LOGGING &&
+-          console.log('Init new Navigation State');
+-        startupState = Component.router.getStateForAction(action);
+-      }
+-
+-      // Pull persisted state from AsyncStorage
+-      if (startupStateJSON) {
+-        try {
+-          startupState = JSON.parse(startupStateJSON);
+-          _reactNavigationIsHydratingState = true;
+-        } catch (e) {}
+-      }
+ 
+       // Pull state out of URL
+       if (parsedUrl) {
+@@ -244,15 +226,29 @@ export default function createNavigationContainer(Component) {
+         );
+         if (urlAction) {
+           !!process.env.REACT_NAV_LOGGING &&
+-            console.log('Applying Navigation Action for Initial URL:', url);
++          console.log('Applying Navigation Action for Initial URL:', url);
+           action = urlAction;
+           startupState = Component.router.getStateForAction(
+             urlAction,
+-            startupState
++            null
+           );
+         }
+       }
+ 
++      if (!startupState) {
++        !!process.env.REACT_NAV_LOGGING &&
++        console.log('Init new Navigation State');
++        startupState = Component.router.getStateForAction(action);
++
++        // Pull persisted state from AsyncStorage
++        if (startupStateJSON) {
++          try {
++            startupState = JSON.parse(startupStateJSON);
++            _reactNavigationIsHydratingState = true;
++          } catch (e) {}
++        }
++      }
++
+       const dispatchActions = () =>
+         this._actionEventSubscribers.forEach(subscriber =>
+           subscriber({
+--- a/node_modules/react-navigation/src/routers/DrawerRouter.js
++++ b/node_modules/react-navigation/src/routers/DrawerRouter.js
+@@ -26,10 +26,14 @@ export default (routeConfigs, config = {}) => {
+     },
+ 
+     getStateForAction(action, lastState) {
+-      const state = lastState || {
+-        ...switchRouter.getStateForAction(action, undefined),
+-        isDrawerOpen: false,
+-      };
++      if (!lastState) {
++        return {
++          ...switchRouter.getStateForAction(action, undefined),
++          isDrawerOpen: false,
++        };
++      }
++
++      const state = lastState;
+ 
+       const isRouterTargeted = action.key == null || action.key === state.key;
+ 
 --- a/node_modules/react-navigation/src/views/StackView/StackViewLayout.js
 +++ b/node_modules/react-navigation/src/views/StackView/StackViewLayout.js
-@@ -471,16 +471,19 @@ class StackViewLayout extends React.Component {
+@@ -471,15 +471,17 @@ class StackViewLayout extends React.Component {
      if (!hasHeader && headerMode === 'float') {
        const { isLandscape } = this.props;
        let headerHeight;
@@ -25,7 +114,5 @@ patch-package
 +        headerHeight = 56;
 +        // TODO (Android only): Need to handle translucent status bar.
        }
-+
        marginTop = -headerHeight;
      }
- 

@@ -1,15 +1,13 @@
 // @flow
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { Platform, Dimensions } from 'react-native';
 import { createStackNavigator, createMaterialTopTabNavigator, createDrawerNavigator } from 'react-navigation';
 import { MaterialTopTabBar } from 'react-navigation-tabs';
-import * as Pages from './pages';
-import appStyle from './appStyle';
-import { Header, Drawer, Icon, Gradient } from './components';
-import { ProjectHeaderTitle, DrawerHeaderLeft } from './components/Header';
-import { getFontStyle } from './components/Text';
-import Navigation, { URIPrefix } from './services/Navigation';
-import { Analytics } from './services';
+import * as Pages from './../pages';
+import appStyle from './../appStyle';
+import { Header, Drawer, Icon, Gradient } from './../components';
+import { ProjectHeaderTitle, DrawerHeaderLeft } from './../components/Header';
+import { getFontStyle } from './../components/Text';
 
 const TabsNavigator = createMaterialTopTabNavigator(
   {
@@ -94,6 +92,7 @@ const TabsStackNavigator = createStackNavigator(
     about: { screen: Pages.Settings.About },
   },
   {
+    initialRouteName: 'tabs',
     navigationOptions: {
       header: props => <Header {...props} />,
       headerStyle: { backgroundColor: 'transparent', borderBottomWidth: 0, elevation: 0 },
@@ -123,7 +122,11 @@ const MainNavigator = createDrawerNavigator(
 const appNavigatorPages = {
   login: {
     screen: Pages.Login,
-    path: Platform.OS !== 'web' ? 'login#token=:token' : 'login&token=:token',
+    navigationOptions: { header: null },
+  },
+  loginWithToken: {
+    screen: Pages.Login,
+    path: 'login#token=:token',
     navigationOptions: { header: null },
   },
   main: {
@@ -139,33 +142,6 @@ const appNavigatorConfig = {
   },
 };
 
-export const AppNavigator = createStackNavigator(appNavigatorPages, appNavigatorConfig);
+const AppNavigator = createStackNavigator(appNavigatorPages, appNavigatorConfig);
 
-class Scenes extends PureComponent<{}> {
-  setNavigatorRef = (navigatorRef: any) => {
-    Navigation.setTopLevelNavigator(navigatorRef);
-  };
-
-  onNavigationStateChange = (prevState: any, currentState: any) => {
-    const currentRoute = Navigation.routeFromNavigationStateSelector(currentState);
-    const currentRouteName = currentRoute && currentRoute.routeName;
-    const prevRoute = Navigation.routeFromNavigationStateSelector(prevState);
-    const prevRouteName = prevRoute && prevRoute.routeName;
-
-    if (prevRouteName !== currentRouteName) {
-      Analytics.setCurrentScreen(currentRouteName);
-    }
-  };
-
-  render() {
-    return (
-      <AppNavigator
-        uriPrefix={URIPrefix}
-        ref={this.setNavigatorRef}
-        onNavigationStateChange={this.onNavigationStateChange}
-      />
-    );
-  }
-}
-
-export default Scenes;
+export default AppNavigator;

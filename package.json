@@ -33,6 +33,7 @@
 		"easy-lottie-react-native": "^2.0.2",
 		"lodash": "^4.17.4",
 		"lottie-react-native": "^2.3.2",
+		"qs": "^6.5.2",
 		"react": "16.2.0",
 		"react-native": "0.53.0",
 		"react-native-animatable": "^1.2.3",

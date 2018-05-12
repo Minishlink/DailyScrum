@@ -5,5 +5,6 @@ module.exports = {
   TRELLO_API_URL: 'https://trello.com/1',
   TRELLO_APP_KEY: '',
   GA_ID: '',
+  PUBLIC_PATH: '/',
   isManualCodePushEnabled: false,
 };
