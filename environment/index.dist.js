@@ -6,5 +6,6 @@ module.exports = {
   TRELLO_APP_KEY: '',
   GA_ID: '',
   PUBLIC_PATH: '/',
+  GITHUB: false,
   isManualCodePushEnabled: false,
 };

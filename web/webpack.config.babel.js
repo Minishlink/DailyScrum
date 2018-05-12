@@ -99,12 +99,18 @@ module.exports = {
       'process.env.PUBLIC_PATH': JSON.stringify(publicPath),
       __DEV__: JSON.stringify(isDev),
     }),
-    new CopyWebpackPlugin([{ from: 'src/assets/', to: 'assets/', force: true }]),
+    new CopyWebpackPlugin(
+      [
+        { from: 'src/assets/', to: 'assets/', force: true },
+        environment.GITHUB && { from: 'src/404_redirection_GitHub.html', to: '404.html', force: true },
+      ].filter(Boolean)
+    ),
     new HtmlWebpackPlugin({
       title: environment.APP_NAME,
       filename: 'index.html',
       template: 'src/index.html',
       GA_ID: environment.GA_ID,
+      GITHUB: environment.GITHUB,
     }),
     new WebpackPwaManifest({
       name: environment.APP_NAME,
