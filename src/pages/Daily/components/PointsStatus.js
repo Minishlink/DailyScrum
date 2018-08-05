@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
-import LottieAnimation from 'easy-lottie-react-native';
+import LottieAnimation from 'lottie-react-native';
 import { Text } from '../../../components';
 import appStyle from '../../../appStyle';
 import { todayTargetSelector } from '../../../modules/sprints/reducer';
@@ -36,13 +36,19 @@ class PointsStatus extends PureComponent<Props> {
             }
             style={styles.image}
             loop
+            autoPlay
           />
         </View>
         <View style={styles.statusContainer}>
           {pointsLeft != null &&
             pointsLeft <= 0 && (
               <View style={styles.pointsLeftAnimationContainer}>
-                <LottieAnimation source={require('../../../../assets/lottie/colorline.json')} loop duration={2000} />
+                <LottieAnimation
+                  source={require('../../../../assets/lottie/colorline.json')}
+                  loop
+                  autoPlay
+                  duration={2000}
+                />
               </View>
             )}
           <Text style={[styles.lead, { color: isLeading ? appStyle.colors.green : appStyle.colors.red }]}>

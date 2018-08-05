@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { StyleSheet, View, Button, Linking, Platform, Dimensions } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import SafariView from 'react-native-safari-view';
-import LottieAnimation from 'easy-lottie-react-native';
+import LottieAnimation from 'lottie-react-native';
 import { Page, Text } from '../../components';
 import appStyle from '../../appStyle';
 import { Trello, Analytics } from '../../services';
@@ -69,7 +69,12 @@ class Login extends Component<Props> {
     return (
       <Page>
         <View style={styles.container}>
-          <LottieAnimation source={require('../../../assets/lottie/sun_happy.json')} style={styles.logo} loop />
+          <LottieAnimation
+            source={require('../../../assets/lottie/sun_happy.json')}
+            style={styles.logo}
+            loop
+            autoPlay
+          />
           <Text style={styles.title}>DailyScrum</Text>
           <Text style={styles.description}>Your mobile daily dose of Scrum</Text>
           <Button onPress={this.triggerLogin} title="Login with Trello" />

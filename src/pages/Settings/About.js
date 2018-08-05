@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, Linking } from 'react-native';
 import codePush from 'react-native-code-push';
-import LottieAnimation from 'easy-lottie-react-native';
+import LottieAnimation from 'lottie-react-native';
 import { Page, Text } from '../../components';
 import appStyle from '../../appStyle';
 import { isManualCodePushEnabled } from '../../../environment';
@@ -91,6 +91,8 @@ export default class About extends Component<void, State> {
               source={require('../../../assets/lottie/bam.json')}
               style={styles.bamLogo}
               duration={600}
+              loop={false}
+              autoPlay
             />
           </View>
           <View style={styles.feedbackContainer}>

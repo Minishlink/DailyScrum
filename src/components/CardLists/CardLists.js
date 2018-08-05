@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import SectionList from 'SectionList';
 import * as Animatable from 'react-native-animatable';
-import LottieAnimation from 'easy-lottie-react-native';
+import LottieAnimation from 'lottie-react-native';
 import { TrelloCard, Text } from '../../components';
 import type { CardListsType, CardListType } from '../../modules/cards/reducer';
 import type { CardType } from '../../types';
@@ -23,7 +23,13 @@ class CardsList extends PureComponent<Props> {
     <View style={styles.emptyContainer}>
       <Text>No cards yet</Text>
       <Text>Pull to refresh :)</Text>
-      <LottieAnimation source={require('../../../assets/lottie/empty_status.json')} loop duration={6000} />
+      <LottieAnimation
+        style={styles.emptyIllustration}
+        source={require('../../../assets/lottie/empty_status.json')}
+        loop
+        autoPlay
+        duration={6000}
+      />
     </View>
   );
 
@@ -109,6 +115,9 @@ const styles = StyleSheet.create({
   },
   card: {
     marginVertical: appStyle.margin / 2,
+  },
+  emptyIllustration: {
+    width: 248,
   },
 });
 
