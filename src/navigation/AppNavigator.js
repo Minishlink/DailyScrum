@@ -1,7 +1,12 @@
 // @flow
 import React from 'react';
 import { Platform, Dimensions } from 'react-native';
-import { createStackNavigator, createMaterialTopTabNavigator, createDrawerNavigator } from 'react-navigation';
+import {
+  createStackNavigator,
+  createSwitchNavigator,
+  createMaterialTopTabNavigator,
+  createDrawerNavigator,
+} from 'react-navigation';
 import { MaterialTopTabBar } from 'react-navigation-tabs';
 import * as Pages from './../pages';
 import appStyle from './../appStyle';
@@ -93,6 +98,7 @@ const TabsStackNavigator = createStackNavigator(
   },
   {
     initialRouteName: 'tabs',
+    headerLayoutPreset: 'left',
     navigationOptions: {
       header: props => <Header {...props} />,
       headerStyle: { backgroundColor: 'transparent', borderBottomWidth: 0, elevation: 0 },
@@ -142,6 +148,6 @@ const appNavigatorConfig = {
   },
 };
 
-const AppNavigator = createStackNavigator(appNavigatorPages, appNavigatorConfig);
+const AppNavigator = createSwitchNavigator(appNavigatorPages, appNavigatorConfig);
 
 export default AppNavigator;

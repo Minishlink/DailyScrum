@@ -28,36 +28,21 @@ const dispatch = (...args: any): Promise<void> => getNavigator().then(navigator 
 
 const redirectAfterLogin = (isFirstTime?: boolean) => {
   const action = isFirstTime
-    ? StackActions.reset({
-        index: 0,
-        actions: [
-          NavigationActions.navigate({
-            routeName: 'main',
-            action: StackActions.reset({
-              index: 1,
-              actions: [
-                NavigationActions.navigate({ routeName: 'tabs' }),
-                NavigationActions.navigate({ routeName: 'projectSettings', params: { firstTime: true } }),
-              ],
-            }),
-          }),
-        ],
+    ? NavigationActions.navigate({
+        routeName: 'main',
+        action: StackActions.reset({
+          index: 1,
+          actions: [
+            NavigationActions.navigate({ routeName: 'tabs' }),
+            NavigationActions.navigate({ routeName: 'projectSettings', params: { firstTime: true } }),
+          ],
+        }),
       })
-    : StackActions.reset({
-        index: 0,
-        actions: [NavigationActions.navigate({ routeName: 'main' })],
-      });
+    : NavigationActions.navigate({ routeName: 'main' });
   dispatch(action);
 };
 
-const resetToLogin = () =>
-  dispatch(
-    StackActions.reset({
-      index: 0,
-      key: null,
-      actions: [NavigationActions.navigate({ routeName: 'login' })],
-    })
-  );
+const resetToLogin = () => dispatch(NavigationActions.navigate({ routeName: 'login' }));
 
 const routeFromNavigationStateSelector = (state: any) => {
   if (!state) return null;

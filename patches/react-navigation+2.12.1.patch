@@ -1,0 +1,15 @@
+patch-package
+--- a/node_modules/react-navigation/src/createNavigationContainer.js
++++ b/node_modules/react-navigation/src/createNavigationContainer.js
+@@ -91,10 +91,7 @@ export default function createNavigationContainer(Component) {
+       }
+ 
+       this.state = {
+-        nav:
+-          this._isStateful() && !props.persistenceKey
+-            ? Component.router.getStateForAction(this._initialAction)
+-            : null,
++        nav: null,
+       };
+     }
+ 

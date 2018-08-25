@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 import { Dimensions, Platform } from 'react-native';
 import { connect } from 'react-redux';
-import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
+import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 import { StyleSheet } from 'react-native';
 import { Text, Page } from '../../../components';
 import Today from './Today';
@@ -26,7 +26,12 @@ class CardTab extends PureComponent<Props, State> {
     routes: [{ key: 'yesterday', title: 'Yesterday' }, { key: 'today', title: 'Today' }],
   };
 
-  renderHeader = (props: any) => (
+  onTabPress = ({ route }) => {
+    const focused = this.state.routes.indexOf(route) === this.state.index;
+    this.props.onTabPress({ route, focused });
+  };
+
+  renderTabBar = (props: any) => (
     <TabBar
       style={styles.headerStyle}
       tabStyle={styles.headerTabStyle}
@@ -35,7 +40,7 @@ class CardTab extends PureComponent<Props, State> {
       pressOpacity={0.7}
       pressColor={appStyle.colors.primary}
       renderLabel={this.renderTabLabel}
-      onTabPress={this.props.onTabPress}
+      onTabPress={this.onTabPress}
       {...props}
     />
   );
@@ -55,7 +60,8 @@ class CardTab extends PureComponent<Props, State> {
 
   handleIndexChange = (index: number) => this.setState({ index });
 
-  renderTabLabel = ({ route, focused }: { route: { key: string, title: string }, focused: boolean }) => {
+  renderTabLabel = ({ route }: { route: { key: string, title: string } }) => {
+    const focused = this.state.routes.indexOf(route) === this.state.index;
     const { yesterdayTotal, todayTotal } = this.props;
     let title = route.title;
     switch (route.key) {
@@ -78,7 +84,7 @@ class CardTab extends PureComponent<Props, State> {
 
   render() {
     return (
-      <TabViewAnimated
+      <TabView
         style={this.props.style}
         navigationState={{
           ...this.state,
@@ -86,7 +92,8 @@ class CardTab extends PureComponent<Props, State> {
           todayTotal: this.props.todayTotal,
         }}
         renderScene={this.renderScene}
-        renderHeader={this.renderHeader}
+        tabBarPosition="top"
+        renderTabBar={this.renderTabBar}
         onIndexChange={this.handleIndexChange}
         swipeEnabled
         initialLayout={initialLayout}
