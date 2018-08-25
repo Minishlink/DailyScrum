@@ -58,4 +58,7 @@ const mapDispatchToProps = {
   changeCurrentSprint,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SprintPicker);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SprintPicker);

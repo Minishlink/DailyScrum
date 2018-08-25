@@ -45,7 +45,12 @@ export const initialState: CardsStateType = {
 const cardsArrayToPointsReducer = (total: number, card: CardType) => total + card.points;
 
 export default (state: CardsStateType = initialState, action: ActionType) => {
-  const { list: { ...list }, points: { ...points }, yesterday: { ...yesterday }, today: { ...today } } = { ...state };
+  const {
+    list: { ...list },
+    points: { ...points },
+    yesterday: { ...yesterday },
+    today: { ...today },
+  } = { ...state };
 
   switch (action.type) {
     case 'PUT_CARDS':

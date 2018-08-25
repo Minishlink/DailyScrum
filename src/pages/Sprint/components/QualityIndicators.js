@@ -157,4 +157,7 @@ const mapDispatchToProps = {
   analyzeQuality,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(QualityIndicators);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(QualityIndicators);

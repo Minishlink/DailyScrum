@@ -80,5 +80,8 @@ export default (cardListsKey: CardListsKeyType) => {
     filterByMember: makeFilterByMember(cardListsKey),
   };
 
-  return connect(mapStateToProps, mapDispatchToProps)(FilterMembers);
+  return connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(FilterMembers);
 };

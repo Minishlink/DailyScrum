@@ -119,4 +119,7 @@ const mapDispatchToProps = {
   fetchBoards,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Settings);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Settings);

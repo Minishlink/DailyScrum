@@ -113,7 +113,10 @@ export default (wantedErrors?: ErrorBarOptionsType) => {
     clearErrors, // TODO target only the wantedErrors
   };
 
-  return connect(mapStateToProps, mapDispatchToProps)(ErrorBar);
+  return connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(ErrorBar);
 };
 
 /*

@@ -73,7 +73,7 @@ const addAdditionalData = (sprint: SprintType): SprintType => {
     const pointsLead = lastPerformance.done - lastPerformance.standard;
     sprint.lead = {
       points: roundToDecimalPlace(pointsLead),
-      manDays: roundToDecimalPlace(sprint.resources.totalManDays / sprint.resources.totalPoints * pointsLead),
+      manDays: roundToDecimalPlace((sprint.resources.totalManDays / sprint.resources.totalPoints) * pointsLead),
     };
 
     sprint.pointsLeft = roundToDecimalPlace(sprint.resources.totalPoints - lastPerformance.done);

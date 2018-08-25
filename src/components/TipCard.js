@@ -65,4 +65,7 @@ const mapDispatchToProps = (dispatch, ownProps: { tip: TipType }) => ({
   markAsRead: () => dispatch(markTipAsRead(ownProps.tip)),
 });
 
-export default connect(null, mapDispatchToProps)(TipCard);
+export default connect(
+  null,
+  mapDispatchToProps
+)(TipCard);

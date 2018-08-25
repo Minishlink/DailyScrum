@@ -21,4 +21,7 @@ const mapDispatchToProps = {
   onRefresh: fetchCards,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CardLists);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CardLists);

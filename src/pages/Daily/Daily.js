@@ -133,4 +133,7 @@ const mapDispatchToProps = {
   fetchBaseData,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Daily);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Daily);
