@@ -35,7 +35,7 @@ var __wpo = {
     "884329292a1a07f2a24a7a50af26411fea57b98a": "/DailyScrum/assets/3ef6639a4cce5b903e4031b1b0102675.ttf",
     "fc05de31234e0090f7ddc28ce1b23af4026cb1da": "/DailyScrum/assets/a37b0c01c0baf1888ca812cc0508f6e2.ttf",
     "13b1eab65a983c7a73bc7997c479d66943f7c6cb": "/DailyScrum/assets/b06871f281fee6b241d60582ae9369b9.ttf",
-    "775bc8c18d572c1476b3635eec72137dbcd3c054": "/DailyScrum/bundle.js",
+    "a71ecdb0ed5092f64d5e869e18f72a0795902584": "/DailyScrum/bundle.js",
     "a6163339bf568663913e221d1375f95497efdc6a": "/DailyScrum/404.html",
     "47e2d63b1bcb1851a7a950b158c5845dc34728eb": "/DailyScrum/assets/back-icon.png",
     "eeb184c4820a81afd545c66c51976bff78ceb20a": "/DailyScrum/",
@@ -57,7 +57,7 @@ var __wpo = {
   },
   "strategy": "changed",
   "responseStrategy": "cache-first",
-  "version": "2018-8-5 22:03:37",
+  "version": "2018-8-25 20:42:24",
   "name": "webpack-offline",
   "pluginVersion": "4.9.0",
   "relativePaths": false
