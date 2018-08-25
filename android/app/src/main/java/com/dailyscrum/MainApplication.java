@@ -4,7 +4,7 @@ import android.app.Application;
 
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
-import io.invertase.firebase.crash.RNFirebaseCrashPackage;
+import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage;
 
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactApplication;
@@ -43,7 +43,7 @@ public class MainApplication extends Application implements ReactApplication {
             new LinearGradientPackage(),
             new RNFirebasePackage(),
             new RNFirebaseAnalyticsPackage(),
-            new RNFirebaseCrashPackage(),
+            new RNFirebaseCrashlyticsPackage(),
             new SplashScreenReactPackage(),
             new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG),
             new LottiePackage(),

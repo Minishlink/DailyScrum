@@ -1006,6 +1006,7 @@
 				F3864AFCE9E3790C01AE3968 /* [CP] Embed Pods Frameworks */,
 				9FC14045FDC42E2CB9B14B34 /* [CP] Copy Pods Resources */,
 				FF65960020420A3800C6689B /* Embed Frameworks */,
+				FF76DA6C213175ED003E53E9 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -1660,6 +1661,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DailyScrum/Pods-DailyScrum-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		FF76DA6C213175ED003E53E9 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Crashlytics;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\"";
 		};
 		FFDEACCB1F6DCF86003FA478 /* Select GoogleService-Info.plist */ = {
 			isa = PBXShellScriptBuildPhase;
