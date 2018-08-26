@@ -1,5 +1,4 @@
-import type { ScrumbleColumnMappingType } from './Scrumble';
-
+// @flow
 export type ProjectType = {|
   id: number,
   boardId: string,
@@ -7,4 +6,9 @@ export type ProjectType = {|
   columnMapping: ColumnMappingType,
 |};
 
-type ColumnMappingType = ScrumbleColumnMappingType;
+type ColumnMappingType = {|
+  blocked: string,
+  doing: string[],
+  sprint: string,
+  toValidate: string,
+|};

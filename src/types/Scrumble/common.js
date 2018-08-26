@@ -1,6 +1,6 @@
 export type ScrumbleColumnMappingType = {
   blocked: string,
-  doing: string,
+  doing: string | string[],
   sprint: string,
   toValidate: string,
 };

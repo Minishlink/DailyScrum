@@ -89,18 +89,30 @@ export function* fetchNotDoneCards(): Generator<*, *, *> {
     if (!currentProject || !currentProject.columnMapping) yield cancel();
 
     // fetch in parallel
-    const cardsCalls = yield all(
-      Object.values(currentProject.columnMapping).map(
-        id =>
-          // if it's not the active sprint, there's no cards that are not done
-          !isCurrentSprintActive ? all([]) : call(Trello.getCardsFromList, token.trello, id)
-      )
-    );
+    const columnsNames = [];
+    const columnsCalls = [];
+    const createCall = (columnId: string) =>
+      !isCurrentSprintActive ? all([]) : call(Trello.getCardsFromList, token.trello, columnId);
+    Object.entries(currentProject.columnMapping).forEach(([columnName, columnId]) => {
+      if (typeof columnId === 'string') {
+        columnsNames.push(columnName);
+        columnsCalls.push(createCall(columnId));
+      } else {
+        // $FlowFixMe: this is an array
+        columnId.forEach(subColumnId => {
+          columnsNames.push(columnName);
+          columnsCalls.push(createCall(subColumnId));
+        });
+      }
+    });
+
+    const columnsCallsResults = yield all(columnsCalls);
 
     let cards = {};
-    let i = 0;
-    for (let key of Object.keys(currentProject.columnMapping)) {
-      cards[key] = adaptCardsFromTrello(cardsCalls[i++]);
+    for (let i = 0; i < columnsNames.length; i++) {
+      const columnName = columnsNames[i];
+      const newCards = columnsCallsResults[i];
+      cards[columnName] = (cards[columnName] || []).concat(adaptCardsFromTrello(newCards));
     }
 
     yield put(putCards(cards));
