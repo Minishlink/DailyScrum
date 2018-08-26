@@ -81,8 +81,8 @@
       "type": "image/png"
     }
   ],
-  "name": "DailyScrum Staging",
-  "short_name": "DailyScrum Staging",
+  "name": "DailyScrum",
+  "short_name": "DailyScrum",
   "orientation": "portrait-primary",
   "display": "standalone",
   "start_url": ".",
