@@ -98,7 +98,6 @@ const TabsStackNavigator = createStackNavigator(
   },
   {
     initialRouteName: 'tabs',
-    headerLayoutPreset: 'left',
     navigationOptions: {
       header: props => <Header {...props} />,
       headerStyle: { backgroundColor: 'transparent', borderBottomWidth: 0, elevation: 0 },
