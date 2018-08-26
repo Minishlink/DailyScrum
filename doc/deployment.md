@@ -2,7 +2,7 @@
 Thanks to CodePush, we can deploy a new version of the app when no native code has been updated.
 
 ## If you're a collaborator
-If you do native code modifications, please notify a release manager and ask him to deploy. (TODO Bitrise job)
+If you do native code modifications, please notify a release manager and ask him to deploy.
 
 ### Configuration
 ```bash
