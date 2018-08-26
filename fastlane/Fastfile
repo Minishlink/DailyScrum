@@ -109,7 +109,7 @@ platform :ios do
     if options[:codepush] then
       sh "mkdir -p dist"
       release_notes = %x[#{release_notes_command}]
-      sh "code-push release-react -d #{ENV['CODEPUSH_DEPLOYMENT']} #{ENV['CODEPUSH_IOS_PROJECT']} ios -o dist/ios-maps --targetBinaryVersion #{ENV['APP_VERSION_NAME']} --des \"#{release_notes}\""
+      sh "appcenter codepush release-react -d #{ENV['CODEPUSH_DEPLOYMENT']} -a #{ENV['CODEPUSH_IOS_PROJECT']} --target-binary-version #{ENV['APP_VERSION_NAME']} --description \"#{release_notes}\" --disable-telemetry --disable-duplicate-release-error"
     else
       setup
       build
@@ -147,7 +147,7 @@ platform :android do
     if options[:codepush] then
       sh "mkdir -p dist"
       release_notes = %x[#{release_notes_command}]
-      sh "code-push release-react -d #{ENV['CODEPUSH_DEPLOYMENT']} #{ENV['CODEPUSH_ANDROID_PROJECT']} android -o dist/ios-maps --targetBinaryVersion #{ENV['APP_VERSION_NAME']} --des \"#{release_notes}\""
+      sh "appcenter codepush release-react -d #{ENV['CODEPUSH_DEPLOYMENT']} -a #{ENV['CODEPUSH_IOS_PROJECT']} --target-binary-version #{ENV['APP_VERSION_NAME']} --description \"#{release_notes}\" --disable-telemetry --disable-duplicate-release-error"
     else
       build
       if ENV['DEPLOYMENT_PLATFORM'] === 'hockeyapp' then
