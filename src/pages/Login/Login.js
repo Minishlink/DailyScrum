@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, Button, Linking, Platform, Dimensions } from 'react-native';
+import { isEmpty } from 'lodash';
 import SplashScreen from 'react-native-splash-screen';
 import SafariView from 'react-native-safari-view';
 import LottieAnimation from 'lottie-react-native';
@@ -70,7 +71,7 @@ class Login extends Component<Props> {
   );
 
   render() {
-    if (this.props.isLoggedIn || this.props.navigation.state.params) {
+    if (this.props.isLoggedIn || !isEmpty(this.props.navigation.state.params)) {
       return <Page isLoading />;
     }
 
