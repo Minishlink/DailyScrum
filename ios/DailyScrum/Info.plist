@@ -51,7 +51,9 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Used by third-party SDK</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Used by third-party SDK</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
