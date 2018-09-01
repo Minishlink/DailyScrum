@@ -1,6 +1,6 @@
 // @flow
-import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { Component, Fragment } from 'react';
+import { StyleSheet, View, Platform } from 'react-native';
 import { DrawerActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
@@ -16,6 +16,7 @@ import createErrorBar from './ErrorBar';
 import { currentUserSelector } from '../modules/users/reducer';
 import MemberIcon from './TrelloCard/MemberIcon';
 import { logout } from '../modules/auth';
+import { AndroidDownload, IOSDownload } from './AppDownload';
 const ErrorBar = createErrorBar();
 
 class Drawer extends Component<Props> {
@@ -39,6 +40,13 @@ class Drawer extends Component<Props> {
     Analytics.logEvent('sync_trigger'); // are users using this sync button?
     this.props.fetchBaseData();
   };
+
+  renderAppDownloads = () => (
+    <Fragment>
+      <IOSDownload withIcon containerStyle={styles.action} textStyle={styles.actionText} />
+      <AndroidDownload withIcon containerStyle={styles.action} textStyle={styles.actionText} />
+    </Fragment>
+  );
 
   render() {
     const { user } = this.props;
@@ -85,6 +93,7 @@ class Drawer extends Component<Props> {
           </Button>
         </View>
         <View style={styles.actions}>
+          {Platform.OS === 'web' && this.renderAppDownloads()}
           <Button onPress={this.goToAbout} hitSlop={{ top: 5, bottom: 5, left: 10, right: 10 }}>
             <View style={styles.action}>
               <Icon name="information-outline" type="material-community" size={20} color={appStyle.colors.text} />

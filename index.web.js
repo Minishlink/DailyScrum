@@ -27,6 +27,10 @@ const fonts = [
     icon: require('react-native-vector-icons/Fonts/Entypo.ttf'),
     family: 'Entypo',
   },
+  {
+    icon: require('react-native-vector-icons/Fonts/Ionicons.ttf'),
+    family: 'Ionicons',
+  },
 ];
 
 const iconFontStyles = fonts

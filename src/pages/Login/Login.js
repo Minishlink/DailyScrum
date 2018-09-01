@@ -11,6 +11,7 @@ import { Trello, Analytics } from '../../services';
 import { login } from '../../modules/auth';
 import { isLoggedInSelector } from '../../modules/auth/reducer';
 import Navigation from '../../services/Navigation';
+import { IOSDownload, AndroidDownload } from '../../components/AppDownload';
 
 class Login extends Component<Props> {
   componentDidMount() {
@@ -61,6 +62,13 @@ class Login extends Component<Props> {
     }
   };
 
+  renderAppDownloads = () => (
+    <Text style={styles.appDownloads}>
+      or download the app for <IOSDownload textStyle={styles.appDownload} /> or{' '}
+      <AndroidDownload textStyle={styles.appDownload} />
+    </Text>
+  );
+
   render() {
     if (this.props.isLoggedIn || this.props.navigation.state.params) {
       return <Page isLoading />;
@@ -78,6 +86,7 @@ class Login extends Component<Props> {
           <Text style={styles.title}>DailyScrum</Text>
           <Text style={styles.description}>Your mobile daily dose of Scrum</Text>
           <Button onPress={this.triggerLogin} title="Login with Trello" />
+          {Platform.OS === 'web' && this.renderAppDownloads()}
         </View>
       </Page>
     );
@@ -107,6 +116,12 @@ const styles = StyleSheet.create({
   },
   description: {
     marginBottom: 40,
+  },
+  appDownloads: {
+    marginTop: 10,
+  },
+  appDownload: {
+    textDecorationLine: 'underline',
   },
 });
 

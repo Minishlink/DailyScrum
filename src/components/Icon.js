@@ -4,6 +4,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import appStyle from '../appStyle';
 
 export default (props: Props) => {
@@ -12,6 +13,9 @@ export default (props: Props) => {
   switch (props.type) {
     case 'entypo':
       Icon = EntypoIcon;
+      break;
+    case 'ionicons':
+      Icon = Ionicons;
       break;
     case 'material':
       Icon = MaterialIcons;
