@@ -1,6 +1,7 @@
 var __wpo = {
   "assets": {
     "main": [
+      "/DailyScrum/assets/74c652671225d6ded874a648502e5f0a.ttf",
       "/DailyScrum/assets/744ce60078c17d86006dd0edabcd59a7.ttf",
       "/DailyScrum/assets/3ef6639a4cce5b903e4031b1b0102675.ttf",
       "/DailyScrum/assets/a37b0c01c0baf1888ca812cc0508f6e2.ttf",
@@ -31,11 +32,12 @@ var __wpo = {
   },
   "externals": [],
   "hashesMap": {
+    "0f7956704fe61b49c41ea1a22051240f700a2b44": "/DailyScrum/assets/74c652671225d6ded874a648502e5f0a.ttf",
     "47870a67dd50871765f799caa97da87219ee47c5": "/DailyScrum/assets/744ce60078c17d86006dd0edabcd59a7.ttf",
     "884329292a1a07f2a24a7a50af26411fea57b98a": "/DailyScrum/assets/3ef6639a4cce5b903e4031b1b0102675.ttf",
     "fc05de31234e0090f7ddc28ce1b23af4026cb1da": "/DailyScrum/assets/a37b0c01c0baf1888ca812cc0508f6e2.ttf",
     "13b1eab65a983c7a73bc7997c479d66943f7c6cb": "/DailyScrum/assets/b06871f281fee6b241d60582ae9369b9.ttf",
-    "1f3c970583f912f4fa684855485ce5bf5c3063fc": "/DailyScrum/bundle.js",
+    "1522aadfd89f315f3b5940afd2c1bc0f6843e84a": "/DailyScrum/bundle.js",
     "a6163339bf568663913e221d1375f95497efdc6a": "/DailyScrum/404.html",
     "47e2d63b1bcb1851a7a950b158c5845dc34728eb": "/DailyScrum/assets/back-icon.png",
     "eeb184c4820a81afd545c66c51976bff78ceb20a": "/DailyScrum/",
@@ -57,7 +59,7 @@ var __wpo = {
   },
   "strategy": "changed",
   "responseStrategy": "cache-first",
-  "version": "2018-9-1 03:44:20",
+  "version": "2018-9-1 09:37:21",
   "name": "webpack-offline",
   "pluginVersion": "4.9.0",
   "relativePaths": false
