@@ -2,16 +2,8 @@
 
 exports[`<TrelloCard /> renders correctly when the card is late for validation 1`] = `
 <View
-  accessibilityComponentType={undefined}
-  accessibilityLabel={undefined}
-  accessibilityTraits={undefined}
   accessible={true}
-  collapsable={undefined}
-  hasTVPreferredFocus={undefined}
-  hitSlop={undefined}
   isTVSelectable={true}
-  nativeID={undefined}
-  onLayout={undefined}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
   onResponderRelease={[Function]}
@@ -36,8 +28,6 @@ exports[`<TrelloCard /> renders correctly when the card is late for validation 1
       "shadowRadius": 4,
     }
   }
-  testID={undefined}
-  tvParallaxProperties={undefined}
 >
   <View
     style={
@@ -59,9 +49,6 @@ exports[`<TrelloCard /> renders correctly when the card is late for validation 1
       }
     >
       <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
         style={
           Array [
             Object {
@@ -96,9 +83,6 @@ exports[`<TrelloCard /> renders correctly when the card is late for validation 1
       }
     >
       <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
         style={
           Array [
             Object {
@@ -122,9 +106,7 @@ exports[`<TrelloCard /> renders correctly when the card is late for validation 1
         1
       </Text>
       <Text
-        accessible={true}
         allowFontScaling={false}
-        ellipsizeMode="tail"
         style={
           Array [
             Object {
@@ -145,9 +127,6 @@ exports[`<TrelloCard /> renders correctly when the card is late for validation 1
     </View>
   </View>
   <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
     style={
       Array [
         Object {
@@ -208,16 +187,8 @@ exports[`<TrelloCard /> renders correctly when the card is late for validation 1
 
 exports[`<TrelloCard /> renders correctly when the card is not late for validation 1`] = `
 <View
-  accessibilityComponentType={undefined}
-  accessibilityLabel={undefined}
-  accessibilityTraits={undefined}
   accessible={true}
-  collapsable={undefined}
-  hasTVPreferredFocus={undefined}
-  hitSlop={undefined}
   isTVSelectable={true}
-  nativeID={undefined}
-  onLayout={undefined}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
   onResponderRelease={[Function]}
@@ -242,8 +213,6 @@ exports[`<TrelloCard /> renders correctly when the card is not late for validati
       "shadowRadius": 4,
     }
   }
-  testID={undefined}
-  tvParallaxProperties={undefined}
 >
   <View
     style={
@@ -265,9 +234,6 @@ exports[`<TrelloCard /> renders correctly when the card is not late for validati
       }
     >
       <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
         style={
           Array [
             Object {
@@ -291,9 +257,6 @@ exports[`<TrelloCard /> renders correctly when the card is not late for validati
     </View>
   </View>
   <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
     style={
       Array [
         Object {
@@ -354,16 +317,8 @@ exports[`<TrelloCard /> renders correctly when the card is not late for validati
 
 exports[`<TrelloCard /> renders correctly when the card was late for validation 1`] = `
 <View
-  accessibilityComponentType={undefined}
-  accessibilityLabel={undefined}
-  accessibilityTraits={undefined}
   accessible={true}
-  collapsable={undefined}
-  hasTVPreferredFocus={undefined}
-  hitSlop={undefined}
   isTVSelectable={true}
-  nativeID={undefined}
-  onLayout={undefined}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
   onResponderRelease={[Function]}
@@ -388,8 +343,6 @@ exports[`<TrelloCard /> renders correctly when the card was late for validation 
       "shadowRadius": 4,
     }
   }
-  testID={undefined}
-  tvParallaxProperties={undefined}
 >
   <View
     style={
@@ -411,9 +364,6 @@ exports[`<TrelloCard /> renders correctly when the card was late for validation 
       }
     >
       <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
         style={
           Array [
             Object {
@@ -448,9 +398,6 @@ exports[`<TrelloCard /> renders correctly when the card was late for validation 
       }
     >
       <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
         style={
           Array [
             Object {
@@ -474,9 +421,7 @@ exports[`<TrelloCard /> renders correctly when the card was late for validation 
         1
       </Text>
       <Text
-        accessible={true}
         allowFontScaling={false}
-        ellipsizeMode="tail"
         style={
           Array [
             Object {
@@ -497,9 +442,6 @@ exports[`<TrelloCard /> renders correctly when the card was late for validation 
     </View>
   </View>
   <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
     style={
       Array [
         Object {
@@ -560,16 +502,8 @@ exports[`<TrelloCard /> renders correctly when the card was late for validation 
 
 exports[`<TrelloCard /> renders correctly when the card was not late for validation 1`] = `
 <View
-  accessibilityComponentType={undefined}
-  accessibilityLabel={undefined}
-  accessibilityTraits={undefined}
   accessible={true}
-  collapsable={undefined}
-  hasTVPreferredFocus={undefined}
-  hitSlop={undefined}
   isTVSelectable={true}
-  nativeID={undefined}
-  onLayout={undefined}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
   onResponderRelease={[Function]}
@@ -594,8 +528,6 @@ exports[`<TrelloCard /> renders correctly when the card was not late for validat
       "shadowRadius": 4,
     }
   }
-  testID={undefined}
-  tvParallaxProperties={undefined}
 >
   <View
     style={
@@ -617,9 +549,6 @@ exports[`<TrelloCard /> renders correctly when the card was not late for validat
       }
     >
       <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
         style={
           Array [
             Object {
@@ -643,9 +572,6 @@ exports[`<TrelloCard /> renders correctly when the card was not late for validat
     </View>
   </View>
   <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
     style={
       Array [
         Object {
@@ -706,16 +632,8 @@ exports[`<TrelloCard /> renders correctly when the card was not late for validat
 
 exports[`<TrelloCard /> renders correctly with both points and post-estimated points 1`] = `
 <View
-  accessibilityComponentType={undefined}
-  accessibilityLabel={undefined}
-  accessibilityTraits={undefined}
   accessible={true}
-  collapsable={undefined}
-  hasTVPreferredFocus={undefined}
-  hitSlop={undefined}
   isTVSelectable={true}
-  nativeID={undefined}
-  onLayout={undefined}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
   onResponderRelease={[Function]}
@@ -740,8 +658,6 @@ exports[`<TrelloCard /> renders correctly with both points and post-estimated po
       "shadowRadius": 4,
     }
   }
-  testID={undefined}
-  tvParallaxProperties={undefined}
 >
   <View
     style={
@@ -763,9 +679,6 @@ exports[`<TrelloCard /> renders correctly with both points and post-estimated po
       }
     >
       <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
         style={
           Array [
             Object {
@@ -789,9 +702,6 @@ exports[`<TrelloCard /> renders correctly with both points and post-estimated po
     </View>
   </View>
   <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
     style={
       Array [
         Object {
@@ -845,9 +755,6 @@ exports[`<TrelloCard /> renders correctly with both points and post-estimated po
         }
       >
         <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
           style={
             Array [
               Object {
@@ -895,9 +802,6 @@ exports[`<TrelloCard /> renders correctly with both points and post-estimated po
         }
       >
         <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
           style={
             Array [
               Object {
@@ -944,16 +848,8 @@ exports[`<TrelloCard /> renders correctly with both points and post-estimated po
 
 exports[`<TrelloCard /> renders correctly with members 1`] = `
 <View
-  accessibilityComponentType={undefined}
-  accessibilityLabel={undefined}
-  accessibilityTraits={undefined}
   accessible={true}
-  collapsable={undefined}
-  hasTVPreferredFocus={undefined}
-  hitSlop={undefined}
   isTVSelectable={true}
-  nativeID={undefined}
-  onLayout={undefined}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
   onResponderRelease={[Function]}
@@ -978,8 +874,6 @@ exports[`<TrelloCard /> renders correctly with members 1`] = `
       "shadowRadius": 4,
     }
   }
-  testID={undefined}
-  tvParallaxProperties={undefined}
 >
   <View
     style={
@@ -1001,9 +895,6 @@ exports[`<TrelloCard /> renders correctly with members 1`] = `
       }
     >
       <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
         style={
           Array [
             Object {
@@ -1027,9 +918,6 @@ exports[`<TrelloCard /> renders correctly with members 1`] = `
     </View>
   </View>
   <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
     style={
       Array [
         Object {
@@ -1109,9 +997,6 @@ exports[`<TrelloCard /> renders correctly with members 1`] = `
             }
           >
             <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
               style={
                 Array [
                   Object {
@@ -1187,9 +1072,6 @@ exports[`<TrelloCard /> renders correctly with members 1`] = `
             }
           >
             <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
               style={
                 Array [
                   Object {
@@ -1226,16 +1108,8 @@ exports[`<TrelloCard /> renders correctly with members 1`] = `
 
 exports[`<TrelloCard /> renders correctly with members and points 1`] = `
 <View
-  accessibilityComponentType={undefined}
-  accessibilityLabel={undefined}
-  accessibilityTraits={undefined}
   accessible={true}
-  collapsable={undefined}
-  hasTVPreferredFocus={undefined}
-  hitSlop={undefined}
   isTVSelectable={true}
-  nativeID={undefined}
-  onLayout={undefined}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
   onResponderRelease={[Function]}
@@ -1260,8 +1134,6 @@ exports[`<TrelloCard /> renders correctly with members and points 1`] = `
       "shadowRadius": 4,
     }
   }
-  testID={undefined}
-  tvParallaxProperties={undefined}
 >
   <View
     style={
@@ -1283,9 +1155,6 @@ exports[`<TrelloCard /> renders correctly with members and points 1`] = `
       }
     >
       <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
         style={
           Array [
             Object {
@@ -1309,9 +1178,6 @@ exports[`<TrelloCard /> renders correctly with members and points 1`] = `
     </View>
   </View>
   <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
     style={
       Array [
         Object {
@@ -1365,9 +1231,6 @@ exports[`<TrelloCard /> renders correctly with members and points 1`] = `
         }
       >
         <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
           style={
             Array [
               Object {
@@ -1433,9 +1296,6 @@ exports[`<TrelloCard /> renders correctly with members and points 1`] = `
             }
           >
             <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
               style={
                 Array [
                   Object {
@@ -1511,9 +1371,6 @@ exports[`<TrelloCard /> renders correctly with members and points 1`] = `
             }
           >
             <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
               style={
                 Array [
                   Object {
@@ -1550,16 +1407,8 @@ exports[`<TrelloCard /> renders correctly with members and points 1`] = `
 
 exports[`<TrelloCard /> renders correctly with only the required props 1`] = `
 <View
-  accessibilityComponentType={undefined}
-  accessibilityLabel={undefined}
-  accessibilityTraits={undefined}
   accessible={true}
-  collapsable={undefined}
-  hasTVPreferredFocus={undefined}
-  hitSlop={undefined}
   isTVSelectable={true}
-  nativeID={undefined}
-  onLayout={undefined}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
   onResponderRelease={[Function]}
@@ -1584,8 +1433,6 @@ exports[`<TrelloCard /> renders correctly with only the required props 1`] = `
       "shadowRadius": 4,
     }
   }
-  testID={undefined}
-  tvParallaxProperties={undefined}
 >
   <View
     style={
@@ -1607,9 +1454,6 @@ exports[`<TrelloCard /> renders correctly with only the required props 1`] = `
       }
     >
       <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
         style={
           Array [
             Object {
@@ -1633,9 +1477,6 @@ exports[`<TrelloCard /> renders correctly with only the required props 1`] = `
     </View>
   </View>
   <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
     style={
       Array [
         Object {
@@ -1696,16 +1537,8 @@ exports[`<TrelloCard /> renders correctly with only the required props 1`] = `
 
 exports[`<TrelloCard /> renders correctly with points 1`] = `
 <View
-  accessibilityComponentType={undefined}
-  accessibilityLabel={undefined}
-  accessibilityTraits={undefined}
   accessible={true}
-  collapsable={undefined}
-  hasTVPreferredFocus={undefined}
-  hitSlop={undefined}
   isTVSelectable={true}
-  nativeID={undefined}
-  onLayout={undefined}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
   onResponderRelease={[Function]}
@@ -1730,8 +1563,6 @@ exports[`<TrelloCard /> renders correctly with points 1`] = `
       "shadowRadius": 4,
     }
   }
-  testID={undefined}
-  tvParallaxProperties={undefined}
 >
   <View
     style={
@@ -1753,9 +1584,6 @@ exports[`<TrelloCard /> renders correctly with points 1`] = `
       }
     >
       <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
         style={
           Array [
             Object {
@@ -1779,9 +1607,6 @@ exports[`<TrelloCard /> renders correctly with points 1`] = `
     </View>
   </View>
   <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
     style={
       Array [
         Object {
@@ -1835,9 +1660,6 @@ exports[`<TrelloCard /> renders correctly with points 1`] = `
         }
       >
         <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
           style={
             Array [
               Object {
@@ -1884,16 +1706,8 @@ exports[`<TrelloCard /> renders correctly with points 1`] = `
 
 exports[`<TrelloCard /> renders correctly with post-estimated points 1`] = `
 <View
-  accessibilityComponentType={undefined}
-  accessibilityLabel={undefined}
-  accessibilityTraits={undefined}
   accessible={true}
-  collapsable={undefined}
-  hasTVPreferredFocus={undefined}
-  hitSlop={undefined}
   isTVSelectable={true}
-  nativeID={undefined}
-  onLayout={undefined}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
   onResponderRelease={[Function]}
@@ -1918,8 +1732,6 @@ exports[`<TrelloCard /> renders correctly with post-estimated points 1`] = `
       "shadowRadius": 4,
     }
   }
-  testID={undefined}
-  tvParallaxProperties={undefined}
 >
   <View
     style={
@@ -1941,9 +1753,6 @@ exports[`<TrelloCard /> renders correctly with post-estimated points 1`] = `
       }
     >
       <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
         style={
           Array [
             Object {
@@ -1967,9 +1776,6 @@ exports[`<TrelloCard /> renders correctly with post-estimated points 1`] = `
     </View>
   </View>
   <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
     style={
       Array [
         Object {
@@ -2025,9 +1831,6 @@ exports[`<TrelloCard /> renders correctly with post-estimated points 1`] = `
         }
       >
         <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
           style={
             Array [
               Object {
