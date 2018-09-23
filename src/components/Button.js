@@ -6,13 +6,14 @@ const ANDROID_VERSION_LOLLIPOP = 21;
 const canUseNativeFeedback = Platform.OS === 'android' && Platform.Version >= ANDROID_VERSION_LOLLIPOP;
 const canUseForegroundNativeFeedback = canUseNativeFeedback && TouchableNativeFeedback.canUseNativeForeground();
 
-export default ({ children, disabled, withRipple, ...props }: PropsType) => {
+export default ({ children, disabled, withRipple, borderless, ...props }: PropsType) => {
   if (disabled) {
-    return <View {...props}>{children}</View>;
+    const { onLongPress, onPress, ...viewProps } = props;
+    return <View {...viewProps}>{children}</View>;
   }
 
   if (withRipple && Platform.OS === 'android' && Platform.Version >= ANDROID_VERSION_LOLLIPOP) {
-    const { style, borderless, ...rest } = props;
+    const { style, ...rest } = props;
     return (
       <TouchableNativeFeedback
         {...rest}

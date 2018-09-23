@@ -96,6 +96,7 @@ type Props = {
   bugs: ?number,
   validationFeedbacks: ?number,
   analyzeQuality: Function,
+  isLoading: boolean,
 };
 
 type State = {
