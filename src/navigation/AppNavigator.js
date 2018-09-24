@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { Platform, Dimensions } from 'react-native';
+import { useScreens } from 'react-native-screens';
 import {
   createStackNavigator,
   createSwitchNavigator,
@@ -13,6 +14,8 @@ import appStyle from './../appStyle';
 import { Header, Drawer, Icon, Gradient } from './../components';
 import { ProjectHeaderTitle, DrawerHeaderLeft } from './../components/Header';
 import { getFontStyle } from './../components/Text';
+
+useScreens();
 
 const TabsNavigator = createMaterialTopTabNavigator(
   {
