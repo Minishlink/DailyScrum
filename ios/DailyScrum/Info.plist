@@ -41,6 +41,8 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>localhost</key>
@@ -50,9 +52,9 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Used by third-party SDK</string>
 	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Used by third-party SDK</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Used by third-party SDK</string>
 	<key>UIAppFonts</key>
 	<array>

@@ -1,7 +1,11 @@
 import { default as reducer } from '../reducer';
+import * as time from '../../../services/Time';
 import * as Actions from '../actions';
 
-jest.mock('../../../services/Time');
+// jest.mock('../../../services/Time');
+// jest mocking broke during upgrade https://github.com/Minishlink/DailyScrum/pull/32
+time.getLastWorkableDayTime = () => 1495097134992;
+time.getTodayWorkableDayTime = () => 1495183534992;
 
 describe('cards reducer', () => {
   let initialState = null;
