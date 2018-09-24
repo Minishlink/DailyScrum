@@ -1,10 +1,12 @@
-import path from 'path';
-import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-import WebpackPwaManifest from 'webpack-pwa-manifest';
-import OfflinePlugin from 'offline-plugin';
-import environment from '../environment';
+/* global __dirname */
+/* DO NOT USE ES6 in this file */
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
+const OfflinePlugin = require('offline-plugin');
+const environment = require('../environment');
 
 const isDev = process.env.NODE_ENV !== 'production';
 const publicPath = environment.PUBLIC_PATH || '/';
@@ -25,24 +27,15 @@ const modulesLoader = {
     options: {
       cacheDirectory: isDev,
       compact: !isDev,
-      presets: ['react-native'],
+      presets: ['module:metro-react-native-babel-preset'],
       plugins: [
         [
-          'module-resolver',
-          {
-            root: ['./'],
-            alias: {
-              DailyScrum: '../',
-            },
-          },
-        ],
-        [
-          'transform-runtime',
+          '@babel/transform-runtime',
           {
             helpers: false,
-            polyfill: false,
           },
         ],
+        '@babel/plugin-proposal-export-namespace-from',
         'lodash',
       ],
     },
