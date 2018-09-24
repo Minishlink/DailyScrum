@@ -22,6 +22,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   iconContainer: {
-    margin: 14,
+    marginHorizontal: 14,
   },
 });
