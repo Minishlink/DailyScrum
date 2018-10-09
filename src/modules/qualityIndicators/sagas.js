@@ -1,4 +1,5 @@
 // @flow
+import { Platform } from 'react-native';
 import { put, select, takeEvery, cancelled, call, cancel } from 'redux-saga/effects';
 import { tokenSelector } from '../auth/reducer';
 import { startSync, endSync } from '../sync';
@@ -30,13 +31,42 @@ export function* analyzeQualitySaga(): Generator<*, *, *> {
     const sprintEndDateTime = new Date(sprintEndDate).getTime();
 
     const isBugRegex = /bug/i;
-    const bugs = cards.reduce((count, card) => {
-      if (!card.labels.some(label => label.color === 'red' && isBugRegex.test(label.name))) return count;
 
-      const createdDateTime = idToTimestampCreated(card.id);
-      return sprintStartDateTime < createdDateTime && createdDateTime < sprintEndDateTime ? count + 1 : count;
-    }, 0);
+    const allBugsNames = [];
+    const currentSprintBugs = [];
+    const bugs = cards
+      .map(card => ({
+        ...card,
+        createdDateTime: idToTimestampCreated(card.id),
+      }))
+      .sort((a, b) => a.createdDateTime - b.createdDateTime)
+      .reduce((count, card) => {
+        if (!card.labels.some(label => label.color === 'red' && isBugRegex.test(label.name))) {
+          return count;
+        }
 
+        const normalizedCardName = card.name
+          .replace(/\[[a-z0-9ê ]*]/i, '') // remove TIMEBOX and [Investigation]
+          .replace(/[([]([0-9]*\.?[0-9]+)[\])]/, '') // remove points and post-points
+          .trim();
+
+        if (allBugsNames.includes(normalizedCardName)) {
+          return count;
+        }
+
+        allBugsNames.push(normalizedCardName);
+
+        const { createdDateTime } = card;
+        if (sprintStartDateTime > createdDateTime || createdDateTime >= sprintEndDateTime) {
+          return count;
+        }
+
+        currentSprintBugs.push(card);
+
+        return count + 1;
+      }, 0);
+
+    Platform.OS === 'web' && console.log(currentSprintBugs);
     yield put(setBugsCount(bugs));
 
     const sprintCards = yield select(sprintsCardsSelector);

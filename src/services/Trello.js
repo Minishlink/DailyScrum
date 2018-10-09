@@ -32,7 +32,7 @@ export default class {
     ).then(handleFetchResponse);
 
   static getCardsFromBoard = (token, boardId) =>
-    fetch(`${TRELLO_API_URL}/boards/${boardId}/cards?fields=id,labels&key=${TRELLO_APP_KEY}&token=${token}`).then(
+    fetch(`${TRELLO_API_URL}/boards/${boardId}/cards?fields=id,labels,name&key=${TRELLO_APP_KEY}&token=${token}`).then(
       handleFetchResponse
     );
 }
