@@ -6,6 +6,7 @@ import {
   createSwitchNavigator,
   createMaterialTopTabNavigator,
   createDrawerNavigator,
+  createAppContainer,
 } from 'react-navigation';
 import { MaterialTopTabBar } from 'react-navigation-tabs';
 import * as Pages from './../pages';
@@ -98,7 +99,8 @@ const TabsStackNavigator = createStackNavigator(
   },
   {
     initialRouteName: 'tabs',
-    navigationOptions: {
+    headerBackTitleVisible: false,
+    defaultNavigationOptions: {
       header: props => <Header {...props} />,
       headerStyle: { backgroundColor: 'transparent', borderBottomWidth: 0, elevation: 0 },
       headerTintColor: appStyle.colors.overPrimaryColor,
@@ -149,4 +151,4 @@ const appNavigatorConfig = {
 
 const AppNavigator = createSwitchNavigator(appNavigatorPages, appNavigatorConfig);
 
-export default AppNavigator;
+export default createAppContainer(AppNavigator);
