@@ -6,8 +6,9 @@ import {
   createSwitchNavigator,
   createMaterialTopTabNavigator,
   createDrawerNavigator,
-  createAppContainer,
+  createAppContainer as createNativeAppContainer,
 } from 'react-navigation';
+import { createBrowserApp } from '@react-navigation/web';
 import { MaterialTopTabBar } from 'react-navigation-tabs';
 import * as Pages from './../pages';
 import appStyle from './../appStyle';
@@ -151,4 +152,5 @@ const appNavigatorConfig = {
 
 const AppNavigator = createSwitchNavigator(appNavigatorPages, appNavigatorConfig);
 
+const createAppContainer = Platform.OS === 'web' ? createBrowserApp : createNativeAppContainer;
 export default createAppContainer(AppNavigator);

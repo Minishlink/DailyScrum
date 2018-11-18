@@ -19,6 +19,7 @@ const modulesLoader = {
     path.join(__dirname, './'),
     path.join(__dirname, '../node_modules/easy-lottie-react-native'),
     path.join(__dirname, '../node_modules/react-navigation'),
+    /node_modules\/@react-navigation/,
     /node_modules\/svgs/,
     /node_modules\/react-native-/,
   ],
@@ -159,7 +160,7 @@ module.exports = {
     // Maps the 'react-native' import to 'react-native-web' and the stubs or mocks.
     alias: {
       'react-native': 'react-native-web',
-      'react-navigation': 'react-navigation/src/react-navigation.js',
+      //'react-navigation': 'react-navigation/src/react-navigation.js',
       FlatList: 'react-native-web-lists/src/FlatList',
       SectionList: 'react-native-web-lists/src/SectionList',
       'react-native-svg': 'svgs',
