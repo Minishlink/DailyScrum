@@ -80,6 +80,13 @@ project.ext.react = [
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
+def _applicationId = System.getenv("GRADLE_APP_IDENTIFIER") ?: 'com.dailyscrum'
+def appName = System.getenv("GRADLE_APP_NAME") ?: 'DailyScrum debug'
+def _versionCode = (System.getenv("APP_VERSION_CODE") ?: "1") as Integer
+def _versionName = System.getenv("APP_VERSION_NAME") ?: "1.0.0"
+def codePushKey = '"' + (System.getenv("ANDROID_CODEPUSH_KEY") ?: '') + '"'
+def isUniversalApk = (System.getenv("ANDROID_UNIVERSAL_APK") ?: "true").toBoolean()
+
 /**
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
@@ -88,18 +95,12 @@ apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
  * Upload all the APKs to the Play Store and people will download
  * the correct one based on the CPU architecture of their device.
  */
-def enableSeparateBuildPerCPUArchitecture = false
+def enableSeparateBuildPerCPUArchitecture = !isUniversalApk
 
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
 def enableProguardInReleaseBuilds = false
-
-def _applicationId = System.getenv("GRADLE_APP_IDENTIFIER") ?: 'com.dailyscrum'
-def appName = System.getenv("GRADLE_APP_NAME") ?: 'DailyScrum debug'
-def _versionCode = (System.getenv("APP_VERSION_CODE") ?: "1") as Integer
-def _versionName = System.getenv("APP_VERSION_NAME") ?: "1.0.0"
-def codePushKey = '"' + (System.getenv("ANDROID_CODEPUSH_KEY") ?: '') + '"'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -111,15 +112,12 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode _versionCode
         versionName _versionName
-        ndk {
-            abiFilters "armeabi-v7a", "x86"
-        }
     }
     splits {
         abi {
             reset()
             enable enableSeparateBuildPerCPUArchitecture
-            universalApk false  // If true, also generate a universal APK
+            universalApk isUniversalApk  // If true, also generate a universal APK
             include "armeabi-v7a", "x86"
         }
     }
