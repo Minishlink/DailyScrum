@@ -25,8 +25,8 @@
 		"lodash": "^4.17.4",
 		"lottie-react-native": "^2.5.6",
 		"qs": "^6.5.2",
-		"react": "16.6.1",
-		"react-native": "0.57.5",
+		"react": "16.6.3",
+		"react-native": "0.58.1",
 		"react-native-animatable": "^1.2.3",
 		"react-native-code-push": "^5.4.2",
 		"react-native-firebase": "^4.3.8",
@@ -43,6 +43,7 @@
 		"redux-saga": "^0.15.6"
 	},
 	"devDependencies": {
+		"babel-core": "^7.0.0-bridge.0",
 		"@babel/plugin-proposal-export-namespace-from": "^7.0.0",
 		"babel-eslint": "^9.0.0",
 		"babel-jest": "^23.6.0",
@@ -55,16 +56,16 @@
 		"eslint-plugin-jsx-a11y": "^6.0.2",
 		"eslint-plugin-prettier": "^2.6.2",
 		"eslint-plugin-react": "^7.3.0",
-		"flow-bin": "^0.78.0",
+		"flow-bin": "^0.85.0",
 		"gh-pages": "^1.0.0",
 		"jest": "^23.6.0",
-		"metro-react-native-babel-preset": "0.49.2",
+		"metro-react-native-babel-preset": "0.51.1",
 		"mockdate": "^2.0.2",
 		"npm-run-all": "^4.1.2",
 		"patch-package": "^5.1.1",
 		"postinstall-prepare": "^1.0.1",
 		"prettier": "^1.14.2",
-		"react-test-renderer": "16.6.1",
+		"react-test-renderer": "16.6.3",
 		"redux-saga-test-plan": "^3.2.0"
 	},
 	"jest": {

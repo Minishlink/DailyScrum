@@ -33,7 +33,7 @@ export default (props: Props) => {
 };
 
 type Props = {
-  type?: 'font-awesome' | 'entypo' | 'material' | 'material-community',
+  type?: 'font-awesome' | 'entypo' | 'material' | 'material-community' | 'ionicons',
   name: string,
   size?: number,
   color?: string,
