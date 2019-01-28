@@ -85,7 +85,6 @@ def appName = System.getenv("GRADLE_APP_NAME") ?: 'DailyScrum debug'
 def _versionCode = (System.getenv("APP_VERSION_CODE") ?: "1") as Integer
 def _versionName = System.getenv("APP_VERSION_NAME") ?: "1.0.0"
 def codePushKey = '"' + (System.getenv("ANDROID_CODEPUSH_KEY") ?: '') + '"'
-def isUniversalApk = (System.getenv("ANDROID_UNIVERSAL_APK") ?: "true").toBoolean()
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -95,7 +94,7 @@ def isUniversalApk = (System.getenv("ANDROID_UNIVERSAL_APK") ?: "true").toBoolea
  * Upload all the APKs to the Play Store and people will download
  * the correct one based on the CPU architecture of their device.
  */
-def enableSeparateBuildPerCPUArchitecture = !isUniversalApk
+def enableSeparateBuildPerCPUArchitecture = false
 
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
@@ -104,7 +103,6 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId _applicationId
@@ -117,7 +115,7 @@ android {
         abi {
             reset()
             enable enableSeparateBuildPerCPUArchitecture
-            universalApk isUniversalApk  // If true, also generate a universal APK
+            universalApk false  // If true, also generate a universal APK
             include "armeabi-v7a", "x86", "arm64-v8a"
         }
     }
@@ -171,7 +169,7 @@ dependencies {
     implementation project(':react-native-code-push')
     implementation project(':lottie-react-native')
     implementation project(':react-native-svg')
-    implementation project(':@yfuks/react-native-action-sheet')
+    implementation project(':react-native-action-sheet')
     implementation project(':react-native-vector-icons')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
