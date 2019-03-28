@@ -3,7 +3,6 @@
     package="com.dailyscrum">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <!-- These permissions are added implicitly by android-jsc, see https://github.com/facebook/android-jsc/pull/12 -->
     <!-- The following lines can be removed after android-jsc is updated in react-native -->
