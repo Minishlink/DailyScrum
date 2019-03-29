@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: reactcommunity/node-ci:8.4.0-0
+      - image: node:dubnium-alpine
     working_directory: ~/DailyScrum
     environment:
       TZ: "/usr/share/zoneinfo/Europe/Paris"
