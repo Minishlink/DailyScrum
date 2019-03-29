@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: node:dubnium-alpine
+      - image: circleci/node:dubnium
     working_directory: ~/DailyScrum
     environment:
       TZ: "/usr/share/zoneinfo/Europe/Paris"
